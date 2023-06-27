@@ -1,0 +1,127 @@
+package com.butterycode.cubefruit.utils;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.butterycode.cubefruit.Main;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
+
+import org.bukkit.plugin.Plugin;
+
+public class dataStorage {
+
+	private File file;
+	private FileConfiguration data;
+	private String filename;
+
+	public dataStorage(Plugin plugin, String filepath) {
+		filename = filepath;
+		file = new File(plugin.getDataFolder() + File.separator + filename);
+
+		if (!file.exists()) {
+			try {
+				file.createNewFile();
+			} catch (IOException e) {
+				caboodle.log(Main.plugin, "Unable to create " + filename, caboodle.LogType.WARN);
+				e.printStackTrace();
+			}
+		}
+		
+		data = YamlConfiguration.loadConfiguration(file);
+	}
+
+	public void save() { // Save data
+		try {
+			data.save(file);
+		} catch (IOException e) {
+			caboodle.log(Main.plugin, "Unable to save data.", caboodle.LogType.WARN);
+			e.printStackTrace();
+		}
+	}
+
+	// Simplified Functions
+	public void addToList(String path, String value) {
+		List<String> newList = getStringList(path);
+		newList.add(value);
+		set(path, newList);
+	}
+	public void addToList(String path, String value, boolean respect) {
+		if (respect) { // Prevent duplicates
+			if (!listContains(path, value)) {
+				addToList(path, value);
+			}
+		} else {
+			addToList(path, value);
+		}
+	}
+	public void addToList(String path, HashMap<String, Object> value) {
+		List<Map<String, Object>> newList = getMapList(path);
+		newList.add(value);
+		set(path, newList);
+	}
+	public void removeFromList(String path, String value) {
+		List<String> newList = getStringList(path);
+		newList.remove(value);
+		set(path, newList);
+	}
+	public boolean listContains(String path, String value) {
+		return getStringList(path).contains(value);
+	}
+	public String getString(String path) {
+		return data.getString(path);
+	}
+	public int getInteger(String path) {
+		return data.getInt(path);
+	}
+	public long getLong(String path) {
+		return data.getLong(path);
+	}
+	public double getDouble(String path) {
+		return data.getDouble(path);
+	}
+	public boolean getBoolean(String path) {
+		return data.getBoolean(path);
+	}
+	public List<String> getStringList(String path) {
+		return data.getStringList(path);
+	}
+	@SuppressWarnings("unchecked")
+	public List<Map<String, Object>> getMapList(String path) {
+		List<Map<String, Object>> maplist = new ArrayList<>();
+		for (Map<?, ?> map : data.getMapList(path)) {
+			maplist.add((Map<String, Object>) map);
+		}
+		return maplist;
+	}
+	public List<String> getKeys(String path) {
+		List<String> keys = new ArrayList<>();
+		keys.addAll(data.getConfigurationSection(path).getKeys(false));
+		return keys;
+	}
+	public List<String> getKeys() {
+		List<String> keys = new ArrayList<>();
+		keys.addAll(data.getKeys(false));
+		return keys;
+	}
+	public void set(String path, Object value) {
+		data.set(path, value);
+	}
+	public void remove(String path) {
+		data.set(path, null);
+	}
+	public boolean exists(String path) {
+		if (data.get(path) == null) return false;
+		return true;
+	}
+	public boolean existsNot(String path) {
+		return !exists(path);
+	}
+	public Object get(String path) {
+		return data.get(path);
+	}
+}
