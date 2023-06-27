@@ -54,15 +54,6 @@ public class caboodle implements Listener {
 	 *   Quick and Simplified Methods
 	 */
 
-	public static boolean isUUID(String string) {
-		try {
-			UUID.fromString(string);
-		} catch (IllegalArgumentException e) {
-			return false;
-		}
-		return true;
-	}
-
 	public static String stringifyLocation(Location location) {
 		return location.getWorld().getName() + ";" + location.getX() + ";" + location.getY() + ";" + location.getZ();
 	}

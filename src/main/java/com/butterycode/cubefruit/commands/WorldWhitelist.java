@@ -4,6 +4,7 @@ import com.butterycode.cubefruit.Main;
 import com.butterycode.cubefruit.utils.awesomeText;
 import com.butterycode.cubefruit.utils.caboodle;
 import com.butterycode.cubefruit.utils.dataStorage;
+import com.butterycode.cubefruit.utils.dogTags;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
@@ -100,7 +101,7 @@ public class WorldWhitelist extends CommandWrapper implements Listener {
 					if (world != null) {
 						if (args.length > 2) {
 							OfflinePlayer player;
-							if (caboodle.isUUID(args[2])) {
+							if (dogTags.isUUID(args[2])) {
 								player = caboodle.getOfflinePlayer(UUID.fromString(args[2]));
 							} else {
 								player = caboodle.getOfflinePlayer(args[2]);
@@ -140,7 +141,7 @@ public class WorldWhitelist extends CommandWrapper implements Listener {
 					if (world != null) {
 						if (args.length > 2) {
 							OfflinePlayer player;
-							if (caboodle.isUUID(args[2])) {
+							if (dogTags.isUUID(args[2])) {
 								player = caboodle.getOfflinePlayer(UUID.fromString(args[2]));
 							} else {
 								player = caboodle.getOfflinePlayer(args[2]);

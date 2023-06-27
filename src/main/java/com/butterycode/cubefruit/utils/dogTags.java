@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
+import jdk.jfr.Description;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -166,23 +167,6 @@ public class dogTags {
 
 		return placeableList.contains(material);
 	}
-
-//	public static boolean isContainer(Material material) { // XXX: Remove in favor of isContainer(Block)
-//		List<Material> containerList = Arrays.asList(new Material[] {
-//			Material.CHEST,
-//			Material.DROPPER,
-//			Material.HOPPER,
-//			Material.DISPENSER,
-//			Material.TRAPPED_CHEST,
-//			Material.BREWING_STAND,
-//			Material.FURNACE,
-//			Material.BARREL
-//		});
-//
-//		if (Tag.SHULKER_BOXES.isTagged(material)) return true;
-//
-//		return containerList.contains(material);
-//	}
 
 	public static boolean isTwoBlocksTall(Material material) {
 		List<Material> blockList = Arrays.asList(new Material[] {
@@ -399,18 +383,14 @@ public class dogTags {
 		return Bukkit.getPlayer(uuid) != null;
 	}
 
-	public static boolean isGrounded(Player player) { // TODO: test accuracy
+	public static boolean isGrounded(Player player) { // TODO: retest accuracy
 		if (player.isFlying() || player.isSwimming()) {
 			return false;
 		}
 
 		Location locUnder = player.getLocation().clone().add(new Vector(0, -0.00001, 0));
 
-		if (locUnder.getBlock().isPassable() && player.getFallDistance() > 0) {
-			return false;
-		} else {
-			return true;
-		}
+		return !locUnder.getBlock().isPassable() || !(player.getFallDistance() > 0);
 	}
 
 	public static boolean hasEmptyHands(Player player) {
@@ -622,11 +602,20 @@ public class dogTags {
 	public static boolean isDay(World world) {
 		long time = world.getTime();
 
-		if (time > 0 && time < 12300) {
-			return true;
-		} else {
+		return time > 0 && time < 12300;
+	}
+
+	/*
+	 *   UUID Tags
+	 */
+
+	public static boolean isUUID(String string) {
+		try {
+			UUID.fromString(string);
+		} catch (IllegalArgumentException e) {
 			return false;
 		}
+		return true;
 	}
 
 	/*
