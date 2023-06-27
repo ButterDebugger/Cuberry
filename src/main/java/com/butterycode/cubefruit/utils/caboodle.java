@@ -138,7 +138,7 @@ public class caboodle implements Listener {
 		ArrayList<Vector> points = new ArrayList<>();
 
 		for (double length = 0; length < distance; p1.add(vector)) {
-			points.add(p1);
+			points.add(p1.clone());
 			length += space;
 		}
 
