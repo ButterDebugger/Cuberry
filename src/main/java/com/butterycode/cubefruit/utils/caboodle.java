@@ -72,6 +72,8 @@ public class caboodle implements Listener {
 		World world = Bukkit.getWorld(locArgs[0]);
 		Vector xyz = new Vector(Double.parseDouble(locArgs[1]), Double.parseDouble(locArgs[2]), Double.parseDouble(locArgs[3]));
 
+		getLowestBlockLocation(new Location(Bukkit.getWorld("world"), 1, 1, 1));
+
 		if (locArgs.length == 4) { // Location: world, x, y, z
 			return new Location(world, xyz.getX(), xyz.getY(), xyz.getZ());
 		} else if (locArgs.length == 6) { // Player Location: world, x, y, z, yaw, pitch
@@ -81,42 +83,28 @@ public class caboodle implements Listener {
 		}
 	}
 
-	public static Location lowestPoint(Location loc) {
+	@Deprecated // TODO: recode and use loc.getWorld().getMinHeight()
+	public static Location getLowestBlockLocation(Location loc) {
 		if (loc.getBlockY() <= 1) return null;
 		Location next = loc.clone().add(0, -1, 0);
 
 		if (next.getBlock().isEmpty()) {
-			loc = lowestPoint(next);
+			loc = getLowestBlockLocation(next);
 		}
 
 		return loc;
 	}
 
-	public static Location highestPoint(Location loc) {
+	@Deprecated // TODO: recode and use loc.getWorld().getMaxHeight()
+	public static Location getHighestBlockLocation(Location loc) {
 		if (loc.getBlockY() <= 1) return null;
 		Location next = loc.clone().add(0, 1, 0);
 
 		if (!next.getBlock().isEmpty()) {
-			loc = highestPoint(next);
+			loc = getHighestBlockLocation(next);
 		}
 
 		return loc;
-	}
-
-	public static Location raycast(LivingEntity from, int distance) {
-		BlockIterator blocksToAdd = new BlockIterator(from.getEyeLocation(), 0, distance);
-
-		while (blocksToAdd.hasNext()) {
-			Location loc = blocksToAdd.next().getLocation();
-
-			if (!loc.getBlock().getType().isSolid()) {
-				//break;
-			} else { // Solid block has been hit
-				return loc;
-			}
-		}
-
-		return null;
 	}
 
 	public static Iterator<Vector> line(Vector point1, Vector point2, double space) {
@@ -643,9 +631,7 @@ public class caboodle implements Listener {
 	}
 
 	public static Material getMaterialByName(String name) {
-		List<Material> materials = Arrays.asList(Material.values());
-
-		for (Material mat : materials) {
+		for (Material mat : Material.values()) {
 			if (mat.toString().equalsIgnoreCase(name)) return mat;
 		}
 
@@ -653,9 +639,7 @@ public class caboodle implements Listener {
 	}
 
 	public static Enchantment getEnchantmentByName(String name) {
-		List<Enchantment> enchantments = Arrays.asList(Enchantment.values());
-
-		for (Enchantment ech : enchantments) {
+		for (Enchantment ech : Enchantment.values()) {
 			if (ech.getKey().toString().equalsIgnoreCase(name)) return ech;
 		}
 
@@ -683,8 +667,7 @@ public class caboodle implements Listener {
 		String[] directories = Bukkit.getWorldContainer().list(new FilenameFilter() {
 			@Override
 			public boolean accept(File current, String name) {
-				if (!new File(current, name).isDirectory() || !new File(current, name + "/level.dat").exists()) return false;
-				return true;
+				return new File(current, name).isDirectory() && new File(current, name + "/level.dat").exists();
 			}
 		});
 		return Arrays.asList(directories);
