@@ -1,3 +1,4 @@
 {
-	"commands.invalidarguments": "&cError: &7Invalid arguments."
+	"commands.invalid_arguments": "&cError: &7Invalid arguments.",
+	"commands.player_required": "&cError: &7You must be a player to use this."
 }

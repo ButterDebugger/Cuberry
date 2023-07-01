@@ -1,18 +1,9 @@
 package com.butterycode.cubefruit.commands;
 
-import java.io.File;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
-
 import com.butterycode.cubefruit.Main;
 import com.butterycode.cubefruit.utils.*;
-import org.bukkit.Bukkit;
-import org.bukkit.Chunk;
-import org.bukkit.Location;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.World.Environment;
-import org.bukkit.WorldCreator;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
@@ -25,6 +16,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
+
+import java.io.File;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 public class CubeFruit implements CommandExecutor, TabCompleter {
 
@@ -55,7 +54,7 @@ public class CubeFruit implements CommandExecutor, TabCompleter {
 					sender.sendMessage(awesomeText.prettifyMessage("--- start of test ---"));
 
 					tooManyParticles.test();
-					
+
 					sender.sendMessage(awesomeText.prettifyMessage("&7--- end  of  test ---"));
 					return true;
 				} else if (args[0].equalsIgnoreCase("debug")) {

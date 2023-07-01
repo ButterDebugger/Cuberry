@@ -1,11 +1,10 @@
 package com.butterycode.cubefruit.utils;
 
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Particle;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
+
+import java.util.Iterator;
 
 public class tooManyParticles {
 
@@ -83,7 +82,6 @@ public class tooManyParticles {
 		public Particle getType() {
 			return type;
 		}
-		
 		public void setType(Particle type) {
 			this.type = type;
 		}
@@ -91,7 +89,6 @@ public class tooManyParticles {
 		public int getCount() {
 			return count;
 		}
-
 		public void setCount(int count) {
 			this.count = count;
 		}
@@ -99,7 +96,6 @@ public class tooManyParticles {
 		public Vector getOffset() {
 			return offset;
 		}
-
 		public void setOffset(Vector offset) {
 			this.offset = offset;
 		}
@@ -107,7 +103,6 @@ public class tooManyParticles {
 		public double getSpeed() {
 			return speed;
 		}
-
 		public void setSpeed(double speed) {
 			this.speed = speed;
 		}
@@ -116,13 +111,13 @@ public class tooManyParticles {
 			World world = loc.getWorld();
 			
 			world.spawnParticle(type, loc, count, offset.getX(), offset.getY(), offset.getZ(), speed);
-			
+
 //			world.spawnParticle(Particle.REDSTONE, location, amount, offset.getX(), offset.getY(), offset.getZ(), new Particle.DustOptions(color, size));
 //			world.spawnParticle(Particle.TOWN_AURA, block.getX() + 0.5, block.getY(), block.getZ(), 1, 0.25, 0, 0);
 		}
 		void spawn(Player player, Location loc) {
 			player.spawnParticle(type, loc, count, offset.getX(), offset.getY(), offset.getZ(), speed);
-			
+
 //			player.spawnParticle(Particle.REDSTONE, location, amount, offset.getX(), offset.getY(), offset.getZ(), new Particle.DustOptions(color, size));
 //			player.spawnParticle(Particle.TOWN_AURA, block.getX() + 0.5, block.getY(), block.getZ(), 1, 0.25, 0, 0);
 		}
@@ -134,7 +129,7 @@ public class tooManyParticles {
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			particle.spawn(player, player.getLocation());
 			
-//			line(player.getLocation(), player.getLocation().clone().add(1, 5, 3), 0.2);
+			line(player.getLocation(), player.getLocation().clone().add(1, 5, 3), 0.2);
 		}
 	}
 
@@ -144,17 +139,13 @@ public class tooManyParticles {
 
 	public static void line(Location loc1, Location loc2, double space) {
 		World world = loc1.getWorld();
+		assert world != null;
 
-		double distance = loc1.distance(loc2);
+		Iterator<Vector> points = caboodle.line(loc1.toVector(), loc2.toVector(), space);
 
-		Vector p1 = loc1.toVector();
-		Vector p2 = loc2.toVector();
-
-		Vector vector = p2.clone().subtract(p1).normalize().multiply(space);
-
-		for (double length = 0; length < distance; p1.add(vector)) {
-			world.spawnParticle(Particle.END_ROD, p1.getX(), p1.getY(), p1.getZ(), 0);
-			length += space;
+		while (points.hasNext()) {
+			Vector point = points.next();
+			world.spawnParticle(Particle.END_ROD, point.getX(), point.getY(), point.getZ(), 0);
 		}
 	}
 

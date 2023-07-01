@@ -20,7 +20,6 @@ import org.bukkit.command.PluginCommand;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Item;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
@@ -38,7 +37,6 @@ import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
-import org.bukkit.util.BlockIterator;
 import org.bukkit.util.Vector;
 
 import java.io.*;
@@ -83,28 +81,30 @@ public class caboodle implements Listener {
 		}
 	}
 
-	@Deprecated // TODO: recode and use loc.getWorld().getMinHeight()
 	public static Location getLowestBlockLocation(Location loc) {
-		if (loc.getBlockY() <= 1) return null;
-		Location next = loc.clone().add(0, -1, 0);
+		World world = loc.getWorld();
+		assert world != null;
+		int minHeight = world.getMinHeight();
+		Location next = loc.clone();
 
-		if (next.getBlock().isEmpty()) {
-			loc = getLowestBlockLocation(next);
+		while (next.getBlockY() > minHeight && next.getBlock().isEmpty()) {
+			next.subtract(0, 1, 0);
 		}
 
-		return loc;
+		return next;
 	}
 
-	@Deprecated // TODO: recode and use loc.getWorld().getMaxHeight()
 	public static Location getHighestBlockLocation(Location loc) {
-		if (loc.getBlockY() <= 1) return null;
-		Location next = loc.clone().add(0, 1, 0);
+		World world = loc.getWorld();
+		assert world != null;
+		int maxHeight = world.getMaxHeight() - 1;
+		Location next = loc.clone();
 
-		if (!next.getBlock().isEmpty()) {
-			loc = getHighestBlockLocation(next);
+		while (next.getBlockY() < maxHeight && next.getBlock().isEmpty()) {
+			next.add(0, 1, 0);
 		}
 
-		return loc;
+		return next;
 	}
 
 	public static Iterator<Vector> line(Vector point1, Vector point2, double space) {
@@ -159,11 +159,7 @@ public class caboodle implements Listener {
 
 	public static boolean chance(double percent) {
 		double random = randomDouble(0, 100);
-		if (random <= percent) {
-			return true;
-		} else {
-			return false;
-		}
+		return random <= percent;
 	}
 
 	public static String[] slice(String[] args, int startIndex, int endIndex) {
@@ -207,21 +203,27 @@ public class caboodle implements Listener {
 		return blocks;
 	}
 
-	public static String getCardinalDirection(Entity entity) { // TODO: retest and change return to an enum
-		double rotation = (entity.getLocation().getYaw() - 90.0F) % 360.0F;
+	public enum CardinalDirection {
+		NORTH,
+		EAST,
+		SOUTH,
+		WEST;
+	}
 
-		if (rotation < 0.0D) rotation += 360.0D;
-		if ((0.0D <= rotation) && (rotation < 45.0D))
-			return "W";
-		if ((45.0D <= rotation) && (rotation < 135.0D))
-			return "N";
-		if ((135.0D <= rotation) && (rotation < 225.0D))
-			return "E";
-		if ((225.0D <= rotation) && (rotation < 315.0D))
-			return "S";
-		if ((315.0D <= rotation) && (rotation < 360.0D)) {
-			return "W";
-		}
+	/**
+	 * Get the direction an entity is facing
+	 */
+	public static CardinalDirection getCardinalDirection(Entity entity) {
+		float rotation = (entity.getLocation().getYaw() - 90.0F) % 360.0F;
+
+		if (rotation < 0.0F) rotation += 360.0F;
+
+		if (0.0F <= rotation && rotation < 45.0F) return CardinalDirection.WEST;
+		if (45.0F <= rotation && rotation < 135.0F) return CardinalDirection.NORTH;
+		if (135.0F <= rotation && rotation < 225.0F) return CardinalDirection.EAST;
+		if (225.0F <= rotation && rotation < 315.0F) return CardinalDirection.SOUTH;
+		if (315.0F <= rotation && rotation < 360.0F) return CardinalDirection.WEST;
+
 		return null;
 	}
 
@@ -298,6 +300,7 @@ public class caboodle implements Listener {
 		Bukkit.dispatchCommand(Bukkit.getConsoleSender(), string);
 	}
 
+	@Deprecated // TODO: just use Bukkit.broadcastMessage instead
 	public static void broadcast(String string) {
 		Bukkit.broadcastMessage(string);
 	}
@@ -412,7 +415,7 @@ public class caboodle implements Listener {
 		item.setItemMeta(itemmeta);
 	}
 
-	public static List<Block> getGroupedBlocks(Block block) { // TODO: not fully tested
+	public static List<Block> getGroupedBlocks(Block block) { // TODO: not fully tested or complete
 		List<Block> blocks = new ArrayList<>();
 		BlockData blockData = block.getBlockData();
 		

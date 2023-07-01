@@ -14,6 +14,10 @@ public class ghostBlocks {
 
     private static Map<String, GhostBlock> GhostBlocks = new HashMap<>();
 
+    public static GhostBlock createGhostBlock(Player player, Location location, BlockData blockData) { // TODO: make sure is the preferred way to create a ghost block
+        return new GhostBlock(player, location, blockData);
+    }
+
     public static class GhostBlock {
         private Player player;
         private Location location;
