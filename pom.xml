@@ -6,7 +6,7 @@
 
     <groupId>com.butterycode</groupId>
     <artifactId>CubeFruit</artifactId>
-    <version>1.9-beta1</version>
+    <version>1.9-beta2</version>
 
     <name>CubeFruit</name>
     <description>An all-in-one plugin that lets you customize a server to your liking while also supplying a useful and lightweight set of utilities for other plugins!</description>
