@@ -3,6 +3,7 @@ package com.butterycode.cubefruit.utils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
@@ -14,8 +15,8 @@ import java.util.stream.Collectors;
 
 public class localeManager {
 
-	private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
-	private static HashMap<String, JsonObject> localeObjects = new HashMap<>();
+	private static final Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
+	private static final HashMap<String, JsonObject> localeObjects = new HashMap<>();
 	private static String defaultLocale;
 
 	public localeManager(Plugin plugin, String ...locales) {
@@ -26,9 +27,13 @@ public class localeManager {
 			loadLanguage(plugin, locale);
 		}
 
-		// TODO: load other languages saved on the disk
+		// Load other languages saved on the disk
+		loadLanguages(plugin);
 	}
 
+	/**
+	 *  Loads a language stored in the plugin resources and syncs it with the disk
+	 */
 	private void loadLanguage(Plugin plugin, String locale) {
 		String filepath = "lang/" + locale + ".json";
 
@@ -65,13 +70,46 @@ public class localeManager {
 		try {
 			langFile.getParentFile().mkdirs();
 			Files.deleteIfExists(langFile.toPath());
-			Files.writeString(langFile.toPath(), gson.toJson(jsonResource)); // TODO: fix encoding issue
+			Files.writeString(langFile.toPath(), gson.toJson(jsonResource));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		localeObjects.put(locale, jsonResource);
+	}
+
+	/**
+	 *  Loads additional unknown languages stored on the disk
+	 */
+	private void loadLanguages(Plugin plugin) {
+		File langDir = new File(plugin.getDataFolder() + File.separator + "lang");
+		langDir.mkdirs();
+
+		File[] langFiles = langDir.listFiles();
+		if (langFiles != null) {
+			for (File file : langFiles) {
+				if (!file.isFile() || !file.canRead()) continue;
+
+				String locale = awesomeText.removeSuffix(file.getName(), ".json");
+				if (localeObjects.containsKey(locale)) continue;
+
+				JsonObject json = null;
+
+				try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+					String content = br.lines().collect(Collectors.joining("\n"));
+					json = gson.fromJson(content, JsonObject.class);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					continue;
+				}
+
+				if (json != null) {
+					localeObjects.put(locale, json);
+				}
+			}
+		}
 	}
 
 	public void setDefaultLocale(String locale) {
@@ -87,6 +125,12 @@ public class localeManager {
 	public String getMessage(String key, Player player) {
 		return getMessage(key, player.getLocale());
 	}
+	public String getMessage(String key, CommandSender sender) {
+		if (sender instanceof Player) {
+			return getMessage(key, (Player) sender);
+		}
+		return getMessage(key);
+	}
 	public String getMessage(String key, String locale) {
 		if (!localeObjects.containsKey(locale)) {
 			if (!locale.equals(defaultLocale)) {
@@ -94,15 +138,13 @@ public class localeManager {
 			}
 			return null;
 		}
-		return localeObjects.get(locale).getAsJsonPrimitive(key).getAsString();
+		JsonObject jsonLocale = localeObjects.get(locale);
+		if (!jsonLocale.has(key)) {
+			if (!locale.equals(defaultLocale)) {
+				return getMessage(key, defaultLocale);
+			}
+			return null;
+		}
+		return jsonLocale.getAsJsonPrimitive(key).getAsString();
 	}
-
-	// TODO list:
-	/* - default to en_us
-	 * - store in json
-	 * - always keep locale file up to date
-	 *   - remove non existent keys
-	 *   - add new entries found in the plugin
-	 * - use "&a&l» &7" instead of "&7" for successful commands
-	 */
 }

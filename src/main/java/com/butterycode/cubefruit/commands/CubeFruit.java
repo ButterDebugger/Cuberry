@@ -51,17 +51,17 @@ public class CubeFruit implements CommandExecutor, TabCompleter {
 				Main.plugin().reload();
 				return true;
 			} else if (args[0].equalsIgnoreCase("test")) {
-				sender.sendMessage(awesomeText.prettifyMessage("--- start of test ---"));
+				sender.sendMessage(awesomeText.prettifyMessage("&7--- &astart of test&7 ---"));
 
-				String message = Main.locale().getMessage("commands.player_required", "en_us");
-				sender.sendMessage(message + "");
+				String message1 = Main.locale().getMessage("commands.invalid_arguments", "en_us");
+				sender.sendMessage(message1);
 
-				String message2 = Main.locale().getMessage("commands.player_required", "es_us");
-				sender.sendMessage(message2 + "");
+				String message2 = Main.locale().getMessage("commands.invalid_arguments", sender);
+				sender.sendMessage(message2);
 
-//					tooManyParticles.test();
+//				tooManyParticles.test();
 
-				sender.sendMessage(awesomeText.prettifyMessage("&7--- end  of  test ---"));
+				sender.sendMessage(awesomeText.prettifyMessage("&7--- &cend  of  test&7 ---"));
 				return true;
 			} else if (args[0].equalsIgnoreCase("debug")) {
 				if (!config.getBoolean("debug")) {
