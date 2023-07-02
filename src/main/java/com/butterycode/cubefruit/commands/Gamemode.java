@@ -17,8 +17,6 @@ import java.util.List;
 
 public class Gamemode extends CommandWrapper {
 
-	FileConfiguration config = Main.plugin.config();
-
 	public Gamemode() {
 		CommandRegistry gmCmd = new CommandRegistry(this, "gm");
 		gmCmd.setDescription("Change a players gamemodes");

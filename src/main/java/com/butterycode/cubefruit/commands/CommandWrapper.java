@@ -5,6 +5,7 @@ import com.butterycode.cubefruit.utils.caboodle;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabCompleter;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.*;
@@ -49,7 +50,7 @@ public abstract class CommandWrapper implements CommandExecutor, TabCompleter {
         }
 
         public void register(JavaPlugin plugin) { // TODO: retest
-            PluginCommand command = caboodle.getCommand(name, Main.plugin);
+            PluginCommand command = caboodle.getCommand(name, plugin);
 
             if (aliases != null) command.setAliases(aliases);
             if (description != null) command.setDescription(description);

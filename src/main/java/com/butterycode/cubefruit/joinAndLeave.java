@@ -16,7 +16,7 @@ import java.util.List;
 
 public class joinAndLeave implements Listener {
 
-	FileConfiguration config = Main.plugin.config();
+	FileConfiguration config = Main.plugin().config();
 
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {

@@ -14,7 +14,7 @@ import me.clip.placeholderapi.PlaceholderAPI;
 
 public class pluginSupport implements Listener {
 
-	static FileConfiguration config = Main.plugin.getConfig();
+	static FileConfiguration config = Main.plugin().getConfig();
 
 	private static HashMap<String, Boolean> supports = new HashMap<>();
 

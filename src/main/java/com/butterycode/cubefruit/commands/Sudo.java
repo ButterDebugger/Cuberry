@@ -16,10 +16,6 @@ import java.util.Map;
 
 public class Sudo extends CommandWrapper {
 
-	FileConfiguration config = Main.plugin.config();
-
-	static Map<String, String> reply = new HashMap<>();
-
 	public Sudo() {
 		CommandRegistry sudoCmd = new CommandRegistry(this, "sudo");
 		sudoCmd.setDescription("Make another player perform commands or speak in chat");

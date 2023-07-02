@@ -14,12 +14,12 @@ import com.butterycode.cubefruit.utils.dataStorage;
 
 public class infoSaver implements Listener {
 
-	FileConfiguration config = Main.plugin.config();
-	static dataStorage playerData = Main.plugin.getData("players.yml");
-	static dataStorage doubleData = Main.plugin.getData("data.yml");
+	FileConfiguration config = Main.plugin().config();
+	static dataStorage playerData = Main.plugin().getData("players.yml");
+	static dataStorage doubleData = Main.plugin().getData("data.yml");
 
 	public static void start() {
-		Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.plugin, new Runnable() {
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.plugin(), new Runnable() {
 			@Override
 			public void run() {
 				for (World world : Bukkit.getWorlds()) {

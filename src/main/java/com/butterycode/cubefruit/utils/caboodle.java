@@ -70,8 +70,6 @@ public class caboodle implements Listener {
 		World world = Bukkit.getWorld(locArgs[0]);
 		Vector xyz = new Vector(Double.parseDouble(locArgs[1]), Double.parseDouble(locArgs[2]), Double.parseDouble(locArgs[3]));
 
-		getLowestBlockLocation(new Location(Bukkit.getWorld("world"), 1, 1, 1));
-
 		if (locArgs.length == 4) { // Location: world, x, y, z
 			return new Location(world, xyz.getX(), xyz.getY(), xyz.getZ());
 		} else if (locArgs.length == 6) { // Player Location: world, x, y, z, yaw, pitch
@@ -124,6 +122,79 @@ public class caboodle implements Listener {
 		return points.iterator();
 	}
 
+	public static Vector getLowestPoint(Vector vector1, Vector vector2) {
+		double x1 = vector1.getX();
+		double y1 = vector1.getY();
+		double z1 = vector1.getZ();
+
+		double x2 = vector2.getX();
+		double y2 = vector2.getY();
+		double z2 = vector2.getZ();
+
+		double lowestX = Math.min(x1, x2);
+		double lowestY = Math.min(y1, y2);
+		double lowestZ = Math.min(z1, z2);
+
+		return new Vector(lowestX, lowestY, lowestZ);
+	}
+
+	public static Vector getHighestPoint(Vector vector1, Vector vector2) {
+		double x1 = vector1.getX();
+		double y1 = vector1.getY();
+		double z1 = vector1.getZ();
+
+		double x2 = vector2.getX();
+		double y2 = vector2.getY();
+		double z2 = vector2.getZ();
+
+		double highestX = Math.max(x1, x2);
+		double highestY = Math.max(y1, y2);
+		double highestZ = Math.max(z1, z2);
+
+		return new Vector(highestX, highestY, highestZ);
+	}
+
+	public static List<Block> getRegionBlocks(World world, Location loc1, Location loc2) {
+		List<Block> blocks = new ArrayList<>();
+
+		Vector lowestPoint = getLowestPoint(loc1.toVector(), loc2.toVector());
+		Vector highestPoint = getHighestPoint(loc1.toVector(), loc2.toVector());
+
+		for (int x = lowestPoint.getBlockX(); x <= highestPoint.getBlockX(); x++) {
+			for (int y = lowestPoint.getBlockY(); y <= highestPoint.getBlockY(); y++) {
+				for (int z = lowestPoint.getBlockZ(); z <= highestPoint.getBlockZ(); z++) {
+					blocks.add(world.getBlockAt(x, y, z));
+				}
+			}
+		}
+
+		return blocks;
+	}
+
+	public enum CardinalDirection {
+		NORTH,
+		EAST,
+		SOUTH,
+		WEST;
+	}
+
+	/**
+	 * Get the direction an entity is facing
+	 */
+	public static CardinalDirection getCardinalDirection(Entity entity) {
+		float rotation = (entity.getLocation().getYaw() - 90.0F) % 360.0F;
+
+		if (rotation < 0.0F) rotation += 360.0F;
+
+		if (0.0F <= rotation && rotation < 45.0F) return CardinalDirection.WEST;
+		if (45.0F <= rotation && rotation < 135.0F) return CardinalDirection.NORTH;
+		if (135.0F <= rotation && rotation < 225.0F) return CardinalDirection.EAST;
+		if (225.0F <= rotation && rotation < 315.0F) return CardinalDirection.SOUTH;
+		if (315.0F <= rotation && rotation < 360.0F) return CardinalDirection.WEST;
+
+		return null;
+	}
+
 	@SuppressWarnings("deprecation")
 	public static OfflinePlayer getOfflinePlayer(String username) {
 		if (dogTags.isOnline(username)) {
@@ -172,61 +243,6 @@ public class caboodle implements Listener {
 		return slicedArray;
 	}
 
-	public static List<Block> getRegionBlocks(World world, Location loc1, Location loc2) {
-		List<Block> blocks = new ArrayList<>();
-
-		int x1 = loc1.getBlockX();
-		int y1 = loc1.getBlockY();
-		int z1 = loc1.getBlockZ();
-
-		int x2 = loc2.getBlockX();
-		int y2 = loc2.getBlockY();
-		int z2 = loc2.getBlockZ();
-
-		int lowestX = Math.min(x1, x2);
-		int lowestY = Math.min(y1, y2);
-		int lowestZ = Math.min(z1, z2);
-
-		int highestX = Math.max(x1, x2);
-		int highestY = Math.max(y1, y2);
-		int highestZ = Math.max(z1, z2);
-
-		for (int x = lowestX; x <= highestX; x++) {
-			for (int y = lowestY; y <= highestY; y++) {
-				for (int z = lowestZ; z <= highestZ; z++) {
-					Location loc = new Location(world, x, y, z);
-					blocks.add(loc.getBlock());
-				}
-			}
-		}
-
-		return blocks;
-	}
-
-	public enum CardinalDirection {
-		NORTH,
-		EAST,
-		SOUTH,
-		WEST;
-	}
-
-	/**
-	 * Get the direction an entity is facing
-	 */
-	public static CardinalDirection getCardinalDirection(Entity entity) {
-		float rotation = (entity.getLocation().getYaw() - 90.0F) % 360.0F;
-
-		if (rotation < 0.0F) rotation += 360.0F;
-
-		if (0.0F <= rotation && rotation < 45.0F) return CardinalDirection.WEST;
-		if (45.0F <= rotation && rotation < 135.0F) return CardinalDirection.NORTH;
-		if (135.0F <= rotation && rotation < 225.0F) return CardinalDirection.EAST;
-		if (225.0F <= rotation && rotation < 315.0F) return CardinalDirection.SOUTH;
-		if (315.0F <= rotation && rotation < 360.0F) return CardinalDirection.WEST;
-
-		return null;
-	}
-
 	public static void sendActionbar(Player player, String string) {
 //		player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(string));
 		player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(string));
@@ -240,7 +256,7 @@ public class caboodle implements Listener {
 		}
 
 		for (MetadataValue value : values) {
-			if (value.getOwningPlugin().equals(Main.plugin)) {
+			if (value.getOwningPlugin().equals(Main.plugin())) {
 				return value.value();
 			}
 		}
@@ -253,16 +269,16 @@ public class caboodle implements Listener {
 	}
 
 	public static void setMetadata(Metadatable object, String key, Object value) {
-		object.setMetadata(key, new FixedMetadataValue(Main.plugin, value));
+		object.setMetadata(key, new FixedMetadataValue(Main.plugin(), value));
 	}
 
 	public static void removeMetadata(Metadatable object, String key) {
-		object.removeMetadata(key, Main.plugin);
+		object.removeMetadata(key, Main.plugin());
 	}
 
 	public static void respawn(Player player) {
 		player.spigot().respawn();
-//		Bukkit.getScheduler().scheduleSyncDelayedTask(Main.plugin, () -> player.spigot().respawn(), 1L);
+//		Bukkit.getScheduler().scheduleSyncDelayedTask(Main.plugin(), () -> player.spigot().respawn(), 1L);
 	}
 
 	public static void log(String string) {
@@ -318,7 +334,7 @@ public class caboodle implements Listener {
 	@Deprecated // TODO: remove me
 	public static String getStringTag(ItemStack item, String tagname) {
 		if (item == null) return null;
-		NamespacedKey key = new NamespacedKey(Main.plugin, tagname);
+		NamespacedKey key = new NamespacedKey(Main.plugin(), tagname);
 		ItemMeta itemMeta = item.getItemMeta();
 		PersistentDataContainer container;
 
@@ -336,7 +352,7 @@ public class caboodle implements Listener {
 
 	@SuppressWarnings("unchecked")
 	public static void setItemTag(ItemStack item, String tagname, @SuppressWarnings("rawtypes") PersistentDataType datatype, Object value) {
-		NamespacedKey key = new NamespacedKey(Main.plugin, tagname);
+		NamespacedKey key = new NamespacedKey(Main.plugin(), tagname);
 		ItemMeta itemMeta = item.getItemMeta();
 		itemMeta.getPersistentDataContainer().set(key, datatype, value);
 		item.setItemMeta(itemMeta);
@@ -344,7 +360,7 @@ public class caboodle implements Listener {
 
 	@SuppressWarnings("unchecked")
 	public static Object getItemTag(ItemStack item, String tagname, @SuppressWarnings("rawtypes") PersistentDataType datatype) {
-		NamespacedKey key = new NamespacedKey(Main.plugin, tagname);
+		NamespacedKey key = new NamespacedKey(Main.plugin(), tagname);
 		ItemMeta itemMeta = item.getItemMeta();
 		PersistentDataContainer container;
 
@@ -363,7 +379,7 @@ public class caboodle implements Listener {
 
 	@SuppressWarnings("unchecked")
 	public static boolean hasItemTag(ItemStack item, String tagname, @SuppressWarnings("rawtypes") PersistentDataType datatype) {
-		NamespacedKey key = new NamespacedKey(Main.plugin, tagname);
+		NamespacedKey key = new NamespacedKey(Main.plugin(), tagname);
 		ItemMeta itemMeta = item.getItemMeta();
 		PersistentDataContainer container = itemMeta.getPersistentDataContainer();
 
@@ -774,7 +790,7 @@ public class caboodle implements Listener {
 	private static double tps;
 
 	public static void start() {
-		Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.plugin, new Runnable() {
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.plugin(), new Runnable() {
 			long lasttick;
 
 			@Override
@@ -825,17 +841,17 @@ public class caboodle implements Listener {
 	 *   Plugin Methods
 	 */
 
-	@Deprecated // TODO: remove me, also remove Main.plugin reference
+	@Deprecated // TODO: remove me, also remove Main.plugin() reference
 	public static void registerCommand(List<String> aliases) {
-		PluginCommand command = getCommand(aliases.get(0), Main.plugin);
+		PluginCommand command = getCommand(aliases.get(0), Main.plugin());
 		command.setAliases(aliases);
-		getCommandMap().register(Main.plugin.getDescription().getName(), command);
+		getCommandMap().register(Main.plugin().getDescription().getName(), command);
 	}
 
-	@Deprecated // TODO: remove me, also remove Main.plugin reference
+	@Deprecated // TODO: remove me, also remove Main.plugin() reference
 	public static void registerCommand(String name) {
-		PluginCommand command = getCommand(name, Main.plugin);
-		getCommandMap().register(Main.plugin.getDescription().getName(), command);
+		PluginCommand command = getCommand(name, Main.plugin());
+		getCommandMap().register(Main.plugin().getDescription().getName(), command);
 	}
 
 	public static PluginCommand getCommand(String name, Plugin plugin) {

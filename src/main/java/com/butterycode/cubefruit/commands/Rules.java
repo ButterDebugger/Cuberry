@@ -12,7 +12,7 @@ import java.util.List;
 
 public class Rules extends CommandWrapper {
 
-	FileConfiguration config = Main.plugin.config();
+	FileConfiguration config = Main.plugin().config();
 
 	public Rules() {
 		CommandRegistry rulesCmd = new CommandRegistry(this, "rules");

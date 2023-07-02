@@ -23,7 +23,7 @@ import com.butterycode.cubefruit.Main;
 
 public class netherflumb implements Listener {
 
-	static FileConfiguration config = Main.plugin.config();
+	static FileConfiguration config = Main.plugin().config();
 	
 	static HashMap<UUID, Integer> negativeAge = new HashMap<UUID, Integer>();
 	
@@ -40,7 +40,7 @@ public class netherflumb implements Listener {
 			}
 		}
 		
-		Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.plugin, new Runnable() {
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.plugin(), new Runnable() {
 			@Override
 			public void run() {
 				for (World world : Bukkit.getWorlds()) {

@@ -21,8 +21,8 @@ import java.util.List;
 
 public class Spawn extends CommandWrapper implements Listener {
 
-	FileConfiguration config = Main.plugin.config();
-	dataStorage doubleData = Main.plugin.getData("data.yml");
+	FileConfiguration config = Main.plugin().config();
+	dataStorage doubleData = Main.plugin().getData("data.yml");
 
 	// TODO: add remove spawn
 
@@ -64,7 +64,7 @@ public class Spawn extends CommandWrapper implements Listener {
 
 			Location spawnLoc = caboodle.parseLocation(doubleData.getString("spawn"));
 
-			Bukkit.getScheduler().scheduleSyncDelayedTask(Main.plugin, () -> {
+			Bukkit.getScheduler().scheduleSyncDelayedTask(Main.plugin(), () -> {
 				player.teleport(spawnLoc);
 			}, 1L);
 		}

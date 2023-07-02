@@ -26,11 +26,11 @@ import com.butterycode.cubefruit.utils.dogTags;
 
 public class playerLives implements Listener, CommandExecutor, TabCompleter {
 
-	static FileConfiguration config = Main.plugin.config();
-	dataStorage playerData = Main.plugin.getData("players.yml");
+	static FileConfiguration config = Main.plugin().config();
+	dataStorage playerData = Main.plugin().getData("players.yml");
 
 	public static void start() {
-//		Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.plugin, new Runnable() {
+//		Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.plugin(), new Runnable() {
 //			@Override
 //			public void run() {
 //				for (Player player : Bukkit.getOnlinePlayers()) {
@@ -77,7 +77,7 @@ public class playerLives implements Listener, CommandExecutor, TabCompleter {
 			Location deathloc = player.getLocation();
 			player.setGameMode(GameMode.SPECTATOR);
 
-			Bukkit.getScheduler().scheduleSyncDelayedTask(Main.plugin, () -> {
+			Bukkit.getScheduler().scheduleSyncDelayedTask(Main.plugin(), () -> {
 				caboodle.respawn(player);
 				player.teleport(deathloc);
 			}, 0);

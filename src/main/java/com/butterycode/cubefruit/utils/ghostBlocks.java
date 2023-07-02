@@ -126,7 +126,7 @@ public class ghostBlocks {
                         }
                     }
                 }
-            }.runTaskTimer(Main.plugin, 0L, 1L);
+            }.runTaskTimer(Main.plugin(), 0L, 1L);
         }
 
         public void remove() {

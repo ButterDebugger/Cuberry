@@ -18,7 +18,7 @@ import com.butterycode.cubefruit.Main;
 
 public class idlePlayers implements Listener {
 
-	static FileConfiguration config = Main.plugin.config();
+	static FileConfiguration config = Main.plugin().config();
 
 	private static Map<UUID, Integer> idleTimer = new HashMap<>();
 
@@ -27,7 +27,7 @@ public class idlePlayers implements Listener {
 			idleTimer.put(player.getUniqueId(), 0);
 		}
 
-		Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.plugin, new Runnable() {
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.plugin(), new Runnable() {
 			@Override
 			public void run() {
 				for (Player player : Bukkit.getOnlinePlayers()) {

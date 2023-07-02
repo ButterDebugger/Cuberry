@@ -18,8 +18,6 @@ import com.butterycode.cubefruit.utils.dogTags;
 
 public class Launch extends CommandWrapper {
 
-	FileConfiguration config = Main.plugin.config();
-
 	public Launch() {
 		CommandWrapper.CommandRegistry launchCmd = new CommandRegistry(this, "launch");
 		launchCmd.setDescription("Launch a player into the air");

@@ -19,8 +19,8 @@ import java.util.stream.Collectors;
 
 public class Report extends CommandWrapper {
 
-	FileConfiguration config = Main.plugin.config();
-	dataStorage reportData = Main.plugin.getData("reports.yml");
+	FileConfiguration config = Main.plugin().config();
+	dataStorage reportData = Main.plugin().getData("reports.yml");
 
 	// TODO: make a report history command
 

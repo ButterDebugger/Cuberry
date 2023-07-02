@@ -31,7 +31,7 @@ import java.util.UUID;
 
 public class haltEvents implements Listener, CommandExecutor, TabCompleter {
 
-	static FileConfiguration config = Main.plugin.config();
+	static FileConfiguration config = Main.plugin().config();
 
 	private static boolean haltEnabled(String halt, Player player, World world) {
 		if (!config.getBoolean("halt." + halt + ".enabled")) { // Halt is not enabled
@@ -498,7 +498,7 @@ public class haltEvents implements Listener, CommandExecutor, TabCompleter {
 	}
 
 	public static void start() {
-		Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.plugin, new Runnable() {
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.plugin(), new Runnable() {
 			@Override
 			public void run() {
 				for (Player player : Bukkit.getOnlinePlayers()) {

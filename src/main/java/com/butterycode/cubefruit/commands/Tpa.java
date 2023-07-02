@@ -18,8 +18,6 @@ import java.util.Map;
 
 public class Tpa extends CommandWrapper {
 
-	FileConfiguration config = Main.plugin.config();
-
 	private static Map<String, RequestType> requests = new HashMap<>();
 
 	private enum RequestType {

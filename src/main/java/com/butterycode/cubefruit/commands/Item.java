@@ -18,8 +18,6 @@ import java.util.*;
 
 public class Item extends CommandWrapper {
 
-	FileConfiguration config = Main.plugin.config();
-
 	// TODO: hideflags, head, attribute, CanPlaceOn, CanDestroy
 
 	public Item() {

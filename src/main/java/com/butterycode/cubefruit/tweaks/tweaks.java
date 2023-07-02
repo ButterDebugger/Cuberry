@@ -70,10 +70,10 @@ import com.butterycode.cubefruit.utils.dogTags;
 
 public class tweaks implements Listener {
 
-	static FileConfiguration config = Main.plugin.config();
+	static FileConfiguration config = Main.plugin().config();
 
 	public static void start() {
-		Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.plugin, new Runnable() {
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.plugin(), new Runnable() {
 			@Override
 			public void run() {
 				if (config.getBoolean("tweaks.snowpiles")) { // TODO: make slopey and more performant
@@ -127,7 +127,7 @@ public class tweaks implements Listener {
 
 		if (config.getBoolean("tweaks.recipes.bundle")) {
 			ItemStack bundleItem = new ItemStack(Material.BUNDLE);
-			ShapedRecipe recipe = new ShapedRecipe(new NamespacedKey(Main.plugin, "bundle"), bundleItem);
+			ShapedRecipe recipe = new ShapedRecipe(new NamespacedKey(Main.plugin(), "bundle"), bundleItem);
 
 			recipe.shape(
 				"SRS",
@@ -140,7 +140,7 @@ public class tweaks implements Listener {
 			try {
 				Bukkit.getServer().addRecipe(recipe);
 			} catch (IllegalStateException e) {
-				caboodle.log(Main.plugin, e.getMessage(), caboodle.LogType.WARN);
+				caboodle.log(Main.plugin(), e.getMessage(), caboodle.LogType.WARN);
 			}
 		}
 	}
@@ -295,7 +295,7 @@ public class tweaks implements Listener {
 				if (validFlag == 1) {
 					event.setCancelled(true);
 					ArrayList<Block> newPortalBlocks = portalBlocks;
-					Bukkit.getScheduler().scheduleSyncDelayedTask(Main.plugin, () -> {
+					Bukkit.getScheduler().scheduleSyncDelayedTask(Main.plugin(), () -> {
 						for (Block pblock : newPortalBlocks) {
 							pblock.setType(Material.NETHER_PORTAL);
 						}
@@ -366,7 +366,7 @@ public class tweaks implements Listener {
 				if (validFlag == 1) {
 					event.setCancelled(true);
 					ArrayList<Block> newPortalBlocks = portalBlocks;
-					Bukkit.getScheduler().scheduleSyncDelayedTask(Main.plugin, () -> {
+					Bukkit.getScheduler().scheduleSyncDelayedTask(Main.plugin(), () -> {
 						for (Block pblock : newPortalBlocks) {
 							pblock.setType(Material.NETHER_PORTAL);
 							BlockData bd = pblock.getBlockData();
@@ -404,7 +404,7 @@ public class tweaks implements Listener {
 			if (config.getBoolean("tweaks.bucket-obsidian")) {
 				// FIXME: if obsidian is underwater, bucket will pickup water and delete the obsidian
 				if (block.getType().equals(Material.OBSIDIAN) && event.hasItem() && item.getType().equals(Material.BUCKET)) {
-					Bukkit.getScheduler().runTaskLater(Main.plugin, () -> {
+					Bukkit.getScheduler().runTaskLater(Main.plugin(), () -> {
 						block.setType(Material.AIR);
 						item.setType(Material.LAVA_BUCKET);
 						player.playSound(player.getLocation(), Sound.ITEM_BUCKET_FILL_LAVA, 0.5f, 1f);
@@ -523,7 +523,7 @@ public class tweaks implements Listener {
 					Material oldmat = block.getType();
 
 					if (age.getAge() == age.getMaximumAge()) { // TODO: remove one seed from the drops
-						Bukkit.getScheduler().runTaskLater(Main.plugin, () -> {
+						Bukkit.getScheduler().runTaskLater(Main.plugin(), () -> {
 							block.setType(oldmat);
 						}, 0);
 					}
@@ -722,7 +722,7 @@ public class tweaks implements Listener {
 			if (customdispense) {
 				event.setCancelled(true);
 
-				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.plugin, new Runnable() {
+				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.plugin(), new Runnable() {
 					@Override
 					public void run() {
 						Dispenser dispenser = (Dispenser) block.getState();
@@ -757,7 +757,7 @@ public class tweaks implements Listener {
 
 			if (config.getBoolean("tweaks.slimestack.enabled")) { // TODO: make max size work
 				if (caboodle.chance(config.getDouble("tweaks.slimestack.chance"))) {
-					Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.plugin, new Runnable() {
+					Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.plugin(), new Runnable() {
 						@Override
 						public void run() {
 							if (!entity.isDead()) {

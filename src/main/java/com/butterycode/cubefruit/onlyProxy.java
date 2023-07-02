@@ -11,7 +11,7 @@ import org.bukkit.event.player.PlayerLoginEvent.Result;
 
 public class onlyProxy implements Listener {
 
-	FileConfiguration config = Main.plugin.config();
+	FileConfiguration config = Main.plugin().config();
 
 	@EventHandler
 	public void onPlayerLogin(PlayerLoginEvent event) {

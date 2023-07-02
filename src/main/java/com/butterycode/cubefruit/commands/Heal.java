@@ -16,8 +16,6 @@ import java.util.List;
 
 public class Heal extends CommandWrapper {
 
-	FileConfiguration config = Main.plugin.config();
-
 	public Heal() {
 		CommandRegistry healCmd = new CommandRegistry(this, "heal");
 		healCmd.setDescription("Heal yourself or a given player");

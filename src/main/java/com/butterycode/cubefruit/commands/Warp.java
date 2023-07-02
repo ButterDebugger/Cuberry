@@ -17,7 +17,7 @@ import java.util.List;
 
 public class Warp extends CommandWrapper {
 
-	dataStorage warps = Main.plugin.getData("warps.yml");
+	dataStorage warps = Main.plugin().getData("warps.yml");
 
 	public Warp() {
 		CommandRegistry warpCmd = new CommandRegistry(this, "warp");

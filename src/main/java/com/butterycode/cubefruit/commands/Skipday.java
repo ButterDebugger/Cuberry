@@ -45,7 +45,7 @@ public class Skipday extends CommandWrapper {
 						cancel();
 					}
 				}
-			}.runTaskTimer(Main.plugin, 1L, 1L);
+			}.runTaskTimer(Main.plugin(), 1L, 1L);
 			return true;
 		}
 		return false;

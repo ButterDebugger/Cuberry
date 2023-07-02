@@ -20,7 +20,7 @@ import java.util.*;
 
 public class WorldWhitelist extends CommandWrapper implements Listener {
 
-	dataStorage doubleData = Main.plugin.getData("data.yml");
+	dataStorage doubleData = Main.plugin().getData("data.yml");
 	List<String> notificationCooldown = new ArrayList<>();
 
 	public WorldWhitelist() {

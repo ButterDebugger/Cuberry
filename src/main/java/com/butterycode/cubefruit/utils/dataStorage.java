@@ -18,8 +18,10 @@ public class dataStorage {
 	private File file;
 	private FileConfiguration data;
 	private String filename;
+	private Plugin plugin;
 
 	public dataStorage(Plugin plugin, String filepath) {
+		this.plugin = plugin;
 		filename = filepath;
 		file = new File(plugin.getDataFolder() + File.separator + filename);
 
@@ -27,7 +29,7 @@ public class dataStorage {
 			try {
 				file.createNewFile();
 			} catch (IOException e) {
-				caboodle.log(Main.plugin, "Unable to create " + filename, caboodle.LogType.WARN);
+				caboodle.log(plugin, "Unable to create " + filename, caboodle.LogType.WARN);
 				e.printStackTrace();
 			}
 		}
@@ -39,7 +41,7 @@ public class dataStorage {
 		try {
 			data.save(file);
 		} catch (IOException e) {
-			caboodle.log(Main.plugin, "Unable to save data.", caboodle.LogType.WARN);
+			caboodle.log(plugin, "Unable to save data.", caboodle.LogType.WARN);
 			e.printStackTrace();
 		}
 	}

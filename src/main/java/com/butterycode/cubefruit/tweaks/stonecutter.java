@@ -25,12 +25,12 @@ import com.butterycode.cubefruit.utils.resourceStorage;
 
 public class stonecutter implements Listener {
 
-	static FileConfiguration config = Main.plugin.config();
+	static FileConfiguration config = Main.plugin().config();
 	
 	public static void start() {
 		HashMap<ItemStack, List<ItemStack>> recipes = readStonecutterData();
 		
-		Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.plugin, new Runnable() {
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.plugin(), new Runnable() {
 			@Override
 			public void run() {
 				for (World world : Bukkit.getWorlds()) {
@@ -94,7 +94,7 @@ public class stonecutter implements Listener {
 	}
 
 	private static HashMap<ItemStack, List<ItemStack>> readStonecutterData() {
-		resourceStorage resource = new resourceStorage(Main.plugin, "stonecutter.txt", false);
+		resourceStorage resource = new resourceStorage(Main.plugin(), "stonecutter.txt", false);
 		String content = resource.getContent();
 		
 		HashMap<ItemStack, List<ItemStack>> stonecutterMap = new HashMap<ItemStack, List<ItemStack>>();

@@ -19,7 +19,7 @@ import java.util.UUID;
 
 public class resourcePacks implements Listener {
 
-	FileConfiguration config = Main.plugin.config();
+	FileConfiguration config = Main.plugin().config();
 	HashMap<UUID, String> loadedPacks = new HashMap<UUID, String>();
 
 	@EventHandler
@@ -81,7 +81,7 @@ public class resourcePacks implements Listener {
 		if (worldHasPack(world.getName())) { // Use world resource pack
 			String url = config.getString("resource-packs.perworld." + world.getName() + ".url");
 
-			Bukkit.getScheduler().scheduleSyncDelayedTask(Main.plugin, new Runnable() {
+			Bukkit.getScheduler().scheduleSyncDelayedTask(Main.plugin(), new Runnable() {
 				@Override
 				public void run() {
 					if (loadedPacks.containsKey(player.getUniqueId()) && loadedPacks.get(player.getUniqueId()).equals(url)) return;
@@ -94,7 +94,7 @@ public class resourcePacks implements Listener {
 			String url = config.getString("resource-packs.default.url");
 
 			if (!url.equalsIgnoreCase("")) {
-				Bukkit.getScheduler().scheduleSyncDelayedTask(Main.plugin, new Runnable() {
+				Bukkit.getScheduler().scheduleSyncDelayedTask(Main.plugin(), new Runnable() {
 					@Override
 					public void run() {
 						if (loadedPacks.containsKey(player.getUniqueId()) && loadedPacks.get(player.getUniqueId()).equals(url)) return;

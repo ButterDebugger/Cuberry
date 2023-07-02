@@ -27,8 +27,8 @@ import java.util.List;
 
 public class CubeFruit implements CommandExecutor, TabCompleter {
 
-	FileConfiguration config = Main.plugin.config();
-	dataStorage playerData = Main.plugin.getData("players.yml");
+	FileConfiguration config = Main.plugin().config();
+	dataStorage playerData = Main.plugin().getData("players.yml");
 
 	static ArrayList<String> tempworlds = new ArrayList<>();
 	static HashMap<Player, Boolean> lagmonitor = new HashMap<>();
@@ -45,539 +45,358 @@ public class CubeFruit implements CommandExecutor, TabCompleter {
 				sender.sendMessage(awesomeText.colorize("&3Usage: &7/" + label.toLowerCase() + " <arguments>"));
 				return true;
 			}
-			if (args.length > 0) {
-				if (args[0].equalsIgnoreCase("reload")) {
-					sender.sendMessage(awesomeText.prettifyMessage("&b[&3&l!&b] &aPlugin has been Reloaded!"));
-					Main.plugin.reload();
+
+			if (args[0].equalsIgnoreCase("reload")) {
+				sender.sendMessage(awesomeText.prettifyMessage("&b[&3&l!&b] &aPlugin has been Reloaded!"));
+				Main.plugin().reload();
+				return true;
+			} else if (args[0].equalsIgnoreCase("test")) {
+				sender.sendMessage(awesomeText.prettifyMessage("--- start of test ---"));
+
+				String message = Main.locale().getMessage("commands.player_required", "en_us");
+				sender.sendMessage(message + "");
+
+				String message2 = Main.locale().getMessage("commands.player_required", "es_us");
+				sender.sendMessage(message2 + "");
+
+//					tooManyParticles.test();
+
+				sender.sendMessage(awesomeText.prettifyMessage("&7--- end  of  test ---"));
+				return true;
+			} else if (args[0].equalsIgnoreCase("debug")) {
+				if (!config.getBoolean("debug")) {
+					sender.sendMessage(awesomeText.prettifyMessage("&cError: &7This feature is not enabled in the config."));
 					return true;
-				} else if (args[0].equalsIgnoreCase("test")) {
-					sender.sendMessage(awesomeText.prettifyMessage("--- start of test ---"));
+				}
 
-					tooManyParticles.test();
-
-					sender.sendMessage(awesomeText.prettifyMessage("&7--- end  of  test ---"));
+				if (args.length <= 1) {
+					sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 					return true;
-				} else if (args[0].equalsIgnoreCase("debug")) {
-					if (!config.getBoolean("debug")) {
-						sender.sendMessage(awesomeText.prettifyMessage("&cError: &7This feature is not enabled in the config."));
-						return true;
-					}
-
-					if (args.length <= 1) {
+				} else if (args[1].equalsIgnoreCase("player")) {
+					if (args.length < 3) {
 						sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 						return true;
-					} else if (args[1].equalsIgnoreCase("player")) {
-						if (args.length < 3) {
+					} else if (args[2].equalsIgnoreCase("sethunger")) {
+						if (args.length < 4) {
 							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 							return true;
-						} else if (args[2].equalsIgnoreCase("sethunger")) {
-							if (args.length < 4) {
+						} else if (dogTags.isOnline(args[3])) {
+							Player other = Bukkit.getPlayer(args[3]);
+
+							if (args.length < 5) {
 								sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 								return true;
-							} else if (dogTags.isOnline(args[3])) {
-								Player other = Bukkit.getPlayer(args[3]);
+							} else if (dogTags.isNumeric(args[4])) {
+								int number = Math.min(Integer.parseInt(args[4]), 20);
 
-								if (args.length < 5) {
-									sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
-									return true;
-								} else if (dogTags.isNumeric(args[4])) {
-									int number = Math.min(Integer.parseInt(args[4]), 20);
-
-									other.setFoodLevel(number);
-									sender.sendMessage(awesomeText.colorize("&b" + other.getName() + "&3's hunger has been set to &b" + number));
-									return true;
-								} else {
-									sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
-									return true;
-								}
-							} else {
-								sender.sendMessage(awesomeText.colorize(config.getString("messages.playernotfound")));
-								return true;
-							}
-						} else if (args[2].equalsIgnoreCase("sethealth")) {
-							if (args.length < 4) {
-								sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
-								return true;
-							} else if (dogTags.isOnline(args[3])) {
-								Player other = Bukkit.getPlayer(args[3]);
-
-								if (args.length < 5) {
-									sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
-									return true;
-								} else if (dogTags.isNumeric(args[4])) {
-									double number = Math.min(Integer.parseInt(args[4]), other.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue());
-
-									other.setHealth(number);
-									sender.sendMessage(awesomeText.colorize("&b" + other.getName() + "&3's health has been set to &b" + number));
-									return true;
-								} else {
-									sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
-									return true;
-								}
-							} else {
-								sender.sendMessage(awesomeText.prettifyMessage("&cError: &7That player could not be found."));
-								return true;
-							}
-						} else if (args[2].equalsIgnoreCase("hide")) {
-							if (args.length < 4) {
-								sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
-								return true;
-							} else if (dogTags.isOnline(args[3])) {
-								Player hidden = Bukkit.getPlayer(args[3]);
-
-								if (args.length < 5) {
-									sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
-									return true;
-								} else if (dogTags.isOnline(args[4])) {
-									Player other = Bukkit.getPlayer(args[4]);
-									other.hidePlayer(Main.plugin, hidden);
-									sender.sendMessage(awesomeText.colorize("&b" + hidden.getName() + " &3is now hidden from &b" + other.getName()));
-									return true;
-								} else {
-									sender.sendMessage(awesomeText.colorize(config.getString("messages.playernotfound")));
-									return true;
-								}
-							} else {
-								sender.sendMessage(awesomeText.colorize(config.getString("messages.playernotfound")));
-								return true;
-							}
-						} else if (args[2].equalsIgnoreCase("show")) {
-							if (args.length < 4) {
-								sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
-								return true;
-							} else if (dogTags.isOnline(args[3])) {
-								Player shown = Bukkit.getPlayer(args[3]);
-
-								if (args.length < 5) {
-									sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
-									return true;
-								} else if (dogTags.isOnline(args[4])) {
-									Player other = Bukkit.getPlayer(args[4]);
-									other.showPlayer(Main.plugin, shown);
-									sender.sendMessage(awesomeText.colorize("b" + shown.getName() + " &3is now visible to &b" + other.getName()));
-									return true;
-								} else {
-									sender.sendMessage(awesomeText.colorize(config.getString("messages.playernotfound")));
-									return true;
-								}
-							} else {
-								sender.sendMessage(awesomeText.colorize(config.getString("messages.playernotfound")));
-								return true;
-							}
-						} else if (args[2].equalsIgnoreCase("dupeinventory")) {
-							if (!(sender instanceof Player)) {
-								sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
-								return true;
-							}
-							Player player = (Player) sender;
-
-							if (args.length < 4) {
-								sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
-								return true;
-							} else if (dogTags.isOnline(args[3])) {
-								Player other = Bukkit.getPlayer(args[3]);
-
-								Inventory inventory = Bukkit.createInventory(null, 45, other.getName() + "'s Inventory");
-
-								inventory.setContents(other.getInventory().getContents());
-
-								player.openInventory(inventory);
-							} else {
-								sender.sendMessage(awesomeText.colorize(config.getString("messages.playernotfound")));
-								return true;
-							}
-						} else if (args[2].equalsIgnoreCase("dupeenderchest")) {
-							if (!(sender instanceof Player)) {
-								sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
-								return true;
-							}
-							Player player = (Player) sender;
-
-							if (args.length < 4) {
-								sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
-								return true;
-							} else if (dogTags.isOnline(args[3])) {
-								Player other = Bukkit.getPlayer(args[3]);
-
-								Inventory inventory = Bukkit.createInventory(null, 27, other.getName() + "'s Ender Chest");
-
-								inventory.setContents(other.getEnderChest().getContents());
-
-								player.openInventory(inventory);
-							} else {
-								sender.sendMessage(awesomeText.colorize(config.getString("messages.playernotfound")));
-								return true;
-							}
-						} else if (args[2].equalsIgnoreCase("setarrowsinbody")) {
-							if (args.length < 4) {
-								sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
-								return true;
-							} else if (dogTags.isOnline(args[3])) {
-								Player other = Bukkit.getPlayer(args[3]);
-
-								if (args.length < 5) {
-									sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
-									return true;
-								} else if (dogTags.isNumeric(args[4])) {
-									int number = Integer.parseInt(args[4]);
-
-									other.setArrowsInBody(number);
-									sender.sendMessage(awesomeText.colorize("&b" + other.getName() + "&3 now has &b" + number + "&3 arrows in their body"));
-									return true;
-								} else {
-									sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
-									return true;
-								}
-							} else {
-								sender.sendMessage(awesomeText.prettifyMessage("&cError: &7That player could not be found."));
-								return true;
-							}
-						} else if (args[2].equalsIgnoreCase("ride")) {
-							if (args.length < 4) {
-								sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
-								return true;
-							} else if (dogTags.isOnline(args[3])) {
-								Player rider = Bukkit.getPlayer(args[3]);
-
-								if (args.length < 5) {
-									sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
-									return true;
-								} else if (dogTags.isOnline(args[4])) {
-									Player other = Bukkit.getPlayer(args[4]);
-									other.setPassenger(rider);
-									sender.sendMessage(awesomeText.colorize("&b" + rider.getName() + " &3is now riding &b" + other.getName()));
-									return true;
-								} else {
-									sender.sendMessage(awesomeText.colorize(config.getString("messages.playernotfound")));
-									return true;
-								}
-							} else {
-								sender.sendMessage(awesomeText.colorize(config.getString("messages.playernotfound")));
-								return true;
-							}
-						} else if (args[2].equalsIgnoreCase("swap")) {
-							if (args.length < 4) {
-								sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
-								return true;
-							} else if (dogTags.isOnline(args[3])) {
-								Player player = Bukkit.getPlayer(args[3]);
-
-								if (args.length < 5) {
-									sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
-									return true;
-								} else if (dogTags.isOnline(args[4])) {
-									Player other = Bukkit.getPlayer(args[4]);
-
-									Location playerLoc = player.getLocation();
-									Vector playerVel = player.getVelocity();
-									player.teleport(other.getLocation());
-									player.setVelocity(other.getVelocity());
-									other.teleport(playerLoc);
-									other.setVelocity(playerVel);
-
-									sender.sendMessage(awesomeText.colorize("&b" + player.getName() + " &3has swapped positions with &b" + other.getName()));
-									return true;
-								} else {
-									sender.sendMessage(awesomeText.colorize(config.getString("messages.playernotfound")));
-									return true;
-								}
-							} else {
-								sender.sendMessage(awesomeText.colorize(config.getString("messages.playernotfound")));
-								return true;
-							}
-						} else if (args[2].equalsIgnoreCase("dropmainhand")) {
-							if (args.length < 4) {
-								sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
-								return true;
-							} else if (dogTags.isOnline(args[3])) {
-								Player other = Bukkit.getPlayer(args[3]);
-
-								ItemStack item = other.getInventory().getItemInMainHand();
-								if (item == null || item.getType().isAir()) {
-									sender.sendMessage(awesomeText.colorize("&b" + other.getName() + " &3has nothing in their Main hand."));
-								} else {
-									other.getWorld().dropItem(other.getLocation(), item);
-									other.getInventory().setItemInMainHand(null);
-
-									sender.sendMessage(awesomeText.colorize("&b" + other.getName() + " &3has dropped the item in their Main hand."));
-								}
-							} else {
-								sender.sendMessage(awesomeText.prettifyMessage("&cError: &7That player could not be found."));
-								return true;
-							}
-						} else if (args[2].equalsIgnoreCase("dropoffhand")) {
-							if (args.length < 4) {
-								sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
-								return true;
-							} else if (dogTags.isOnline(args[3])) {
-								Player other = Bukkit.getPlayer(args[3]);
-
-								ItemStack item = other.getInventory().getItemInOffHand();
-								if (item == null || item.getType().isAir()) {
-									sender.sendMessage(awesomeText.colorize("&b" + other.getName() + " &3has nothing in their off hand."));
-								} else {
-									other.getWorld().dropItem(other.getLocation(), item);
-									other.getInventory().setItemInOffHand(null);
-
-									sender.sendMessage(awesomeText.colorize("&b" + other.getName() + " &3has dropped the item in their off hand."));
-								}
-							} else {
-								sender.sendMessage(awesomeText.prettifyMessage("&cError: &7That player could not be found."));
-								return true;
-							}
-						} else if (args[2].equalsIgnoreCase("dropoffhand")) {
-							if (args.length < 4) {
-								sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
-								return true;
-							} else if (dogTags.isOnline(args[3])) {
-								Player other = Bukkit.getPlayer(args[3]);
-
-								ItemStack item = other.getInventory().getItemInOffHand();
-								if (item == null || item.getType().isAir()) {
-									sender.sendMessage(awesomeText.colorize("&b" + other.getName() + " &3has nothing in their off hand."));
-								} else {
-									other.getWorld().dropItem(other.getLocation(), item);
-									other.getInventory().setItemInOffHand(null);
-
-									sender.sendMessage(awesomeText.colorize("&b" + other.getName() + " &3has dropped the item in their off hand."));
-								}
-							} else {
-								sender.sendMessage(awesomeText.prettifyMessage("&cError: &7That player could not be found."));
-								return true;
-							}
-						}
-					} else if (args[1].equalsIgnoreCase("server")) {
-						if (args.length < 3) {
-							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
-							return true;
-						} else if (args[2].equalsIgnoreCase("address")) {
-							sender.sendMessage(awesomeText.colorize("&3Server address is &b" + Bukkit.getIp() + ":" + Bukkit.getPort()));
-							return true;
-						} else if (args[2].equalsIgnoreCase("shutdown")) {
-							sender.sendMessage(awesomeText.colorize("&3Server is shutting down."));
-							Bukkit.shutdown();
-							return true;
-						} else if (args[2].equalsIgnoreCase("restart")) {
-							sender.sendMessage(awesomeText.colorize("&3Server is restarting."));
-							Bukkit.getServer().spigot().restart();
-							return true;
-						} else if (args[2].equalsIgnoreCase("version")) {
-							sender.sendMessage(awesomeText.colorize("&3Server version is &b" + Bukkit.getVersion()));
-							sender.sendMessage(awesomeText.colorize("&3Bukkit version is &b" + Bukkit.getBukkitVersion()));
-							return true;
-						} else if (args[2].equalsIgnoreCase("lagmonitor")) {
-							if (!(sender instanceof Player)) {
-								sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
-								return true;
-							}
-							Player player = (Player) sender;
-
-							if (args.length < 4) {
-								lagmonitor.put(player, !lagmonitor.get(player));
-
-								if (lagmonitor.get(player)) {
-									sender.sendMessage(awesomeText.colorize("&7Lag monitor has been toggled on."));
-								} else {
-									sender.sendMessage(awesomeText.colorize("&7Lag monitor has been toggled off."));
-								}
-								return true;
-							} else if (args[3].equalsIgnoreCase("on")) {
-								lagmonitor.put(player, true);
-
-								sender.sendMessage(awesomeText.colorize("&7Lag monitor has been turned on."));
-								return true;
-							} else if (args[3].equalsIgnoreCase("off")) {
-								lagmonitor.put(player, false);
-
-								sender.sendMessage(awesomeText.colorize("&7Lag monitor has been turned off."));
+								other.setFoodLevel(number);
+								sender.sendMessage(awesomeText.colorize("&b" + other.getName() + "&3's hunger has been set to &b" + number));
 								return true;
 							} else {
 								sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 								return true;
 							}
 						} else {
-							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
+							sender.sendMessage(awesomeText.colorize(config.getString("messages.playernotfound")));
 							return true;
 						}
-					} else if (args[1].equalsIgnoreCase("chunk")) {
-						if (!(sender instanceof Player)) {
-							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
-							return true;
-						}
-
-						Player player = (Player) sender;
-						World world = player.getLocation().getWorld();
-						Chunk chunk = player.getLocation().getBlock().getChunk();
-
-						if (args.length < 3) {
+					} else if (args[2].equalsIgnoreCase("sethealth")) {
+						if (args.length < 4) {
 							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 							return true;
-						} else if (args[2].equalsIgnoreCase("unload")) {
-							chunk.unload(true);
-							sender.sendMessage(awesomeText.colorize("&3Chunk has been unloaded."));
-							return true;
-						} else if (args[2].equalsIgnoreCase("isslime")) {
-							if (chunk.isSlimeChunk()) {
-								sender.sendMessage(awesomeText.colorize("&3Chunk is a slime chunk."));
+						} else if (dogTags.isOnline(args[3])) {
+							Player other = Bukkit.getPlayer(args[3]);
+
+							if (args.length < 5) {
+								sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
+								return true;
+							} else if (dogTags.isNumeric(args[4])) {
+								double number = Math.min(Integer.parseInt(args[4]), other.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue());
+
+								other.setHealth(number);
+								sender.sendMessage(awesomeText.colorize("&b" + other.getName() + "&3's health has been set to &b" + number));
+								return true;
 							} else {
-								sender.sendMessage(awesomeText.colorize("&3Chunk is a not slime chunk."));
-							}
-							return true;
-						} else if (args[2].equalsIgnoreCase("regenerate")) {
-							try {
-								world.regenerateChunk(chunk.getX(), chunk.getZ());
-
-								sender.sendMessage(awesomeText.colorize("&3Chunk has been regenerated."));
-								return true;
-							} catch (UnsupportedOperationException e) {
-//								sender.sendMessage(awesomeText.colorize("&cNot supported in this Minecraft version!"));
-//								return true;
-
-								String tempworldname = "_temp-" + world.getName();
-								World tempworld;
-								if (Bukkit.getWorld(tempworldname) != null) {
-									tempworld = Bukkit.getWorld(tempworldname);
-								} else {
-									WorldCreator c = new WorldCreator(tempworldname);
-									c.seed(world.getSeed());
-									tempworld = c.createWorld();
-								}
-								Chunk tempchunk = tempworld.getChunkAt(chunk.getX(), chunk.getZ());
-
-								for (Block block : caboodle.getChunkBlocks(tempchunk)) {
-									Block oldblock = world.getBlockAt(block.getX(), block.getY(), block.getZ());
-									BlockState oldstate = oldblock.getState();
-
-									// TODO: clone nbt tags
-
-									oldstate.setType(block.getType());
-									oldstate.setBlockData(block.getBlockData());
-									oldstate.update(true);
-								}
-
-								tempworlds.add(tempworldname);
-
-								sender.sendMessage(awesomeText.colorize("&3Chunk has been regenerated."));
+								sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 								return true;
 							}
-						} else if (args[2].equalsIgnoreCase("unloadall")) {
-							ArrayList<Chunk> chunks = new ArrayList<>();
-
-							for (Chunk c : world.getLoadedChunks()) {
-								boolean result = c.unload(true);
-								if (result) {
-									chunks.add(c);
-								}
-							}
-							sender.sendMessage(awesomeText.colorize("&b" + chunks.size() + " &3chunks have been unloaded."));
-							return true;
 						} else {
-							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
+							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7That player could not be found."));
 							return true;
 						}
-					} else if (args[1].equalsIgnoreCase("world")) {
+					} else if (args[2].equalsIgnoreCase("hide")) {
+						if (args.length < 4) {
+							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
+							return true;
+						} else if (dogTags.isOnline(args[3])) {
+							Player hidden = Bukkit.getPlayer(args[3]);
+
+							if (args.length < 5) {
+								sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
+								return true;
+							} else if (dogTags.isOnline(args[4])) {
+								Player other = Bukkit.getPlayer(args[4]);
+								other.hidePlayer(Main.plugin(), hidden);
+								sender.sendMessage(awesomeText.colorize("&b" + hidden.getName() + " &3is now hidden from &b" + other.getName()));
+								return true;
+							} else {
+								sender.sendMessage(awesomeText.colorize(config.getString("messages.playernotfound")));
+								return true;
+							}
+						} else {
+							sender.sendMessage(awesomeText.colorize(config.getString("messages.playernotfound")));
+							return true;
+						}
+					} else if (args[2].equalsIgnoreCase("show")) {
+						if (args.length < 4) {
+							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
+							return true;
+						} else if (dogTags.isOnline(args[3])) {
+							Player shown = Bukkit.getPlayer(args[3]);
+
+							if (args.length < 5) {
+								sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
+								return true;
+							} else if (dogTags.isOnline(args[4])) {
+								Player other = Bukkit.getPlayer(args[4]);
+								other.showPlayer(Main.plugin(), shown);
+								sender.sendMessage(awesomeText.colorize("b" + shown.getName() + " &3is now visible to &b" + other.getName()));
+								return true;
+							} else {
+								sender.sendMessage(awesomeText.colorize(config.getString("messages.playernotfound")));
+								return true;
+							}
+						} else {
+							sender.sendMessage(awesomeText.colorize(config.getString("messages.playernotfound")));
+							return true;
+						}
+					} else if (args[2].equalsIgnoreCase("dupeinventory")) {
 						if (!(sender instanceof Player)) {
 							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
 							return true;
 						}
-
 						Player player = (Player) sender;
-						World world = player.getLocation().getWorld();
 
-						if (args.length < 3) {
+						if (args.length < 4) {
 							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 							return true;
-						}
+						} else if (dogTags.isOnline(args[3])) {
+							Player other = Bukkit.getPlayer(args[3]);
 
-						if (args.length >= 4 && !(args[2].equalsIgnoreCase("load") || args[2].equalsIgnoreCase("list") || args[2].equalsIgnoreCase("delete"))) { // Get optional world argument
-							world = Bukkit.getWorld(args[3]);
+							Inventory inventory = Bukkit.createInventory(null, 45, other.getName() + "'s Inventory");
 
-							if (world == null) {
-								sender.sendMessage(awesomeText.colorize("&cError: &7That world could not be found."));
-								return true;
-							}
-						}
+							inventory.setContents(other.getInventory().getContents());
 
-						if (args[2].equalsIgnoreCase("unload")) {
-							boolean result = Bukkit.unloadWorld(world, true);
-
-							if (result) {
-								sender.sendMessage(awesomeText.colorize("&f" + world.getName() + " &7has been unloaded."));
-							} else {
-								sender.sendMessage(awesomeText.colorize("&f" + world.getName() + " &7could not be unloaded."));
-							}
+							player.openInventory(inventory);
+						} else {
+							sender.sendMessage(awesomeText.colorize(config.getString("messages.playernotfound")));
 							return true;
-						} else if (args[2].equalsIgnoreCase("load")) {
-							if (args.length < 4) {
+						}
+					} else if (args[2].equalsIgnoreCase("dupeenderchest")) {
+						if (!(sender instanceof Player)) {
+							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
+							return true;
+						}
+						Player player = (Player) sender;
+
+						if (args.length < 4) {
+							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
+							return true;
+						} else if (dogTags.isOnline(args[3])) {
+							Player other = Bukkit.getPlayer(args[3]);
+
+							Inventory inventory = Bukkit.createInventory(null, 27, other.getName() + "'s Ender Chest");
+
+							inventory.setContents(other.getEnderChest().getContents());
+
+							player.openInventory(inventory);
+						} else {
+							sender.sendMessage(awesomeText.colorize(config.getString("messages.playernotfound")));
+							return true;
+						}
+					} else if (args[2].equalsIgnoreCase("setarrowsinbody")) {
+						if (args.length < 4) {
+							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
+							return true;
+						} else if (dogTags.isOnline(args[3])) {
+							Player other = Bukkit.getPlayer(args[3]);
+
+							if (args.length < 5) {
+								sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
+								return true;
+							} else if (dogTags.isNumeric(args[4])) {
+								int number = Integer.parseInt(args[4]);
+
+								other.setArrowsInBody(number);
+								sender.sendMessage(awesomeText.colorize("&b" + other.getName() + "&3 now has &b" + number + "&3 arrows in their body"));
+								return true;
+							} else {
 								sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 								return true;
 							}
-
-							World w = Bukkit.createWorld(new WorldCreator(args[3]));
-							if (w == null) {
-								sender.sendMessage(awesomeText.colorize("&7Failed to load &f" + w.getName()));
-							} else {
-								sender.sendMessage(awesomeText.colorize("&f" + w.getName() + " &7has been loaded."));
-							}
+						} else {
+							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7That player could not be found."));
 							return true;
-						} else if (args[2].equalsIgnoreCase("save")) {
-							world.save();
-							sender.sendMessage(awesomeText.colorize("&f" + world.getName() + " &7has been saved."));
+						}
+					} else if (args[2].equalsIgnoreCase("ride")) {
+						if (args.length < 4) {
+							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 							return true;
-						} else if (args[2].equalsIgnoreCase("backup")) {
-							world.save();
+						} else if (dogTags.isOnline(args[3])) {
+							Player rider = Bukkit.getPlayer(args[3]);
 
-							DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH.mm.ss");
-							LocalDateTime date = LocalDateTime.now();
-							String savename = "./backups/" + world.getName() + "_" + date.format(formatter);
-							caboodle.copyWorld(world.getWorldFolder(), new File(savename));
-
-							sender.sendMessage(awesomeText.colorize("&7Backup saved at &f" + savename));
-							return true;
-						} else if (args[2].equalsIgnoreCase("enablepvp")) {
-							world.setPVP(true);
-							sender.sendMessage(awesomeText.colorize("&7PVP has been enabled in &f" + world.getName()));
-							return true;
-						} else if (args[2].equalsIgnoreCase("disablepvp")) {
-							world.setPVP(false);
-							sender.sendMessage(awesomeText.colorize("&7PVP has been disabled in &f" + world.getName()));
-							return true;
-						} else if (args[2].equalsIgnoreCase("list")) {
-							sender.sendMessage(awesomeText.colorize("&7World list:"));
-
-							for (World w : Bukkit.getWorlds()) {
-								String stringType = "";
-
-								if (w.getEnvironment().equals(Environment.NORMAL)) {
-									stringType = "&a" + w.getEnvironment().toString();
-								} else if (w.getEnvironment().equals(Environment.NETHER)) {
-									stringType = "&c" + w.getEnvironment().toString();
-								} else if (w.getEnvironment().equals(Environment.THE_END)) {
-									stringType = "&e" + w.getEnvironment().toString();
-								} else {
-									stringType = "&d" + w.getEnvironment().toString();
-								}
-
-								sender.sendMessage(awesomeText.colorize("&f" + w.getName() + " - " + stringType));
-							}
-							return true;
-						} else if (args[2].equalsIgnoreCase("delete")) {
-							if (args.length < 4) {
+							if (args.length < 5) {
 								sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 								return true;
-							}
-
-							if (!caboodle.getAllWorldNames().contains(args[3])) {
-								sender.sendMessage(awesomeText.colorize("&cError: &7That world could not be found."));
-								return true;
-							} else if (caboodle.getUnloadedWorldNames().contains(args[3])) {
-								caboodle.deleteWorld(args[3]);
-								sender.sendMessage(awesomeText.colorize("&f" + args[3] + " &7has been deleted."));
+							} else if (dogTags.isOnline(args[4])) {
+								Player other = Bukkit.getPlayer(args[4]);
+								other.setPassenger(rider);
+								sender.sendMessage(awesomeText.colorize("&b" + rider.getName() + " &3is now riding &b" + other.getName()));
 								return true;
 							} else {
-								sender.sendMessage(awesomeText.colorize("&cError: &7The world has to be unloaded first"));
+								sender.sendMessage(awesomeText.colorize(config.getString("messages.playernotfound")));
 								return true;
 							}
+						} else {
+							sender.sendMessage(awesomeText.colorize(config.getString("messages.playernotfound")));
+							return true;
+						}
+					} else if (args[2].equalsIgnoreCase("swap")) {
+						if (args.length < 4) {
+							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
+							return true;
+						} else if (dogTags.isOnline(args[3])) {
+							Player player = Bukkit.getPlayer(args[3]);
+
+							if (args.length < 5) {
+								sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
+								return true;
+							} else if (dogTags.isOnline(args[4])) {
+								Player other = Bukkit.getPlayer(args[4]);
+
+								Location playerLoc = player.getLocation();
+								Vector playerVel = player.getVelocity();
+								player.teleport(other.getLocation());
+								player.setVelocity(other.getVelocity());
+								other.teleport(playerLoc);
+								other.setVelocity(playerVel);
+
+								sender.sendMessage(awesomeText.colorize("&b" + player.getName() + " &3has swapped positions with &b" + other.getName()));
+								return true;
+							} else {
+								sender.sendMessage(awesomeText.colorize(config.getString("messages.playernotfound")));
+								return true;
+							}
+						} else {
+							sender.sendMessage(awesomeText.colorize(config.getString("messages.playernotfound")));
+							return true;
+						}
+					} else if (args[2].equalsIgnoreCase("dropmainhand")) {
+						if (args.length < 4) {
+							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
+							return true;
+						} else if (dogTags.isOnline(args[3])) {
+							Player other = Bukkit.getPlayer(args[3]);
+
+							ItemStack item = other.getInventory().getItemInMainHand();
+							if (item == null || item.getType().isAir()) {
+								sender.sendMessage(awesomeText.colorize("&b" + other.getName() + " &3has nothing in their Main hand."));
+							} else {
+								other.getWorld().dropItem(other.getLocation(), item);
+								other.getInventory().setItemInMainHand(null);
+
+								sender.sendMessage(awesomeText.colorize("&b" + other.getName() + " &3has dropped the item in their Main hand."));
+							}
+						} else {
+							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7That player could not be found."));
+							return true;
+						}
+					} else if (args[2].equalsIgnoreCase("dropoffhand")) {
+						if (args.length < 4) {
+							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
+							return true;
+						} else if (dogTags.isOnline(args[3])) {
+							Player other = Bukkit.getPlayer(args[3]);
+
+							ItemStack item = other.getInventory().getItemInOffHand();
+							if (item == null || item.getType().isAir()) {
+								sender.sendMessage(awesomeText.colorize("&b" + other.getName() + " &3has nothing in their off hand."));
+							} else {
+								other.getWorld().dropItem(other.getLocation(), item);
+								other.getInventory().setItemInOffHand(null);
+
+								sender.sendMessage(awesomeText.colorize("&b" + other.getName() + " &3has dropped the item in their off hand."));
+							}
+						} else {
+							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7That player could not be found."));
+							return true;
+						}
+					} else if (args[2].equalsIgnoreCase("dropoffhand")) {
+						if (args.length < 4) {
+							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
+							return true;
+						} else if (dogTags.isOnline(args[3])) {
+							Player other = Bukkit.getPlayer(args[3]);
+
+							ItemStack item = other.getInventory().getItemInOffHand();
+							if (item == null || item.getType().isAir()) {
+								sender.sendMessage(awesomeText.colorize("&b" + other.getName() + " &3has nothing in their off hand."));
+							} else {
+								other.getWorld().dropItem(other.getLocation(), item);
+								other.getInventory().setItemInOffHand(null);
+
+								sender.sendMessage(awesomeText.colorize("&b" + other.getName() + " &3has dropped the item in their off hand."));
+							}
+						} else {
+							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7That player could not be found."));
+							return true;
+						}
+					}
+				} else if (args[1].equalsIgnoreCase("server")) {
+					if (args.length < 3) {
+						sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
+						return true;
+					} else if (args[2].equalsIgnoreCase("address")) {
+						sender.sendMessage(awesomeText.colorize("&3Server address is &b" + Bukkit.getIp() + ":" + Bukkit.getPort()));
+						return true;
+					} else if (args[2].equalsIgnoreCase("shutdown")) {
+						sender.sendMessage(awesomeText.colorize("&3Server is shutting down."));
+						Bukkit.shutdown();
+						return true;
+					} else if (args[2].equalsIgnoreCase("restart")) {
+						sender.sendMessage(awesomeText.colorize("&3Server is restarting."));
+						Bukkit.getServer().spigot().restart();
+						return true;
+					} else if (args[2].equalsIgnoreCase("version")) {
+						sender.sendMessage(awesomeText.colorize("&3Server version is &b" + Bukkit.getVersion()));
+						sender.sendMessage(awesomeText.colorize("&3Bukkit version is &b" + Bukkit.getBukkitVersion()));
+						return true;
+					} else if (args[2].equalsIgnoreCase("lagmonitor")) {
+						if (!(sender instanceof Player)) {
+							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
+							return true;
+						}
+						Player player = (Player) sender;
+
+						if (args.length < 4) {
+							lagmonitor.put(player, !lagmonitor.get(player));
+
+							if (lagmonitor.get(player)) {
+								sender.sendMessage(awesomeText.colorize("&7Lag monitor has been toggled on."));
+							} else {
+								sender.sendMessage(awesomeText.colorize("&7Lag monitor has been toggled off."));
+							}
+							return true;
+						} else if (args[3].equalsIgnoreCase("on")) {
+							lagmonitor.put(player, true);
+
+							sender.sendMessage(awesomeText.colorize("&7Lag monitor has been turned on."));
+							return true;
+						} else if (args[3].equalsIgnoreCase("off")) {
+							lagmonitor.put(player, false);
+
+							sender.sendMessage(awesomeText.colorize("&7Lag monitor has been turned off."));
+							return true;
 						} else {
 							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 							return true;
@@ -586,10 +405,193 @@ public class CubeFruit implements CommandExecutor, TabCompleter {
 						sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 						return true;
 					}
+				} else if (args[1].equalsIgnoreCase("chunk")) {
+					if (!(sender instanceof Player)) {
+						sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
+						return true;
+					}
+
+					Player player = (Player) sender;
+					World world = player.getLocation().getWorld();
+					Chunk chunk = player.getLocation().getBlock().getChunk();
+
+					if (args.length < 3) {
+						sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
+						return true;
+					} else if (args[2].equalsIgnoreCase("unload")) {
+						chunk.unload(true);
+						sender.sendMessage(awesomeText.colorize("&3Chunk has been unloaded."));
+						return true;
+					} else if (args[2].equalsIgnoreCase("isslime")) {
+						if (chunk.isSlimeChunk()) {
+							sender.sendMessage(awesomeText.colorize("&3Chunk is a slime chunk."));
+						} else {
+							sender.sendMessage(awesomeText.colorize("&3Chunk is a not slime chunk."));
+						}
+						return true;
+					} else if (args[2].equalsIgnoreCase("regenerate")) {
+						try {
+							world.regenerateChunk(chunk.getX(), chunk.getZ());
+
+							sender.sendMessage(awesomeText.colorize("&3Chunk has been regenerated."));
+							return true;
+						} catch (UnsupportedOperationException e) {
+//								sender.sendMessage(awesomeText.colorize("&cNot supported in this Minecraft version!"));
+//								return true;
+
+							String tempworldname = "_temp-" + world.getName();
+							World tempworld;
+							if (Bukkit.getWorld(tempworldname) != null) {
+								tempworld = Bukkit.getWorld(tempworldname);
+							} else {
+								WorldCreator c = new WorldCreator(tempworldname);
+								c.seed(world.getSeed());
+								tempworld = c.createWorld();
+							}
+							Chunk tempchunk = tempworld.getChunkAt(chunk.getX(), chunk.getZ());
+
+							for (Block block : caboodle.getChunkBlocks(tempchunk)) {
+								Block oldblock = world.getBlockAt(block.getX(), block.getY(), block.getZ());
+								BlockState oldstate = oldblock.getState();
+
+								// TODO: clone nbt tags
+
+								oldstate.setType(block.getType());
+								oldstate.setBlockData(block.getBlockData());
+								oldstate.update(true);
+							}
+
+							tempworlds.add(tempworldname);
+
+							sender.sendMessage(awesomeText.colorize("&3Chunk has been regenerated."));
+							return true;
+						}
+					} else if (args[2].equalsIgnoreCase("unloadall")) {
+						ArrayList<Chunk> chunks = new ArrayList<>();
+
+						for (Chunk c : world.getLoadedChunks()) {
+							boolean result = c.unload(true);
+							if (result) {
+								chunks.add(c);
+							}
+						}
+						sender.sendMessage(awesomeText.colorize("&b" + chunks.size() + " &3chunks have been unloaded."));
+						return true;
+					} else {
+						sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
+						return true;
+					}
+				} else if (args[1].equalsIgnoreCase("world")) {
+					if (!(sender instanceof Player)) {
+						sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
+						return true;
+					}
+
+					Player player = (Player) sender;
+					World world = player.getLocation().getWorld();
+
+					if (args.length < 3) {
+						sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
+						return true;
+					}
+
+					if (args.length >= 4 && !(args[2].equalsIgnoreCase("load") || args[2].equalsIgnoreCase("list") || args[2].equalsIgnoreCase("delete"))) { // Get optional world argument
+						world = Bukkit.getWorld(args[3]);
+
+						if (world == null) {
+							sender.sendMessage(awesomeText.colorize("&cError: &7That world could not be found."));
+							return true;
+						}
+					}
+
+					if (args[2].equalsIgnoreCase("unload")) {
+						boolean result = Bukkit.unloadWorld(world, true);
+
+						if (result) {
+							sender.sendMessage(awesomeText.colorize("&f" + world.getName() + " &7has been unloaded."));
+						} else {
+							sender.sendMessage(awesomeText.colorize("&f" + world.getName() + " &7could not be unloaded."));
+						}
+						return true;
+					} else if (args[2].equalsIgnoreCase("load")) {
+						if (args.length < 4) {
+							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
+							return true;
+						}
+
+						World w = Bukkit.createWorld(new WorldCreator(args[3]));
+						if (w == null) {
+							sender.sendMessage(awesomeText.colorize("&7Failed to load &f" + w.getName()));
+						} else {
+							sender.sendMessage(awesomeText.colorize("&f" + w.getName() + " &7has been loaded."));
+						}
+						return true;
+					} else if (args[2].equalsIgnoreCase("save")) {
+						world.save();
+						sender.sendMessage(awesomeText.colorize("&f" + world.getName() + " &7has been saved."));
+						return true;
+					} else if (args[2].equalsIgnoreCase("backup")) {
+						world.save();
+
+						DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH.mm.ss");
+						LocalDateTime date = LocalDateTime.now();
+						String savename = "./backups/" + world.getName() + "_" + date.format(formatter);
+						caboodle.copyWorld(world.getWorldFolder(), new File(savename));
+
+						sender.sendMessage(awesomeText.colorize("&7Backup saved at &f" + savename));
+						return true;
+					} else if (args[2].equalsIgnoreCase("enablepvp")) {
+						world.setPVP(true);
+						sender.sendMessage(awesomeText.colorize("&7PVP has been enabled in &f" + world.getName()));
+						return true;
+					} else if (args[2].equalsIgnoreCase("disablepvp")) {
+						world.setPVP(false);
+						sender.sendMessage(awesomeText.colorize("&7PVP has been disabled in &f" + world.getName()));
+						return true;
+					} else if (args[2].equalsIgnoreCase("list")) {
+						sender.sendMessage(awesomeText.colorize("&7World list:"));
+
+						for (World w : Bukkit.getWorlds()) {
+							String stringType = "";
+
+							if (w.getEnvironment().equals(Environment.NORMAL)) {
+								stringType = "&a" + w.getEnvironment().toString();
+							} else if (w.getEnvironment().equals(Environment.NETHER)) {
+								stringType = "&c" + w.getEnvironment().toString();
+							} else if (w.getEnvironment().equals(Environment.THE_END)) {
+								stringType = "&e" + w.getEnvironment().toString();
+							} else {
+								stringType = "&d" + w.getEnvironment().toString();
+							}
+
+							sender.sendMessage(awesomeText.colorize("&f" + w.getName() + " - " + stringType));
+						}
+						return true;
+					} else if (args[2].equalsIgnoreCase("delete")) {
+						if (args.length < 4) {
+							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
+							return true;
+						}
+
+						if (!caboodle.getAllWorldNames().contains(args[3])) {
+							sender.sendMessage(awesomeText.colorize("&cError: &7That world could not be found."));
+							return true;
+						} else if (caboodle.getUnloadedWorldNames().contains(args[3])) {
+							caboodle.deleteWorld(args[3]);
+							sender.sendMessage(awesomeText.colorize("&f" + args[3] + " &7has been deleted."));
+							return true;
+						} else {
+							sender.sendMessage(awesomeText.colorize("&cError: &7The world has to be unloaded first"));
+							return true;
+						}
+					} else {
+						sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
+						return true;
+					}
+				} else {
+					sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
+					return true;
 				}
-			} else {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
-				return true;
 			}
 		}
 
@@ -644,7 +646,7 @@ public class CubeFruit implements CommandExecutor, TabCompleter {
 	}
 
 	public static void start() {
-		Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.plugin, new Runnable() {
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.plugin(), new Runnable() {
 			@Override
 			public void run() {
 				for (Player player : Bukkit.getOnlinePlayers()) {

@@ -15,8 +15,6 @@ import java.util.List;
 
 public class Speed extends CommandWrapper {
 
-	FileConfiguration config = Main.plugin.config();
-
 	public Speed() {
 		CommandRegistry speedCmd = new CommandRegistry(this, "speed");
 		speedCmd.setDescription("Change your walk or fly speed");

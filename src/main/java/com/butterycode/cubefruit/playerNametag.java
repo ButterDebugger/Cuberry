@@ -13,14 +13,14 @@ import java.util.UUID;
 
 public class playerNametag implements Listener {
 
-	static FileConfiguration config = Main.plugin.config();
+	static FileConfiguration config = Main.plugin().config();
 
 	public static void start() {
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			updateNametag(player);
 		}
 
-		Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.plugin, new Runnable() {
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.plugin(), new Runnable() {
 			@Override
 			public void run() {
 				for (Player player : Bukkit.getOnlinePlayers()) {

@@ -18,8 +18,7 @@ import java.util.List;
 
 public class Mutechat extends CommandWrapper implements Listener {
 
-	FileConfiguration config = Main.plugin.config();
-
+	FileConfiguration config = Main.plugin().config();
 	private static boolean isChatMuted = false;
 
 	public Mutechat() {

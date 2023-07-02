@@ -21,8 +21,8 @@ import java.util.List;
 
 public class Home extends CommandWrapper implements Listener {
 
-	FileConfiguration config = Main.plugin.config();
-	dataStorage playerData = Main.plugin.getData("players.yml");
+	FileConfiguration config = Main.plugin().config();
+	dataStorage playerData = Main.plugin().getData("players.yml");
 
 	public Home() {
 		CommandRegistry homeCmd = new CommandRegistry(this, "home");
@@ -125,7 +125,7 @@ public class Home extends CommandWrapper implements Listener {
 
 			Location homeLoc = caboodle.parseLocation(playerData.getString(player.getUniqueId() + ".home"));
 
-			Bukkit.getScheduler().scheduleSyncDelayedTask(Main.plugin, () -> {
+			Bukkit.getScheduler().scheduleSyncDelayedTask(Main.plugin(), () -> {
 				player.teleport(homeLoc);
 			}, 2L);
 		}

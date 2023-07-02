@@ -30,8 +30,8 @@ import java.util.List;
 
 public class lockedBlocks implements Listener, CommandExecutor {
 
-	static FileConfiguration config = Main.plugin.config();
-	static dataStorage blockData = Main.plugin.getData("blocks.yml");
+	static FileConfiguration config = Main.plugin().config();
+	static dataStorage blockData = Main.plugin().getData("blocks.yml");
 	static ItemStack masterKey;
 
 	public static void start() {

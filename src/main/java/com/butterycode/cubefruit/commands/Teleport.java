@@ -18,7 +18,7 @@ import java.util.UUID;
 
 public class Teleport extends CommandWrapper {
 
-	dataStorage playerData = Main.plugin.getData("players.yml");
+	dataStorage playerData = Main.plugin().getData("players.yml");
 
 	public Teleport() {
 		CommandRegistry tphereCmd = new CommandRegistry(this, "tphere");

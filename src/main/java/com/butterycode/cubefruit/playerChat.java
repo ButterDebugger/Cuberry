@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 
 public class playerChat implements Listener {
 
-	FileConfiguration config = Main.plugin.config();
+	FileConfiguration config = Main.plugin().config();
 
 	static HashMap<UUID, Long> lastMessage = new HashMap<>();
 	static HashMap<UUID, Long> spamCooldown = new HashMap<>();

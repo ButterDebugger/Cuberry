@@ -18,7 +18,7 @@ import java.util.Optional;
 
 public class Whois extends CommandWrapper {
 
-	static dataStorage playerData = Main.plugin.getData("players.yml");
+	static dataStorage playerData = Main.plugin().getData("players.yml");
 
 	public Whois() {
 		CommandRegistry whoisCmd = new CommandRegistry(this, "whois");

@@ -4,6 +4,9 @@ debug: false
 plugin:
   # Please do not modify this value
   version: "${project.version}"
+  # Default message locale
+  language: "en_us"
+  # Support for other plugins
   support:
     # Works with SuperVanish, PremiumVanish, VanishNoPacket and a few more vanish plugins
     vanish:
