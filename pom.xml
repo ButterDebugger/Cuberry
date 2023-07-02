@@ -9,7 +9,7 @@
     <version>1.9-beta1</version>
 
     <name>CubeFruit</name>
-    <description>An all in one plugin that lets you pick and choose exactly what you want!</description>
+    <description>An all-in-one plugin that lets you customize a server to your liking while also supplying a useful and lightweight set of utilities for other plugins!</description>
     <url>https://www.butterycode.com/</url>
 
     <properties>
