@@ -18,7 +18,7 @@ import java.util.UUID;
 
 public class netherflumb implements Listener {
 
-	static HashMap<UUID, Integer> negativeAge = new HashMap<UUID, Integer>();
+	private static HashMap<UUID, Integer> negativeAge = new HashMap<UUID, Integer>();
 	
 	public static void start() {
 		negativeAge.clear();

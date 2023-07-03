@@ -1,16 +1,10 @@
 package com.butterycode.cubefruit.utils;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import org.bukkit.plugin.Plugin;
+
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.stream.Collectors;
-
-import org.bukkit.plugin.Plugin;
 
 public class resourceStorage {
 

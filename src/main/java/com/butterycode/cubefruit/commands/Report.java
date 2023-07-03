@@ -19,8 +19,6 @@ import java.util.stream.Collectors;
 
 public class Report extends CommandWrapper {
 
-	dataStorage reportData = Main.plugin().getData("reports.yml");
-
 	// TODO: make a report history command
 
 	public Report() {
@@ -33,6 +31,7 @@ public class Report extends CommandWrapper {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		FileConfiguration config = Main.plugin().config();
+		dataStorage reportData = Main.plugin().getData("reports.yml");
 
 		if (label.equalsIgnoreCase("report")) {
 			if (!(sender instanceof Player)) {

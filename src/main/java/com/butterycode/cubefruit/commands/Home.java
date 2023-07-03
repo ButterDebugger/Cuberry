@@ -19,8 +19,6 @@ import java.util.List;
 
 public class Home extends CommandWrapper implements Listener {
 
-	dataStorage playerData = Main.plugin().getData("players.yml");
-
 	public Home() {
 		CommandRegistry homeCmd = new CommandRegistry(this, "home");
 		homeCmd.setDescription("Teleport to your home");
@@ -36,6 +34,8 @@ public class Home extends CommandWrapper implements Listener {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+		dataStorage playerData = Main.plugin().getData("players.yml");
+
 		if (label.equalsIgnoreCase("home")) {
 			if (!(sender instanceof Player)) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
@@ -116,6 +116,7 @@ public class Home extends CommandWrapper implements Listener {
 	@EventHandler
 	public void onPlayerRespawn(PlayerRespawnEvent event) {
 		Player player = event.getPlayer();
+		dataStorage playerData = Main.plugin().getData("players.yml");
 
 		if (Main.plugin().config().getBoolean("commands.spawn.spawn-on-death")) {
 			if (playerData.existsNot(player.getUniqueId() + ".home") || (player.getBedLocation() != null)) return;

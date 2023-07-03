@@ -24,8 +24,6 @@ import java.util.List;
 
 public class playerLives implements Listener, CommandExecutor, TabCompleter {
 
-	dataStorage playerData = Main.plugin().getData("players.yml");
-
 	public static void start() {
 //		Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.plugin(), new Runnable() {
 //			@Override
@@ -38,10 +36,14 @@ public class playerLives implements Listener, CommandExecutor, TabCompleter {
 	}
 
 	public void setLives(Player player, int amount) {
+		dataStorage playerData = Main.plugin().getData("players.yml");
+
 		playerData.set(player.getUniqueId() + ".lives", amount);
 	}
 
 	public int getLives(Player player) {
+		dataStorage playerData = Main.plugin().getData("players.yml");
+
 		if (playerData.existsNot(player.getUniqueId() + ".lives")) {
 			playerData.set(player.getUniqueId() + ".lives", Main.plugin().config().getInt("lives.max"));
 		}

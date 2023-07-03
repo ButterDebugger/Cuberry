@@ -3,7 +3,6 @@ package com.butterycode.cubefruit.commands;
 import com.butterycode.cubefruit.Main;
 import com.butterycode.cubefruit.utils.awesomeText;
 import com.butterycode.cubefruit.utils.caboodle;
-import com.butterycode.cubefruit.utils.dataStorage;
 import com.butterycode.cubefruit.utils.dogTags;
 import org.bukkit.*;
 import org.bukkit.World.Environment;
@@ -30,10 +29,8 @@ import java.util.List;
 
 public class CubeFruit implements CommandExecutor, TabCompleter {
 
-	dataStorage playerData = Main.plugin().getData("players.yml");
-
-	static ArrayList<String> tempworlds = new ArrayList<>();
-	static HashMap<Player, Boolean> lagmonitor = new HashMap<>();
+	private static ArrayList<String> tempworlds = new ArrayList<>();
+	private static HashMap<Player, Boolean> lagmonitor = new HashMap<>();
 
 	@Override
 	@SuppressWarnings({ "deprecation", "null" })

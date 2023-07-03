@@ -18,8 +18,6 @@ import java.util.Optional;
 
 public class Whois extends CommandWrapper {
 
-	static dataStorage playerData = Main.plugin().getData("players.yml");
-
 	public Whois() {
 		CommandRegistry whoisCmd = new CommandRegistry(this, "whois");
 		whoisCmd.setDescription("Display player information");
@@ -29,6 +27,8 @@ public class Whois extends CommandWrapper {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+		dataStorage playerData = Main.plugin().getData("players.yml");
+
 		if (label.equalsIgnoreCase("whois")) {
 			if (!caboodle.hasPermission(sender, "whois")) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));

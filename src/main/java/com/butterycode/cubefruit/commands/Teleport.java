@@ -18,8 +18,6 @@ import java.util.UUID;
 
 public class Teleport extends CommandWrapper {
 
-	dataStorage playerData = Main.plugin().getData("players.yml");
-
 	public Teleport() {
 		CommandRegistry tphereCmd = new CommandRegistry(this, "tphere");
 		tphereCmd.setDescription("Teleport a player to you");
@@ -38,6 +36,8 @@ public class Teleport extends CommandWrapper {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+		dataStorage playerData = Main.plugin().getData("players.yml");
+
 		if (label.equalsIgnoreCase("tphere")) {
 			if (!(sender instanceof Player)) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must be a player to use this."));

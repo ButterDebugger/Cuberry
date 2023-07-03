@@ -21,8 +21,6 @@ import java.util.List;
 
 public class Spawn extends CommandWrapper implements Listener {
 
-	dataStorage doubleData = Main.plugin().getData("data.yml");
-
 	// TODO: add remove spawn
 
 	public Spawn() {
@@ -39,6 +37,7 @@ public class Spawn extends CommandWrapper implements Listener {
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
 		FileConfiguration config = Main.plugin().config();
+		dataStorage doubleData = Main.plugin().getData("data.yml");
 
 		if (config.getBoolean("commands.spawn.spawn-on-join")) {
 			if (!doubleData.exists("spawn")) return;
@@ -59,6 +58,7 @@ public class Spawn extends CommandWrapper implements Listener {
 	public void onPlayerRespawn(PlayerRespawnEvent event) {
 		Player player = event.getPlayer();
 		FileConfiguration config = Main.plugin().config();
+		dataStorage doubleData = Main.plugin().getData("data.yml");
 
 		if (config.getBoolean("commands.spawn.spawn-on-death")) {
 			if (!doubleData.exists("spawn") || (player.getBedLocation() != null)) return;
@@ -73,6 +73,8 @@ public class Spawn extends CommandWrapper implements Listener {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+		dataStorage doubleData = Main.plugin().getData("data.yml");
+
 		if (label.equalsIgnoreCase("spawn")) {
 			if (!(sender instanceof Player)) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must be a player to use this."));

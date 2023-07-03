@@ -17,8 +17,6 @@ import java.util.List;
 
 public class Warp extends CommandWrapper {
 
-	dataStorage warps = Main.plugin().getData("warps.yml");
-
 	public Warp() {
 		CommandRegistry warpCmd = new CommandRegistry(this, "warp");
 		warpCmd.setDescription("Warp to the specified location");
@@ -37,6 +35,8 @@ public class Warp extends CommandWrapper {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+		dataStorage warps = Main.plugin().getData("warps.yml");
+
 		if (label.equalsIgnoreCase("warp")) {
 			if (!(sender instanceof Player)) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
@@ -158,6 +158,8 @@ public class Warp extends CommandWrapper {
 
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
+		dataStorage warps = Main.plugin().getData("warps.yml");
+
 		if (command.getName().equalsIgnoreCase("warp") && caboodle.hasPermission(sender, "warp")) {
 			if (args.length == 1) {
 				return warps.getKeys();

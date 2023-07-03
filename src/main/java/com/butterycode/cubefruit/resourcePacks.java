@@ -19,7 +19,7 @@ import java.util.UUID;
 
 public class resourcePacks implements Listener {
 
-	HashMap<UUID, String> loadedPacks = new HashMap<UUID, String>();
+	private HashMap<UUID, String> loadedPacks = new HashMap<UUID, String>();
 
 	@EventHandler
 	public void onPlayerSpawnLocation(PlayerSpawnLocationEvent event) {

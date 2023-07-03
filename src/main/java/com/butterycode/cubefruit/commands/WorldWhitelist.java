@@ -20,8 +20,7 @@ import java.util.*;
 
 public class WorldWhitelist extends CommandWrapper implements Listener {
 
-	dataStorage doubleData = Main.plugin().getData("data.yml");
-	List<String> notificationCooldown = new ArrayList<>();
+	private List<String> notificationCooldown = new ArrayList<>();
 
 	public WorldWhitelist() {
 		CommandRegistry worldWhitelistCmd = new CommandRegistry(this, "worldwhitelist");
@@ -34,6 +33,7 @@ public class WorldWhitelist extends CommandWrapper implements Listener {
 	public void onPlayerTeleport(PlayerTeleportEvent event) {
 		Player player = event.getPlayer();
 		World to = event.getTo().getWorld();
+		dataStorage doubleData = Main.plugin().getData("data.yml");
 
 		if (!event.getFrom().getWorld().equals(to)) { // TODO: test this condition
 			if (doubleData.getBoolean("worlds." + to.getName() + ".whitelist.enabled")) {
@@ -52,6 +52,8 @@ public class WorldWhitelist extends CommandWrapper implements Listener {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+		dataStorage doubleData = Main.plugin().getData("data.yml");
+
 		if (label.equalsIgnoreCase("worldwhitelist")) {
 			if (!caboodle.hasPermission(sender, "worldwhitelist")) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
@@ -211,6 +213,8 @@ public class WorldWhitelist extends CommandWrapper implements Listener {
 
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
+		dataStorage doubleData = Main.plugin().getData("data.yml");
+
 		if (label.equalsIgnoreCase("worldwhitelist") && caboodle.hasPermission(sender, "worldwhitelist")) {
 			if (args.length == 1) {
 				return Arrays.asList("on", "off", "add", "remove", "list");

@@ -17,7 +17,7 @@ import java.util.UUID;
 
 public class Message extends CommandWrapper {
 
-	static HashMap<UUID, UUID> reply = new HashMap<>();
+	private static HashMap<UUID, UUID> reply = new HashMap<>();
 
 	// TODO: make it so not just players can message you
 

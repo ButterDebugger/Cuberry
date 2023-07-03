@@ -1,20 +1,17 @@
 package com.butterycode.cubefruit.commands;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
-import com.butterycode.cubefruit.Main;
 import com.butterycode.cubefruit.utils.awesomeText;
+import com.butterycode.cubefruit.utils.caboodle;
+import com.butterycode.cubefruit.utils.dogTags;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
-import com.butterycode.cubefruit.utils.caboodle;
-import com.butterycode.cubefruit.utils.dogTags;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class Launch extends CommandWrapper {
 

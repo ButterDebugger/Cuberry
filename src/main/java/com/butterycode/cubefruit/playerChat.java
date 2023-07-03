@@ -17,9 +17,9 @@ import java.util.regex.Pattern;
 
 public class playerChat implements Listener {
 
-	static HashMap<UUID, Long> lastMessage = new HashMap<>();
-	static HashMap<UUID, Long> spamCooldown = new HashMap<>();
-	static HashMap<UUID, List<String>> recentMessages = new HashMap<>();
+	private static HashMap<UUID, Long> lastMessage = new HashMap<>();
+	private static HashMap<UUID, Long> spamCooldown = new HashMap<>();
+	private static HashMap<UUID, List<String>> recentMessages = new HashMap<>();
 
 	@EventHandler
 	public void onPlayerChat(AsyncPlayerChatEvent event) {
