@@ -1,7 +1,10 @@
 package com.butterycode.cubefruit.commands;
 
 import com.butterycode.cubefruit.Main;
-import com.butterycode.cubefruit.utils.*;
+import com.butterycode.cubefruit.utils.awesomeText;
+import com.butterycode.cubefruit.utils.caboodle;
+import com.butterycode.cubefruit.utils.dataStorage;
+import com.butterycode.cubefruit.utils.dogTags;
 import org.bukkit.*;
 import org.bukkit.World.Environment;
 import org.bukkit.attribute.Attribute;
@@ -27,7 +30,6 @@ import java.util.List;
 
 public class CubeFruit implements CommandExecutor, TabCompleter {
 
-	FileConfiguration config = Main.plugin().config();
 	dataStorage playerData = Main.plugin().getData("players.yml");
 
 	static ArrayList<String> tempworlds = new ArrayList<>();
@@ -36,6 +38,8 @@ public class CubeFruit implements CommandExecutor, TabCompleter {
 	@Override
 	@SuppressWarnings({ "deprecation", "null" })
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+		FileConfiguration config = Main.plugin().config();
+
 		if (label.equalsIgnoreCase("cubefruit") || label.equalsIgnoreCase("fruit") || label.equalsIgnoreCase("cf")) {
 			if (!caboodle.hasPermission(sender, "admin")) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));

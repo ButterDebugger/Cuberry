@@ -19,7 +19,6 @@ import java.util.UUID;
 
 public class resourcePacks implements Listener {
 
-	FileConfiguration config = Main.plugin().config();
 	HashMap<UUID, String> loadedPacks = new HashMap<UUID, String>();
 
 	@EventHandler
@@ -50,6 +49,7 @@ public class resourcePacks implements Listener {
 	public void onPlayerResourcePackStatus(PlayerResourcePackStatusEvent event) {
 		Player player = event.getPlayer();
 		Status status = event.getStatus();
+		FileConfiguration config = Main.plugin().config();
 
 		if (status.equals(Status.DECLINED)) {
 			if (worldHasForcedPack(player.getWorld().getName())) { // Forced by world
@@ -67,17 +67,23 @@ public class resourcePacks implements Listener {
 	}
 
 	private boolean worldHasPack(String worldName) {
+		FileConfiguration config = Main.plugin().config();
+
 		if (config.getString("resource-packs.perworld." + worldName + ".url") == null) return false;
 		if (config.getString("resource-packs.perworld." + worldName + ".url").equalsIgnoreCase("")) return false;
 		return true;
 	}
 
 	private boolean worldHasForcedPack(String worldName) {
+		FileConfiguration config = Main.plugin().config();
+
 		if (!worldHasPack(worldName)) return false;
 		return config.getBoolean("resource-packs.perworld." + worldName + ".force");
 	}
 
 	public void handleResourcePacks(Player player, World world) {
+		FileConfiguration config = Main.plugin().config();
+
 		if (worldHasPack(world.getName())) { // Use world resource pack
 			String url = config.getString("resource-packs.perworld." + world.getName() + ".url");
 

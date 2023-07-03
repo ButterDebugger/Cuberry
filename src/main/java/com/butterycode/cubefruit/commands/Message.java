@@ -17,7 +17,6 @@ import java.util.UUID;
 
 public class Message extends CommandWrapper {
 
-	FileConfiguration config = Main.plugin().config();
 	static HashMap<UUID, UUID> reply = new HashMap<>();
 
 	// TODO: make it so not just players can message you
@@ -36,6 +35,8 @@ public class Message extends CommandWrapper {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+		FileConfiguration config = Main.plugin().config();
+
 		if (label.equalsIgnoreCase("message") || label.equalsIgnoreCase("msg")) {
 			if (!(sender instanceof Player)) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must be a player to use this."));

@@ -31,9 +31,9 @@ import java.util.UUID;
 
 public class haltEvents implements Listener, CommandExecutor, TabCompleter {
 
-	static FileConfiguration config = Main.plugin().config();
-
 	private static boolean haltEnabled(String halt, Player player, World world) {
+		FileConfiguration config = Main.plugin().config();
+
 		if (!config.getBoolean("halt." + halt + ".enabled")) { // Halt is not enabled
 			return false;
 		}
@@ -271,6 +271,8 @@ public class haltEvents implements Listener, CommandExecutor, TabCompleter {
 		Player player = event.getPlayer();
 		World world = block.getWorld();
 
+		FileConfiguration config = Main.plugin().config();
+
 		if (getFreeze(player, world)) {
 			event.setCancelled(true);
 			return;
@@ -321,6 +323,8 @@ public class haltEvents implements Listener, CommandExecutor, TabCompleter {
 	public void onDrop(PlayerDropItemEvent event) {
 		Player player = event.getPlayer();
 		World world = player.getWorld();
+
+		FileConfiguration config = Main.plugin().config();
 
 		if (getFreeze(player, world)) {
 			event.setCancelled(true);
@@ -402,6 +406,8 @@ public class haltEvents implements Listener, CommandExecutor, TabCompleter {
 		Player player = event.getPlayer();
 		World world = block.getWorld();
 
+		FileConfiguration config = Main.plugin().config();
+
 		if (getFreeze(player, world)) {
 			event.setCancelled(true);
 			return;
@@ -441,6 +447,8 @@ public class haltEvents implements Listener, CommandExecutor, TabCompleter {
 		DamageCause cause = event.getCause();
 		World world = entity.getWorld();
 
+		FileConfiguration config = Main.plugin().config();
+
 		if (entity instanceof Player) {
 			Player player = (Player) entity;
 
@@ -472,6 +480,8 @@ public class haltEvents implements Listener, CommandExecutor, TabCompleter {
 		Entity entity = event.getEntity();
 		World world = entity.getWorld();
 
+		FileConfiguration config = Main.plugin().config();
+
 		if (entity instanceof Player) {
 			Player player = (Player) entity;
 
@@ -501,6 +511,8 @@ public class haltEvents implements Listener, CommandExecutor, TabCompleter {
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.plugin(), new Runnable() {
 			@Override
 			public void run() {
+				FileConfiguration config = Main.plugin().config();
+
 				for (Player player : Bukkit.getOnlinePlayers()) {
 					if (haltEnabled("hunger", player, player.getWorld()) && config.getBoolean("halt.hunger.feed")) {
 						if (config.getBoolean("halt.hunger.nibble") && player.getInventory().getItemInMainHand().getType().isEdible() || player.getInventory().getItemInOffHand().getType().isEdible()) {
@@ -533,6 +545,8 @@ public class haltEvents implements Listener, CommandExecutor, TabCompleter {
 		Player player = (Player) event.getWhoClicked();
 		World world = player.getWorld();
 
+		FileConfiguration config = Main.plugin().config();
+
 		if (getFreeze(player, world)) {
 			event.setCancelled(true);
 			return;
@@ -561,6 +575,8 @@ public class haltEvents implements Listener, CommandExecutor, TabCompleter {
 	public void onInventoryDrag(InventoryDragEvent event) {
 		Player player = (Player) event.getWhoClicked();
 		World world = player.getWorld();
+
+		FileConfiguration config = Main.plugin().config();
 
 		if (getFreeze(player, world)) {
 			event.setCancelled(true);
@@ -836,6 +852,8 @@ public class haltEvents implements Listener, CommandExecutor, TabCompleter {
 	public void onEntitySpawn(EntitySpawnEvent event) {
 		Entity entity = event.getEntity();
 		World world = entity.getWorld();
+
+		FileConfiguration config = Main.plugin().config();
 
 		if (getFreeze(null, world)) {
 			event.setCancelled(true);

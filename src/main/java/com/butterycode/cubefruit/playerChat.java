@@ -9,12 +9,13 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.AsyncPlayerChatPreviewEvent;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.UUID;
 import java.util.regex.Pattern;
 
 public class playerChat implements Listener {
-
-	FileConfiguration config = Main.plugin().config();
 
 	static HashMap<UUID, Long> lastMessage = new HashMap<>();
 	static HashMap<UUID, Long> spamCooldown = new HashMap<>();
@@ -64,6 +65,8 @@ public class playerChat implements Listener {
 			unmodifiedMessage = msg;
 
 			// Initialize chat message
+			FileConfiguration config = Main.plugin().config();
+
 			if (config.getBoolean("chat.anti-spam.enabled")) {
 				antispam();
 			}
@@ -99,6 +102,7 @@ public class playerChat implements Listener {
 		// Initializers
 		private void antispam() {
 			UUID uuid = player.getUniqueId();
+			FileConfiguration config = Main.plugin().config();
 
 			// Repeated messages
 			if (config.getInt("chat.anti-spam.repeated-messages.recent-messages") != -1) {
@@ -147,6 +151,8 @@ public class playerChat implements Listener {
 		}
 		private void formatMsg() {
 			List<String> rebuiltMessage = new ArrayList<>();
+			FileConfiguration config = Main.plugin().config();
+
 			for (String msg : message.split(" ")) {
 				if (msg.equalsIgnoreCase("gg") && config.getBoolean("chat.format.golden-gg") && caboodle.hasPermission(player, "chat.golden-gg")) {
 					msg = awesomeText.colorizeHex("&6" + msg + "&r");
@@ -215,6 +221,7 @@ public class playerChat implements Listener {
 			}
 		}
 		private void formatFull() {
+			FileConfiguration config = Main.plugin().config();
 			String newFormat = awesomeText.prettifyMessage(config.getString("chat.format.format"), player);
 
 			newFormat = awesomeText.replacePlaceholder(newFormat, "player", "%1$s");
@@ -226,6 +233,7 @@ public class playerChat implements Listener {
 		private void filter() {
 			String[] splitMessage = Pattern.compile("[^\\w\\s]").matcher(message).replaceAll("").split(" ");
 			String[] newMessage = message.split(" ");
+			FileConfiguration config = Main.plugin().config();
 			List<String> blockedWords = config.getStringList("chat.message-filter.blocked-words");
 			int dropThreshold = config.getInt("chat.message-filter.drop-threshold");
 			int wordsCaught = 0;

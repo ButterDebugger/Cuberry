@@ -1,9 +1,9 @@
 package com.butterycode.cubefruit;
 
-import java.util.Arrays;
-import java.util.List;
-
 import com.butterycode.cubefruit.utils.awesomeText;
+import com.butterycode.cubefruit.utils.caboodle;
+import com.butterycode.cubefruit.utils.dataStorage;
+import com.butterycode.cubefruit.utils.dogTags;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -12,7 +12,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -20,13 +19,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
-import com.butterycode.cubefruit.utils.caboodle;
-import com.butterycode.cubefruit.utils.dataStorage;
-import com.butterycode.cubefruit.utils.dogTags;
+import java.util.Arrays;
+import java.util.List;
 
 public class playerLives implements Listener, CommandExecutor, TabCompleter {
 
-	static FileConfiguration config = Main.plugin().config();
 	dataStorage playerData = Main.plugin().getData("players.yml");
 
 	public static void start() {
@@ -46,7 +43,7 @@ public class playerLives implements Listener, CommandExecutor, TabCompleter {
 
 	public int getLives(Player player) {
 		if (playerData.existsNot(player.getUniqueId() + ".lives")) {
-			playerData.set(player.getUniqueId() + ".lives", config.getInt("lives.max"));
+			playerData.set(player.getUniqueId() + ".lives", Main.plugin().config().getInt("lives.max"));
 		}
 		return playerData.getInteger(player.getUniqueId() + ".lives");
 	}
@@ -61,7 +58,7 @@ public class playerLives implements Listener, CommandExecutor, TabCompleter {
 		if (killer instanceof Player) {
 			Player murderer = (Player) killer;
 
-			if (config.getBoolean("lives.lifesteal")) {
+			if (Main.plugin().config().getBoolean("lives.lifesteal")) {
 				setLives(murderer, getLives(murderer) + 1);
 				murderer.sendMessage(awesomeText.colorize("&7You have gained one life from killing " + player.getName()));
 			}

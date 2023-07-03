@@ -12,8 +12,6 @@ import java.util.List;
 
 public class Rules extends CommandWrapper {
 
-	FileConfiguration config = Main.plugin().config();
-
 	public Rules() {
 		CommandRegistry rulesCmd = new CommandRegistry(this, "rules");
 		rulesCmd.setDescription("View the server rules");
@@ -23,6 +21,8 @@ public class Rules extends CommandWrapper {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+		FileConfiguration config = Main.plugin().config();
+
 		if (label.equalsIgnoreCase("rules")) {
 			if (!caboodle.hasPermission(sender, "rules")) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));

@@ -1,59 +1,26 @@
 package com.butterycode.cubefruit.tweaks;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.butterycode.cubefruit.Main;
 import com.butterycode.cubefruit.utils.awesomeText;
-import org.bukkit.Axis;
-import org.bukkit.Bukkit;
-import org.bukkit.Chunk;
-import org.bukkit.Color;
-import org.bukkit.GameMode;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.Particle;
-import org.bukkit.Sound;
-import org.bukkit.Tag;
-import org.bukkit.World;
+import com.butterycode.cubefruit.utils.caboodle;
+import com.butterycode.cubefruit.utils.dogTags;
+import org.bukkit.*;
 import org.bukkit.World.Environment;
-import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
-import org.bukkit.block.BlockState;
-import org.bukkit.block.Container;
-import org.bukkit.block.Dispenser;
+import org.bukkit.block.*;
 import org.bukkit.block.data.Ageable;
-import org.bukkit.block.data.Bisected;
+import org.bukkit.block.data.*;
 import org.bukkit.block.data.Bisected.Half;
-import org.bukkit.block.data.BlockData;
-import org.bukkit.block.data.Directional;
-import org.bukkit.block.data.Orientable;
 import org.bukkit.block.data.type.Bed;
 import org.bukkit.block.data.type.Bed.Part;
 import org.bukkit.block.data.type.Door;
 import org.bukkit.block.data.type.Slab;
 import org.bukkit.block.data.type.Snow;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.ItemFrame;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Projectile;
-import org.bukkit.entity.Slime;
-import org.bukkit.entity.Snowman;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
-import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockDispenseEvent;
-import org.bukkit.event.block.BlockIgniteEvent;
-import org.bukkit.event.block.SignChangeEvent;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntityExplodeEvent;
-import org.bukkit.event.entity.EntitySpawnEvent;
-import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.block.*;
+import org.bukkit.event.entity.*;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.weather.LightningStrikeEvent;
@@ -65,17 +32,17 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.projectiles.ProjectileSource;
 import org.bukkit.util.Vector;
 
-import com.butterycode.cubefruit.utils.caboodle;
-import com.butterycode.cubefruit.utils.dogTags;
+import java.util.ArrayList;
+import java.util.List;
 
 public class tweaks implements Listener {
-
-	static FileConfiguration config = Main.plugin().config();
 
 	public static void start() {
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.plugin(), new Runnable() {
 			@Override
 			public void run() {
+				FileConfiguration config = Main.plugin().config();
+
 				if (config.getBoolean("tweaks.snowpiles")) { // TODO: make slopey and more performant
 					for (World world : Bukkit.getWorlds()) {
 						if (!world.getEnvironment().equals(Environment.NORMAL)) continue;
@@ -125,14 +92,20 @@ public class tweaks implements Listener {
 			}
 		}, 0, 10);
 
+		registerRecipes();
+	}
+
+	private static void registerRecipes() {
+		FileConfiguration config = Main.plugin().config();
+
 		if (config.getBoolean("tweaks.recipes.bundle")) {
 			ItemStack bundleItem = new ItemStack(Material.BUNDLE);
 			ShapedRecipe recipe = new ShapedRecipe(new NamespacedKey(Main.plugin(), "bundle"), bundleItem);
 
 			recipe.shape(
-				"SRS",
-				"R R",
-				"RRR"
+					"SRS",
+					"R R",
+					"RRR"
 			);
 			recipe.setIngredient('S', Material.STRING);
 			recipe.setIngredient('R', Material.RABBIT_HIDE);
@@ -148,6 +121,7 @@ public class tweaks implements Listener {
 	@EventHandler
 	public void onDamage(EntityDamageEvent event) {
 		Entity entity = event.getEntity();
+		FileConfiguration config = Main.plugin().config();
 
 		if (entity instanceof Player) {
 			Player player = (Player) entity;
@@ -171,6 +145,7 @@ public class tweaks implements Listener {
 	public void onDamage(EntityDamageByEntityEvent event) {
 		Entity entity = event.getEntity();
 		Entity damager = event.getDamager();
+		FileConfiguration config = Main.plugin().config();
 
 		if (entity instanceof Player) {
 			Player player = (Player) entity;
@@ -197,6 +172,7 @@ public class tweaks implements Listener {
 	@EventHandler
 	public void onPlayerDeath(PlayerDeathEvent event) {
 		Player player = event.getEntity();
+		FileConfiguration config = Main.plugin().config();
 
 		if (config.getBoolean("tweaks.forcerespawn")) {
 			caboodle.respawn(player);
@@ -212,6 +188,7 @@ public class tweaks implements Listener {
 	public void onSignChange(SignChangeEvent event) {
 		Player player = event.getPlayer();
 		String[] lines = event.getLines();
+		FileConfiguration config = Main.plugin().config();
 
 		if (config.getBoolean("tweaks.formatsign") && caboodle.hasPermission(player, "tweaks.formatsigns")) {
 			for (int l = 0; l < 4; l++) {
@@ -227,6 +204,7 @@ public class tweaks implements Listener {
 		Block block = event.getBlock();
 		Location blockLoc = block.getLocation();
 		World world = blockLoc.getWorld();
+		FileConfiguration config = Main.plugin().config();
 
 		if (config.getBoolean("tweaks.dynamicportals.enabled")) { // TODO: fix issue with it not lighting all the time
 			int maxBlocks = config.getInt("tweaks.dynamicportals.maxblocks");
@@ -383,6 +361,8 @@ public class tweaks implements Listener {
 
 	@EventHandler
 	public void onEntityExplode(EntityExplodeEvent event) {
+		FileConfiguration config = Main.plugin().config();
+
 		if (config.getBoolean("tweaks.fix-creeper-block-drops")) {
 			for (Block block : event.blockList()) {
 				if (block.getType().equals(Material.TNT)) continue;
@@ -397,6 +377,7 @@ public class tweaks implements Listener {
 		Action action = event.getAction();
 		Player player = event.getPlayer();
 		ItemStack item = event.getItem();
+		FileConfiguration config = Main.plugin().config();
 
 		if (action.equals(Action.RIGHT_CLICK_BLOCK)) {
 			Block block = event.getClickedBlock();
@@ -484,6 +465,7 @@ public class tweaks implements Listener {
 		Entity entity = event.getRightClicked();
 		Player player = event.getPlayer();
 		ItemStack item = player.getInventory().getItemInMainHand();
+		FileConfiguration config = Main.plugin().config();
 
 		if (config.getBoolean("tweaks.shear-item-frames")) {
 			if (item.getType().equals(Material.SHEARS)) {
@@ -513,6 +495,7 @@ public class tweaks implements Listener {
 	public void onBlockBreak(BlockBreakEvent event) {
 		Player player = event.getPlayer();
 		Block block = event.getBlock();
+		FileConfiguration config = Main.plugin().config();
 
 		if (config.getBoolean("tweaks.quickharvest")) {
 			if (dogTags.isHoe(player.getInventory().getItemInMainHand().getType())) {
@@ -535,6 +518,7 @@ public class tweaks implements Listener {
 	@EventHandler
 	public void onLightningStrike(LightningStrikeEvent event) {
 		Location loc = event.getLightning().getLocation();
+		FileConfiguration config = Main.plugin().config();
 
 		if (config.getBoolean("tweaks.petrified-lightning.sand") || config.getBoolean("tweaks.petrified-lightning.oakslab")) {
 			// TODO: rework this entirely
@@ -590,6 +574,7 @@ public class tweaks implements Listener {
 		//  make sure the right item gets removed from the dispenser
 		Block block = event.getBlock();
 		ItemStack item = event.getItem();
+		FileConfiguration config = Main.plugin().config();
 
 		if (!block.getType().equals(Material.DISPENSER)) return; // Cancel if block isn't a dispenser
 
@@ -741,6 +726,7 @@ public class tweaks implements Listener {
 	public void onEntitySpawn(EntitySpawnEvent event) {
 		Entity entity = event.getEntity();
 		EntityType type = event.getEntityType();
+		FileConfiguration config = Main.plugin().config();
 
 		if (type.equals(EntityType.POLAR_BEAR)) { // FIXME: prevent baby polar bears
 			if (config.getBoolean("tweaks.polarbearjokey.enabled")) {

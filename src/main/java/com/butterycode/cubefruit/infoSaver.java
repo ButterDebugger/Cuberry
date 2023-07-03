@@ -1,20 +1,17 @@
 package com.butterycode.cubefruit;
 
+import com.butterycode.cubefruit.utils.caboodle;
+import com.butterycode.cubefruit.utils.dataStorage;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import com.butterycode.cubefruit.utils.caboodle;
-import com.butterycode.cubefruit.utils.dataStorage;
-
 public class infoSaver implements Listener {
 
-	FileConfiguration config = Main.plugin().config();
 	static dataStorage playerData = Main.plugin().getData("players.yml");
 	static dataStorage doubleData = Main.plugin().getData("data.yml");
 

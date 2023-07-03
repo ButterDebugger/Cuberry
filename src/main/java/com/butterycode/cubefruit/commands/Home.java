@@ -2,26 +2,23 @@ package com.butterycode.cubefruit.commands;
 
 import com.butterycode.cubefruit.Main;
 import com.butterycode.cubefruit.utils.awesomeText;
+import com.butterycode.cubefruit.utils.caboodle;
+import com.butterycode.cubefruit.utils.dataStorage;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerRespawnEvent;
-
-import com.butterycode.cubefruit.utils.caboodle;
-import com.butterycode.cubefruit.utils.dataStorage;
 
 import java.util.Collections;
 import java.util.List;
 
 public class Home extends CommandWrapper implements Listener {
 
-	FileConfiguration config = Main.plugin().config();
 	dataStorage playerData = Main.plugin().getData("players.yml");
 
 	public Home() {
@@ -120,7 +117,7 @@ public class Home extends CommandWrapper implements Listener {
 	public void onPlayerRespawn(PlayerRespawnEvent event) {
 		Player player = event.getPlayer();
 
-		if (config.getBoolean("commands.spawn.spawn-on-death")) {
+		if (Main.plugin().config().getBoolean("commands.spawn.spawn-on-death")) {
 			if (playerData.existsNot(player.getUniqueId() + ".home") || (player.getBedLocation() != null)) return;
 
 			Location homeLoc = caboodle.parseLocation(playerData.getString(player.getUniqueId() + ".home"));

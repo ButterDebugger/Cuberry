@@ -1,14 +1,7 @@
 package com.butterycode.cubefruit.tweaks;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.UUID;
-
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Sound;
-import org.bukkit.World;
+import com.butterycode.cubefruit.Main;
+import org.bukkit.*;
 import org.bukkit.World.Environment;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Entity;
@@ -19,12 +12,12 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import com.butterycode.cubefruit.Main;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.UUID;
 
 public class netherflumb implements Listener {
 
-	static FileConfiguration config = Main.plugin().config();
-	
 	static HashMap<UUID, Integer> negativeAge = new HashMap<UUID, Integer>();
 	
 	public static void start() {
@@ -43,6 +36,8 @@ public class netherflumb implements Listener {
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.plugin(), new Runnable() {
 			@Override
 			public void run() {
+				FileConfiguration config = Main.plugin().config();
+
 				for (World world : Bukkit.getWorlds()) {
 					if (!world.getEnvironment().equals(Environment.NETHER)) continue;
 					

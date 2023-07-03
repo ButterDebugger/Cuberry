@@ -13,8 +13,6 @@ import java.util.UUID;
 
 public class playerNametag implements Listener {
 
-	static FileConfiguration config = Main.plugin().config();
-
 	public static void start() {
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			updateNametag(player);
@@ -38,6 +36,8 @@ public class playerNametag implements Listener {
 	}
 
 	private static void updateNametag(Player player) {
+		FileConfiguration config = Main.plugin().config();
+
 		if (!config.getBoolean("player-nametag.enabled")) return;
 
 		UUID uuid = player.getUniqueId();

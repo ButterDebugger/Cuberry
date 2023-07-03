@@ -1,20 +1,20 @@
 package com.butterycode.cubefruit;
 
-import java.util.List;
-import java.util.Random;
-
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
 
-public class onlyProxy implements Listener {
+import java.util.List;
+import java.util.Random;
 
-	FileConfiguration config = Main.plugin().config();
+public class onlyProxy implements Listener {
 
 	@EventHandler
 	public void onPlayerLogin(PlayerLoginEvent event) {
+		FileConfiguration config = Main.plugin().config();
+
 		if (!config.getStringList("only-proxy.allowed-proxies").contains(event.getRealAddress().toString())) {
 			event.setResult(Result.KICK_OTHER);
 

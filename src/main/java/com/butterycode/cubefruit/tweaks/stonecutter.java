@@ -1,17 +1,9 @@
 package com.butterycode.cubefruit.tweaks;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import com.butterycode.cubefruit.Main;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Sound;
-import org.bukkit.World;
+import com.butterycode.cubefruit.utils.caboodle;
+import com.butterycode.cubefruit.utils.resourceStorage;
+import org.bukkit.*;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Item;
@@ -20,19 +12,22 @@ import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import com.butterycode.cubefruit.utils.caboodle;
-import com.butterycode.cubefruit.utils.resourceStorage;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class stonecutter implements Listener {
 
-	static FileConfiguration config = Main.plugin().config();
-	
 	public static void start() {
 		HashMap<ItemStack, List<ItemStack>> recipes = readStonecutterData();
 		
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.plugin(), new Runnable() {
 			@Override
 			public void run() {
+				FileConfiguration config = Main.plugin().config();
+
 				for (World world : Bukkit.getWorlds()) {
 					for (Entity entity : world.getEntities()) {
 						if (entity instanceof LivingEntity) {

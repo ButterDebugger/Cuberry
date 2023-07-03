@@ -1,8 +1,7 @@
 package com.butterycode.cubefruit.utils;
 
-import java.util.HashMap;
-
 import com.butterycode.cubefruit.Main;
+import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -10,11 +9,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.metadata.MetadataValue;
 
-import me.clip.placeholderapi.PlaceholderAPI;
+import java.util.HashMap;
 
 public class pluginSupport implements Listener {
-
-	static FileConfiguration config = Main.plugin().getConfig();
 
 	private static HashMap<String, Boolean> supports = new HashMap<>();
 
@@ -24,6 +21,8 @@ public class pluginSupport implements Listener {
 	// - add namemc api support
 
 	public static void setup() {
+		FileConfiguration config = Main.plugin().config();
+
 		if (config.getBoolean("plugin.support.placeholderapi.enabled")) {
 			if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) { // Check if plugin is installed
 				supports.put("PlaceholderAPI", true);

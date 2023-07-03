@@ -18,7 +18,6 @@ import java.util.List;
 
 public class Mutechat extends CommandWrapper implements Listener {
 
-	FileConfiguration config = Main.plugin().config();
 	private static boolean isChatMuted = false;
 
 	public Mutechat() {
@@ -89,7 +88,7 @@ public class Mutechat extends CommandWrapper implements Listener {
 	@EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
 	public void onChat(AsyncPlayerChatEvent event) {
 		Player player = event.getPlayer();
-
+		FileConfiguration config = Main.plugin().config();
 		String blockMessage = config.getString("commands.mutechat.block-message");
 
 		if (isChatMuted && !caboodle.hasPermission(player, "mutechat.bypass")) {
@@ -102,6 +101,7 @@ public class Mutechat extends CommandWrapper implements Listener {
 	}
 
 	private void makeAnnouncement() {
+		FileConfiguration config = Main.plugin().config();
 		String muteAnnouncement = config.getString("commands.mutechat.mute-announcement");
 		String unmuteAnnouncement = config.getString("commands.mutechat.unmute-announcement");
 

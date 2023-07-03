@@ -19,7 +19,6 @@ import java.util.stream.Collectors;
 
 public class Report extends CommandWrapper {
 
-	FileConfiguration config = Main.plugin().config();
 	dataStorage reportData = Main.plugin().getData("reports.yml");
 
 	// TODO: make a report history command
@@ -33,6 +32,8 @@ public class Report extends CommandWrapper {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+		FileConfiguration config = Main.plugin().config();
+
 		if (label.equalsIgnoreCase("report")) {
 			if (!(sender instanceof Player)) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
@@ -109,6 +110,8 @@ public class Report extends CommandWrapper {
 
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
+		FileConfiguration config = Main.plugin().config();
+
 		if (label.equalsIgnoreCase("report") && caboodle.hasPermission(sender, "report")) {
 			if (args.length == 1) {
 				return caboodle.getOnlinePlayerNames();

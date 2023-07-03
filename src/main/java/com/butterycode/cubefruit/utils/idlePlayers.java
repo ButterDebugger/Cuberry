@@ -1,11 +1,7 @@
 package com.butterycode.cubefruit.utils;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-
+import com.butterycode.cubefruit.Main;
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,11 +10,11 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
 
-import com.butterycode.cubefruit.Main;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class idlePlayers implements Listener {
-
-	private static FileConfiguration config = Main.plugin().config();
 
 	private static Map<UUID, Integer> idleTimer = new HashMap<>();
 
@@ -47,7 +43,7 @@ public class idlePlayers implements Listener {
 	}
 
 	public static boolean isAFK(UUID uuid) {
-		return getIdleDuration(uuid) / 20 >= config.getInt("idle.afk-threshold");
+		return getIdleDuration(uuid) / 20 >= Main.plugin().config().getInt("idle.afk-threshold");
 	}
 	
 	// Event handlers:

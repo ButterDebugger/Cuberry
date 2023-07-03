@@ -30,7 +30,6 @@ import java.util.List;
 
 public class lockedBlocks implements Listener, CommandExecutor {
 
-	static FileConfiguration config = Main.plugin().config();
 	static dataStorage blockData = Main.plugin().getData("blocks.yml");
 	static ItemStack masterKey;
 
@@ -58,6 +57,7 @@ public class lockedBlocks implements Listener, CommandExecutor {
 		Action action = event.getAction();
 		Player player = event.getPlayer();
 		ItemStack item = player.getInventory().getItemInMainHand();
+		FileConfiguration config = Main.plugin().config();
 		
 		// Validate item
 		if (item == null) return;
@@ -113,6 +113,8 @@ public class lockedBlocks implements Listener, CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+		FileConfiguration config = Main.plugin().config();
+
 		if (label.equalsIgnoreCase("getmasterkey")) {
 			if (!config.getBoolean("locks.master-key")) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7This command is not enabled in the config."));
@@ -184,6 +186,8 @@ public class lockedBlocks implements Listener, CommandExecutor {
 	}
 	
 	private boolean matchKey(Block block, ItemStack item) {
+		FileConfiguration config = Main.plugin().config();
+
 		if (item == null) return false;
 		if (!item.getType().equals(Material.TRIPWIRE_HOOK)) return false;
 		
@@ -200,6 +204,8 @@ public class lockedBlocks implements Listener, CommandExecutor {
 	}
 	
 	private boolean isMasterKey(ItemStack item) {
+		FileConfiguration config = Main.plugin().config();
+
 		if (item == null) return false;
 		if (!item.getType().equals(Material.TRIPWIRE_HOOK)) return false;
 		
@@ -208,6 +214,8 @@ public class lockedBlocks implements Listener, CommandExecutor {
 	}
 	
 	private static void resolveBlock(Block block) {
+		FileConfiguration config = Main.plugin().config();
+
 		if (!isBlockLocked(block)) return;
 		
 		if (block.isEmpty() || !config.getStringList("locks.lockable").contains(block.getType().toString().toLowerCase())) {
@@ -244,6 +252,7 @@ public class lockedBlocks implements Listener, CommandExecutor {
 	public void onBlockBurn(BlockBurnEvent event) {
 		Block block = event.getBlock();
 		Block blockAbove = block.getRelative(BlockFace.UP);
+		FileConfiguration config = Main.plugin().config();
 		
 		if (isBlockLocked(block)) {
 			if (config.getBoolean("locks.indestructable")) {
@@ -265,6 +274,7 @@ public class lockedBlocks implements Listener, CommandExecutor {
 		Player player = event.getPlayer();
 		Block block = event.getBlock();
 		Block blockAbove = block.getRelative(BlockFace.UP);
+		FileConfiguration config = Main.plugin().config();
 
 		if (isBlockLocked(block)) {
 			if (config.getBoolean("locks.indestructable")) {
@@ -290,6 +300,7 @@ public class lockedBlocks implements Listener, CommandExecutor {
 	@EventHandler
 	public void onExplode(EntityExplodeEvent event) {
 		Iterator<Block> iter = event.blockList().iterator();
+		FileConfiguration config = Main.plugin().config();
 
 		while (iter.hasNext()) {
 			Block block = iter.next();
@@ -319,6 +330,7 @@ public class lockedBlocks implements Listener, CommandExecutor {
 	@EventHandler
 	public void onPistonPush(BlockPistonExtendEvent event) {
 		List<Block> blocks = event.getBlocks();
+		FileConfiguration config = Main.plugin().config();
 
 		for (Block block : blocks) {
 			Block blockAbove = block.getRelative(BlockFace.UP);
@@ -344,6 +356,7 @@ public class lockedBlocks implements Listener, CommandExecutor {
 	@EventHandler
 	public void onRedstonePower(BlockRedstoneEvent event) {
 		Block block = event.getBlock();
+		FileConfiguration config = Main.plugin().config();
 
 		if (isBlockLocked(block)) {
 			if (config.getBoolean("locks.indestructable")) {
@@ -354,6 +367,8 @@ public class lockedBlocks implements Listener, CommandExecutor {
 
 	@EventHandler
 	public void onPistonPull(BlockPistonRetractEvent event) {
+		FileConfiguration config = Main.plugin().config();
+
 		for (Block block : event.getBlocks()) {
 			Block blockAbove = block.getRelative(BlockFace.UP);
 			
