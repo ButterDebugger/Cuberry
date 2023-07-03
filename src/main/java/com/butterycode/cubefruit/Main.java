@@ -258,13 +258,10 @@ public final class Main extends JavaPlugin implements Listener {
         }
     }
 
-    public dataStorage getData(String filename) {
-        if (dataFiles.containsKey(filename)) {
-            return dataFiles.get(filename);
-        } else {
-            dataFiles.put(filename, new dataStorage(plugin, filename));
-
-            return dataFiles.get(filename);
+    public dataStorage getData(String filepath) {
+        if (!dataFiles.containsKey(filepath)) {
+            dataFiles.put(filepath, new dataStorage(plugin, filepath));
         }
+        return dataFiles.get(filepath);
     }
 }

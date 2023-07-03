@@ -1,5 +1,9 @@
 package com.butterycode.cubefruit.utils;
 
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.plugin.Plugin;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -7,34 +11,27 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.butterycode.cubefruit.Main;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
-
-import org.bukkit.plugin.Plugin;
-
 public class dataStorage {
 
-	private File file;
-	private FileConfiguration data;
-	private String filename;
-	private Plugin plugin;
+	private final File file;
+	private final FileConfiguration data;
+	private final Plugin plugin;
 
 	public dataStorage(Plugin plugin, String filepath) {
 		this.plugin = plugin;
-		filename = filepath;
-		file = new File(plugin.getDataFolder() + File.separator + filename);
+		this.file = new File(plugin.getDataFolder() + File.separator + filepath);
 
 		if (!file.exists()) {
 			try {
+				file.getParentFile().mkdirs();
 				file.createNewFile();
 			} catch (IOException e) {
-				caboodle.log(plugin, "Unable to create " + filename, caboodle.LogType.WARN);
+				caboodle.log(plugin, "Unable to create " + filepath, caboodle.LogType.WARN);
 				e.printStackTrace();
 			}
 		}
-		
-		data = YamlConfiguration.loadConfiguration(file);
+
+		this.data = YamlConfiguration.loadConfiguration(file);
 	}
 
 	public void save() { // Save data
