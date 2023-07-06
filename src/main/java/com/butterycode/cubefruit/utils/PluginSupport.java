@@ -11,7 +11,7 @@ import org.bukkit.metadata.MetadataValue;
 
 import java.util.HashMap;
 
-public class pluginSupport implements Listener {
+public class PluginSupport implements Listener {
 
 	private static HashMap<String, Boolean> supports = new HashMap<>();
 

@@ -33,7 +33,7 @@ public final class Main extends JavaPlugin implements Listener {
         IdlePlayers.start();
         Bukkit.getServer().getPluginManager().registerEvents(new Caboodle(), plugin);
         Caboodle.start();
-        pluginSupport.setup();
+        PluginSupport.setup();
 
         Bukkit.getServer().getPluginManager().registerEvents(this, this);
 

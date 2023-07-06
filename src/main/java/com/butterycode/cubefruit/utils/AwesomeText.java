@@ -44,7 +44,7 @@ public class AwesomeText {
     public static String importPlaceholders(String message, Player player) {
         String newmessage = message;
 
-        newmessage = pluginSupport.getPlaceholders(player, message);
+        newmessage = PluginSupport.getPlaceholders(player, message);
         newmessage = replacePlaceholder(newmessage, "player_name", player.getName());
         newmessage = replacePlaceholder(newmessage, "player_displayname", player.getDisplayName());
         newmessage = replacePlaceholder(newmessage, "player_list_name", player.getPlayerListName());
