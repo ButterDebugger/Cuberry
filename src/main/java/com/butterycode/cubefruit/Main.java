@@ -154,7 +154,7 @@ public final class Main extends JavaPlugin implements Listener {
     }
 
     private void enableFeatures() {
-        Bukkit.getServer().getPluginManager().registerEvents(new playerChat(), plugin);
+        Bukkit.getServer().getPluginManager().registerEvents(new PlayerChat(), plugin);
 
         Bukkit.getServer().getPluginManager().registerEvents(new JoinAndLeave(), plugin);
 

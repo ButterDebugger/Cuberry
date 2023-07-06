@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
-public class playerChat implements Listener {
+public class PlayerChat implements Listener {
 
 	private static HashMap<UUID, Long> lastMessage = new HashMap<>();
 	private static HashMap<UUID, Long> spamCooldown = new HashMap<>();
