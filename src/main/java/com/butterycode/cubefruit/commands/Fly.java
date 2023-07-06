@@ -2,7 +2,7 @@ package com.butterycode.cubefruit.commands;
 
 import com.butterycode.cubefruit.utils.awesomeText;
 import com.butterycode.cubefruit.utils.caboodle;
-import com.butterycode.cubefruit.utils.dogTags;
+import com.butterycode.cubefruit.utils.DogTags;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -47,7 +47,7 @@ public class Fly extends CommandWrapper {
 				return true;
 			}
 
-			if (dogTags.isOnline(args[0])) {
+			if (DogTags.isOnline(args[0])) {
 				Player player = Bukkit.getPlayer(args[0]);
 
 				if (args.length > 1) {

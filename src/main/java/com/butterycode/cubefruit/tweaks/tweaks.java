@@ -3,7 +3,7 @@ package com.butterycode.cubefruit.tweaks;
 import com.butterycode.cubefruit.Main;
 import com.butterycode.cubefruit.utils.awesomeText;
 import com.butterycode.cubefruit.utils.caboodle;
-import com.butterycode.cubefruit.utils.dogTags;
+import com.butterycode.cubefruit.utils.DogTags;
 import org.bukkit.*;
 import org.bukkit.World.Environment;
 import org.bukkit.block.*;
@@ -58,7 +58,7 @@ public class tweaks implements Listener {
 								for (int z = minZ; z < maxZ; z++) {
 									Block block = world.getHighestBlockAt(new Location(world, x, 0, z)).getLocation().add(0, 1, 0).getBlock();
 
-									if (block.getType().equals(Material.SNOW) && dogTags.canSnow(block)) {
+									if (block.getType().equals(Material.SNOW) && DogTags.canSnow(block)) {
 										if (caboodle.chance(1) && caboodle.chance(5)) {
 											Snow snow = (Snow) block.getBlockData();
 
@@ -397,8 +397,8 @@ public class tweaks implements Listener {
 		if (action.equals(Action.RIGHT_CLICK_BLOCK) || action.equals(Action.RIGHT_CLICK_AIR)) {
 			if (config.getBoolean("tweaks.armor-swap.enabled")) {
 				if (!config.getBoolean("tweaks.armor-swap.crouch-cancel") || (config.getBoolean("tweaks.armor-swap.crouch-cancel") && !player.isSneaking())) { // TODO: test
-					if (event.hasItem() && dogTags.isWearable(item.getType())) { // TODO: test
-						EquipmentSlot slot = dogTags.getEquipmentSlot(item.getType());
+					if (event.hasItem() && DogTags.isWearable(item.getType())) { // TODO: test
+						EquipmentSlot slot = DogTags.getEquipmentSlot(item.getType());
 
 						if (slot.equals(EquipmentSlot.HEAD)) {
 							ItemStack olditem = player.getInventory().getHelmet();
@@ -498,7 +498,7 @@ public class tweaks implements Listener {
 		FileConfiguration config = Main.plugin().config();
 
 		if (config.getBoolean("tweaks.quickharvest")) {
-			if (dogTags.isHoe(player.getInventory().getItemInMainHand().getType())) {
+			if (DogTags.isHoe(player.getInventory().getItemInMainHand().getType())) {
 				BlockData blockdata = block.getBlockData();
 
 				if (Tag.CROPS.getValues().contains(block.getType()) && blockdata instanceof Ageable) {
@@ -602,14 +602,14 @@ public class tweaks implements Listener {
 							bottomblock = frontblock.getRelative(BlockFace.DOWN, 2);
 						}
 
-						if (!(bottomblock.getType().isBlock() && bottomblock.getType().isSolid() && dogTags.isFullBlock(bottomblock))) {
+						if (!(bottomblock.getType().isBlock() && bottomblock.getType().isSolid() && DogTags.isFullBlock(bottomblock))) {
 							frontblock.setType(oldType);
 							customdispense = false;
 							return;
 						}
 					}
 
-					if (dogTags.isWaterlogged(frontblock.getLocation().getBlock()) || (frontblock.getBlockData() instanceof Container)) {
+					if (DogTags.isWaterlogged(frontblock.getLocation().getBlock()) || (frontblock.getBlockData() instanceof Container)) {
 //						Container container = (Container) newblockdata;
 
 						frontblock.setType(oldType);

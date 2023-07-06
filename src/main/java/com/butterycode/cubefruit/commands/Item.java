@@ -2,7 +2,7 @@ package com.butterycode.cubefruit.commands;
 
 import com.butterycode.cubefruit.utils.awesomeText;
 import com.butterycode.cubefruit.utils.caboodle;
-import com.butterycode.cubefruit.utils.dogTags;
+import com.butterycode.cubefruit.utils.DogTags;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -69,7 +69,7 @@ public class Item extends CommandWrapper {
 						ItemStack item = new ItemStack(material);
 
 						if (args.length > 2) {
-							if (!dogTags.isNumeric(args[2])) {
+							if (!DogTags.isNumeric(args[2])) {
 								sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must enter a valid number."));
 								return true;
 							}
@@ -95,7 +95,7 @@ public class Item extends CommandWrapper {
 							return true;
 						}
 
-						if (!dogTags.isNumeric(args[1])) {
+						if (!DogTags.isNumeric(args[1])) {
 							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must enter a number."));
 							return true;
 						}
@@ -207,7 +207,7 @@ public class Item extends CommandWrapper {
 						}
 
 						if (args[1].equals("damage")) {
-							if (!dogTags.isNumeric(args[2])) {
+							if (!DogTags.isNumeric(args[2])) {
 								sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must enter a number."));
 								return true;
 							}
@@ -221,7 +221,7 @@ public class Item extends CommandWrapper {
 							sender.sendMessage(awesomeText.colorize("&a&l» &7Item durability has been set to &f" + (maxdamage - number) + "&7/&f" + maxdamage + "&7."));
 							return true;
 						} else if (args[1].equals("percentage")) {
-							if (!dogTags.isNumeric(args[2])) {
+							if (!DogTags.isNumeric(args[2])) {
 								sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must enter a number."));
 								return true;
 							}
@@ -235,7 +235,7 @@ public class Item extends CommandWrapper {
 							sender.sendMessage(awesomeText.colorize("&a&l» &7Item durability has been set to &f" + (maxdamage - number) + "&7/&f" + maxdamage + "&7."));
 							return true;
 						} else if (args[1].equals("remaining")) {
-							if (!dogTags.isNumeric(args[2])) {
+							if (!DogTags.isNumeric(args[2])) {
 								sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must enter a number."));
 								return true;
 							}
@@ -265,7 +265,7 @@ public class Item extends CommandWrapper {
 							return true;
 						}
 
-						if (!dogTags.isNumeric(args[1])) {
+						if (!DogTags.isNumeric(args[1])) {
 							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must enter a number."));
 							return true;
 						}
@@ -312,7 +312,7 @@ public class Item extends CommandWrapper {
 							return true;
 						}
 
-						if (!dogTags.isNumeric(args[2])) {
+						if (!DogTags.isNumeric(args[2])) {
 							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must enter a valid number."));
 							return true;
 						}

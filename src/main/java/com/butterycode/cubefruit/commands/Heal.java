@@ -2,7 +2,7 @@ package com.butterycode.cubefruit.commands;
 
 import com.butterycode.cubefruit.utils.awesomeText;
 import com.butterycode.cubefruit.utils.caboodle;
-import com.butterycode.cubefruit.utils.dogTags;
+import com.butterycode.cubefruit.utils.DogTags;
 import org.bukkit.Bukkit;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.command.Command;
@@ -46,7 +46,7 @@ public class Heal extends CommandWrapper {
 				return true;
 			}
 			if (args.length > 0) {
-				if (dogTags.isOnline(args[0])) {
+				if (DogTags.isOnline(args[0])) {
 					Player player = Bukkit.getPlayer(args[0]);
 
 					player.setHealth(player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue());

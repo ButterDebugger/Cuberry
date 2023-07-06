@@ -2,7 +2,7 @@ package com.butterycode.cubefruit.commands;
 
 import com.butterycode.cubefruit.utils.awesomeText;
 import com.butterycode.cubefruit.utils.caboodle;
-import com.butterycode.cubefruit.utils.dogTags;
+import com.butterycode.cubefruit.utils.DogTags;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -47,7 +47,7 @@ public class Speed extends CommandWrapper {
 			}
 
 			if (player.isFlying()) {
-				if (!dogTags.isNumeric(args[0])) {
+				if (!DogTags.isNumeric(args[0])) {
 					sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must enter a number."));
 					return true;
 				}
@@ -61,7 +61,7 @@ public class Speed extends CommandWrapper {
 				sender.sendMessage(awesomeText.colorize("&a&l» &7Set flying speed to &f" + number + "&7."));
 				return true;
 			} else {
-				if (!dogTags.isNumeric(args[0])) {
+				if (!DogTags.isNumeric(args[0])) {
 					sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must enter a number."));
 					return true;
 				}
@@ -95,7 +95,7 @@ public class Speed extends CommandWrapper {
 				return true;
 			}
 			if (args.length > 0) {
-				if (!dogTags.isNumeric(args[0])) {
+				if (!DogTags.isNumeric(args[0])) {
 					sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must enter a number."));
 					return true;
 				}
@@ -129,7 +129,7 @@ public class Speed extends CommandWrapper {
 				return true;
 			}
 			if (args.length > 0) {
-				if (!dogTags.isNumeric(args[0])) {
+				if (!DogTags.isNumeric(args[0])) {
 					sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must enter a number."));
 					return true;
 				}

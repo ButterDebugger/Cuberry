@@ -2,7 +2,7 @@ package com.butterycode.cubefruit.commands;
 
 import com.butterycode.cubefruit.utils.awesomeText;
 import com.butterycode.cubefruit.utils.caboodle;
-import com.butterycode.cubefruit.utils.dogTags;
+import com.butterycode.cubefruit.utils.DogTags;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
@@ -51,7 +51,7 @@ public class Gamemode extends CommandWrapper {
 			boolean themself = true;
 
 			if (args.length > 1) {
-				if (dogTags.isOnline(args[1])) {
+				if (DogTags.isOnline(args[1])) {
 					player = Bukkit.getPlayer(args[1]);
 					themself = false;
 				} else {
@@ -128,7 +128,7 @@ public class Gamemode extends CommandWrapper {
 				return true;
 			}
 
-			if (dogTags.isOnline(args[0])) {
+			if (DogTags.isOnline(args[0])) {
 				Player player = Bukkit.getPlayer(args[0]);
 
 				player.setGameMode(GameMode.ADVENTURE);
@@ -159,7 +159,7 @@ public class Gamemode extends CommandWrapper {
 				return true;
 			}
 
-			if (dogTags.isOnline(args[0])) {
+			if (DogTags.isOnline(args[0])) {
 				Player player = Bukkit.getPlayer(args[0]);
 
 				player.setGameMode(GameMode.CREATIVE);
@@ -190,7 +190,7 @@ public class Gamemode extends CommandWrapper {
 				return true;
 			}
 
-			if (dogTags.isOnline(args[0])) {
+			if (DogTags.isOnline(args[0])) {
 				Player player = Bukkit.getPlayer(args[0]);
 
 				player.setGameMode(GameMode.SPECTATOR);
@@ -221,7 +221,7 @@ public class Gamemode extends CommandWrapper {
 				return true;
 			}
 
-			if (dogTags.isOnline(args[0])) {
+			if (DogTags.isOnline(args[0])) {
 				Player player = Bukkit.getPlayer(args[0]);
 
 				player.setGameMode(GameMode.SURVIVAL);

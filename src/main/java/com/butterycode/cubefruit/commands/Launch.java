@@ -2,7 +2,7 @@ package com.butterycode.cubefruit.commands;
 
 import com.butterycode.cubefruit.utils.awesomeText;
 import com.butterycode.cubefruit.utils.caboodle;
-import com.butterycode.cubefruit.utils.dogTags;
+import com.butterycode.cubefruit.utils.DogTags;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
@@ -47,7 +47,7 @@ public class Launch extends CommandWrapper {
 					sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 					return true;
 				}
-				if (!dogTags.isNumeric(args[1])) {
+				if (!DogTags.isNumeric(args[1])) {
 					sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid number."));
 					return true;
 				}
@@ -73,7 +73,7 @@ public class Launch extends CommandWrapper {
 					sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 					return true;
 				}
-				if (!dogTags.isNumeric(args[1])) {
+				if (!DogTags.isNumeric(args[1])) {
 					sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid number."));
 					return true;
 				}
@@ -99,7 +99,7 @@ public class Launch extends CommandWrapper {
 					sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 					return true;
 				}
-				if (!dogTags.isNumeric(args[1])) {
+				if (!DogTags.isNumeric(args[1])) {
 					sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid number."));
 					return true;
 				}
@@ -125,7 +125,7 @@ public class Launch extends CommandWrapper {
 					sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 					return true;
 				}
-				if (!dogTags.isNumeric(args[1])) {
+				if (!DogTags.isNumeric(args[1])) {
 					sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid number."));
 					return true;
 				}

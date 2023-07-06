@@ -197,7 +197,7 @@ public class caboodle implements Listener {
 
 	@SuppressWarnings("deprecation")
 	public static OfflinePlayer getOfflinePlayer(String username) {
-		if (dogTags.isOnline(username)) {
+		if (DogTags.isOnline(username)) {
 			return Bukkit.getPlayer(username);
 		} else {
 			return Bukkit.getOfflinePlayer(username);
@@ -205,7 +205,7 @@ public class caboodle implements Listener {
 	}
 
 	public static OfflinePlayer getOfflinePlayer(UUID uuid) {
-		if (dogTags.isOnline(uuid)) {
+		if (DogTags.isOnline(uuid)) {
 			return Bukkit.getPlayer(uuid);
 		} else {
 			return Bukkit.getOfflinePlayer(uuid);
@@ -440,7 +440,7 @@ public class caboodle implements Listener {
 		if (blockData instanceof Bisected) {
 			Bisected bisected = (Bisected) blockData;
 			
-			if (dogTags.isTwoBlocksTall(block.getType())) {
+			if (DogTags.isTwoBlocksTall(block.getType())) {
 				if (bisected.getHalf().equals(Half.BOTTOM)) {
 					Block otherBlock = block.getRelative(BlockFace.UP);
 					BlockData otherBlockData = otherBlock.getBlockData();

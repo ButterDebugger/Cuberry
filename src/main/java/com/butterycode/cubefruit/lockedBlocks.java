@@ -3,7 +3,7 @@ package com.butterycode.cubefruit;
 import com.butterycode.cubefruit.utils.awesomeText;
 import com.butterycode.cubefruit.utils.caboodle;
 import com.butterycode.cubefruit.utils.dataStorage;
-import com.butterycode.cubefruit.utils.dogTags;
+import com.butterycode.cubefruit.utils.DogTags;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -265,7 +265,7 @@ public class lockedBlocks implements Listener, CommandExecutor {
 			} else {
 				unlockBlock(block);
 			}
-		} else if (isBlockLocked(blockAbove) && dogTags.isSupportedFromBelow(blockAbove)) {
+		} else if (isBlockLocked(blockAbove) && DogTags.isSupportedFromBelow(blockAbove)) {
 			if (config.getBoolean("locks.indestructable")) {
 				event.setCancelled(true);
 			} else {
@@ -290,7 +290,7 @@ public class lockedBlocks implements Listener, CommandExecutor {
 			} else {
 				unlockBlock(block);
 			}
-		} else if (isBlockLocked(blockAbove) && dogTags.isSupportedFromBelow(blockAbove)) {
+		} else if (isBlockLocked(blockAbove) && DogTags.isSupportedFromBelow(blockAbove)) {
 			if (config.getBoolean("locks.indestructable")) {
 				player.playSound(player.getLocation(), Sound.BLOCK_CHEST_LOCKED, 0.5f, 1f);
 				caboodle.sendActionbar(player, awesomeText.prettifyMessage("The block above is locked!"));
@@ -317,7 +317,7 @@ public class lockedBlocks implements Listener, CommandExecutor {
 				} else {
 					unlockBlock(block);
 				}
-			} else if (isBlockLocked(blockAbove) && dogTags.isSupportedFromBelow(blockAbove)) {
+			} else if (isBlockLocked(blockAbove) && DogTags.isSupportedFromBelow(blockAbove)) {
 				if (config.getBoolean("locks.indestructable")) {
 					iter.remove();
 				} else {
@@ -347,7 +347,7 @@ public class lockedBlocks implements Listener, CommandExecutor {
 				} else {
 					unlockBlock(block);
 				}
-			} else if (isBlockLocked(blockAbove) && dogTags.isSupportedFromBelow(blockAbove)) {
+			} else if (isBlockLocked(blockAbove) && DogTags.isSupportedFromBelow(blockAbove)) {
 				if (config.getBoolean("locks.indestructable")) {
 					event.setCancelled(true);
 					break;
@@ -384,7 +384,7 @@ public class lockedBlocks implements Listener, CommandExecutor {
 				} else {
 					unlockBlock(block);
 				}
-			} else if (isBlockLocked(blockAbove) && dogTags.isSupportedFromBelow(blockAbove)) {
+			} else if (isBlockLocked(blockAbove) && DogTags.isSupportedFromBelow(blockAbove)) {
 				if (config.getBoolean("locks.indestructable")) {
 					event.setCancelled(true);
 					break;

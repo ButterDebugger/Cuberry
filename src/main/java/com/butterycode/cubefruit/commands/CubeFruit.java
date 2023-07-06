@@ -3,7 +3,7 @@ package com.butterycode.cubefruit.commands;
 import com.butterycode.cubefruit.Main;
 import com.butterycode.cubefruit.utils.awesomeText;
 import com.butterycode.cubefruit.utils.caboodle;
-import com.butterycode.cubefruit.utils.dogTags;
+import com.butterycode.cubefruit.utils.DogTags;
 import org.bukkit.*;
 import org.bukkit.World.Environment;
 import org.bukkit.attribute.Attribute;
@@ -81,13 +81,13 @@ public class CubeFruit implements CommandExecutor, TabCompleter {
 						if (args.length < 4) {
 							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 							return true;
-						} else if (dogTags.isOnline(args[3])) {
+						} else if (DogTags.isOnline(args[3])) {
 							Player other = Bukkit.getPlayer(args[3]);
 
 							if (args.length < 5) {
 								sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 								return true;
-							} else if (dogTags.isNumeric(args[4])) {
+							} else if (DogTags.isNumeric(args[4])) {
 								int number = Math.min(Integer.parseInt(args[4]), 20);
 
 								other.setFoodLevel(number);
@@ -105,13 +105,13 @@ public class CubeFruit implements CommandExecutor, TabCompleter {
 						if (args.length < 4) {
 							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 							return true;
-						} else if (dogTags.isOnline(args[3])) {
+						} else if (DogTags.isOnline(args[3])) {
 							Player other = Bukkit.getPlayer(args[3]);
 
 							if (args.length < 5) {
 								sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 								return true;
-							} else if (dogTags.isNumeric(args[4])) {
+							} else if (DogTags.isNumeric(args[4])) {
 								double number = Math.min(Integer.parseInt(args[4]), other.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue());
 
 								other.setHealth(number);
@@ -129,13 +129,13 @@ public class CubeFruit implements CommandExecutor, TabCompleter {
 						if (args.length < 4) {
 							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 							return true;
-						} else if (dogTags.isOnline(args[3])) {
+						} else if (DogTags.isOnline(args[3])) {
 							Player hidden = Bukkit.getPlayer(args[3]);
 
 							if (args.length < 5) {
 								sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 								return true;
-							} else if (dogTags.isOnline(args[4])) {
+							} else if (DogTags.isOnline(args[4])) {
 								Player other = Bukkit.getPlayer(args[4]);
 								other.hidePlayer(Main.plugin(), hidden);
 								sender.sendMessage(awesomeText.colorize("&b" + hidden.getName() + " &3is now hidden from &b" + other.getName()));
@@ -152,13 +152,13 @@ public class CubeFruit implements CommandExecutor, TabCompleter {
 						if (args.length < 4) {
 							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 							return true;
-						} else if (dogTags.isOnline(args[3])) {
+						} else if (DogTags.isOnline(args[3])) {
 							Player shown = Bukkit.getPlayer(args[3]);
 
 							if (args.length < 5) {
 								sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 								return true;
-							} else if (dogTags.isOnline(args[4])) {
+							} else if (DogTags.isOnline(args[4])) {
 								Player other = Bukkit.getPlayer(args[4]);
 								other.showPlayer(Main.plugin(), shown);
 								sender.sendMessage(awesomeText.colorize("b" + shown.getName() + " &3is now visible to &b" + other.getName()));
@@ -181,7 +181,7 @@ public class CubeFruit implements CommandExecutor, TabCompleter {
 						if (args.length < 4) {
 							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 							return true;
-						} else if (dogTags.isOnline(args[3])) {
+						} else if (DogTags.isOnline(args[3])) {
 							Player other = Bukkit.getPlayer(args[3]);
 
 							Inventory inventory = Bukkit.createInventory(null, 45, other.getName() + "'s Inventory");
@@ -203,7 +203,7 @@ public class CubeFruit implements CommandExecutor, TabCompleter {
 						if (args.length < 4) {
 							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 							return true;
-						} else if (dogTags.isOnline(args[3])) {
+						} else if (DogTags.isOnline(args[3])) {
 							Player other = Bukkit.getPlayer(args[3]);
 
 							Inventory inventory = Bukkit.createInventory(null, 27, other.getName() + "'s Ender Chest");
@@ -219,13 +219,13 @@ public class CubeFruit implements CommandExecutor, TabCompleter {
 						if (args.length < 4) {
 							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 							return true;
-						} else if (dogTags.isOnline(args[3])) {
+						} else if (DogTags.isOnline(args[3])) {
 							Player other = Bukkit.getPlayer(args[3]);
 
 							if (args.length < 5) {
 								sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 								return true;
-							} else if (dogTags.isNumeric(args[4])) {
+							} else if (DogTags.isNumeric(args[4])) {
 								int number = Integer.parseInt(args[4]);
 
 								other.setArrowsInBody(number);
@@ -243,13 +243,13 @@ public class CubeFruit implements CommandExecutor, TabCompleter {
 						if (args.length < 4) {
 							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 							return true;
-						} else if (dogTags.isOnline(args[3])) {
+						} else if (DogTags.isOnline(args[3])) {
 							Player rider = Bukkit.getPlayer(args[3]);
 
 							if (args.length < 5) {
 								sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 								return true;
-							} else if (dogTags.isOnline(args[4])) {
+							} else if (DogTags.isOnline(args[4])) {
 								Player other = Bukkit.getPlayer(args[4]);
 								other.setPassenger(rider);
 								sender.sendMessage(awesomeText.colorize("&b" + rider.getName() + " &3is now riding &b" + other.getName()));
@@ -266,13 +266,13 @@ public class CubeFruit implements CommandExecutor, TabCompleter {
 						if (args.length < 4) {
 							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 							return true;
-						} else if (dogTags.isOnline(args[3])) {
+						} else if (DogTags.isOnline(args[3])) {
 							Player player = Bukkit.getPlayer(args[3]);
 
 							if (args.length < 5) {
 								sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 								return true;
-							} else if (dogTags.isOnline(args[4])) {
+							} else if (DogTags.isOnline(args[4])) {
 								Player other = Bukkit.getPlayer(args[4]);
 
 								Location playerLoc = player.getLocation();
@@ -296,7 +296,7 @@ public class CubeFruit implements CommandExecutor, TabCompleter {
 						if (args.length < 4) {
 							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 							return true;
-						} else if (dogTags.isOnline(args[3])) {
+						} else if (DogTags.isOnline(args[3])) {
 							Player other = Bukkit.getPlayer(args[3]);
 
 							ItemStack item = other.getInventory().getItemInMainHand();
@@ -316,7 +316,7 @@ public class CubeFruit implements CommandExecutor, TabCompleter {
 						if (args.length < 4) {
 							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 							return true;
-						} else if (dogTags.isOnline(args[3])) {
+						} else if (DogTags.isOnline(args[3])) {
 							Player other = Bukkit.getPlayer(args[3]);
 
 							ItemStack item = other.getInventory().getItemInOffHand();
@@ -336,7 +336,7 @@ public class CubeFruit implements CommandExecutor, TabCompleter {
 						if (args.length < 4) {
 							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 							return true;
-						} else if (dogTags.isOnline(args[3])) {
+						} else if (DogTags.isOnline(args[3])) {
 							Player other = Bukkit.getPlayer(args[3]);
 
 							ItemStack item = other.getInventory().getItemInOffHand();

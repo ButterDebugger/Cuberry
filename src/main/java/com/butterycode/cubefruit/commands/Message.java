@@ -3,7 +3,7 @@ package com.butterycode.cubefruit.commands;
 import com.butterycode.cubefruit.Main;
 import com.butterycode.cubefruit.utils.awesomeText;
 import com.butterycode.cubefruit.utils.caboodle;
-import com.butterycode.cubefruit.utils.dogTags;
+import com.butterycode.cubefruit.utils.DogTags;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
@@ -54,7 +54,7 @@ public class Message extends CommandWrapper {
 				return true;
 			}
 
-			if (dogTags.isOnline(args[0])) {
+			if (DogTags.isOnline(args[0])) {
 				Player receiver = Bukkit.getPlayer(args[0]);
 				assert receiver != null;
 
@@ -104,7 +104,7 @@ public class Message extends CommandWrapper {
 				return true;
 			}
 
-			if (dogTags.isOnline(reply.get(player.getUniqueId()))) {
+			if (DogTags.isOnline(reply.get(player.getUniqueId()))) {
 				Player receiver = Bukkit.getPlayer(reply.get(player.getUniqueId()));
 				assert receiver != null;
 

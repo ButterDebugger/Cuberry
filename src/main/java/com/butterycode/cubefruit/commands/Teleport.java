@@ -4,7 +4,7 @@ import com.butterycode.cubefruit.Main;
 import com.butterycode.cubefruit.utils.awesomeText;
 import com.butterycode.cubefruit.utils.caboodle;
 import com.butterycode.cubefruit.utils.dataStorage;
-import com.butterycode.cubefruit.utils.dogTags;
+import com.butterycode.cubefruit.utils.DogTags;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
@@ -57,7 +57,7 @@ public class Teleport extends CommandWrapper {
 
 			String username = args[0];
 
-			if (!dogTags.isOnline(username)) {
+			if (!DogTags.isOnline(username)) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7That player is not online."));
 				return true;
 			}
@@ -87,7 +87,7 @@ public class Teleport extends CommandWrapper {
 
 			String username = args[0];
 
-			if (!dogTags.isOnline(username)) {
+			if (!DogTags.isOnline(username)) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7That player is not online."));
 				return true;
 			}
@@ -122,7 +122,7 @@ public class Teleport extends CommandWrapper {
 			} else {
 				String username = args[0];
 
-				if (!dogTags.isOnline(username)) {
+				if (!DogTags.isOnline(username)) {
 					sender.sendMessage(awesomeText.prettifyMessage("&cError: &7That player is not online."));
 					return true;
 				}

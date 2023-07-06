@@ -3,7 +3,7 @@ package com.butterycode.cubefruit;
 import com.butterycode.cubefruit.utils.awesomeText;
 import com.butterycode.cubefruit.utils.caboodle;
 import com.butterycode.cubefruit.utils.dataStorage;
-import com.butterycode.cubefruit.utils.dogTags;
+import com.butterycode.cubefruit.utils.DogTags;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -109,7 +109,7 @@ public class playerLives implements Listener, CommandExecutor, TabCompleter {
 				return true;
 			}
 
-			if (dogTags.isOnline(args[0])) {
+			if (DogTags.isOnline(args[0])) {
 				Player receiver = Bukkit.getPlayer(args[0]);
 
 				if (receiver.equals(player)) {
@@ -167,7 +167,7 @@ public class playerLives implements Listener, CommandExecutor, TabCompleter {
 
 			if (args[0].equalsIgnoreCase("get")) {
 				if (args.length > 1) {
-					if (dogTags.isOnline(args[1])) {
+					if (DogTags.isOnline(args[1])) {
 						Player other = Bukkit.getPlayer(args[1]);
 
 						sender.sendMessage(awesomeText.colorize("&7" + other.getName() + " currently has " + getLives(other) + " lives."));
@@ -187,11 +187,11 @@ public class playerLives implements Listener, CommandExecutor, TabCompleter {
 				}
 
 				if (args.length > 1) {
-					if (dogTags.isOnline(args[1])) {
+					if (DogTags.isOnline(args[1])) {
 						Player other = Bukkit.getPlayer(args[1]);
 
 						if (args.length > 2) {
-							if (dogTags.isNumeric(args[2])) {
+							if (DogTags.isNumeric(args[2])) {
 								int number = Math.max(0, Integer.valueOf(args[2]));
 
 								setLives(other, number);

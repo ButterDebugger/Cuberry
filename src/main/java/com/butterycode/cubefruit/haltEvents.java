@@ -2,7 +2,7 @@ package com.butterycode.cubefruit;
 
 import com.butterycode.cubefruit.utils.awesomeText;
 import com.butterycode.cubefruit.utils.caboodle;
-import com.butterycode.cubefruit.utils.dogTags;
+import com.butterycode.cubefruit.utils.DogTags;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.type.EndPortalFrame;
@@ -107,7 +107,7 @@ public class haltEvents implements Listener, CommandExecutor, TabCompleter {
 			if (args.length > 0) {
 				if (args[0].equalsIgnoreCase("player")) {
 					if (args.length > 1) {
-						if (dogTags.isOnline(args[1])) {
+						if (DogTags.isOnline(args[1])) {
 							Player player = Bukkit.getPlayer(args[1]);
 							UUID uuid = player.getUniqueId();
 
