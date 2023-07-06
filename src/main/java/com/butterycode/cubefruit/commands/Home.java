@@ -1,7 +1,7 @@
 package com.butterycode.cubefruit.commands;
 
 import com.butterycode.cubefruit.Main;
-import com.butterycode.cubefruit.utils.awesomeText;
+import com.butterycode.cubefruit.utils.AwesomeText;
 import com.butterycode.cubefruit.utils.Caboodle;
 import com.butterycode.cubefruit.utils.DataStorage;
 import org.bukkit.Bukkit;
@@ -38,75 +38,75 @@ public class Home extends CommandWrapper implements Listener {
 
 		if (label.equalsIgnoreCase("home")) {
 			if (!(sender instanceof Player)) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
 				return true;
 			}
 
 			Player player = (Player)sender;
 
 			if (!Caboodle.hasPermission(sender, "home")) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
 			if (args.length != 0) {
-				sender.sendMessage(awesomeText.colorize("&cUsage: &7/home"));
+				sender.sendMessage(AwesomeText.colorize("&cUsage: &7/home"));
 				return true;
 			}
 
 			if (playerData.existsNot(player.getUniqueId() + ".home")) {
-				sender.sendMessage(awesomeText.colorize("&cError: &7You do not have a home set."));
+				sender.sendMessage(AwesomeText.colorize("&cError: &7You do not have a home set."));
 				return true;
 			}
 
 			Location homeLoc = Caboodle.parseLocation(playerData.getString(player.getUniqueId() + ".home"));
 
-			sender.sendMessage(awesomeText.colorize("&a&l» &7You have been teleported home."));
+			sender.sendMessage(AwesomeText.colorize("&a&l» &7You have been teleported home."));
 			player.teleport(homeLoc);
 			player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 0.5f, 1f);
 			return true;
 		} else if (label.equalsIgnoreCase("sethome")) {
 			if (!(sender instanceof Player)) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
 				return true;
 			}
 
 			Player player = (Player) sender;
 
 			if (!Caboodle.hasPermission(sender, "sethome")) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
 			if (args.length != 0) {
-				sender.sendMessage(awesomeText.colorize("&cUsage: &7/sethome"));
+				sender.sendMessage(AwesomeText.colorize("&cUsage: &7/sethome"));
 				return true;
 			}
 
-			sender.sendMessage(awesomeText.colorize("&a&l» &7Your home has been set."));
+			sender.sendMessage(AwesomeText.colorize("&a&l» &7Your home has been set."));
 			playerData.set(player.getUniqueId() + ".home", Caboodle.stringifyLocation(player));
 			return true;
 		} else if (label.equalsIgnoreCase("delhome")) {
 			if (!(sender instanceof Player)) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
 				return true;
 			}
 
 			Player player = (Player)sender;
 
 			if (!Caboodle.hasPermission(sender, "delhome")) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
 			if (args.length != 0) {
-				sender.sendMessage(awesomeText.colorize("&cUsage: &7/delhome"));
+				sender.sendMessage(AwesomeText.colorize("&cUsage: &7/delhome"));
 				return true;
 			}
 
 			if (playerData.get(player.getUniqueId() + ".home") == null) {
-				sender.sendMessage(awesomeText.colorize("&cError: &7You don't already have a home."));
+				sender.sendMessage(AwesomeText.colorize("&cError: &7You don't already have a home."));
 				return true;
 			} else {
 				playerData.remove(player.getUniqueId() + ".home");
-				sender.sendMessage(awesomeText.colorize("&a&l» &7Your home has been deleted."));
+				sender.sendMessage(AwesomeText.colorize("&a&l» &7Your home has been deleted."));
 				return true;
 			}
 		}

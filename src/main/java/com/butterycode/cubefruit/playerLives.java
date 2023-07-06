@@ -1,6 +1,6 @@
 package com.butterycode.cubefruit;
 
-import com.butterycode.cubefruit.utils.awesomeText;
+import com.butterycode.cubefruit.utils.AwesomeText;
 import com.butterycode.cubefruit.utils.Caboodle;
 import com.butterycode.cubefruit.utils.DataStorage;
 import com.butterycode.cubefruit.utils.DogTags;
@@ -62,7 +62,7 @@ public class playerLives implements Listener, CommandExecutor, TabCompleter {
 
 			if (Main.plugin().config().getBoolean("lives.lifesteal")) {
 				setLives(murderer, getLives(murderer) + 1);
-				murderer.sendMessage(awesomeText.colorize("&7You have gained one life from killing " + player.getName()));
+				murderer.sendMessage(AwesomeText.colorize("&7You have gained one life from killing " + player.getName()));
 			}
 		}
 
@@ -88,9 +88,9 @@ public class playerLives implements Listener, CommandExecutor, TabCompleter {
 		Player player = event.getPlayer();
 
 		if (getLives(player) > 0) {
-			player.sendMessage(awesomeText.colorize("&7You now have " + getLives(player) + " lives left."));
+			player.sendMessage(AwesomeText.colorize("&7You now have " + getLives(player) + " lives left."));
 		} else {
-			player.sendMessage(awesomeText.colorize("&7You no lives left."));
+			player.sendMessage(AwesomeText.colorize("&7You no lives left."));
 		}
 	}
 
@@ -98,14 +98,14 @@ public class playerLives implements Listener, CommandExecutor, TabCompleter {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (label.equalsIgnoreCase("revive")) {
 			if (!(sender instanceof Player)) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
 				return true;
 			}
 
 			Player player = (Player) sender;
 
 			if (args.length == 0) {
-				sender.sendMessage(awesomeText.colorize("&cUsage: &7/revive <player>"));
+				sender.sendMessage(AwesomeText.colorize("&cUsage: &7/revive <player>"));
 				return true;
 			}
 
@@ -113,12 +113,12 @@ public class playerLives implements Listener, CommandExecutor, TabCompleter {
 				Player receiver = Bukkit.getPlayer(args[0]);
 
 				if (receiver.equals(player)) {
-					sender.sendMessage(awesomeText.colorize("&cError: &7You cannot revive yourself."));
+					sender.sendMessage(AwesomeText.colorize("&cError: &7You cannot revive yourself."));
 					return true;
 				}
 
 				if (getLives(player) == 0) {
-					sender.sendMessage(awesomeText.colorize("&cError: &7You don't have any lives to give away."));
+					sender.sendMessage(AwesomeText.colorize("&cError: &7You don't have any lives to give away."));
 					return true;
 				}
 
@@ -139,18 +139,18 @@ public class playerLives implements Listener, CommandExecutor, TabCompleter {
 
 				setLives(receiver, getLives(receiver) + 1);
 
-				sender.sendMessage(awesomeText.colorize("&7You now have " + getLives(player) + " lives remaining."));
-				receiver.sendMessage(awesomeText.colorize("&7" + player.getName() + " has given you one of their lives."));
+				sender.sendMessage(AwesomeText.colorize("&7You now have " + getLives(player) + " lives remaining."));
+				receiver.sendMessage(AwesomeText.colorize("&7" + player.getName() + " has given you one of their lives."));
 
 				receiver.playSound(receiver.getLocation(), Sound.ITEM_TOTEM_USE, 0.5f, 1f);
 				return true;
 			} else {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7That player could not be found."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7That player could not be found."));
 			}
 		}
 		if (label.equalsIgnoreCase("lives")) {
 			if (!(sender instanceof Player)) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
 				return true;
 			}
 
@@ -158,9 +158,9 @@ public class playerLives implements Listener, CommandExecutor, TabCompleter {
 
 			if (args.length == 0) {
 				if (Caboodle.hasPermission(sender, "admin")) {
-					sender.sendMessage(awesomeText.colorize("&cUsage: &7/lives <get|set> <player> [<number>]"));
+					sender.sendMessage(AwesomeText.colorize("&cUsage: &7/lives <get|set> <player> [<number>]"));
 				} else {
-					sender.sendMessage(awesomeText.colorize("&cUsage: &7/lives <get> <player>"));
+					sender.sendMessage(AwesomeText.colorize("&cUsage: &7/lives <get> <player>"));
 				}
 				return true;
 			}
@@ -170,19 +170,19 @@ public class playerLives implements Listener, CommandExecutor, TabCompleter {
 					if (DogTags.isOnline(args[1])) {
 						Player other = Bukkit.getPlayer(args[1]);
 
-						sender.sendMessage(awesomeText.colorize("&7" + other.getName() + " currently has " + getLives(other) + " lives."));
+						sender.sendMessage(AwesomeText.colorize("&7" + other.getName() + " currently has " + getLives(other) + " lives."));
 						return true;
 					} else {
-						sender.sendMessage(awesomeText.prettifyMessage("&cError: &7That player could not be found."));
+						sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7That player could not be found."));
 						return true;
 					}
 				} else {
-					sender.sendMessage(awesomeText.colorize("&7You currently have " + getLives(player) + " lives."));
+					sender.sendMessage(AwesomeText.colorize("&7You currently have " + getLives(player) + " lives."));
 					return true;
 				}
 			} else if (args[0].equalsIgnoreCase("set")) {
 				if (!Caboodle.hasPermission(sender, "admin")) {
-					sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
+					sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 					return true;
 				}
 
@@ -196,26 +196,26 @@ public class playerLives implements Listener, CommandExecutor, TabCompleter {
 
 								setLives(other, number);
 
-								sender.sendMessage(awesomeText.colorize("&7" + other.getName() + " now has " + number + " lives."));
+								sender.sendMessage(AwesomeText.colorize("&7" + other.getName() + " now has " + number + " lives."));
 								return true;
 							} else {
-								sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must enter a number."));
+								sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must enter a number."));
 								return true;
 							}
 						} else {
-							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
+							sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 							return true;
 						}
 					} else {
-						sender.sendMessage(awesomeText.prettifyMessage("&cError: &7That player could not be found."));
+						sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7That player could not be found."));
 						return true;
 					}
 				} else {
-					sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
+					sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 					return true;
 				}
 			} else {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 				return true;
 			}
 		}

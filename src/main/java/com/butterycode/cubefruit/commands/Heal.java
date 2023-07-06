@@ -1,6 +1,6 @@
 package com.butterycode.cubefruit.commands;
 
-import com.butterycode.cubefruit.utils.awesomeText;
+import com.butterycode.cubefruit.utils.AwesomeText;
 import com.butterycode.cubefruit.utils.Caboodle;
 import com.butterycode.cubefruit.utils.DogTags;
 import org.bukkit.Bukkit;
@@ -25,13 +25,13 @@ public class Heal extends CommandWrapper {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (label.equalsIgnoreCase("heal")) {
 			if (!Caboodle.hasPermission(sender, "heal")) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
 
 			if (args.length == 0) {
 				if (!(sender instanceof Player)) {
-					sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
+					sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
 					return true;
 				}
 
@@ -42,7 +42,7 @@ public class Heal extends CommandWrapper {
 				player.setSaturation(5);
 				player.setSaturatedRegenRate(10);
 
-				sender.sendMessage(awesomeText.prettifyMessage("&a&l» &7You have been healed."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7You have been healed."));
 				return true;
 			}
 			if (args.length > 0) {
@@ -54,10 +54,10 @@ public class Heal extends CommandWrapper {
 					player.setSaturation(5);
 					player.setSaturatedRegenRate(10);
 
-					sender.sendMessage(awesomeText.prettifyMessage("&a&l» &f" + player.getName() + "&7 has been healed."));
+					sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &f" + player.getName() + "&7 has been healed."));
 					return true;
 				} else {
-					sender.sendMessage(awesomeText.prettifyMessage("&cError: &7That player could not be found."));
+					sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7That player could not be found."));
 					return true;
 				}
 			}

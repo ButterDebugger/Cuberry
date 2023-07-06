@@ -1,6 +1,6 @@
 package com.butterycode.cubefruit.commands;
 
-import com.butterycode.cubefruit.utils.awesomeText;
+import com.butterycode.cubefruit.utils.AwesomeText;
 import com.butterycode.cubefruit.utils.Caboodle;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -48,25 +48,25 @@ public class Back extends CommandWrapper implements Listener {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (label.equalsIgnoreCase("back")) {
 			if (!Caboodle.hasPermission(sender, "back")) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
 
 			if (!(sender instanceof Player)) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
 				return true;
 			}
 
 			Player player = (Player) sender;
 
 			if (!previousLocations.containsKey(player.getUniqueId())) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have any place to return back to."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You do not have any place to return back to."));
 				return true;
 			}
 
 			player.teleport(previousLocations.get(player.getUniqueId()));
 
-			sender.sendMessage(awesomeText.prettifyMessage("&a&l» &7You have been teleported back to your previous location."));
+			sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7You have been teleported back to your previous location."));
 			return true;
 		}
 		return false;

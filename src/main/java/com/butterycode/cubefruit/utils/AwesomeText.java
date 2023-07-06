@@ -10,7 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-public class awesomeText {
+public class AwesomeText {
 
     public static String colorize(String string) {
         return ChatColor.translateAlternateColorCodes('&' , string);
@@ -66,7 +66,7 @@ public class awesomeText {
         String newmessage = message;
 
         // TODO: add compacted numbers
-        newmessage = awesomeText.colorizeHex(newmessage); // Colorize string
+        newmessage = AwesomeText.colorizeHex(newmessage); // Colorize string
 
         return newmessage;
     }
@@ -81,7 +81,7 @@ public class awesomeText {
         String newmessage = message;
 
         // TODO: add compacted numbers
-        newmessage = awesomeText.importPlaceholders(newmessage, player);
+        newmessage = AwesomeText.importPlaceholders(newmessage, player);
         newmessage = prettifyMessage(newmessage);
 
         return newmessage;

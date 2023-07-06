@@ -1,6 +1,6 @@
 package com.butterycode.cubefruit.commands;
 
-import com.butterycode.cubefruit.utils.awesomeText;
+import com.butterycode.cubefruit.utils.AwesomeText;
 import com.butterycode.cubefruit.utils.Caboodle;
 import com.butterycode.cubefruit.utils.DogTags;
 import org.bukkit.Bukkit;
@@ -23,11 +23,11 @@ public class Sudo extends CommandWrapper {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (label.equalsIgnoreCase("sudo")) {
 			if (!Caboodle.hasPermission(sender, "sudo")) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
 			if (args.length == 0) {
-				sender.sendMessage(awesomeText.colorize("&3Usage: &7/sudo <player> <args>"));
+				sender.sendMessage(AwesomeText.colorize("&3Usage: &7/sudo <player> <args>"));
 				return true;
 			}
 
@@ -42,20 +42,20 @@ public class Sudo extends CommandWrapper {
 					boolean result = player.performCommand(str);
 
 					if (result) {
-						sender.sendMessage(awesomeText.colorize("&a&l» &7Command was successful."));
+						sender.sendMessage(AwesomeText.colorize("&a&l» &7Command was successful."));
 						return true;
 					} else {
-						sender.sendMessage(awesomeText.colorize("&a&l» &7Command was not successful."));
+						sender.sendMessage(AwesomeText.colorize("&a&l» &7Command was not successful."));
 						return true;
 					}
 				} else {
 					player.chat(str);
 
-					sender.sendMessage(awesomeText.colorize("&a&l» &7Message has been sent."));
+					sender.sendMessage(AwesomeText.colorize("&a&l» &7Message has been sent."));
 					return true;
 				}
 			} else {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7That player could not be found."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7That player could not be found."));
 				return true;
 			}
 		}

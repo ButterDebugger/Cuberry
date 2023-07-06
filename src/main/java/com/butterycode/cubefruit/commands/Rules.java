@@ -1,7 +1,7 @@
 package com.butterycode.cubefruit.commands;
 
 import com.butterycode.cubefruit.Main;
-import com.butterycode.cubefruit.utils.awesomeText;
+import com.butterycode.cubefruit.utils.AwesomeText;
 import com.butterycode.cubefruit.utils.Caboodle;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -25,12 +25,12 @@ public class Rules extends CommandWrapper {
 
 		if (label.equalsIgnoreCase("rules")) {
 			if (!Caboodle.hasPermission(sender, "rules")) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
 
 			List<String> rules = config.getStringList("commands.rules.message");
-			String msg = awesomeText.prettifyMessage(String.join("\n", rules));
+			String msg = AwesomeText.prettifyMessage(String.join("\n", rules));
 
 			sender.sendMessage(msg);
 			return true;

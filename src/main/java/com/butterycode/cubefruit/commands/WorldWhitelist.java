@@ -1,7 +1,7 @@
 package com.butterycode.cubefruit.commands;
 
 import com.butterycode.cubefruit.Main;
-import com.butterycode.cubefruit.utils.awesomeText;
+import com.butterycode.cubefruit.utils.AwesomeText;
 import com.butterycode.cubefruit.utils.Caboodle;
 import com.butterycode.cubefruit.utils.DataStorage;
 import com.butterycode.cubefruit.utils.DogTags;
@@ -42,7 +42,7 @@ public class WorldWhitelist extends CommandWrapper implements Listener {
 
 					String notificationID = Instant.now().getEpochSecond() + ";" + to.getName() + ";" + player.getUniqueId();
 					if (!notificationCooldown.contains(notificationID)) {
-						player.sendMessage(awesomeText.colorize("&cError: &7You cannot travel to &f" + to.getName() + "&7 because you are not whitelisted."));
+						player.sendMessage(AwesomeText.colorize("&cError: &7You cannot travel to &f" + to.getName() + "&7 because you are not whitelisted."));
 						notificationCooldown.add(notificationID);
 					}
 				}
@@ -56,11 +56,11 @@ public class WorldWhitelist extends CommandWrapper implements Listener {
 
 		if (label.equalsIgnoreCase("worldwhitelist")) {
 			if (!Caboodle.hasPermission(sender, "worldwhitelist")) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
 			if (args.length == 0) {
-				sender.sendMessage(awesomeText.colorize("&3Usage: &7/worldwhitelist <on|off|add|remove|list> <world> [<player>]"));
+				sender.sendMessage(AwesomeText.colorize("&3Usage: &7/worldwhitelist <on|off|add|remove|list> <world> [<player>]"));
 				return true;
 			}
 
@@ -70,14 +70,14 @@ public class WorldWhitelist extends CommandWrapper implements Listener {
 
 					if (world != null) {
 						doubleData.set("worlds." + world.getName() + ".whitelist.enabled", true);
-						sender.sendMessage(awesomeText.colorize("&a&l» &7Whitelist for &f" + world.getName() + "&7 is now turned on."));
+						sender.sendMessage(AwesomeText.colorize("&a&l» &7Whitelist for &f" + world.getName() + "&7 is now turned on."));
 						return true;
 					} else {
-						sender.sendMessage(awesomeText.colorize("&cError: &7World could not be found."));
+						sender.sendMessage(AwesomeText.colorize("&cError: &7World could not be found."));
 						return true;
 					}
 				} else {
-					sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
+					sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 					return true;
 				}
 			} else if (args[0].equalsIgnoreCase("off")) {
@@ -86,14 +86,14 @@ public class WorldWhitelist extends CommandWrapper implements Listener {
 
 					if (world != null) {
 						doubleData.set("worlds." + world.getName() + ".whitelist.enabled", false);
-						sender.sendMessage(awesomeText.colorize("&a&l» &7Whitelist for &f" + world.getName() + "&7 is now turned off."));
+						sender.sendMessage(AwesomeText.colorize("&a&l» &7Whitelist for &f" + world.getName() + "&7 is now turned off."));
 						return true;
 					} else {
-						sender.sendMessage(awesomeText.colorize("&cError: &7World could not be found."));
+						sender.sendMessage(AwesomeText.colorize("&cError: &7World could not be found."));
 						return true;
 					}
 				} else {
-					sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
+					sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 					return true;
 				}
 			} else if (args[0].equalsIgnoreCase("add")) {
@@ -114,26 +114,26 @@ public class WorldWhitelist extends CommandWrapper implements Listener {
 
 								if (!doubleData.listContains("worlds." + world.getName() + ".whitelist.players", player.getUniqueId().toString())) {
 									doubleData.addToList("worlds." + world.getName() + ".whitelist.players", player.getUniqueId().toString());
-									sender.sendMessage(awesomeText.colorize("&a&l» &f" + playerName + "&7 has been added to &f" + world.getName() + "&7's whitelist."));
+									sender.sendMessage(AwesomeText.colorize("&a&l» &f" + playerName + "&7 has been added to &f" + world.getName() + "&7's whitelist."));
 									return true;
 								} else {
-									sender.sendMessage(awesomeText.colorize("&cError: &f" + playerName + "&7 is already in &f" + world.getName() + "&7's whitelist."));
+									sender.sendMessage(AwesomeText.colorize("&cError: &f" + playerName + "&7 is already in &f" + world.getName() + "&7's whitelist."));
 									return true;
 								}
 							} else {
-								sender.sendMessage(awesomeText.prettifyMessage("&cError: &7That player could not be found."));
+								sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7That player could not be found."));
 								return true;
 							}
 						} else {
-							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
+							sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 							return true;
 						}
 					} else {
-						sender.sendMessage(awesomeText.colorize("&cError: &7World could not be found."));
+						sender.sendMessage(AwesomeText.colorize("&cError: &7World could not be found."));
 						return true;
 					}
 				} else {
-					sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
+					sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 					return true;
 				}
 			} else if (args[0].equalsIgnoreCase("remove")) {
@@ -154,26 +154,26 @@ public class WorldWhitelist extends CommandWrapper implements Listener {
 
 								if (doubleData.listContains("worlds." + world.getName() + ".whitelist.players", player.getUniqueId().toString())) {
 									doubleData.removeFromList("worlds." + world.getName() + ".whitelist.players", player.getUniqueId().toString());
-									sender.sendMessage(awesomeText.colorize("&a&l» &f" + playerName + "&7 has been removed from &f" + world.getName() + "&7's whitelist."));
+									sender.sendMessage(AwesomeText.colorize("&a&l» &f" + playerName + "&7 has been removed from &f" + world.getName() + "&7's whitelist."));
 									return true;
 								} else {
-									sender.sendMessage(awesomeText.colorize("&cError: &f" + playerName + "&7 is already not in &f" + world.getName() + "&7's whitelist."));
+									sender.sendMessage(AwesomeText.colorize("&cError: &f" + playerName + "&7 is already not in &f" + world.getName() + "&7's whitelist."));
 									return true;
 								}
 							} else {
-								sender.sendMessage(awesomeText.prettifyMessage("&cError: &7That player could not be found."));
+								sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7That player could not be found."));
 								return true;
 							}
 						} else {
-							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
+							sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 							return true;
 						}
 					} else {
-						sender.sendMessage(awesomeText.colorize("&cError: &7World could not be found."));
+						sender.sendMessage(AwesomeText.colorize("&cError: &7World could not be found."));
 						return true;
 					}
 				} else {
-					sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
+					sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 					return true;
 				}
 			} else if (args[0].equalsIgnoreCase("list")) {
@@ -190,21 +190,21 @@ public class WorldWhitelist extends CommandWrapper implements Listener {
 						}
 
 						if (nameList.size() == 0) {
-							sender.sendMessage(awesomeText.colorize("&a&l» &7There are &f0&7 players in &f" + world.getName() + "&7's whitelist."));
+							sender.sendMessage(AwesomeText.colorize("&a&l» &7There are &f0&7 players in &f" + world.getName() + "&7's whitelist."));
 						} else {
-							sender.sendMessage(awesomeText.colorize("&a&l» &7There are &f" + nameList.size() + "&7 players in &f" + world.getName() + "&7's whitelist: &f" + String.join("&7, &f", nameList) + "&7."));
+							sender.sendMessage(AwesomeText.colorize("&a&l» &7There are &f" + nameList.size() + "&7 players in &f" + world.getName() + "&7's whitelist: &f" + String.join("&7, &f", nameList) + "&7."));
 						}
 						return true;
 					} else {
-						sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
+						sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 						return true;
 					}
 				} else {
-					sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
+					sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 					return true;
 				}
 			} else {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 				return true;
 			}
 		}

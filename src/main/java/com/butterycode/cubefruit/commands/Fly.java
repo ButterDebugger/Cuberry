@@ -1,6 +1,6 @@
 package com.butterycode.cubefruit.commands;
 
-import com.butterycode.cubefruit.utils.awesomeText;
+import com.butterycode.cubefruit.utils.AwesomeText;
 import com.butterycode.cubefruit.utils.Caboodle;
 import com.butterycode.cubefruit.utils.DogTags;
 import org.bukkit.Bukkit;
@@ -25,13 +25,13 @@ public class Fly extends CommandWrapper {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (label.equalsIgnoreCase("fly")) {
 			if (!Caboodle.hasPermission(sender, "fly")) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
 
 			if (args.length == 0) {
 				if (!(sender instanceof Player)) {
-					sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
+					sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
 					return true;
 				}
 
@@ -40,9 +40,9 @@ public class Fly extends CommandWrapper {
 				player.setAllowFlight(!player.getAllowFlight());
 
 				if (player.getAllowFlight()) {
-					sender.sendMessage(awesomeText.prettifyMessage("&a&l» &7Flight has been toggled on."));
+					sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Flight has been toggled on."));
 				} else {
-					sender.sendMessage(awesomeText.prettifyMessage("&a&l» &7Flight has been toggled off."));
+					sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Flight has been toggled off."));
 				}
 				return true;
 			}
@@ -54,29 +54,29 @@ public class Fly extends CommandWrapper {
 					if (args[1].equalsIgnoreCase("enable") || args[1].equalsIgnoreCase("on")) {
 						player.setAllowFlight(true);
 
-						sender.sendMessage(awesomeText.prettifyMessage("&a&l» &7Flight has been enabled for &f" + player.getName() + "&7."));
+						sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Flight has been enabled for &f" + player.getName() + "&7."));
 						return true;
 					} else if (args[1].equalsIgnoreCase("disable") || args[1].equalsIgnoreCase("off")) {
 						player.setAllowFlight(false);
 
-						sender.sendMessage(awesomeText.prettifyMessage("&a&l» &7Flight has been disabled for &f" + player.getName() + "&7."));
+						sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Flight has been disabled for &f" + player.getName() + "&7."));
 						return true;
 					} else {
-						sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
+						sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 						return true;
 					}
 				} else {
 					player.setAllowFlight(!player.getAllowFlight());
 
 					if (player.getAllowFlight()) {
-						sender.sendMessage(awesomeText.prettifyMessage("&a&l» &7Flight has been toggled on for &f" + player.getName() + "&7."));
+						sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Flight has been toggled on for &f" + player.getName() + "&7."));
 					} else {
-						sender.sendMessage(awesomeText.prettifyMessage("&a&l» &7Flight has been toggled off for &f" + player.getName() + "&7."));
+						sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Flight has been toggled off for &f" + player.getName() + "&7."));
 					}
 					return true;
 				}
 			} else {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7That player could not be found."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7That player could not be found."));
 				return true;
 			}
 		}

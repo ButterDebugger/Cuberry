@@ -1,7 +1,7 @@
 package com.butterycode.cubefruit.tweaks;
 
 import com.butterycode.cubefruit.Main;
-import com.butterycode.cubefruit.utils.awesomeText;
+import com.butterycode.cubefruit.utils.AwesomeText;
 import com.butterycode.cubefruit.utils.Caboodle;
 import com.butterycode.cubefruit.utils.DogTags;
 import org.bukkit.*;
@@ -180,7 +180,7 @@ public class tweaks implements Listener {
 
 		if (config.getBoolean("tweaks.ghost")) {
 			player.setGameMode(GameMode.SPECTATOR);
-			player.sendMessage(awesomeText.colorize("&7You are now a ghost."));
+			player.sendMessage(AwesomeText.colorize("&7You are now a ghost."));
 		}
 	}
 
@@ -193,7 +193,7 @@ public class tweaks implements Listener {
 		if (config.getBoolean("tweaks.formatsign") && Caboodle.hasPermission(player, "tweaks.formatsigns")) {
 			for (int l = 0; l < 4; l++) {
 				String line = lines[ l ];
-				line = awesomeText.colorizeHex(line);
+				line = AwesomeText.colorizeHex(line);
 				event.setLine(l, line);
 			}
 		}

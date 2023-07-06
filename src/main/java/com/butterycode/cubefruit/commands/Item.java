@@ -1,6 +1,6 @@
 package com.butterycode.cubefruit.commands;
 
-import com.butterycode.cubefruit.utils.awesomeText;
+import com.butterycode.cubefruit.utils.AwesomeText;
 import com.butterycode.cubefruit.utils.Caboodle;
 import com.butterycode.cubefruit.utils.DogTags;
 import org.bukkit.Material;
@@ -30,19 +30,19 @@ public class Item extends CommandWrapper {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (label.equalsIgnoreCase("item") || label.equalsIgnoreCase("i") || label.equalsIgnoreCase("itemstack")) {
 			if (!(sender instanceof Player)) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
 				return true;
 			}
 
 			Player player = (Player) sender;
 
 			if (!Caboodle.hasPermission(sender, "item")) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
 
 			if (args.length == 0) {
-				sender.sendMessage(awesomeText.prettifyMessage("&3Usage: &7/" + label + " <arguments>"));
+				sender.sendMessage(AwesomeText.prettifyMessage("&3Usage: &7/" + label + " <arguments>"));
 				return true;
 			}
 			if (args.length > 0) {
@@ -62,7 +62,7 @@ public class Item extends CommandWrapper {
 						}
 
 						if (material == null) {
-							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid material."));
+							sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7Invalid material."));
 							return true;
 						}
 
@@ -70,7 +70,7 @@ public class Item extends CommandWrapper {
 
 						if (args.length > 2) {
 							if (!DogTags.isNumeric(args[2])) {
-								sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must enter a valid number."));
+								sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must enter a valid number."));
 								return true;
 							}
 
@@ -80,10 +80,10 @@ public class Item extends CommandWrapper {
 						item.setAmount(count);
 
 						Caboodle.giveItem(player, item);
-						sender.sendMessage(awesomeText.colorize("&a&l» &7You have been received &f" + count + " " + awesomeText.screamingSnakeCase(material.toString()) + "&7."));
+						sender.sendMessage(AwesomeText.colorize("&a&l» &7You have been received &f" + count + " " + AwesomeText.screamingSnakeCase(material.toString()) + "&7."));
 						return true;
 					} else {
-						sender.sendMessage(awesomeText.prettifyMessage("&3Usage: &7/" + label + " get <material> [<count>]"));
+						sender.sendMessage(AwesomeText.prettifyMessage("&3Usage: &7/" + label + " get <material> [<count>]"));
 						return true;
 					}
 				} else if (args[0].equalsIgnoreCase("count")) {
@@ -91,21 +91,21 @@ public class Item extends CommandWrapper {
 						ItemStack item = player.getInventory().getItemInMainHand();
 
 						if (item == null || item.getType().equals(Material.AIR)) {
-							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must be holding an item to modify in your Main hand."));
+							sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must be holding an item to modify in your Main hand."));
 							return true;
 						}
 
 						if (!DogTags.isNumeric(args[1])) {
-							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must enter a number."));
+							sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must enter a number."));
 							return true;
 						}
 
 						int count = (int) Float.parseFloat(args[1]);
 						item.setAmount(count);
-						sender.sendMessage(awesomeText.colorize("&a&l» &7Set the item count of &f" + awesomeText.screamingSnakeCase(item.getType().toString()) + "&7 to &f" + count + "&7."));
+						sender.sendMessage(AwesomeText.colorize("&a&l» &7Set the item count of &f" + AwesomeText.screamingSnakeCase(item.getType().toString()) + "&7 to &f" + count + "&7."));
 						return true;
 					} else {
-						sender.sendMessage(awesomeText.prettifyMessage("&3Usage: &7/" + label + " count <count>"));
+						sender.sendMessage(AwesomeText.prettifyMessage("&3Usage: &7/" + label + " count <count>"));
 						return true;
 					}
 				} else if (args[0].equalsIgnoreCase("material")) {
@@ -113,23 +113,23 @@ public class Item extends CommandWrapper {
 						ItemStack item = player.getInventory().getItemInMainHand();
 
 						if (item == null || item.getType().equals(Material.AIR)) {
-							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must be holding an item to modify in your Main hand."));
+							sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must be holding an item to modify in your Main hand."));
 							return true;
 						}
 
 						Material material = Caboodle.getMaterialByName(args[1]);
 
 						if (material == null) {
-							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7\"" + args[1] + "\" is not a valid material"));
+							sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7\"" + args[1] + "\" is not a valid material"));
 							return true;
 						}
 
 						item.setType(material);
 
-						sender.sendMessage(awesomeText.colorize("&a&l» &7Changed the held item's material to &f" + awesomeText.screamingSnakeCase(material.toString()) + "&7."));
+						sender.sendMessage(AwesomeText.colorize("&a&l» &7Changed the held item's material to &f" + AwesomeText.screamingSnakeCase(material.toString()) + "&7."));
 						return true;
 					} else {
-						sender.sendMessage(awesomeText.prettifyMessage("&3Usage: &7/" + label + " material <material>"));
+						sender.sendMessage(AwesomeText.prettifyMessage("&3Usage: &7/" + label + " material <material>"));
 						return true;
 					}
 				} else if (args[0].equalsIgnoreCase("unbreakable")) {
@@ -137,7 +137,7 @@ public class Item extends CommandWrapper {
 						ItemStack item = player.getInventory().getItemInMainHand();
 
 						if (item == null || item.getType().equals(Material.AIR)) {
-							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must be holding an item to modify in your Main hand."));
+							sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must be holding an item to modify in your Main hand."));
 							return true;
 						}
 
@@ -146,44 +146,44 @@ public class Item extends CommandWrapper {
 						    itemMeta.setUnbreakable(false);
 						    item.setItemMeta(itemMeta);
 
-							sender.sendMessage(awesomeText.colorize("&a&l» &7Item is no longer unbreakable"));
+							sender.sendMessage(AwesomeText.colorize("&a&l» &7Item is no longer unbreakable"));
 							return true;
 						} else if (args[1].equals("true")) {
 							ItemMeta itemMeta = item.getItemMeta();
 						    itemMeta.setUnbreakable(true);
 						    item.setItemMeta(itemMeta);
 
-							sender.sendMessage(awesomeText.colorize("&a&l» &7Item is now unbreakable"));
+							sender.sendMessage(AwesomeText.colorize("&a&l» &7Item is now unbreakable"));
 							return true;
 						} else {
-							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must enter a boolean value"));
+							sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must enter a boolean value"));
 							return true;
 						}
 					} else {
-						sender.sendMessage(awesomeText.prettifyMessage("&3Usage: &7/" + label + " unbreakable <true|false>"));
+						sender.sendMessage(AwesomeText.prettifyMessage("&3Usage: &7/" + label + " unbreakable <true|false>"));
 						return true;
 					}
 				} else if (args[0].equalsIgnoreCase("rename")) {
 					ItemStack item = player.getInventory().getItemInMainHand();
 
 					if (item == null || item.getType().equals(Material.AIR)) {
-						sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must be holding an item to modify in your Main hand."));
+						sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must be holding an item to modify in your Main hand."));
 						return true;
 					}
 
 					String str = String.join(" ", Caboodle.splice(args, 0, 1));
 					ItemMeta itemMeta = item.getItemMeta();
 
-					String itemname = awesomeText.colorizeHex(str);
+					String itemname = AwesomeText.colorizeHex(str);
 					itemMeta.setDisplayName(itemname);
 
 					item.setItemMeta(itemMeta);
 
 					if (str.equals("")) {
-						sender.sendMessage(awesomeText.colorize("&a&l» &7Item name has been reset."));
+						sender.sendMessage(AwesomeText.colorize("&a&l» &7Item name has been reset."));
 						return true;
 					} else {
-						sender.sendMessage(awesomeText.colorize("&a&l» &7Item name has been set to \"" + itemname + "&7\"."));
+						sender.sendMessage(AwesomeText.colorize("&a&l» &7Item name has been set to \"" + itemname + "&7\"."));
 						return true;
 					}
 				} else if (args[0].equalsIgnoreCase("durability")) {
@@ -191,7 +191,7 @@ public class Item extends CommandWrapper {
 						ItemStack item = player.getInventory().getItemInMainHand();
 
 						if (item == null || item.getType().equals(Material.AIR)) {
-							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must be holding an item to modify in your Main hand."));
+							sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must be holding an item to modify in your Main hand."));
 							return true;
 						}
 
@@ -202,13 +202,13 @@ public class Item extends CommandWrapper {
 						if (itemmeta instanceof Damageable) {
 							damage = (Damageable) itemmeta;
 						} else {
-							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7" + awesomeText.screamingSnakeCase(item.getType().toString()) + " is not damageable."));
+							sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7" + AwesomeText.screamingSnakeCase(item.getType().toString()) + " is not damageable."));
 							return true;
 						}
 
 						if (args[1].equals("damage")) {
 							if (!DogTags.isNumeric(args[2])) {
-								sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must enter a number."));
+								sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must enter a number."));
 								return true;
 							}
 
@@ -218,11 +218,11 @@ public class Item extends CommandWrapper {
 
 							damage.setDamage(number);
 							item.setItemMeta(itemmeta);
-							sender.sendMessage(awesomeText.colorize("&a&l» &7Item durability has been set to &f" + (maxdamage - number) + "&7/&f" + maxdamage + "&7."));
+							sender.sendMessage(AwesomeText.colorize("&a&l» &7Item durability has been set to &f" + (maxdamage - number) + "&7/&f" + maxdamage + "&7."));
 							return true;
 						} else if (args[1].equals("percentage")) {
 							if (!DogTags.isNumeric(args[2])) {
-								sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must enter a number."));
+								sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must enter a number."));
 								return true;
 							}
 
@@ -232,11 +232,11 @@ public class Item extends CommandWrapper {
 
 							damage.setDamage(number);
 							item.setItemMeta(itemmeta);
-							sender.sendMessage(awesomeText.colorize("&a&l» &7Item durability has been set to &f" + (maxdamage - number) + "&7/&f" + maxdamage + "&7."));
+							sender.sendMessage(AwesomeText.colorize("&a&l» &7Item durability has been set to &f" + (maxdamage - number) + "&7/&f" + maxdamage + "&7."));
 							return true;
 						} else if (args[1].equals("remaining")) {
 							if (!DogTags.isNumeric(args[2])) {
-								sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must enter a number."));
+								sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must enter a number."));
 								return true;
 							}
 
@@ -246,14 +246,14 @@ public class Item extends CommandWrapper {
 
 							damage.setDamage(number);
 							item.setItemMeta(itemmeta);
-							sender.sendMessage(awesomeText.colorize("&a&l» &7Item durability has been set to &f" + (maxdamage - number) + "&7/&f" + maxdamage + "&7."));
+							sender.sendMessage(AwesomeText.colorize("&a&l» &7Item durability has been set to &f" + (maxdamage - number) + "&7/&f" + maxdamage + "&7."));
 							return true;
 						} else {
-							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
+							sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 							return true;
 						}
 					} else {
-						sender.sendMessage(awesomeText.prettifyMessage("&3Usage: &7/" + label + " durability <damage|percentage|remaining> <number>"));
+						sender.sendMessage(AwesomeText.prettifyMessage("&3Usage: &7/" + label + " durability <damage|percentage|remaining> <number>"));
 						return true;
 					}
 				} else if (args[0].equalsIgnoreCase("modeldata")) {
@@ -261,12 +261,12 @@ public class Item extends CommandWrapper {
 						ItemStack item = player.getInventory().getItemInMainHand();
 
 						if (item == null || item.getType().equals(Material.AIR)) {
-							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must be holding an item to modify in your Main hand."));
+							sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must be holding an item to modify in your Main hand."));
 							return true;
 						}
 
 						if (!DogTags.isNumeric(args[1])) {
-							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must enter a number."));
+							sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must enter a number."));
 							return true;
 						}
 
@@ -278,42 +278,42 @@ public class Item extends CommandWrapper {
 
 						item.setItemMeta(itemmeta);
 
-						sender.sendMessage(awesomeText.colorize("&a&l» &7The item's custom model data has been set to &f" + number));
+						sender.sendMessage(AwesomeText.colorize("&a&l» &7The item's custom model data has been set to &f" + number));
 						return true;
 					} else {
-						sender.sendMessage(awesomeText.prettifyMessage("&3Usage: &7/" + label + " modeldata <number>"));
+						sender.sendMessage(AwesomeText.prettifyMessage("&3Usage: &7/" + label + " modeldata <number>"));
 						return true;
 					}
 				} else if (args[0].equalsIgnoreCase("delete")) {
 					ItemStack item = player.getInventory().getItemInMainHand();
 
 					if (item == null || item.getType().equals(Material.AIR)) {
-						sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must be holding an item to modify in your Main hand."));
+						sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must be holding an item to modify in your Main hand."));
 						return true;
 					}
 
 					player.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
 
-					sender.sendMessage(awesomeText.colorize("&a&l» &7The item you were holding has been removed."));
+					sender.sendMessage(AwesomeText.colorize("&a&l» &7The item you were holding has been removed."));
 					return true;
 				} else if (args[0].equalsIgnoreCase("enchant")) {
 					if (args.length > 2) {
 						ItemStack item = player.getInventory().getItemInMainHand();
 
 						if (item == null || item.getType().equals(Material.AIR)) {
-							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must be holding an item to modify in your Main hand."));
+							sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must be holding an item to modify in your Main hand."));
 							return true;
 						}
 
 						Enchantment enchantment = Caboodle.getEnchantmentByName(args[1]);
 
 						if (enchantment == null) {
-							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7\"" + args[1] + "\" is not a valid enchantment"));
+							sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7\"" + args[1] + "\" is not a valid enchantment"));
 							return true;
 						}
 
 						if (!DogTags.isNumeric(args[2])) {
-							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must enter a valid number."));
+							sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must enter a valid number."));
 							return true;
 						}
 
@@ -323,14 +323,14 @@ public class Item extends CommandWrapper {
 					    itemMeta.addEnchant(enchantment, level, true);
 					    item.setItemMeta(itemMeta);
 
-						sender.sendMessage(awesomeText.colorize("&a&l» &7Item has been enchanted with &f" + enchantment.getKey().toString() + " " + awesomeText.romanNumeral(level) + "&7."));
+						sender.sendMessage(AwesomeText.colorize("&a&l» &7Item has been enchanted with &f" + enchantment.getKey().toString() + " " + AwesomeText.romanNumeral(level) + "&7."));
 						return true;
 					} else {
-						sender.sendMessage(awesomeText.prettifyMessage("&3Usage: &7/" + label + " enchant <enchantment> <level>"));
+						sender.sendMessage(AwesomeText.prettifyMessage("&3Usage: &7/" + label + " enchant <enchantment> <level>"));
 						return true;
 					}
 				} else {
-					sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
+					sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 					return true;
 				}
 			}
