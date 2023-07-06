@@ -35,7 +35,7 @@ import org.bukkit.util.Vector;
 import java.util.ArrayList;
 import java.util.List;
 
-public class tweaks implements Listener {
+public class Tweaks implements Listener {
 
 	public static void start() {
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.plugin(), new Runnable() {
@@ -43,7 +43,7 @@ public class tweaks implements Listener {
 			public void run() {
 				FileConfiguration config = Main.plugin().config();
 
-				if (config.getBoolean("tweaks.snowpiles")) { // TODO: make slopey and more performant
+				if (config.getBoolean("Tweaks.snowpiles")) { // TODO: make slopey and more performant
 					for (World world : Bukkit.getWorlds()) {
 						if (!world.getEnvironment().equals(Environment.NORMAL)) continue;
 						if (!world.hasStorm()) continue;
@@ -74,7 +74,7 @@ public class tweaks implements Listener {
 				}
 
 				for (Player player : Bukkit.getOnlinePlayers()) {
-					if (config.getBoolean("tweaks.atmosphere")) {
+					if (config.getBoolean("Tweaks.atmosphere")) {
 						int height = player.getLocation().getBlockY();
 
 						if (height >= player.getWorld().getMaxHeight() + 64) {
@@ -82,7 +82,7 @@ public class tweaks implements Listener {
 						}
 					}
 
-					if (config.getBoolean("tweaks.lowgravity")) { // TODO: Could be better and can relate towards velocity instead of potion effects
+					if (config.getBoolean("Tweaks.lowgravity")) { // TODO: Could be better and can relate towards velocity instead of potion effects
 						if (player.getWorld().getEnvironment().equals(Environment.THE_END)) { // TODO: Make related to specific worlds
 							player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING, 50, 0, false, false, false));
 							player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 50, 2, false, false, false));
@@ -98,7 +98,7 @@ public class tweaks implements Listener {
 	private static void registerRecipes() {
 		FileConfiguration config = Main.plugin().config();
 
-		if (config.getBoolean("tweaks.recipes.bundle")) {
+		if (config.getBoolean("Tweaks.recipes.bundle")) {
 			ItemStack bundleItem = new ItemStack(Material.BUNDLE);
 			ShapedRecipe recipe = new ShapedRecipe(new NamespacedKey(Main.plugin(), "bundle"), bundleItem);
 
@@ -127,14 +127,14 @@ public class tweaks implements Listener {
 			Player player = (Player) entity;
 			Location location = player.getLocation();
 
-			if (config.getBoolean("tweaks.blood")) {
+			if (config.getBoolean("Tweaks.blood")) {
 				player.spawnParticle(Particle.REDSTONE, location.clone().add(new Vector(0, 1, 0)), 20, 0.25, 0.5, 0.25, new Particle.DustOptions(Color.fromRGB(255, 0, 0), 1));
 			}
 
-			if (config.getBoolean("tweaks.damage-reveal.enabled")) {
+			if (config.getBoolean("Tweaks.damage-reveal.enabled")) {
 				PotionEffect effect = player.getPotionEffect(PotionEffectType.INVISIBILITY);
 
-				if (effect != null && config.getString("tweaks.damage-reveal.trigger").equalsIgnoreCase("all")) {
+				if (effect != null && config.getString("Tweaks.damage-reveal.trigger").equalsIgnoreCase("all")) {
 					player.removePotionEffect(PotionEffectType.INVISIBILITY);
 				}
 			}
@@ -150,10 +150,10 @@ public class tweaks implements Listener {
 		if (entity instanceof Player) {
 			Player player = (Player) entity;
 
-			if (config.getBoolean("tweaks.damage-reveal.enabled")) {
+			if (config.getBoolean("Tweaks.damage-reveal.enabled")) {
 				PotionEffect effect = player.getPotionEffect(PotionEffectType.INVISIBILITY);
 
-				if (effect != null && config.getString("tweaks.damage-reveal.trigger").equalsIgnoreCase("player")) {
+				if (effect != null && config.getString("Tweaks.damage-reveal.trigger").equalsIgnoreCase("player")) {
 					if (damager instanceof Projectile) {
 						Projectile projectile = (Projectile) damager;
 						ProjectileSource shooter = projectile.getShooter();
@@ -174,11 +174,11 @@ public class tweaks implements Listener {
 		Player player = event.getEntity();
 		FileConfiguration config = Main.plugin().config();
 
-		if (config.getBoolean("tweaks.forcerespawn")) {
+		if (config.getBoolean("Tweaks.forcerespawn")) {
 			Caboodle.respawn(player);
 		}
 
-		if (config.getBoolean("tweaks.ghost")) {
+		if (config.getBoolean("Tweaks.ghost")) {
 			player.setGameMode(GameMode.SPECTATOR);
 			player.sendMessage(AwesomeText.colorize("&7You are now a ghost."));
 		}
@@ -190,7 +190,7 @@ public class tweaks implements Listener {
 		String[] lines = event.getLines();
 		FileConfiguration config = Main.plugin().config();
 
-		if (config.getBoolean("tweaks.formatsign") && Caboodle.hasPermission(player, "tweaks.formatsigns")) {
+		if (config.getBoolean("Tweaks.formatsign") && Caboodle.hasPermission(player, "Tweaks.formatsigns")) {
 			for (int l = 0; l < 4; l++) {
 				String line = lines[ l ];
 				line = AwesomeText.colorizeHex(line);
@@ -206,8 +206,8 @@ public class tweaks implements Listener {
 		World world = blockLoc.getWorld();
 		FileConfiguration config = Main.plugin().config();
 
-		if (config.getBoolean("tweaks.dynamicportals.enabled")) { // TODO: fix issue with it not lighting all the time
-			int maxBlocks = config.getInt("tweaks.dynamicportals.maxblocks");
+		if (config.getBoolean("Tweaks.dynamicportals.enabled")) { // TODO: fix issue with it not lighting all the time
+			int maxBlocks = config.getInt("Tweaks.dynamicportals.maxblocks");
 
 			if (blockLoc.clone().add(0, -1, 0).getBlock().getType().equals(Material.OBSIDIAN)) {
 				// x-axis portal
@@ -363,7 +363,7 @@ public class tweaks implements Listener {
 	public void onEntityExplode(EntityExplodeEvent event) {
 		FileConfiguration config = Main.plugin().config();
 
-		if (config.getBoolean("tweaks.fix-creeper-block-drops")) {
+		if (config.getBoolean("Tweaks.fix-creeper-block-drops")) {
 			for (Block block : event.blockList()) {
 				if (block.getType().equals(Material.TNT)) continue;
 
@@ -382,7 +382,7 @@ public class tweaks implements Listener {
 		if (action.equals(Action.RIGHT_CLICK_BLOCK)) {
 			Block block = event.getClickedBlock();
 
-			if (config.getBoolean("tweaks.bucket-obsidian")) {
+			if (config.getBoolean("Tweaks.bucket-obsidian")) {
 				// FIXME: if obsidian is underwater, bucket will pickup water and delete the obsidian
 				if (block.getType().equals(Material.OBSIDIAN) && event.hasItem() && item.getType().equals(Material.BUCKET)) {
 					Bukkit.getScheduler().runTaskLater(Main.plugin(), () -> {
@@ -395,8 +395,8 @@ public class tweaks implements Listener {
 		}
 
 		if (action.equals(Action.RIGHT_CLICK_BLOCK) || action.equals(Action.RIGHT_CLICK_AIR)) {
-			if (config.getBoolean("tweaks.armor-swap.enabled")) {
-				if (!config.getBoolean("tweaks.armor-swap.crouch-cancel") || (config.getBoolean("tweaks.armor-swap.crouch-cancel") && !player.isSneaking())) { // TODO: test
+			if (config.getBoolean("Tweaks.armor-swap.enabled")) {
+				if (!config.getBoolean("Tweaks.armor-swap.crouch-cancel") || (config.getBoolean("Tweaks.armor-swap.crouch-cancel") && !player.isSneaking())) { // TODO: test
 					if (event.hasItem() && DogTags.isWearable(item.getType())) { // TODO: test
 						EquipmentSlot slot = DogTags.getEquipmentSlot(item.getType());
 
@@ -467,7 +467,7 @@ public class tweaks implements Listener {
 		ItemStack item = player.getInventory().getItemInMainHand();
 		FileConfiguration config = Main.plugin().config();
 
-		if (config.getBoolean("tweaks.shear-item-frames")) {
+		if (config.getBoolean("Tweaks.shear-item-frames")) {
 			if (item.getType().equals(Material.SHEARS)) {
 				if (entity instanceof ItemFrame) {
 					ItemFrame itemframe = (ItemFrame) entity;
@@ -497,7 +497,7 @@ public class tweaks implements Listener {
 		Block block = event.getBlock();
 		FileConfiguration config = Main.plugin().config();
 
-		if (config.getBoolean("tweaks.quickharvest")) {
+		if (config.getBoolean("Tweaks.quickharvest")) {
 			if (DogTags.isHoe(player.getInventory().getItemInMainHand().getType())) {
 				BlockData blockdata = block.getBlockData();
 
@@ -520,7 +520,7 @@ public class tweaks implements Listener {
 		Location loc = event.getLightning().getLocation();
 		FileConfiguration config = Main.plugin().config();
 
-		if (config.getBoolean("tweaks.petrified-lightning.sand") || config.getBoolean("tweaks.petrified-lightning.oakslab")) {
+		if (config.getBoolean("Tweaks.petrified-lightning.sand") || config.getBoolean("Tweaks.petrified-lightning.oakslab")) {
 			// TODO: rework this entirely
 			Location baseloc = loc.clone();
 
@@ -543,7 +543,7 @@ public class tweaks implements Listener {
 			blocks.add(baseloc.clone().add(0, -1, -1).getBlock());
 
 			for (Block b : blocks) {
-				if (config.getBoolean("tweaks.petrified-lightning.sand")) {
+				if (config.getBoolean("Tweaks.petrified-lightning.sand")) {
 					if (b.getType().equals(Material.SAND) || b.getType().equals(Material.RED_SAND)) {
 						if (Caboodle.chance(1 / b.getLocation().distance(baseloc) * 100 - 15)) {
 							b.setType(Material.GLASS);
@@ -551,7 +551,7 @@ public class tweaks implements Listener {
 					}
 				}
 
-				if (config.getBoolean("tweaks.petrified-lightning.oakslab")) {
+				if (config.getBoolean("Tweaks.petrified-lightning.oakslab")) {
 					if (b.getType().equals(Material.OAK_SLAB)) {
 						Slab oldslab = (Slab) b.getBlockData();
 //
@@ -582,7 +582,7 @@ public class tweaks implements Listener {
 		Material oldType = frontblock.getType();
 		BlockFace face = ((Directional) block.getBlockData()).getFacing();
 
-		if (config.getBoolean("tweaks.dispense-everything.enabled")) {
+		if (config.getBoolean("Tweaks.dispense-everything.enabled")) {
 			boolean customdispense = false;
 
 			if (frontblock.isEmpty() || frontblock.getType().equals(Material.WATER)) {
@@ -729,8 +729,8 @@ public class tweaks implements Listener {
 		FileConfiguration config = Main.plugin().config();
 
 		if (type.equals(EntityType.POLAR_BEAR)) { // FIXME: prevent baby polar bears
-			if (config.getBoolean("tweaks.polarbearjokey.enabled")) {
-				if (Caboodle.chance(config.getDouble("tweaks.polarbearjokey.chance"))) {
+			if (config.getBoolean("Tweaks.polarbearjokey.enabled")) {
+				if (Caboodle.chance(config.getDouble("Tweaks.polarbearjokey.chance"))) {
 					Snowman snowgolem = (Snowman) entity.getWorld().spawnEntity(entity.getLocation(), EntityType.SNOWMAN);
 
 					entity.addPassenger(snowgolem);
@@ -741,8 +741,8 @@ public class tweaks implements Listener {
 		if (type.equals(EntityType.SLIME)) {
 			Slime slime = (Slime) entity;
 
-			if (config.getBoolean("tweaks.slimestack.enabled")) { // TODO: make max size work
-				if (Caboodle.chance(config.getDouble("tweaks.slimestack.chance"))) {
+			if (config.getBoolean("Tweaks.slimestack.enabled")) { // TODO: make max size work
+				if (Caboodle.chance(config.getDouble("Tweaks.slimestack.chance"))) {
 					Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.plugin(), new Runnable() {
 						@Override
 						public void run() {
