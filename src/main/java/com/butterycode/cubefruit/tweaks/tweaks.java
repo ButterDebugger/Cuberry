@@ -2,7 +2,7 @@ package com.butterycode.cubefruit.tweaks;
 
 import com.butterycode.cubefruit.Main;
 import com.butterycode.cubefruit.utils.awesomeText;
-import com.butterycode.cubefruit.utils.caboodle;
+import com.butterycode.cubefruit.utils.Caboodle;
 import com.butterycode.cubefruit.utils.DogTags;
 import org.bukkit.*;
 import org.bukkit.World.Environment;
@@ -59,7 +59,7 @@ public class tweaks implements Listener {
 									Block block = world.getHighestBlockAt(new Location(world, x, 0, z)).getLocation().add(0, 1, 0).getBlock();
 
 									if (block.getType().equals(Material.SNOW) && DogTags.canSnow(block)) {
-										if (caboodle.chance(1) && caboodle.chance(5)) {
+										if (Caboodle.chance(1) && Caboodle.chance(5)) {
 											Snow snow = (Snow) block.getBlockData();
 
 											snow.setLayers(Math.min(snow.getMaximumLayers(), snow.getLayers() + 1));
@@ -113,7 +113,7 @@ public class tweaks implements Listener {
 			try {
 				Bukkit.getServer().addRecipe(recipe);
 			} catch (IllegalStateException e) {
-				caboodle.log(Main.plugin(), e.getMessage(), caboodle.LogType.WARN);
+				Caboodle.log(Main.plugin(), e.getMessage(), Caboodle.LogType.WARN);
 			}
 		}
 	}
@@ -175,7 +175,7 @@ public class tweaks implements Listener {
 		FileConfiguration config = Main.plugin().config();
 
 		if (config.getBoolean("tweaks.forcerespawn")) {
-			caboodle.respawn(player);
+			Caboodle.respawn(player);
 		}
 
 		if (config.getBoolean("tweaks.ghost")) {
@@ -190,7 +190,7 @@ public class tweaks implements Listener {
 		String[] lines = event.getLines();
 		FileConfiguration config = Main.plugin().config();
 
-		if (config.getBoolean("tweaks.formatsign") && caboodle.hasPermission(player, "tweaks.formatsigns")) {
+		if (config.getBoolean("tweaks.formatsign") && Caboodle.hasPermission(player, "tweaks.formatsigns")) {
 			for (int l = 0; l < 4; l++) {
 				String line = lines[ l ];
 				line = awesomeText.colorizeHex(line);
@@ -406,7 +406,7 @@ public class tweaks implements Listener {
 							if (olditem != null) {
 								player.getInventory().setHelmet(item);
 
-								int index = caboodle.getItemIndex(player.getInventory(), item);
+								int index = Caboodle.getItemIndex(player.getInventory(), item);
 								player.getInventory().setItem(index, olditem);
 
 								player.playSound(player, Sound.ITEM_ARMOR_EQUIP_GENERIC, 0.5f, 1f);
@@ -419,7 +419,7 @@ public class tweaks implements Listener {
 							if (olditem != null) {
 								player.getInventory().setChestplate(item);
 
-								int index = caboodle.getItemIndex(player.getInventory(), item);
+								int index = Caboodle.getItemIndex(player.getInventory(), item);
 								player.getInventory().setItem(index, olditem);
 
 								player.playSound(player, Sound.ITEM_ARMOR_EQUIP_GENERIC, 0.5f, 1f);
@@ -432,7 +432,7 @@ public class tweaks implements Listener {
 							if (olditem != null) {
 								player.getInventory().setLeggings(item);
 
-								int index = caboodle.getItemIndex(player.getInventory(), item);
+								int index = Caboodle.getItemIndex(player.getInventory(), item);
 								player.getInventory().setItem(index, olditem);
 
 								player.playSound(player, Sound.ITEM_ARMOR_EQUIP_GENERIC, 0.5f, 1f);
@@ -445,7 +445,7 @@ public class tweaks implements Listener {
 							if (olditem != null) {
 								player.getInventory().setBoots(item);
 
-								int index = caboodle.getItemIndex(player.getInventory(), item);
+								int index = Caboodle.getItemIndex(player.getInventory(), item);
 								player.getInventory().setItem(index, olditem);
 
 								player.playSound(player, Sound.ITEM_ARMOR_EQUIP_GENERIC, 0.5f, 1f);
@@ -531,7 +531,7 @@ public class tweaks implements Listener {
 			baseloc = baseloc.add(-0.5, 0, -0.5); // Adjust location
 
 			for (Player p : Bukkit.getOnlinePlayers()) {
-				caboodle.dustParticle(p, baseloc, 10, new Vector(0, 0, 0), Color.RED, 1);
+				Caboodle.dustParticle(p, baseloc, 10, new Vector(0, 0, 0), Color.RED, 1);
 			}
 
 			List<Block> blocks = new ArrayList<>();
@@ -545,7 +545,7 @@ public class tweaks implements Listener {
 			for (Block b : blocks) {
 				if (config.getBoolean("tweaks.petrified-lightning.sand")) {
 					if (b.getType().equals(Material.SAND) || b.getType().equals(Material.RED_SAND)) {
-						if (caboodle.chance(1 / b.getLocation().distance(baseloc) * 100 - 15)) {
+						if (Caboodle.chance(1 / b.getLocation().distance(baseloc) * 100 - 15)) {
 							b.setType(Material.GLASS);
 						}
 					}
@@ -555,7 +555,7 @@ public class tweaks implements Listener {
 					if (b.getType().equals(Material.OAK_SLAB)) {
 						Slab oldslab = (Slab) b.getBlockData();
 //
-						if (caboodle.chance(1 / b.getLocation().distance(baseloc) * 100 - 15)) {
+						if (Caboodle.chance(1 / b.getLocation().distance(baseloc) * 100 - 15)) {
 							b.setType(Material.PETRIFIED_OAK_SLAB);
 							Slab slab = (Slab) b.getBlockData();
 							slab.setType(oldslab.getType());
@@ -578,7 +578,7 @@ public class tweaks implements Listener {
 
 		if (!block.getType().equals(Material.DISPENSER)) return; // Cancel if block isn't a dispenser
 
-		Block frontblock = caboodle.getBlockOnFace(block);
+		Block frontblock = Caboodle.getBlockOnFace(block);
 		Material oldType = frontblock.getType();
 		BlockFace face = ((Directional) block.getBlockData()).getFacing();
 
@@ -730,7 +730,7 @@ public class tweaks implements Listener {
 
 		if (type.equals(EntityType.POLAR_BEAR)) { // FIXME: prevent baby polar bears
 			if (config.getBoolean("tweaks.polarbearjokey.enabled")) {
-				if (caboodle.chance(config.getDouble("tweaks.polarbearjokey.chance"))) {
+				if (Caboodle.chance(config.getDouble("tweaks.polarbearjokey.chance"))) {
 					Snowman snowgolem = (Snowman) entity.getWorld().spawnEntity(entity.getLocation(), EntityType.SNOWMAN);
 
 					entity.addPassenger(snowgolem);
@@ -742,14 +742,14 @@ public class tweaks implements Listener {
 			Slime slime = (Slime) entity;
 
 			if (config.getBoolean("tweaks.slimestack.enabled")) { // TODO: make max size work
-				if (caboodle.chance(config.getDouble("tweaks.slimestack.chance"))) {
+				if (Caboodle.chance(config.getDouble("tweaks.slimestack.chance"))) {
 					Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.plugin(), new Runnable() {
 						@Override
 						public void run() {
 							if (!entity.isDead()) {
 								Slime stackslime = (Slime) entity.getWorld().spawnEntity(entity.getLocation(), EntityType.SLIME);
 
-								int size = Math.max(1, caboodle.randomInteger(slime.getSize() - 1, slime.getSize()));
+								int size = Math.max(1, Caboodle.randomInteger(slime.getSize() - 1, slime.getSize()));
 								stackslime.setSize(size);
 
 								entity.addPassenger(stackslime);

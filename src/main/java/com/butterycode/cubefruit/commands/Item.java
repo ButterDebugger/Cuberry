@@ -1,7 +1,7 @@
 package com.butterycode.cubefruit.commands;
 
 import com.butterycode.cubefruit.utils.awesomeText;
-import com.butterycode.cubefruit.utils.caboodle;
+import com.butterycode.cubefruit.utils.Caboodle;
 import com.butterycode.cubefruit.utils.DogTags;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -36,7 +36,7 @@ public class Item extends CommandWrapper {
 
 			Player player = (Player) sender;
 
-			if (!caboodle.hasPermission(sender, "item")) {
+			if (!Caboodle.hasPermission(sender, "item")) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
@@ -56,9 +56,9 @@ public class Item extends CommandWrapper {
 
 							List<String> itemlist = getListOfItems();
 
-							material = caboodle.getMaterialByName(itemlist.get(rand.nextInt(itemlist.size())));
+							material = Caboodle.getMaterialByName(itemlist.get(rand.nextInt(itemlist.size())));
 						} else {
-							material = caboodle.getMaterialByName(args[1]);
+							material = Caboodle.getMaterialByName(args[1]);
 						}
 
 						if (material == null) {
@@ -79,7 +79,7 @@ public class Item extends CommandWrapper {
 
 						item.setAmount(count);
 
-						caboodle.giveItem(player, item);
+						Caboodle.giveItem(player, item);
 						sender.sendMessage(awesomeText.colorize("&a&l» &7You have been received &f" + count + " " + awesomeText.screamingSnakeCase(material.toString()) + "&7."));
 						return true;
 					} else {
@@ -117,7 +117,7 @@ public class Item extends CommandWrapper {
 							return true;
 						}
 
-						Material material = caboodle.getMaterialByName(args[1]);
+						Material material = Caboodle.getMaterialByName(args[1]);
 
 						if (material == null) {
 							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7\"" + args[1] + "\" is not a valid material"));
@@ -171,7 +171,7 @@ public class Item extends CommandWrapper {
 						return true;
 					}
 
-					String str = String.join(" ", caboodle.splice(args, 0, 1));
+					String str = String.join(" ", Caboodle.splice(args, 0, 1));
 					ItemMeta itemMeta = item.getItemMeta();
 
 					String itemname = awesomeText.colorizeHex(str);
@@ -305,7 +305,7 @@ public class Item extends CommandWrapper {
 							return true;
 						}
 
-						Enchantment enchantment = caboodle.getEnchantmentByName(args[1]);
+						Enchantment enchantment = Caboodle.getEnchantmentByName(args[1]);
 
 						if (enchantment == null) {
 							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7\"" + args[1] + "\" is not a valid enchantment"));
@@ -340,7 +340,7 @@ public class Item extends CommandWrapper {
 
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-		if (label.equalsIgnoreCase("item") || label.equalsIgnoreCase("i") || label.equalsIgnoreCase("itemstack") && caboodle.hasPermission(sender, "item")) {
+		if (label.equalsIgnoreCase("item") || label.equalsIgnoreCase("i") || label.equalsIgnoreCase("itemstack") && Caboodle.hasPermission(sender, "item")) {
 			if (args.length == 1) {
 				return Arrays.asList("count", "get", "material", "unbreakable", "rename", "durability", "modeldata", "delete", "enchant");
 			}

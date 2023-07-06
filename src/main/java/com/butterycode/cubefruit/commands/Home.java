@@ -2,7 +2,7 @@ package com.butterycode.cubefruit.commands;
 
 import com.butterycode.cubefruit.Main;
 import com.butterycode.cubefruit.utils.awesomeText;
-import com.butterycode.cubefruit.utils.caboodle;
+import com.butterycode.cubefruit.utils.Caboodle;
 import com.butterycode.cubefruit.utils.DataStorage;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -44,7 +44,7 @@ public class Home extends CommandWrapper implements Listener {
 
 			Player player = (Player)sender;
 
-			if (!caboodle.hasPermission(sender, "home")) {
+			if (!Caboodle.hasPermission(sender, "home")) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
@@ -58,7 +58,7 @@ public class Home extends CommandWrapper implements Listener {
 				return true;
 			}
 
-			Location homeLoc = caboodle.parseLocation(playerData.getString(player.getUniqueId() + ".home"));
+			Location homeLoc = Caboodle.parseLocation(playerData.getString(player.getUniqueId() + ".home"));
 
 			sender.sendMessage(awesomeText.colorize("&a&l» &7You have been teleported home."));
 			player.teleport(homeLoc);
@@ -72,7 +72,7 @@ public class Home extends CommandWrapper implements Listener {
 
 			Player player = (Player) sender;
 
-			if (!caboodle.hasPermission(sender, "sethome")) {
+			if (!Caboodle.hasPermission(sender, "sethome")) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
@@ -82,7 +82,7 @@ public class Home extends CommandWrapper implements Listener {
 			}
 
 			sender.sendMessage(awesomeText.colorize("&a&l» &7Your home has been set."));
-			playerData.set(player.getUniqueId() + ".home", caboodle.stringifyLocation(player));
+			playerData.set(player.getUniqueId() + ".home", Caboodle.stringifyLocation(player));
 			return true;
 		} else if (label.equalsIgnoreCase("delhome")) {
 			if (!(sender instanceof Player)) {
@@ -92,7 +92,7 @@ public class Home extends CommandWrapper implements Listener {
 
 			Player player = (Player)sender;
 
-			if (!caboodle.hasPermission(sender, "delhome")) {
+			if (!Caboodle.hasPermission(sender, "delhome")) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
@@ -121,7 +121,7 @@ public class Home extends CommandWrapper implements Listener {
 		if (Main.plugin().config().getBoolean("commands.spawn.spawn-on-death")) {
 			if (playerData.existsNot(player.getUniqueId() + ".home") || (player.getBedLocation() != null)) return;
 
-			Location homeLoc = caboodle.parseLocation(playerData.getString(player.getUniqueId() + ".home"));
+			Location homeLoc = Caboodle.parseLocation(playerData.getString(player.getUniqueId() + ".home"));
 
 			Bukkit.getScheduler().scheduleSyncDelayedTask(Main.plugin(), () -> {
 				player.teleport(homeLoc);
@@ -131,13 +131,13 @@ public class Home extends CommandWrapper implements Listener {
 
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-		if (label.equalsIgnoreCase("home") && caboodle.hasPermission(sender, "home")) {
+		if (label.equalsIgnoreCase("home") && Caboodle.hasPermission(sender, "home")) {
 			return Collections.emptyList();
 		}
-		if (label.equalsIgnoreCase("sethome") && caboodle.hasPermission(sender, "sethome")) {
+		if (label.equalsIgnoreCase("sethome") && Caboodle.hasPermission(sender, "sethome")) {
 			return Collections.emptyList();
 		}
-		if (label.equalsIgnoreCase("delhome") && caboodle.hasPermission(sender, "delhome")) {
+		if (label.equalsIgnoreCase("delhome") && Caboodle.hasPermission(sender, "delhome")) {
 			return Collections.emptyList();
 		}
 

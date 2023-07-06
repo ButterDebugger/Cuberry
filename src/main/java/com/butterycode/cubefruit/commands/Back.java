@@ -1,7 +1,7 @@
 package com.butterycode.cubefruit.commands;
 
 import com.butterycode.cubefruit.utils.awesomeText;
-import com.butterycode.cubefruit.utils.caboodle;
+import com.butterycode.cubefruit.utils.Caboodle;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -47,7 +47,7 @@ public class Back extends CommandWrapper implements Listener {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (label.equalsIgnoreCase("back")) {
-			if (!caboodle.hasPermission(sender, "back")) {
+			if (!Caboodle.hasPermission(sender, "back")) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
@@ -74,7 +74,7 @@ public class Back extends CommandWrapper implements Listener {
 
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-		if (command.getName().equalsIgnoreCase("back") && caboodle.hasPermission(sender, "back")) {
+		if (command.getName().equalsIgnoreCase("back") && Caboodle.hasPermission(sender, "back")) {
 			return Collections.emptyList();
 		}
 

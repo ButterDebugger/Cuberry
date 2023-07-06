@@ -331,7 +331,7 @@ public class awesomeText {
         if (seconds >= 0) {
             if (!strout.equals("")) strout += " ";
 
-            double decimal = caboodle.round(seconds % 1, 3);
+            double decimal = Caboodle.round(seconds % 1, 3);
             int integer = (int) seconds;
             String time = decimal > 0 ? String.valueOf(integer + decimal) : String.valueOf(integer);
 

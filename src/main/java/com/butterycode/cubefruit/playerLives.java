@@ -1,7 +1,7 @@
 package com.butterycode.cubefruit;
 
 import com.butterycode.cubefruit.utils.awesomeText;
-import com.butterycode.cubefruit.utils.caboodle;
+import com.butterycode.cubefruit.utils.Caboodle;
 import com.butterycode.cubefruit.utils.DataStorage;
 import com.butterycode.cubefruit.utils.DogTags;
 import org.bukkit.Bukkit;
@@ -77,7 +77,7 @@ public class playerLives implements Listener, CommandExecutor, TabCompleter {
 			player.setGameMode(GameMode.SPECTATOR);
 
 			Bukkit.getScheduler().scheduleSyncDelayedTask(Main.plugin(), () -> {
-				caboodle.respawn(player);
+				Caboodle.respawn(player);
 				player.teleport(deathloc);
 			}, 0);
 		}
@@ -157,7 +157,7 @@ public class playerLives implements Listener, CommandExecutor, TabCompleter {
 			Player player = (Player) sender;
 
 			if (args.length == 0) {
-				if (caboodle.hasPermission(sender, "admin")) {
+				if (Caboodle.hasPermission(sender, "admin")) {
 					sender.sendMessage(awesomeText.colorize("&cUsage: &7/lives <get|set> <player> [<number>]"));
 				} else {
 					sender.sendMessage(awesomeText.colorize("&cUsage: &7/lives <get> <player>"));
@@ -181,7 +181,7 @@ public class playerLives implements Listener, CommandExecutor, TabCompleter {
 					return true;
 				}
 			} else if (args[0].equalsIgnoreCase("set")) {
-				if (!caboodle.hasPermission(sender, "admin")) {
+				if (!Caboodle.hasPermission(sender, "admin")) {
 					sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 					return true;
 				}
@@ -228,7 +228,7 @@ public class playerLives implements Listener, CommandExecutor, TabCompleter {
 
 		if (command.getName().equalsIgnoreCase("lives")) {
 			if (args.length == 1) {
-				if (caboodle.hasPermission(sender, "admin")) {
+				if (Caboodle.hasPermission(sender, "admin")) {
 					return Arrays.asList(new String[] {"get", "set"});
 				} else {
 					return Arrays.asList(new String[] {"get"});

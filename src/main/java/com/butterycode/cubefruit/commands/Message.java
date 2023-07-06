@@ -2,7 +2,7 @@ package com.butterycode.cubefruit.commands;
 
 import com.butterycode.cubefruit.Main;
 import com.butterycode.cubefruit.utils.awesomeText;
-import com.butterycode.cubefruit.utils.caboodle;
+import com.butterycode.cubefruit.utils.Caboodle;
 import com.butterycode.cubefruit.utils.DogTags;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
@@ -45,7 +45,7 @@ public class Message extends CommandWrapper {
 
 			Player player = (Player) sender;
 
-			if (!caboodle.hasPermission(sender, "message")) {
+			if (!Caboodle.hasPermission(sender, "message")) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
@@ -58,7 +58,7 @@ public class Message extends CommandWrapper {
 				Player receiver = Bukkit.getPlayer(args[0]);
 				assert receiver != null;
 
-				String str = String.join(" ", caboodle.splice(args, 0, 1));
+				String str = String.join(" ", Caboodle.splice(args, 0, 1));
 
 				if (str.length() > 0) {
 					sender.sendMessage(awesomeText.colorize("&6[&eYou &6-> &b" + receiver.getName() + "&6] &7" + str));
@@ -90,7 +90,7 @@ public class Message extends CommandWrapper {
 
 			Player player = (Player) sender;
 
-			if (!caboodle.hasPermission(sender, "reply")) {
+			if (!Caboodle.hasPermission(sender, "reply")) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}

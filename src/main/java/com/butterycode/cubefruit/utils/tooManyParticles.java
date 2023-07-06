@@ -144,7 +144,7 @@ public class tooManyParticles {
 		World world = loc1.getWorld();
 		assert world != null;
 
-		Iterator<Vector> points = caboodle.line(loc1.toVector(), loc2.toVector(), space);
+		Iterator<Vector> points = Caboodle.line(loc1.toVector(), loc2.toVector(), space);
 
 		while (points.hasNext()) {
 			Vector point = points.next();

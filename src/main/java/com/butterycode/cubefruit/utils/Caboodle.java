@@ -46,7 +46,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.logging.Logger;
 
-public class caboodle implements Listener {
+public class Caboodle implements Listener {
 
 	/**
 	 *   Quick and Simplified Methods

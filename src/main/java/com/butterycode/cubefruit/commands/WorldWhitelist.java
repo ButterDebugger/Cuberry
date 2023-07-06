@@ -2,7 +2,7 @@ package com.butterycode.cubefruit.commands;
 
 import com.butterycode.cubefruit.Main;
 import com.butterycode.cubefruit.utils.awesomeText;
-import com.butterycode.cubefruit.utils.caboodle;
+import com.butterycode.cubefruit.utils.Caboodle;
 import com.butterycode.cubefruit.utils.DataStorage;
 import com.butterycode.cubefruit.utils.DogTags;
 import org.bukkit.Bukkit;
@@ -55,7 +55,7 @@ public class WorldWhitelist extends CommandWrapper implements Listener {
 		DataStorage doubleData = Main.plugin().getData("data.yml");
 
 		if (label.equalsIgnoreCase("worldwhitelist")) {
-			if (!caboodle.hasPermission(sender, "worldwhitelist")) {
+			if (!Caboodle.hasPermission(sender, "worldwhitelist")) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
@@ -104,9 +104,9 @@ public class WorldWhitelist extends CommandWrapper implements Listener {
 						if (args.length > 2) {
 							OfflinePlayer player;
 							if (DogTags.isUUID(args[2])) {
-								player = caboodle.getOfflinePlayer(UUID.fromString(args[2]));
+								player = Caboodle.getOfflinePlayer(UUID.fromString(args[2]));
 							} else {
-								player = caboodle.getOfflinePlayer(args[2]);
+								player = Caboodle.getOfflinePlayer(args[2]);
 							}
 
 							if (player != null) {
@@ -144,9 +144,9 @@ public class WorldWhitelist extends CommandWrapper implements Listener {
 						if (args.length > 2) {
 							OfflinePlayer player;
 							if (DogTags.isUUID(args[2])) {
-								player = caboodle.getOfflinePlayer(UUID.fromString(args[2]));
+								player = Caboodle.getOfflinePlayer(UUID.fromString(args[2]));
 							} else {
-								player = caboodle.getOfflinePlayer(args[2]);
+								player = Caboodle.getOfflinePlayer(args[2]);
 							}
 
 							if (player != null) {
@@ -215,15 +215,15 @@ public class WorldWhitelist extends CommandWrapper implements Listener {
 	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
 		DataStorage doubleData = Main.plugin().getData("data.yml");
 
-		if (label.equalsIgnoreCase("worldwhitelist") && caboodle.hasPermission(sender, "worldwhitelist")) {
+		if (label.equalsIgnoreCase("worldwhitelist") && Caboodle.hasPermission(sender, "worldwhitelist")) {
 			if (args.length == 1) {
 				return Arrays.asList("on", "off", "add", "remove", "list");
 			}
 			if (args.length == 2) {
-				return caboodle.getWorldNames();
+				return Caboodle.getWorldNames();
 			}
 			if (args.length == 3 && args[0].equals("add")) {
-				return caboodle.getOnlinePlayerNames();
+				return Caboodle.getOnlinePlayerNames();
 			}
 			if (args.length == 3 && args[0].equals("remove")) {
 				List<String> uuidList = doubleData.getStringList("worlds." + args[1] + ".whitelist.players");
@@ -234,7 +234,7 @@ public class WorldWhitelist extends CommandWrapper implements Listener {
 					nameList.add(name == null ? uuid : name);
 				}
 
-				return nameList.size() == 0 ? caboodle.getOnlinePlayerNames() : nameList;
+				return nameList.size() == 0 ? Caboodle.getOnlinePlayerNames() : nameList;
 			}
 
 			return Collections.emptyList();

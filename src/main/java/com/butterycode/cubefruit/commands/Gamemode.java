@@ -1,7 +1,7 @@
 package com.butterycode.cubefruit.commands;
 
 import com.butterycode.cubefruit.utils.awesomeText;
-import com.butterycode.cubefruit.utils.caboodle;
+import com.butterycode.cubefruit.utils.Caboodle;
 import com.butterycode.cubefruit.utils.DogTags;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -37,7 +37,7 @@ public class Gamemode extends CommandWrapper {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (label.equalsIgnoreCase("gm")) {
-			if (!caboodle.hasPermission(sender, "gamemode")) {
+			if (!Caboodle.hasPermission(sender, "gamemode")) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
@@ -110,7 +110,7 @@ public class Gamemode extends CommandWrapper {
 		}
 
 		if (label.equalsIgnoreCase("gma")) {
-			if (!caboodle.hasPermission(sender, "gamemode")) {
+			if (!Caboodle.hasPermission(sender, "gamemode")) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
@@ -141,7 +141,7 @@ public class Gamemode extends CommandWrapper {
 		}
 
 		if (label.equalsIgnoreCase("gmc")) {
-			if (!caboodle.hasPermission(sender, "gamemode")) {
+			if (!Caboodle.hasPermission(sender, "gamemode")) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
@@ -172,7 +172,7 @@ public class Gamemode extends CommandWrapper {
 		}
 
 		if (label.equalsIgnoreCase("gmsp")) {
-			if (!caboodle.hasPermission(sender, "gamemode")) {
+			if (!Caboodle.hasPermission(sender, "gamemode")) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
@@ -203,7 +203,7 @@ public class Gamemode extends CommandWrapper {
 		}
 
 		if (label.equalsIgnoreCase("gms")) {
-			if (!caboodle.hasPermission(sender, "gamemode")) {
+			if (!Caboodle.hasPermission(sender, "gamemode")) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
@@ -237,14 +237,14 @@ public class Gamemode extends CommandWrapper {
 
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-		if (!caboodle.hasPermission(sender, "gamemode")) return null;
+		if (!Caboodle.hasPermission(sender, "gamemode")) return null;
 
 		if (label.equalsIgnoreCase("gm")) {
 			if (args.length == 1) {
 				return Arrays.asList("adventure", "creative", "spectator", "survival");
 			}
 			if (args.length == 2) {
-				return caboodle.getOnlinePlayerNames();
+				return Caboodle.getOnlinePlayerNames();
 			}
 
 			return Collections.emptyList();
@@ -252,7 +252,7 @@ public class Gamemode extends CommandWrapper {
 
 		if (label.equalsIgnoreCase("gma") || label.equalsIgnoreCase("gmc") || label.equalsIgnoreCase("gmsp") || label.equalsIgnoreCase("gms")) {
 			if (args.length == 1) {
-				return caboodle.getOnlinePlayerNames();
+				return Caboodle.getOnlinePlayerNames();
 			}
 
 			return Collections.emptyList();

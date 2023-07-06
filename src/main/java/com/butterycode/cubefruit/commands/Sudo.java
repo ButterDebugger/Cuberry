@@ -1,7 +1,7 @@
 package com.butterycode.cubefruit.commands;
 
 import com.butterycode.cubefruit.utils.awesomeText;
-import com.butterycode.cubefruit.utils.caboodle;
+import com.butterycode.cubefruit.utils.Caboodle;
 import com.butterycode.cubefruit.utils.DogTags;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -22,7 +22,7 @@ public class Sudo extends CommandWrapper {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (label.equalsIgnoreCase("sudo")) {
-			if (!caboodle.hasPermission(sender, "sudo")) {
+			if (!Caboodle.hasPermission(sender, "sudo")) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
@@ -32,7 +32,7 @@ public class Sudo extends CommandWrapper {
 			}
 
 			if (DogTags.isOnline(args[0])) {
-				String str = String.join(" ", caboodle.splice(args, 0, 1));
+				String str = String.join(" ", Caboodle.splice(args, 0, 1));
 
 				Player player = Bukkit.getPlayer(args[0]);
 				assert player != null;
@@ -64,9 +64,9 @@ public class Sudo extends CommandWrapper {
 
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-		if (label.equalsIgnoreCase("sudo") && caboodle.hasPermission(sender, "sudo")) {
+		if (label.equalsIgnoreCase("sudo") && Caboodle.hasPermission(sender, "sudo")) {
 			if (args.length == 1) {
-				return caboodle.getOnlinePlayerNames();
+				return Caboodle.getOnlinePlayerNames();
 			}
 		}
 
