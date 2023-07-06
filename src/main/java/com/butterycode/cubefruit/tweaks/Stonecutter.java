@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class stonecutter implements Listener {
+public class Stonecutter implements Listener {
 
 	public static void start() {
 		HashMap<ItemStack, List<ItemStack>> recipes = readStonecutterData();
