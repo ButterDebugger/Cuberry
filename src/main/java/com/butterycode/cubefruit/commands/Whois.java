@@ -3,7 +3,7 @@ package com.butterycode.cubefruit.commands;
 import com.butterycode.cubefruit.Main;
 import com.butterycode.cubefruit.utils.awesomeText;
 import com.butterycode.cubefruit.utils.caboodle;
-import com.butterycode.cubefruit.utils.dataStorage;
+import com.butterycode.cubefruit.utils.DataStorage;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.attribute.Attribute;
@@ -27,7 +27,7 @@ public class Whois extends CommandWrapper {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		dataStorage playerData = Main.plugin().getData("players.yml");
+		DataStorage playerData = Main.plugin().getData("players.yml");
 
 		if (label.equalsIgnoreCase("whois")) {
 			if (!caboodle.hasPermission(sender, "whois")) {

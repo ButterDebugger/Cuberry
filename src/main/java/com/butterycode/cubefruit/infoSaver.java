@@ -1,7 +1,7 @@
 package com.butterycode.cubefruit;
 
 import com.butterycode.cubefruit.utils.caboodle;
-import com.butterycode.cubefruit.utils.dataStorage;
+import com.butterycode.cubefruit.utils.DataStorage;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -16,7 +16,7 @@ public class infoSaver implements Listener {
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.plugin(), new Runnable() {
 			@Override
 			public void run() {
-				dataStorage doubleData = Main.plugin().getData("data.yml");
+				DataStorage doubleData = Main.plugin().getData("data.yml");
 
 				for (World world : Bukkit.getWorlds()) {
 					doubleData.set("worlds." + world.getName() + ".environment", world.getEnvironment().toString());
@@ -30,7 +30,7 @@ public class infoSaver implements Listener {
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
-		dataStorage playerData = Main.plugin().getData("players.yml");
+		DataStorage playerData = Main.plugin().getData("players.yml");
 
 		String username = player.getDisplayName().toString();
 		if (playerData.exists(player.getUniqueId() + ".username")) {
@@ -48,7 +48,7 @@ public class infoSaver implements Listener {
 	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent event) {
 		Player player = event.getPlayer();
-		dataStorage playerData = Main.plugin().getData("players.yml");
+		DataStorage playerData = Main.plugin().getData("players.yml");
 
 		playerData.set(player.getUniqueId() + ".logoutlocation", caboodle.stringifyLocation(player));
 	}

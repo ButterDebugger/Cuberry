@@ -2,7 +2,7 @@ package com.butterycode.cubefruit;
 
 import com.butterycode.cubefruit.utils.awesomeText;
 import com.butterycode.cubefruit.utils.caboodle;
-import com.butterycode.cubefruit.utils.dataStorage;
+import com.butterycode.cubefruit.utils.DataStorage;
 import com.butterycode.cubefruit.utils.DogTags;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -36,13 +36,13 @@ public class playerLives implements Listener, CommandExecutor, TabCompleter {
 	}
 
 	public void setLives(Player player, int amount) {
-		dataStorage playerData = Main.plugin().getData("players.yml");
+		DataStorage playerData = Main.plugin().getData("players.yml");
 
 		playerData.set(player.getUniqueId() + ".lives", amount);
 	}
 
 	public int getLives(Player player) {
-		dataStorage playerData = Main.plugin().getData("players.yml");
+		DataStorage playerData = Main.plugin().getData("players.yml");
 
 		if (playerData.existsNot(player.getUniqueId() + ".lives")) {
 			playerData.set(player.getUniqueId() + ".lives", Main.plugin().config().getInt("lives.max"));

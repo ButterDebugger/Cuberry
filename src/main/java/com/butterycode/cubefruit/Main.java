@@ -16,7 +16,7 @@ import java.util.HashMap;
 public final class Main extends JavaPlugin implements Listener {
 
     private static Main plugin;
-    private HashMap<String, dataStorage> dataFiles = new HashMap<>();
+    private HashMap<String, DataStorage> dataFiles = new HashMap<>();
     private static localeManager localeInstance;
 
     @Override
@@ -258,9 +258,9 @@ public final class Main extends JavaPlugin implements Listener {
         }
     }
 
-    public dataStorage getData(String filepath) {
+    public DataStorage getData(String filepath) {
         if (!dataFiles.containsKey(filepath)) {
-            dataFiles.put(filepath, new dataStorage(plugin, filepath));
+            dataFiles.put(filepath, new DataStorage(plugin, filepath));
         }
         return dataFiles.get(filepath);
     }

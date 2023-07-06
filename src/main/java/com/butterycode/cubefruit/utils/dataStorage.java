@@ -11,13 +11,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class dataStorage {
+public class DataStorage {
 
 	private final File file;
 	private final FileConfiguration data;
 	private final Plugin plugin;
 
-	public dataStorage(Plugin plugin, String filepath) {
+	public DataStorage(Plugin plugin, String filepath) {
 		this.plugin = plugin;
 		this.file = new File(plugin.getDataFolder() + File.separator + filepath);
 

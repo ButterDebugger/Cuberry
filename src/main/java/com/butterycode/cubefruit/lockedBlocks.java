@@ -2,7 +2,7 @@ package com.butterycode.cubefruit;
 
 import com.butterycode.cubefruit.utils.awesomeText;
 import com.butterycode.cubefruit.utils.caboodle;
-import com.butterycode.cubefruit.utils.dataStorage;
+import com.butterycode.cubefruit.utils.DataStorage;
 import com.butterycode.cubefruit.utils.DogTags;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -33,7 +33,7 @@ public class lockedBlocks implements Listener, CommandExecutor {
 	private static ItemStack masterKey;
 
 	public static void start() {
-		dataStorage blockData = Main.plugin().getData("blocks.yml");
+		DataStorage blockData = Main.plugin().getData("blocks.yml");
 
 		ItemStack temp = new ItemStack(Material.TRIPWIRE_HOOK);
 		caboodle.setDisplayName(temp, awesomeText.prettifyMessage("&#FFB847Master Key"));
@@ -144,7 +144,7 @@ public class lockedBlocks implements Listener, CommandExecutor {
 	
 	private void lockBlock(Block block, String key) {
 		List<Block> blockGroup = caboodle.getGroupedBlocks(block);
-		dataStorage blockData = Main.plugin().getData("blocks.yml");
+		DataStorage blockData = Main.plugin().getData("blocks.yml");
 		
 		for (Block b : blockGroup) {
 			String stringLoc = caboodle.stringifyLocation(b);
@@ -155,7 +155,7 @@ public class lockedBlocks implements Listener, CommandExecutor {
 	
 	private static void unlockBlock(Block block) {
 		List<Block> blockGroup = caboodle.getGroupedBlocks(block);
-		dataStorage blockData = Main.plugin().getData("blocks.yml");
+		DataStorage blockData = Main.plugin().getData("blocks.yml");
 		
 		for (Block b : blockGroup) {
 			String stringLoc = caboodle.stringifyLocation(b);
@@ -166,7 +166,7 @@ public class lockedBlocks implements Listener, CommandExecutor {
 	
 	private static boolean isBlockLocked(Block block) {
 		List<Block> blockGroup = caboodle.getGroupedBlocks(block);
-		dataStorage blockData = Main.plugin().getData("blocks.yml");
+		DataStorage blockData = Main.plugin().getData("blocks.yml");
 		
 		for (Block b : blockGroup) {
 			String stringLoc = caboodle.stringifyLocation(b);
@@ -181,7 +181,7 @@ public class lockedBlocks implements Listener, CommandExecutor {
 	
 	private String getBlockKey(Block block) {
 		String stringLoc = caboodle.stringifyLocation(block);
-		dataStorage blockData = Main.plugin().getData("blocks.yml");
+		DataStorage blockData = Main.plugin().getData("blocks.yml");
 		
 		if (blockData.exists(stringLoc + ".lock")) {
 			return blockData.getString(stringLoc + ".lock");

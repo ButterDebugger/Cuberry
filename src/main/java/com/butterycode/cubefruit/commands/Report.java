@@ -3,7 +3,7 @@ package com.butterycode.cubefruit.commands;
 import com.butterycode.cubefruit.Main;
 import com.butterycode.cubefruit.utils.awesomeText;
 import com.butterycode.cubefruit.utils.caboodle;
-import com.butterycode.cubefruit.utils.dataStorage;
+import com.butterycode.cubefruit.utils.DataStorage;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
@@ -31,7 +31,7 @@ public class Report extends CommandWrapper {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		FileConfiguration config = Main.plugin().config();
-		dataStorage reportData = Main.plugin().getData("reports.yml");
+		DataStorage reportData = Main.plugin().getData("reports.yml");
 
 		if (label.equalsIgnoreCase("report")) {
 			if (!(sender instanceof Player)) {

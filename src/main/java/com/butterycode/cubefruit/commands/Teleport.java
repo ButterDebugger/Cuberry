@@ -3,7 +3,7 @@ package com.butterycode.cubefruit.commands;
 import com.butterycode.cubefruit.Main;
 import com.butterycode.cubefruit.utils.awesomeText;
 import com.butterycode.cubefruit.utils.caboodle;
-import com.butterycode.cubefruit.utils.dataStorage;
+import com.butterycode.cubefruit.utils.DataStorage;
 import com.butterycode.cubefruit.utils.DogTags;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -36,7 +36,7 @@ public class Teleport extends CommandWrapper {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		dataStorage playerData = Main.plugin().getData("players.yml");
+		DataStorage playerData = Main.plugin().getData("players.yml");
 
 		if (label.equalsIgnoreCase("tphere")) {
 			if (!(sender instanceof Player)) {

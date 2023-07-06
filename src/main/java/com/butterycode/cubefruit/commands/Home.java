@@ -3,7 +3,7 @@ package com.butterycode.cubefruit.commands;
 import com.butterycode.cubefruit.Main;
 import com.butterycode.cubefruit.utils.awesomeText;
 import com.butterycode.cubefruit.utils.caboodle;
-import com.butterycode.cubefruit.utils.dataStorage;
+import com.butterycode.cubefruit.utils.DataStorage;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -34,7 +34,7 @@ public class Home extends CommandWrapper implements Listener {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		dataStorage playerData = Main.plugin().getData("players.yml");
+		DataStorage playerData = Main.plugin().getData("players.yml");
 
 		if (label.equalsIgnoreCase("home")) {
 			if (!(sender instanceof Player)) {
@@ -116,7 +116,7 @@ public class Home extends CommandWrapper implements Listener {
 	@EventHandler
 	public void onPlayerRespawn(PlayerRespawnEvent event) {
 		Player player = event.getPlayer();
-		dataStorage playerData = Main.plugin().getData("players.yml");
+		DataStorage playerData = Main.plugin().getData("players.yml");
 
 		if (Main.plugin().config().getBoolean("commands.spawn.spawn-on-death")) {
 			if (playerData.existsNot(player.getUniqueId() + ".home") || (player.getBedLocation() != null)) return;

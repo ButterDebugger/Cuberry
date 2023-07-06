@@ -3,7 +3,7 @@ package com.butterycode.cubefruit.commands;
 import com.butterycode.cubefruit.Main;
 import com.butterycode.cubefruit.utils.awesomeText;
 import com.butterycode.cubefruit.utils.caboodle;
-import com.butterycode.cubefruit.utils.dataStorage;
+import com.butterycode.cubefruit.utils.DataStorage;
 import com.butterycode.cubefruit.utils.DogTags;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -33,7 +33,7 @@ public class WorldWhitelist extends CommandWrapper implements Listener {
 	public void onPlayerTeleport(PlayerTeleportEvent event) {
 		Player player = event.getPlayer();
 		World to = event.getTo().getWorld();
-		dataStorage doubleData = Main.plugin().getData("data.yml");
+		DataStorage doubleData = Main.plugin().getData("data.yml");
 
 		if (!event.getFrom().getWorld().equals(to)) { // TODO: test this condition
 			if (doubleData.getBoolean("worlds." + to.getName() + ".whitelist.enabled")) {
@@ -52,7 +52,7 @@ public class WorldWhitelist extends CommandWrapper implements Listener {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		dataStorage doubleData = Main.plugin().getData("data.yml");
+		DataStorage doubleData = Main.plugin().getData("data.yml");
 
 		if (label.equalsIgnoreCase("worldwhitelist")) {
 			if (!caboodle.hasPermission(sender, "worldwhitelist")) {
@@ -213,7 +213,7 @@ public class WorldWhitelist extends CommandWrapper implements Listener {
 
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-		dataStorage doubleData = Main.plugin().getData("data.yml");
+		DataStorage doubleData = Main.plugin().getData("data.yml");
 
 		if (label.equalsIgnoreCase("worldwhitelist") && caboodle.hasPermission(sender, "worldwhitelist")) {
 			if (args.length == 1) {

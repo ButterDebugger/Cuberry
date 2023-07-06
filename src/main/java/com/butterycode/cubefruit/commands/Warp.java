@@ -3,7 +3,7 @@ package com.butterycode.cubefruit.commands;
 import com.butterycode.cubefruit.Main;
 import com.butterycode.cubefruit.utils.awesomeText;
 import com.butterycode.cubefruit.utils.caboodle;
-import com.butterycode.cubefruit.utils.dataStorage;
+import com.butterycode.cubefruit.utils.DataStorage;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -35,7 +35,7 @@ public class Warp extends CommandWrapper {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		dataStorage warps = Main.plugin().getData("warps.yml");
+		DataStorage warps = Main.plugin().getData("warps.yml");
 
 		if (label.equalsIgnoreCase("warp")) {
 			if (!(sender instanceof Player)) {
@@ -158,7 +158,7 @@ public class Warp extends CommandWrapper {
 
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-		dataStorage warps = Main.plugin().getData("warps.yml");
+		DataStorage warps = Main.plugin().getData("warps.yml");
 
 		if (command.getName().equalsIgnoreCase("warp") && caboodle.hasPermission(sender, "warp")) {
 			if (args.length == 1) {

@@ -3,7 +3,7 @@ package com.butterycode.cubefruit.commands;
 import com.butterycode.cubefruit.Main;
 import com.butterycode.cubefruit.utils.awesomeText;
 import com.butterycode.cubefruit.utils.caboodle;
-import com.butterycode.cubefruit.utils.dataStorage;
+import com.butterycode.cubefruit.utils.DataStorage;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -37,7 +37,7 @@ public class Spawn extends CommandWrapper implements Listener {
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
 		FileConfiguration config = Main.plugin().config();
-		dataStorage doubleData = Main.plugin().getData("data.yml");
+		DataStorage doubleData = Main.plugin().getData("data.yml");
 
 		if (config.getBoolean("commands.spawn.spawn-on-join")) {
 			if (!doubleData.exists("spawn")) return;
@@ -58,7 +58,7 @@ public class Spawn extends CommandWrapper implements Listener {
 	public void onPlayerRespawn(PlayerRespawnEvent event) {
 		Player player = event.getPlayer();
 		FileConfiguration config = Main.plugin().config();
-		dataStorage doubleData = Main.plugin().getData("data.yml");
+		DataStorage doubleData = Main.plugin().getData("data.yml");
 
 		if (config.getBoolean("commands.spawn.spawn-on-death")) {
 			if (!doubleData.exists("spawn") || (player.getBedLocation() != null)) return;
@@ -73,7 +73,7 @@ public class Spawn extends CommandWrapper implements Listener {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		dataStorage doubleData = Main.plugin().getData("data.yml");
+		DataStorage doubleData = Main.plugin().getData("data.yml");
 
 		if (label.equalsIgnoreCase("spawn")) {
 			if (!(sender instanceof Player)) {
