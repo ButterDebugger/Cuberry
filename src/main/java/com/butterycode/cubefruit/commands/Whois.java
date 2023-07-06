@@ -2,7 +2,7 @@ package com.butterycode.cubefruit.commands;
 
 import com.butterycode.cubefruit.Main;
 import com.butterycode.cubefruit.utils.awesomeText;
-import com.butterycode.cubefruit.utils.caboodle;
+import com.butterycode.cubefruit.utils.Caboodle;
 import com.butterycode.cubefruit.utils.DataStorage;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
@@ -30,7 +30,7 @@ public class Whois extends CommandWrapper {
 		DataStorage playerData = Main.plugin().getData("players.yml");
 
 		if (label.equalsIgnoreCase("whois")) {
-			if (!caboodle.hasPermission(sender, "whois")) {
+			if (!Caboodle.hasPermission(sender, "whois")) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
@@ -40,7 +40,7 @@ public class Whois extends CommandWrapper {
 				return true;
 			}
 
-			OfflinePlayer player = caboodle.getOfflinePlayer(args[0]);
+			OfflinePlayer player = Caboodle.getOfflinePlayer(args[0]);
 
 			String uuid = player.getUniqueId().toString();
 
@@ -75,15 +75,15 @@ public class Whois extends CommandWrapper {
 				Player onlinePlayer = (Player) player;
 
 				Location loc = onlinePlayer.getLocation();
-				sender.sendMessage(awesomeText.prettifyMessage("&7- Location: &f" + loc.getWorld().getName() + " " + caboodle.round(loc.getX(), 3) + " " + caboodle.round(loc.getY(), 3) + " " + caboodle.round(loc.getZ(), 3)));
+				sender.sendMessage(awesomeText.prettifyMessage("&7- Location: &f" + loc.getWorld().getName() + " " + Caboodle.round(loc.getX(), 3) + " " + Caboodle.round(loc.getY(), 3) + " " + Caboodle.round(loc.getZ(), 3)));
 			} else {
 				String stringLoc = playerData.getString(uuid + ".logoutlocation");
 
 				if (stringLoc == null) {
 					sender.sendMessage(awesomeText.prettifyMessage("&7- Logout Location: &fUnknown"));
 				} else {
-					Location loc = caboodle.parseLocation(stringLoc);
-					sender.sendMessage(awesomeText.prettifyMessage("&7- Logout Location: &f" + loc.getWorld().getName() + " " + caboodle.round(loc.getX(), 3) + " " + caboodle.round(loc.getY(), 3) + " " + caboodle.round(loc.getZ(), 3)));
+					Location loc = Caboodle.parseLocation(stringLoc);
+					sender.sendMessage(awesomeText.prettifyMessage("&7- Logout Location: &f" + loc.getWorld().getName() + " " + Caboodle.round(loc.getX(), 3) + " " + Caboodle.round(loc.getY(), 3) + " " + Caboodle.round(loc.getZ(), 3)));
 				}
 			}
 
@@ -104,9 +104,9 @@ public class Whois extends CommandWrapper {
 
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-		if (label.equalsIgnoreCase("whois") && caboodle.hasPermission(sender, "whois")) {
+		if (label.equalsIgnoreCase("whois") && Caboodle.hasPermission(sender, "whois")) {
 			if (args.length == 1) {
-				return caboodle.getOfflinePlayerNames();
+				return Caboodle.getOfflinePlayerNames();
 			}
 
 			return Collections.emptyList();

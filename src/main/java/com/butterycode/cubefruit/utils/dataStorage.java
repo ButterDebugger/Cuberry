@@ -26,7 +26,7 @@ public class DataStorage {
 				file.getParentFile().mkdirs();
 				file.createNewFile();
 			} catch (IOException e) {
-				caboodle.log(plugin, "Unable to create " + filepath, caboodle.LogType.WARN);
+				Caboodle.log(plugin, "Unable to create " + filepath, Caboodle.LogType.WARN);
 				e.printStackTrace();
 			}
 		}
@@ -38,7 +38,7 @@ public class DataStorage {
 		try {
 			data.save(file);
 		} catch (IOException e) {
-			caboodle.log(plugin, "Unable to save data.", caboodle.LogType.WARN);
+			Caboodle.log(plugin, "Unable to save data.", Caboodle.LogType.WARN);
 			e.printStackTrace();
 		}
 	}

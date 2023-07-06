@@ -1,7 +1,7 @@
 package com.butterycode.cubefruit.commands;
 
 import com.butterycode.cubefruit.utils.awesomeText;
-import com.butterycode.cubefruit.utils.caboodle;
+import com.butterycode.cubefruit.utils.Caboodle;
 import com.butterycode.cubefruit.utils.DogTags;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -36,7 +36,7 @@ public class Speed extends CommandWrapper {
 
 			Player player = (Player) sender;
 
-			if (!caboodle.hasPermission(sender, "speed")) {
+			if (!Caboodle.hasPermission(sender, "speed")) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
@@ -85,7 +85,7 @@ public class Speed extends CommandWrapper {
 
 			Player player = (Player) sender;
 
-			if (!(caboodle.hasPermission(sender, "speed") || caboodle.hasPermission(sender, "speed.walk"))) {
+			if (!(Caboodle.hasPermission(sender, "speed") || Caboodle.hasPermission(sender, "speed.walk"))) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
@@ -119,7 +119,7 @@ public class Speed extends CommandWrapper {
 
 			Player player = (Player) sender;
 
-			if (!(caboodle.hasPermission(sender, "speed") || caboodle.hasPermission(sender, "speed.fly"))) {
+			if (!(Caboodle.hasPermission(sender, "speed") || Caboodle.hasPermission(sender, "speed.fly"))) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
@@ -149,7 +149,7 @@ public class Speed extends CommandWrapper {
 
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-		if (label.equalsIgnoreCase("speed") && caboodle.hasPermission(sender, "speed")) {
+		if (label.equalsIgnoreCase("speed") && Caboodle.hasPermission(sender, "speed")) {
 			if (args.length == 1) {
 				Player player = (Player) sender;
 
@@ -163,7 +163,7 @@ public class Speed extends CommandWrapper {
 			return Collections.emptyList();
 		}
 
-		if (label.equalsIgnoreCase("walkspeed") && (caboodle.hasPermission(sender, "speed") || caboodle.hasPermission(sender, "speed.walk"))) {
+		if (label.equalsIgnoreCase("walkspeed") && (Caboodle.hasPermission(sender, "speed") || Caboodle.hasPermission(sender, "speed.walk"))) {
 			if (args.length == 1) {
 				return Arrays.asList("0", "2", "10");
 			}
@@ -171,7 +171,7 @@ public class Speed extends CommandWrapper {
 			return Collections.emptyList();
 		}
 
-		if (label.equalsIgnoreCase("flyspeed") && (caboodle.hasPermission(sender, "speed") || caboodle.hasPermission(sender, "speed.fly"))) {
+		if (label.equalsIgnoreCase("flyspeed") && (Caboodle.hasPermission(sender, "speed") || Caboodle.hasPermission(sender, "speed.fly"))) {
 			if (args.length == 1) {
 				return Arrays.asList("0", "1", "10");
 			}

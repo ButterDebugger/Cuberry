@@ -1,11 +1,9 @@
 package com.butterycode.cubefruit.commands;
 
-import com.butterycode.cubefruit.Main;
-import com.butterycode.cubefruit.utils.caboodle;
+import com.butterycode.cubefruit.utils.Caboodle;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabCompleter;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.*;
@@ -50,7 +48,7 @@ public abstract class CommandWrapper implements CommandExecutor, TabCompleter {
         }
 
         public void register(JavaPlugin plugin) { // TODO: retest
-            PluginCommand command = caboodle.getCommand(name, plugin);
+            PluginCommand command = Caboodle.getCommand(name, plugin);
 
             if (aliases != null) command.setAliases(aliases);
             if (description != null) command.setDescription(description);
@@ -61,7 +59,7 @@ public abstract class CommandWrapper implements CommandExecutor, TabCompleter {
             command.setExecutor(wrapper);
             command.setTabCompleter(wrapper);
 
-            caboodle.getCommandMap().register(plugin.getDescription().getName(), command);
+            Caboodle.getCommandMap().register(plugin.getDescription().getName(), command);
         }
 
         /**

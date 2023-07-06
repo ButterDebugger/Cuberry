@@ -1,7 +1,7 @@
 package com.butterycode.cubefruit;
 
 import com.butterycode.cubefruit.utils.awesomeText;
-import com.butterycode.cubefruit.utils.caboodle;
+import com.butterycode.cubefruit.utils.Caboodle;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -154,11 +154,11 @@ public class playerChat implements Listener {
 			FileConfiguration config = Main.plugin().config();
 
 			for (String msg : message.split(" ")) {
-				if (msg.equalsIgnoreCase("gg") && config.getBoolean("chat.format.golden-gg") && caboodle.hasPermission(player, "chat.golden-gg")) {
+				if (msg.equalsIgnoreCase("gg") && config.getBoolean("chat.format.golden-gg") && Caboodle.hasPermission(player, "chat.golden-gg")) {
 					msg = awesomeText.colorizeHex("&6" + msg + "&r");
 				}
 
-				if (config.getBoolean("chat.format.colorful-emotes") && caboodle.hasPermission(player, "chat.colorful-emotes")) {
+				if (config.getBoolean("chat.format.colorful-emotes") && Caboodle.hasPermission(player, "chat.colorful-emotes")) {
 					if (msg.equalsIgnoreCase("<3") || msg.equalsIgnoreCase("\u2764")) {
 						msg = awesomeText.colorizeHex("&c\u2764&r");
 					} else if (msg.equalsIgnoreCase("</3") || msg.equalsIgnoreCase("<\\3")) {
@@ -216,7 +216,7 @@ public class playerChat implements Listener {
 			}
 			message = String.join(" ", rebuiltMessage);
 
-			if (config.getBoolean("chat.format.colorize") && caboodle.hasPermission(player, "chat.colorize")) {
+			if (config.getBoolean("chat.format.colorize") && Caboodle.hasPermission(player, "chat.colorize")) {
 				message = awesomeText.colorizeHex(message);
 			}
 		}

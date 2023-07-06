@@ -2,7 +2,7 @@ package com.butterycode.cubefruit.commands;
 
 import com.butterycode.cubefruit.Main;
 import com.butterycode.cubefruit.utils.awesomeText;
-import com.butterycode.cubefruit.utils.caboodle;
+import com.butterycode.cubefruit.utils.Caboodle;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -30,7 +30,7 @@ public class Mutechat extends CommandWrapper implements Listener {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (label.equalsIgnoreCase("mutechat")) {
-			if (!caboodle.hasPermission(sender, "mutechat")) {
+			if (!Caboodle.hasPermission(sender, "mutechat")) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
@@ -74,7 +74,7 @@ public class Mutechat extends CommandWrapper implements Listener {
 
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-		if (label.equalsIgnoreCase("mutechat") && caboodle.hasPermission(sender, "mutechat")) {
+		if (label.equalsIgnoreCase("mutechat") && Caboodle.hasPermission(sender, "mutechat")) {
 			if (args.length == 1) {
 				return Arrays.asList("on", "off");
 			}
@@ -91,7 +91,7 @@ public class Mutechat extends CommandWrapper implements Listener {
 		FileConfiguration config = Main.plugin().config();
 		String blockMessage = config.getString("commands.mutechat.block-message");
 
-		if (isChatMuted && !caboodle.hasPermission(player, "mutechat.bypass")) {
+		if (isChatMuted && !Caboodle.hasPermission(player, "mutechat.bypass")) {
 			event.setCancelled(true);
 
 			if (blockMessage.length() > 0) {
@@ -107,11 +107,11 @@ public class Mutechat extends CommandWrapper implements Listener {
 
 		if (isChatMuted) {
 			if (muteAnnouncement.length() > 0) {
-				caboodle.broadcast(awesomeText.prettifyMessage(muteAnnouncement));
+				Caboodle.broadcast(awesomeText.prettifyMessage(muteAnnouncement));
 			}
 		} else {
 			if (unmuteAnnouncement.length() > 0) {
-				caboodle.broadcast(awesomeText.prettifyMessage(config.getString("commands.mutechat.unmute-announcement")));
+				Caboodle.broadcast(awesomeText.prettifyMessage(config.getString("commands.mutechat.unmute-announcement")));
 			}
 		}
 	}

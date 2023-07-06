@@ -2,7 +2,7 @@ package com.butterycode.cubefruit.commands;
 
 import com.butterycode.cubefruit.Main;
 import com.butterycode.cubefruit.utils.awesomeText;
-import com.butterycode.cubefruit.utils.caboodle;
+import com.butterycode.cubefruit.utils.Caboodle;
 import com.butterycode.cubefruit.utils.DogTags;
 import org.bukkit.*;
 import org.bukkit.World.Environment;
@@ -38,7 +38,7 @@ public class CubeFruit implements CommandExecutor, TabCompleter {
 		FileConfiguration config = Main.plugin().config();
 
 		if (label.equalsIgnoreCase("cubefruit") || label.equalsIgnoreCase("fruit") || label.equalsIgnoreCase("cf")) {
-			if (!caboodle.hasPermission(sender, "admin")) {
+			if (!Caboodle.hasPermission(sender, "admin")) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
@@ -451,7 +451,7 @@ public class CubeFruit implements CommandExecutor, TabCompleter {
 							}
 							Chunk tempchunk = tempworld.getChunkAt(chunk.getX(), chunk.getZ());
 
-							for (Block block : caboodle.getChunkBlocks(tempchunk)) {
+							for (Block block : Caboodle.getChunkBlocks(tempchunk)) {
 								Block oldblock = world.getBlockAt(block.getX(), block.getY(), block.getZ());
 								BlockState oldstate = oldblock.getState();
 
@@ -537,7 +537,7 @@ public class CubeFruit implements CommandExecutor, TabCompleter {
 						DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH.mm.ss");
 						LocalDateTime date = LocalDateTime.now();
 						String savename = "./backups/" + world.getName() + "_" + date.format(formatter);
-						caboodle.copyWorld(world.getWorldFolder(), new File(savename));
+						Caboodle.copyWorld(world.getWorldFolder(), new File(savename));
 
 						sender.sendMessage(awesomeText.colorize("&7Backup saved at &f" + savename));
 						return true;
@@ -574,11 +574,11 @@ public class CubeFruit implements CommandExecutor, TabCompleter {
 							return true;
 						}
 
-						if (!caboodle.getAllWorldNames().contains(args[3])) {
+						if (!Caboodle.getAllWorldNames().contains(args[3])) {
 							sender.sendMessage(awesomeText.colorize("&cError: &7That world could not be found."));
 							return true;
-						} else if (caboodle.getUnloadedWorldNames().contains(args[3])) {
-							caboodle.deleteWorld(args[3]);
+						} else if (Caboodle.getUnloadedWorldNames().contains(args[3])) {
+							Caboodle.deleteWorld(args[3]);
 							sender.sendMessage(awesomeText.colorize("&f" + args[3] + " &7has been deleted."));
 							return true;
 						} else {
@@ -603,7 +603,7 @@ public class CubeFruit implements CommandExecutor, TabCompleter {
 	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
 		if (!(sender instanceof Player)) return null; // Cancel if sender isn't a player
 
-		if ((label.equalsIgnoreCase("cubefruit") || label.equalsIgnoreCase("fruit") || label.equalsIgnoreCase("cf")) && caboodle.hasPermission(sender, "admin")) {
+		if ((label.equalsIgnoreCase("cubefruit") || label.equalsIgnoreCase("fruit") || label.equalsIgnoreCase("cf")) && Caboodle.hasPermission(sender, "admin")) {
 			if (args.length == 1) {
 				return Arrays.asList("reload", "debug", "test");
 			}
@@ -626,13 +626,13 @@ public class CubeFruit implements CommandExecutor, TabCompleter {
 			}
 			if (args.length == 4 && args[0].equals("debug")) {
 				if (args[1].equalsIgnoreCase("world") && !(args[2].equalsIgnoreCase("load") || args[2].equalsIgnoreCase("list") || args[2].equalsIgnoreCase("delete"))) {
-					return caboodle.getWorldNames();
+					return Caboodle.getWorldNames();
 				}
 				if (args[1].equalsIgnoreCase("world") && args[2].equalsIgnoreCase("load") || args[2].equalsIgnoreCase("delete")) {
-					if (caboodle.getUnloadedWorldNames().size() == 0) {
-						return caboodle.getAllWorldNames();
+					if (Caboodle.getUnloadedWorldNames().size() == 0) {
+						return Caboodle.getAllWorldNames();
 					} else {
-						return caboodle.getUnloadedWorldNames();
+						return Caboodle.getUnloadedWorldNames();
 					}
 				}
 				if (args[2].equalsIgnoreCase("lagmonitor")) {
@@ -657,7 +657,7 @@ public class CubeFruit implements CommandExecutor, TabCompleter {
 
 					if (lagmonitor.get(player)) {
 						String tpsString;
-						double tps = caboodle.round(caboodle.getTps(), 2);
+						double tps = Caboodle.round(Caboodle.getTps(), 2);
 						if (tps >= 18) {
 							tpsString = "&7TPS: &a" + tps;
 						} else if (tps >= 16) {
@@ -670,11 +670,11 @@ public class CubeFruit implements CommandExecutor, TabCompleter {
 						long memUsed = (r.totalMemory() - r.freeMemory()) / 1048576;
 						long memMax = r.maxMemory() / 1048576;
 						double memValue = ((double) memUsed / (double) memMax) * 100;
-						String memString = "&7Memory&e: &a" + caboodle.round(memValue, 1) + "%";
+						String memString = "&7Memory&e: &a" + Caboodle.round(memValue, 1) + "%";
 
-						String chunkString = "&7Chunks&e: &a" + caboodle.getTotalChunksLoaded();
+						String chunkString = "&7Chunks&e: &a" + Caboodle.getTotalChunksLoaded();
 
-						String entityString = "&7Entities&e: &a" + caboodle.getTotalEntities();
+						String entityString = "&7Entities&e: &a" + Caboodle.getTotalEntities();
 
 						String pingString;
 						int ping = player.getPing();
@@ -690,7 +690,7 @@ public class CubeFruit implements CommandExecutor, TabCompleter {
 							pingString = "&7Ping&e: &4&#910003" + ping + "&7ms";
 						}
 
-						caboodle.sendActionbar(player, awesomeText.prettifyMessage(tpsString + " " + memString + " " + chunkString + " " + entityString + " " + pingString, player));
+						Caboodle.sendActionbar(player, awesomeText.prettifyMessage(tpsString + " " + memString + " " + chunkString + " " + entityString + " " + pingString, player));
 					}
 				}
 			}
@@ -703,7 +703,7 @@ public class CubeFruit implements CommandExecutor, TabCompleter {
 
 			if (world != null) {
 				Bukkit.unloadWorld(worldname, true);
-				caboodle.deleteWorld(worldname);
+				Caboodle.deleteWorld(worldname);
 			}
 		}
 	}

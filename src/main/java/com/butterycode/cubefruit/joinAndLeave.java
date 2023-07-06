@@ -1,7 +1,7 @@
 package com.butterycode.cubefruit;
 
 import com.butterycode.cubefruit.utils.awesomeText;
-import com.butterycode.cubefruit.utils.caboodle;
+import com.butterycode.cubefruit.utils.Caboodle;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -26,14 +26,14 @@ public class joinAndLeave implements Listener {
 				List<String> messages = config.getStringList("join-leave-message.newbie");
 				
 				if (messages.size() > 0) {
-					String message = awesomeText.prettifyMessage(caboodle.randomListItem(messages), player);
+					String message = awesomeText.prettifyMessage(Caboodle.randomListItem(messages), player);
 					event.setJoinMessage(message);
 				}
 			} else {
 				List<String> messages = config.getStringList("join-leave-message.join");
 				
 				if (messages.size() > 0) {
-					String message = awesomeText.prettifyMessage(caboodle.randomListItem(messages), player);
+					String message = awesomeText.prettifyMessage(Caboodle.randomListItem(messages), player);
 					event.setJoinMessage(message);
 				}
 			}
@@ -55,7 +55,7 @@ public class joinAndLeave implements Listener {
 			List<String> messages = config.getStringList("join-leave-message.leave");
 			
 			if (messages.size() > 0) {
-				String message = awesomeText.prettifyMessage(caboodle.randomListItem(messages), player);
+				String message = awesomeText.prettifyMessage(Caboodle.randomListItem(messages), player);
 				event.setQuitMessage(message);
 			}
 		}
@@ -72,13 +72,13 @@ public class joinAndLeave implements Listener {
 				List<String> messages = config.getStringList("join-leave-message.join-attempt.banned");
 				
 				if (messages.size() > 0) {
-					String message = awesomeText.prettifyMessage(caboodle.randomListItem(messages), player);
+					String message = awesomeText.prettifyMessage(Caboodle.randomListItem(messages), player);
 					
 					if (config.getBoolean("join-leave-message.join-attempt.visible-to-everyone")) {
-						caboodle.broadcast(message);
+						Caboodle.broadcast(message);
 					} else {
 						for (Player p : Bukkit.getOnlinePlayers()) {
-							if (caboodle.hasPermission(p, "alerts.joinattempt")) {
+							if (Caboodle.hasPermission(p, "alerts.joinattempt")) {
 								p.sendMessage(message);
 							}
 						}
@@ -88,13 +88,13 @@ public class joinAndLeave implements Listener {
 				List<String> messages = config.getStringList("join-leave-message.join-attempt.whitelist");
 				
 				if (messages.size() > 0) {
-					String message = awesomeText.prettifyMessage(caboodle.randomListItem(messages), player);
+					String message = awesomeText.prettifyMessage(Caboodle.randomListItem(messages), player);
 					
 					if (config.getBoolean("join-leave-message.join-attempt.visible-to-everyone")) {
-						caboodle.broadcast(message);
+						Caboodle.broadcast(message);
 					} else {
 						for (Player p : Bukkit.getOnlinePlayers()) {
-							if (caboodle.hasPermission(p, "alerts.joinattempt")) {
+							if (Caboodle.hasPermission(p, "alerts.joinattempt")) {
 								p.sendMessage(message);
 							}
 						}

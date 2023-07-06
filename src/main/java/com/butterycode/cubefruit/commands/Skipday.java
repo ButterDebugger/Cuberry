@@ -2,7 +2,7 @@ package com.butterycode.cubefruit.commands;
 
 import com.butterycode.cubefruit.Main;
 import com.butterycode.cubefruit.utils.awesomeText;
-import com.butterycode.cubefruit.utils.caboodle;
+import com.butterycode.cubefruit.utils.Caboodle;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -30,7 +30,7 @@ public class Skipday extends CommandWrapper {
 
 			Player player = (Player)sender;
 
-			if (!caboodle.hasPermission(sender, "skipday")) {
+			if (!Caboodle.hasPermission(sender, "skipday")) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
@@ -53,7 +53,7 @@ public class Skipday extends CommandWrapper {
 
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-		if (!caboodle.hasPermission(sender, "skipday")) return null;
+		if (!Caboodle.hasPermission(sender, "skipday")) return null;
 
 		return Collections.emptyList();
 	}

@@ -31,8 +31,8 @@ public final class Main extends JavaPlugin implements Listener {
         // Setup Plugin
         Bukkit.getServer().getPluginManager().registerEvents(new idlePlayers(), plugin);
         idlePlayers.start();
-        Bukkit.getServer().getPluginManager().registerEvents(new caboodle(), plugin);
-        caboodle.start();
+        Bukkit.getServer().getPluginManager().registerEvents(new Caboodle(), plugin);
+        Caboodle.start();
         pluginSupport.setup();
 
         Bukkit.getServer().getPluginManager().registerEvents(this, this);
@@ -46,7 +46,7 @@ public final class Main extends JavaPlugin implements Listener {
         // Register Commands
         registerCommands();
 
-        caboodle.log(plugin, "Successfully loaded.", caboodle.LogType.INFO);
+        Caboodle.log(plugin, "Successfully loaded.", Caboodle.LogType.INFO);
     }
 
     private void registerCommands() { // TODO: finish adding descriptions
@@ -165,18 +165,18 @@ public final class Main extends JavaPlugin implements Listener {
         playerNametag.start();
 
         if (config().getBoolean("halt.freeze-command")) {
-            caboodle.registerCommand(Arrays.asList(new String[] {"freeze"}));
+            Caboodle.registerCommand(Arrays.asList(new String[] {"freeze"}));
             getCommand("freeze").setExecutor(new haltEvents());
         }
 
         if (config().getBoolean("lives.enabled")) {
             Bukkit.getServer().getPluginManager().registerEvents(new playerLives(), plugin);
             playerLives.start();
-            caboodle.registerCommand(Arrays.asList(new String[] {"lives"}));
+            Caboodle.registerCommand(Arrays.asList(new String[] {"lives"}));
             getCommand("lives").setExecutor(new playerLives());
 
             if (config().getBoolean("lives.revival")) {
-                caboodle.registerCommand(Arrays.asList(new String[] {"revive"}));
+                Caboodle.registerCommand(Arrays.asList(new String[] {"revive"}));
                 getCommand("revive").setExecutor(new playerLives());
             }
         }
@@ -186,7 +186,7 @@ public final class Main extends JavaPlugin implements Listener {
             lockedBlocks.start();
 
             if (config().getBoolean("locks.master-key")) {
-                caboodle.registerCommand(Arrays.asList(new String[] {"getmasterkey"}));
+                Caboodle.registerCommand(Arrays.asList(new String[] {"getmasterkey"}));
                 getCommand("getmasterkey").setExecutor(new lockedBlocks());
             }
         }
@@ -230,7 +230,7 @@ public final class Main extends JavaPlugin implements Listener {
         // Save data
         saveDataFiles();
 
-        caboodle.log(plugin, "Successfully unloaded.", caboodle.LogType.INFO);
+        Caboodle.log(plugin, "Successfully unloaded.", Caboodle.LogType.INFO);
     }
 
     public static Main plugin() {
@@ -249,7 +249,7 @@ public final class Main extends JavaPlugin implements Listener {
         reloadConfig();
         saveDataFiles();
 
-        caboodle.log(plugin, "Reload complete.", caboodle.LogType.INFO);
+        Caboodle.log(plugin, "Reload complete.", Caboodle.LogType.INFO);
     }
 
     public void saveDataFiles() {

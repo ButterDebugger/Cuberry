@@ -29,7 +29,7 @@ public class ghostBlocks {
         public GhostBlock(Player p, Location loc, BlockData bd) {
             player = p;
             location = loc;
-            key = caboodle.stringifyLocation(loc) + "&" + p.getUniqueId();
+            key = Caboodle.stringifyLocation(loc) + "&" + p.getUniqueId();
             blockdata = bd;
         }
 

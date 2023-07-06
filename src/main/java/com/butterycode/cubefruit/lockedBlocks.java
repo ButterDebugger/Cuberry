@@ -1,7 +1,7 @@
 package com.butterycode.cubefruit;
 
 import com.butterycode.cubefruit.utils.awesomeText;
-import com.butterycode.cubefruit.utils.caboodle;
+import com.butterycode.cubefruit.utils.Caboodle;
 import com.butterycode.cubefruit.utils.DataStorage;
 import com.butterycode.cubefruit.utils.DogTags;
 import org.bukkit.Location;
@@ -36,9 +36,9 @@ public class lockedBlocks implements Listener, CommandExecutor {
 		DataStorage blockData = Main.plugin().getData("blocks.yml");
 
 		ItemStack temp = new ItemStack(Material.TRIPWIRE_HOOK);
-		caboodle.setDisplayName(temp, awesomeText.prettifyMessage("&#FFB847Master Key"));
-		caboodle.setItemTag(temp, "isMasterKey", PersistentDataType.BYTE, (byte) 1);
-		caboodle.setItemFlags(temp, true, ItemFlag.HIDE_ENCHANTS);
+		Caboodle.setDisplayName(temp, awesomeText.prettifyMessage("&#FFB847Master Key"));
+		Caboodle.setItemTag(temp, "isMasterKey", PersistentDataType.BYTE, (byte) 1);
+		Caboodle.setItemFlags(temp, true, ItemFlag.HIDE_ENCHANTS);
 		temp.addUnsafeEnchantment(Enchantment.ARROW_INFINITE, 1);
 		masterKey = temp;
 		
@@ -46,7 +46,7 @@ public class lockedBlocks implements Listener, CommandExecutor {
 		for (String key : blockData.getKeys()) {
 			if (!blockData.exists(key + ".lock")) continue;
 
-			Location blockLoc = caboodle.parseLocation(key);
+			Location blockLoc = Caboodle.parseLocation(key);
 			Block block = blockLoc.getBlock();
 			
 			resolveBlock(block);
@@ -86,26 +86,26 @@ public class lockedBlocks implements Listener, CommandExecutor {
 				unlockBlock(block);
 
 				player.playSound(player.getLocation(), Sound.BLOCK_CHEST_LOCKED, 0.5f, 1f);
-				caboodle.sendActionbar(player, awesomeText.prettifyMessage(awesomeText.screamingSnakeCase(block.getType().toString()) + " has been unlocked."));
+				Caboodle.sendActionbar(player, awesomeText.prettifyMessage(awesomeText.screamingSnakeCase(block.getType().toString()) + " has been unlocked."));
 
 				event.setCancelled(true);
 			} else {
 				player.playSound(player.getLocation(), Sound.BLOCK_CHEST_LOCKED, 0.5f, 1f);
-				caboodle.sendActionbar(player, awesomeText.prettifyMessage(awesomeText.screamingSnakeCase(block.getType().toString()) + " cannot be unlocked."));
+				Caboodle.sendActionbar(player, awesomeText.prettifyMessage(awesomeText.screamingSnakeCase(block.getType().toString()) + " cannot be unlocked."));
 
 				event.setCancelled(true);
 			}
 		} else {
 			if (isMasterKey(item)) {
 				player.playSound(player.getLocation(), Sound.BLOCK_CHEST_LOCKED, 0.5f, 1f);
-				caboodle.sendActionbar(player, awesomeText.prettifyMessage(awesomeText.screamingSnakeCase(block.getType().toString()) + " cannot be locked."));
+				Caboodle.sendActionbar(player, awesomeText.prettifyMessage(awesomeText.screamingSnakeCase(block.getType().toString()) + " cannot be locked."));
 
 				event.setCancelled(true);
 			} else {
 				lockBlock(block, keyname);
 
 				player.playSound(player.getLocation(), Sound.BLOCK_CHEST_LOCKED, 0.5f, 1f);
-				caboodle.sendActionbar(player, awesomeText.prettifyMessage(awesomeText.screamingSnakeCase(block.getType().toString()) + " has been locked."));
+				Caboodle.sendActionbar(player, awesomeText.prettifyMessage(awesomeText.screamingSnakeCase(block.getType().toString()) + " has been locked."));
 
 				event.setCancelled(true);
 			}
@@ -122,7 +122,7 @@ public class lockedBlocks implements Listener, CommandExecutor {
 				return true;
 			}
 			
-			if (!caboodle.hasPermission(sender, "locks.masterkey")) {
+			if (!Caboodle.hasPermission(sender, "locks.masterkey")) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
@@ -134,7 +134,7 @@ public class lockedBlocks implements Listener, CommandExecutor {
 			
 			Player player = (Player) sender;
 
-			caboodle.giveItem(player, masterKey);
+			Caboodle.giveItem(player, masterKey);
 
 			sender.sendMessage(awesomeText.prettifyMessage("&7You have been given a master key."));
 			return true;
@@ -143,33 +143,33 @@ public class lockedBlocks implements Listener, CommandExecutor {
 	}
 	
 	private void lockBlock(Block block, String key) {
-		List<Block> blockGroup = caboodle.getGroupedBlocks(block);
+		List<Block> blockGroup = Caboodle.getGroupedBlocks(block);
 		DataStorage blockData = Main.plugin().getData("blocks.yml");
 		
 		for (Block b : blockGroup) {
-			String stringLoc = caboodle.stringifyLocation(b);
+			String stringLoc = Caboodle.stringifyLocation(b);
 
 			blockData.set(stringLoc + ".lock", key);
 		}
 	}
 	
 	private static void unlockBlock(Block block) {
-		List<Block> blockGroup = caboodle.getGroupedBlocks(block);
+		List<Block> blockGroup = Caboodle.getGroupedBlocks(block);
 		DataStorage blockData = Main.plugin().getData("blocks.yml");
 		
 		for (Block b : blockGroup) {
-			String stringLoc = caboodle.stringifyLocation(b);
+			String stringLoc = Caboodle.stringifyLocation(b);
 
 			blockData.remove(stringLoc + ".lock");
 		}
 	}
 	
 	private static boolean isBlockLocked(Block block) {
-		List<Block> blockGroup = caboodle.getGroupedBlocks(block);
+		List<Block> blockGroup = Caboodle.getGroupedBlocks(block);
 		DataStorage blockData = Main.plugin().getData("blocks.yml");
 		
 		for (Block b : blockGroup) {
-			String stringLoc = caboodle.stringifyLocation(b);
+			String stringLoc = Caboodle.stringifyLocation(b);
 			
 			if (blockData.exists(stringLoc + ".lock")) {
 				return true;
@@ -180,7 +180,7 @@ public class lockedBlocks implements Listener, CommandExecutor {
 	}
 	
 	private String getBlockKey(Block block) {
-		String stringLoc = caboodle.stringifyLocation(block);
+		String stringLoc = Caboodle.stringifyLocation(block);
 		DataStorage blockData = Main.plugin().getData("blocks.yml");
 		
 		if (blockData.exists(stringLoc + ".lock")) {
@@ -245,7 +245,7 @@ public class lockedBlocks implements Listener, CommandExecutor {
 			if (isBlockLocked(block)) {
 				if (!matchKey(block, item)) {
 					player.playSound(player.getLocation(), Sound.BLOCK_CHEST_LOCKED, 0.5f, 1f);
-					caboodle.sendActionbar(player, awesomeText.prettifyMessage(awesomeText.screamingSnakeCase(block.getType().toString()) + " is locked!"));
+					Caboodle.sendActionbar(player, awesomeText.prettifyMessage(awesomeText.screamingSnakeCase(block.getType().toString()) + " is locked!"));
 
 					event.setCancelled(true);
 				}
@@ -284,7 +284,7 @@ public class lockedBlocks implements Listener, CommandExecutor {
 		if (isBlockLocked(block)) {
 			if (config.getBoolean("locks.indestructable")) {
 				player.playSound(player.getLocation(), Sound.BLOCK_CHEST_LOCKED, 0.5f, 1f);
-				caboodle.sendActionbar(player, awesomeText.prettifyMessage(awesomeText.screamingSnakeCase(block.getType().toString()) + " is locked!"));
+				Caboodle.sendActionbar(player, awesomeText.prettifyMessage(awesomeText.screamingSnakeCase(block.getType().toString()) + " is locked!"));
 
 				event.setCancelled(true);
 			} else {
@@ -293,7 +293,7 @@ public class lockedBlocks implements Listener, CommandExecutor {
 		} else if (isBlockLocked(blockAbove) && DogTags.isSupportedFromBelow(blockAbove)) {
 			if (config.getBoolean("locks.indestructable")) {
 				player.playSound(player.getLocation(), Sound.BLOCK_CHEST_LOCKED, 0.5f, 1f);
-				caboodle.sendActionbar(player, awesomeText.prettifyMessage("The block above is locked!"));
+				Caboodle.sendActionbar(player, awesomeText.prettifyMessage("The block above is locked!"));
 
 				event.setCancelled(true);
 			} else {

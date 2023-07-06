@@ -2,7 +2,7 @@ package com.butterycode.cubefruit.commands;
 
 import com.butterycode.cubefruit.Main;
 import com.butterycode.cubefruit.utils.awesomeText;
-import com.butterycode.cubefruit.utils.caboodle;
+import com.butterycode.cubefruit.utils.Caboodle;
 import com.butterycode.cubefruit.utils.DataStorage;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -41,7 +41,7 @@ public class Report extends CommandWrapper {
 
 			Player player = (Player) sender;
 
-			if (!caboodle.hasPermission(sender, "report")) {
+			if (!Caboodle.hasPermission(sender, "report")) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
@@ -55,14 +55,14 @@ public class Report extends CommandWrapper {
 				return true;
 			}
 
-			OfflinePlayer reportedPlayer = caboodle.getOfflinePlayer(args[0]);
+			OfflinePlayer reportedPlayer = Caboodle.getOfflinePlayer(args[0]);
 
 			if (!reportedPlayer.hasPlayedBefore()) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7That player has never played on this server."));
 				return true;
 			}
 
-			String reason = String.join(" ", caboodle.splice(args, 0, 1));
+			String reason = String.join(" ", Caboodle.splice(args, 0, 1));
 
 			if (config.getBoolean("commands.report.restrict-reasons")) {
 				boolean isDisallowed = true;
@@ -99,7 +99,7 @@ public class Report extends CommandWrapper {
 			sender.sendMessage(awesomeText.prettifyMessage("&a&l» &7Report has been sent."));
 
 			for (Player p : Bukkit.getOnlinePlayers()) {
-				if (caboodle.hasPermission(p, "alerts.report")) {
+				if (Caboodle.hasPermission(p, "alerts.report")) {
 					p.sendMessage(message);
 				}
 			}
@@ -111,9 +111,9 @@ public class Report extends CommandWrapper {
 	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
 		FileConfiguration config = Main.plugin().config();
 
-		if (label.equalsIgnoreCase("report") && caboodle.hasPermission(sender, "report")) {
+		if (label.equalsIgnoreCase("report") && Caboodle.hasPermission(sender, "report")) {
 			if (args.length == 1) {
-				return caboodle.getOnlinePlayerNames();
+				return Caboodle.getOnlinePlayerNames();
 			}
 			if (args.length == 2) {
 				return config.getStringList("commands.report.reasons");

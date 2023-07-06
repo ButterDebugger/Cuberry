@@ -1,7 +1,7 @@
 package com.butterycode.cubefruit.commands;
 
 import com.butterycode.cubefruit.utils.awesomeText;
-import com.butterycode.cubefruit.utils.caboodle;
+import com.butterycode.cubefruit.utils.Caboodle;
 import com.butterycode.cubefruit.utils.DogTags;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -26,7 +26,7 @@ public class Respawn extends CommandWrapper {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (label.equalsIgnoreCase("respawn")) {
-			if (!caboodle.hasPermission(sender, "respawn")) {
+			if (!Caboodle.hasPermission(sender, "respawn")) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
@@ -42,16 +42,16 @@ public class Respawn extends CommandWrapper {
 
 					if (args.length < 2) {
 						sender.sendMessage(awesomeText.colorize("&a&l» &f" + otherPlayer.getName() + "&7 has been respawned."));
-						caboodle.respawn(otherPlayer);
+						Caboodle.respawn(otherPlayer);
 						return true;
 					} else if (args[1].equals("true")) {
 						sender.sendMessage(awesomeText.colorize("&a&l» &f" + otherPlayer.getName() + "&7 has been respawned at their death location."));
-						caboodle.respawn(otherPlayer);
+						Caboodle.respawn(otherPlayer);
 						otherPlayer.teleport(deathLoc);
 						return true;
 					} else {
 						sender.sendMessage(awesomeText.colorize("&a&l» &f" + otherPlayer.getName() + "&7 has been respawned."));
-						caboodle.respawn(otherPlayer);
+						Caboodle.respawn(otherPlayer);
 						return true;
 					}
 				} else {
@@ -68,7 +68,7 @@ public class Respawn extends CommandWrapper {
 
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-		if (label.equalsIgnoreCase("respawn") && caboodle.hasPermission(sender, "respawn")) {
+		if (label.equalsIgnoreCase("respawn") && Caboodle.hasPermission(sender, "respawn")) {
 			if (args.length == 1) {
 				List<String> deadplayers = new ArrayList<>();
 				List<String> players = new ArrayList<>();

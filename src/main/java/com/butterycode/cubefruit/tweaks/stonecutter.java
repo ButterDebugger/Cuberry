@@ -1,7 +1,7 @@
 package com.butterycode.cubefruit.tweaks;
 
 import com.butterycode.cubefruit.Main;
-import com.butterycode.cubefruit.utils.caboodle;
+import com.butterycode.cubefruit.utils.Caboodle;
 import com.butterycode.cubefruit.utils.resourceStorage;
 import org.bukkit.*;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -111,7 +111,7 @@ public class stonecutter implements Listener {
 					continue;
 				}
 
-				Material inmat = caboodle.getMaterialByName(inputArgs.group(1));
+				Material inmat = Caboodle.getMaterialByName(inputArgs.group(1));
 				ItemStack input = new ItemStack(inmat, Integer.parseInt(inputArgs.group(2)));
 				
 				// Get output items
@@ -124,7 +124,7 @@ public class stonecutter implements Listener {
 						continue;
 					}
 					
-					Material outmat = caboodle.getMaterialByName(outArgs.group(1));
+					Material outmat = Caboodle.getMaterialByName(outArgs.group(1));
 					output.add(new ItemStack(outmat, Integer.parseInt(outArgs.group(2))));
 				}
 				

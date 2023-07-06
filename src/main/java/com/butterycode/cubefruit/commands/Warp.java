@@ -2,7 +2,7 @@ package com.butterycode.cubefruit.commands;
 
 import com.butterycode.cubefruit.Main;
 import com.butterycode.cubefruit.utils.awesomeText;
-import com.butterycode.cubefruit.utils.caboodle;
+import com.butterycode.cubefruit.utils.Caboodle;
 import com.butterycode.cubefruit.utils.DataStorage;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -45,7 +45,7 @@ public class Warp extends CommandWrapper {
 
 			Player player = (Player)sender;
 
-			if (!caboodle.hasPermission(sender, "warp")) {
+			if (!Caboodle.hasPermission(sender, "warp")) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
@@ -83,7 +83,7 @@ public class Warp extends CommandWrapper {
 			sender.sendMessage(awesomeText.prettifyMessage("&a&l» &7You have been warped to " + name + "."));
 			return true;
 		} else if (label.equalsIgnoreCase("delwarp")) {
-			if (!caboodle.hasPermission(sender, "delwarp")) {
+			if (!Caboodle.hasPermission(sender, "delwarp")) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
@@ -111,7 +111,7 @@ public class Warp extends CommandWrapper {
 
 			Player player = (Player) sender;
 
-			if (!caboodle.hasPermission(sender, "setwarp")) {
+			if (!Caboodle.hasPermission(sender, "setwarp")) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
@@ -133,7 +133,7 @@ public class Warp extends CommandWrapper {
 			sender.sendMessage(awesomeText.prettifyMessage("&a&l» &7Warp has been set."));
 			return true;
 		} else if (label.equalsIgnoreCase("listwarps")) {
-			if (!caboodle.hasPermission(sender, "listwarps")) {
+			if (!Caboodle.hasPermission(sender, "listwarps")) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
@@ -160,17 +160,17 @@ public class Warp extends CommandWrapper {
 	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
 		DataStorage warps = Main.plugin().getData("warps.yml");
 
-		if (command.getName().equalsIgnoreCase("warp") && caboodle.hasPermission(sender, "warp")) {
+		if (command.getName().equalsIgnoreCase("warp") && Caboodle.hasPermission(sender, "warp")) {
 			if (args.length == 1) {
 				return warps.getKeys();
 			}
 
 			return Collections.emptyList();
 		}
-		if (command.getName().equalsIgnoreCase("setwarp") && caboodle.hasPermission(sender, "setwarp")) {
+		if (command.getName().equalsIgnoreCase("setwarp") && Caboodle.hasPermission(sender, "setwarp")) {
 			return Collections.emptyList();
 		}
-		if (command.getName().equalsIgnoreCase("delwarp") && caboodle.hasPermission(sender, "delwarp")) {
+		if (command.getName().equalsIgnoreCase("delwarp") && Caboodle.hasPermission(sender, "delwarp")) {
 			if (args.length == 1) {
 				return warps.getKeys();
 			}

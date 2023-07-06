@@ -1,7 +1,7 @@
 package com.butterycode.cubefruit.commands;
 
 import com.butterycode.cubefruit.utils.awesomeText;
-import com.butterycode.cubefruit.utils.caboodle;
+import com.butterycode.cubefruit.utils.Caboodle;
 import com.butterycode.cubefruit.utils.DogTags;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -25,7 +25,7 @@ public class Launch extends CommandWrapper {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (label.equalsIgnoreCase("launch")) {
-			if (!caboodle.hasPermission(sender, "launch")) {
+			if (!Caboodle.hasPermission(sender, "launch")) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
@@ -156,7 +156,7 @@ public class Launch extends CommandWrapper {
 
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-		if (label.equalsIgnoreCase("launch") && caboodle.hasPermission(sender, "launch")) {
+		if (label.equalsIgnoreCase("launch") && Caboodle.hasPermission(sender, "launch")) {
 			if (args.length == 1) {
 				return Arrays.asList("forward", "backward", "up", "down");
 			}

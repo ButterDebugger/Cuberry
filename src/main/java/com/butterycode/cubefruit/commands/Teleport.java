@@ -2,7 +2,7 @@ package com.butterycode.cubefruit.commands;
 
 import com.butterycode.cubefruit.Main;
 import com.butterycode.cubefruit.utils.awesomeText;
-import com.butterycode.cubefruit.utils.caboodle;
+import com.butterycode.cubefruit.utils.Caboodle;
 import com.butterycode.cubefruit.utils.DataStorage;
 import com.butterycode.cubefruit.utils.DogTags;
 import org.bukkit.Bukkit;
@@ -46,7 +46,7 @@ public class Teleport extends CommandWrapper {
 
 			Player player = (Player) sender;
 
-			if (!caboodle.hasPermission(sender, "tphere")) {
+			if (!Caboodle.hasPermission(sender, "tphere")) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
@@ -76,7 +76,7 @@ public class Teleport extends CommandWrapper {
 
 			Player player = (Player) sender;
 
-			if (!caboodle.hasPermission(sender, "tp2p")) {
+			if (!Caboodle.hasPermission(sender, "tp2p")) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
@@ -99,7 +99,7 @@ public class Teleport extends CommandWrapper {
 			sender.sendMessage(awesomeText.prettifyMessage("&a&l» &7You have been teleported to &f" + otherPlayer.getName() + "&7."));
 			return true;
 		} else if (label.equalsIgnoreCase("tpall")) {
-			if (!caboodle.hasPermission(sender, "tpall")) {
+			if (!Caboodle.hasPermission(sender, "tpall")) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
@@ -145,7 +145,7 @@ public class Teleport extends CommandWrapper {
 
 			Player player = (Player) sender;
 
-			if (!caboodle.hasPermission(sender, "tpoffline")) {
+			if (!Caboodle.hasPermission(sender, "tpoffline")) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
@@ -155,7 +155,7 @@ public class Teleport extends CommandWrapper {
 			}
 
 			String username = args[0];
-			OfflinePlayer otherPlayer = caboodle.getOfflinePlayer(username);
+			OfflinePlayer otherPlayer = Caboodle.getOfflinePlayer(username);
 			UUID otherUUID = otherPlayer.getUniqueId();
 
 			if (!otherPlayer.hasPlayedBefore()) {
@@ -171,7 +171,7 @@ public class Teleport extends CommandWrapper {
 					return true;
 				}
 
-				Location loc = caboodle.parseLocation(logoutLoc);
+				Location loc = Caboodle.parseLocation(logoutLoc);
 
 				player.teleport(loc);
 				sender.sendMessage(awesomeText.prettifyMessage("&a&l» &7You have been teleported to &f" + otherPlayer.getName() + "&7's last logout location."));
@@ -184,7 +184,7 @@ public class Teleport extends CommandWrapper {
 					return true;
 				}
 
-				Location loc = caboodle.parseLocation(logoutLoc);
+				Location loc = Caboodle.parseLocation(logoutLoc);
 
 				player.teleport(loc);
 				sender.sendMessage(awesomeText.prettifyMessage("&a&l» &7You have been teleported to &f" + otherPlayer.getName() + "&7's logout location."));
@@ -196,30 +196,30 @@ public class Teleport extends CommandWrapper {
 
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-		if (label.equalsIgnoreCase("tphere") && caboodle.hasPermission(sender, "tphere")) {
+		if (label.equalsIgnoreCase("tphere") && Caboodle.hasPermission(sender, "tphere")) {
 			if (args.length == 1) {
-				return caboodle.getOnlinePlayerNames();
+				return Caboodle.getOnlinePlayerNames();
 			}
 
 			return Collections.emptyList();
 		}
-		if (label.equalsIgnoreCase("tp2p") && caboodle.hasPermission(sender, "tp2p")) {
+		if (label.equalsIgnoreCase("tp2p") && Caboodle.hasPermission(sender, "tp2p")) {
 			if (args.length == 1) {
-				return caboodle.getOnlinePlayerNames();
+				return Caboodle.getOnlinePlayerNames();
 			}
 
 			return Collections.emptyList();
 		}
-		if (label.equalsIgnoreCase("tpall") && caboodle.hasPermission(sender, "tpall")) {
+		if (label.equalsIgnoreCase("tpall") && Caboodle.hasPermission(sender, "tpall")) {
 			if (args.length == 1) {
-				return caboodle.getOnlinePlayerNames();
+				return Caboodle.getOnlinePlayerNames();
 			}
 
 			return Collections.emptyList();
 		}
-		if (label.equalsIgnoreCase("tpoffline") && caboodle.hasPermission(sender, "tpoffline")) {
+		if (label.equalsIgnoreCase("tpoffline") && Caboodle.hasPermission(sender, "tpoffline")) {
 			if (args.length == 1) {
-				return caboodle.getOnlinePlayerNames();
+				return Caboodle.getOnlinePlayerNames();
 			}
 
 			return Collections.emptyList();

@@ -1,6 +1,6 @@
 package com.butterycode.cubefruit;
 
-import com.butterycode.cubefruit.utils.caboodle;
+import com.butterycode.cubefruit.utils.Caboodle;
 import com.butterycode.cubefruit.utils.DataStorage;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -50,6 +50,6 @@ public class infoSaver implements Listener {
 		Player player = event.getPlayer();
 		DataStorage playerData = Main.plugin().getData("players.yml");
 
-		playerData.set(player.getUniqueId() + ".logoutlocation", caboodle.stringifyLocation(player));
+		playerData.set(player.getUniqueId() + ".logoutlocation", Caboodle.stringifyLocation(player));
 	}
 }

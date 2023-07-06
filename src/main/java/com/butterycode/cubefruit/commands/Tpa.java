@@ -1,7 +1,7 @@
 package com.butterycode.cubefruit.commands;
 
 import com.butterycode.cubefruit.utils.awesomeText;
-import com.butterycode.cubefruit.utils.caboodle;
+import com.butterycode.cubefruit.utils.Caboodle;
 import com.butterycode.cubefruit.utils.DogTags;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
@@ -56,7 +56,7 @@ public class Tpa extends CommandWrapper {
 		Player player = (Player) sender;
 
 		if (label.equalsIgnoreCase("tpa")) {
-			if (!caboodle.hasPermission(sender, "tpa")) {
+			if (!Caboodle.hasPermission(sender, "tpa")) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
@@ -77,7 +77,7 @@ public class Tpa extends CommandWrapper {
 			}
 			return true;
 		} else if (label.equalsIgnoreCase("tpahere")) {
-			if (!caboodle.hasPermission(sender, "tpahere")) {
+			if (!Caboodle.hasPermission(sender, "tpahere")) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
@@ -98,7 +98,7 @@ public class Tpa extends CommandWrapper {
 			}
 			return true;
 		} else if (label.equalsIgnoreCase("tpaccept")) {
-			if (!caboodle.hasPermission(sender, "tpaccept")) {
+			if (!Caboodle.hasPermission(sender, "tpaccept")) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
@@ -136,7 +136,7 @@ public class Tpa extends CommandWrapper {
 			}
 			return true;
 		} else if (label.equalsIgnoreCase("tpadeny")) {
-			if (!caboodle.hasPermission(sender, "tpadeny")) {
+			if (!Caboodle.hasPermission(sender, "tpadeny")) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
@@ -155,7 +155,7 @@ public class Tpa extends CommandWrapper {
 			}
 			return true;
 		} else if (label.equalsIgnoreCase("tpacancel")) {
-			if (!caboodle.hasPermission(sender, "tpacancel")) {
+			if (!Caboodle.hasPermission(sender, "tpacancel")) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
@@ -179,37 +179,37 @@ public class Tpa extends CommandWrapper {
 
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-		if (label.equalsIgnoreCase("tpa") && caboodle.hasPermission(sender, "tpa")) {
+		if (label.equalsIgnoreCase("tpa") && Caboodle.hasPermission(sender, "tpa")) {
 			if (args.length == 1) {
-				return caboodle.getOnlinePlayerNames();
+				return Caboodle.getOnlinePlayerNames();
 			}
 
 			return Collections.emptyList();
 		}
-		if (label.equalsIgnoreCase("tpahere") && caboodle.hasPermission(sender, "tpahere")) {
+		if (label.equalsIgnoreCase("tpahere") && Caboodle.hasPermission(sender, "tpahere")) {
 			if (args.length == 1) {
-				return caboodle.getOnlinePlayerNames();
+				return Caboodle.getOnlinePlayerNames();
 			}
 
 			return Collections.emptyList();
 		}
-		if (label.equalsIgnoreCase("tpaccept") && caboodle.hasPermission(sender, "tpaccept")) {
+		if (label.equalsIgnoreCase("tpaccept") && Caboodle.hasPermission(sender, "tpaccept")) {
 			if (args.length == 1) {
-				return caboodle.getOnlinePlayerNames();
+				return Caboodle.getOnlinePlayerNames();
 			}
 
 			return Collections.emptyList();
 		}
-		if (label.equalsIgnoreCase("tpadeny") && caboodle.hasPermission(sender, "tpadeny")) {
+		if (label.equalsIgnoreCase("tpadeny") && Caboodle.hasPermission(sender, "tpadeny")) {
 			if (args.length == 1) {
-				return caboodle.getOnlinePlayerNames();
+				return Caboodle.getOnlinePlayerNames();
 			}
 
 			return Collections.emptyList();
 		}
-		if (label.equalsIgnoreCase("tpacancel") && caboodle.hasPermission(sender, "tpacancel")) {
+		if (label.equalsIgnoreCase("tpacancel") && Caboodle.hasPermission(sender, "tpacancel")) {
 			if (args.length == 1) {
-				return caboodle.getOnlinePlayerNames();
+				return Caboodle.getOnlinePlayerNames();
 			}
 
 			return Collections.emptyList();

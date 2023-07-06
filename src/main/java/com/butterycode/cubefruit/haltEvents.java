@@ -1,7 +1,7 @@
 package com.butterycode.cubefruit;
 
 import com.butterycode.cubefruit.utils.awesomeText;
-import com.butterycode.cubefruit.utils.caboodle;
+import com.butterycode.cubefruit.utils.Caboodle;
 import com.butterycode.cubefruit.utils.DogTags;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -43,7 +43,7 @@ public class haltEvents implements Listener, CommandExecutor, TabCompleter {
 
 			if (worlds.contains(world.getName().toLowerCase())) { // World is blocked
 				if (player != null && config.getBoolean("halt." + halt + ".bypass")) { // Player bypass enabled
-					if (caboodle.hasPermission(player, "halt.bypass")) {
+					if (Caboodle.hasPermission(player, "halt.bypass")) {
 						return false;
 					}
 				}
@@ -53,7 +53,7 @@ public class haltEvents implements Listener, CommandExecutor, TabCompleter {
 			}
 		} else { // Not world specific
 			if (player != null && config.getBoolean("halt." + halt + ".bypass")) { // Player bypass enabled
-				if (caboodle.hasPermission(player, "halt.bypass")) {
+				if (Caboodle.hasPermission(player, "halt.bypass")) {
 					return false;
 				}
 			}
@@ -95,7 +95,7 @@ public class haltEvents implements Listener, CommandExecutor, TabCompleter {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (label.equalsIgnoreCase("freeze")) {
-			if (!caboodle.hasPermission(sender, "halt.freeze")) {
+			if (!Caboodle.hasPermission(sender, "halt.freeze")) {
 				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
@@ -137,7 +137,7 @@ public class haltEvents implements Listener, CommandExecutor, TabCompleter {
 					}
 				} else if (args[0].equalsIgnoreCase("world")) {
 					if (args.length > 1) {
-						if (caboodle.getWorldNames().contains(args[1])) {
+						if (Caboodle.getWorldNames().contains(args[1])) {
 							World world = Bukkit.getWorld(args[1]);
 							UUID uuid = world.getUID();
 
@@ -188,15 +188,15 @@ public class haltEvents implements Listener, CommandExecutor, TabCompleter {
 	public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
 		if (!(sender instanceof Player)) return null; // Cancel if sender isn't a player
 
-		if (command.getName().equalsIgnoreCase("freeze") && caboodle.hasPermission(sender, "halt.freeze")) {
+		if (command.getName().equalsIgnoreCase("freeze") && Caboodle.hasPermission(sender, "halt.freeze")) {
 			if (args.length == 1) {
 				return Arrays.asList(new String[] {"player", "world", "everything"});
 			}
 			if (args[0].equalsIgnoreCase("player") && args.length == 2) {
-				return caboodle.getOnlinePlayerNames();
+				return Caboodle.getOnlinePlayerNames();
 			}
 			if (args[0].equalsIgnoreCase("world") && args.length == 2) {
-				return caboodle.getWorldNames();
+				return Caboodle.getWorldNames();
 			}
 		}
 
