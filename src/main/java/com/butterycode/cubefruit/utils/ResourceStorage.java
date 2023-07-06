@@ -6,12 +6,12 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.stream.Collectors;
 
-public class resourceStorage {
+public class ResourceStorage {
 
 	private String content;
 	private File file = null;
 	
-	public resourceStorage(Plugin plugin, String filepath, boolean storeLocal) {
+	public ResourceStorage(Plugin plugin, String filepath, boolean storeLocal) {
 		if (storeLocal) {
 			plugin.saveResource(filepath, false);
 			file = new File(plugin.getDataFolder() + File.separator + filepath);
