@@ -161,8 +161,8 @@ public final class Main extends JavaPlugin implements Listener {
         Bukkit.getServer().getPluginManager().registerEvents(new HaltEvents(), plugin);
         HaltEvents.start();
 
-        Bukkit.getServer().getPluginManager().registerEvents(new playerNametag(), plugin);
-        playerNametag.start();
+        Bukkit.getServer().getPluginManager().registerEvents(new PlayerNametag(), plugin);
+        PlayerNametag.start();
 
         if (config().getBoolean("halt.freeze-command")) {
             Caboodle.registerCommand(Arrays.asList(new String[] {"freeze"}));

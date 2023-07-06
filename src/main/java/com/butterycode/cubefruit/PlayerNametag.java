@@ -11,7 +11,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.util.UUID;
 
-public class playerNametag implements Listener {
+public class PlayerNametag implements Listener {
 
 	public static void start() {
 		for (Player player : Bukkit.getOnlinePlayers()) {
