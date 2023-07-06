@@ -10,7 +10,7 @@ import org.bukkit.scheduler.BukkitTask;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ghostBlocks {
+public class DisplayHelper {
 
     private static Map<String, GhostBlock> GhostBlocks = new HashMap<>();
 
