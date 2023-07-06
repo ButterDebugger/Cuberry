@@ -37,8 +37,8 @@ public final class Main extends JavaPlugin implements Listener {
 
         Bukkit.getServer().getPluginManager().registerEvents(this, this);
 
-        Bukkit.getServer().getPluginManager().registerEvents(new infoSaver(), plugin);
-        infoSaver.start();
+        Bukkit.getServer().getPluginManager().registerEvents(new InfoSaver(), plugin);
+        InfoSaver.start();
 
         // Enable Basic Features
         enableFeatures();
@@ -225,7 +225,7 @@ public final class Main extends JavaPlugin implements Listener {
         // Unload classes
         CubeFruit.end();
 
-        infoSaver.end();
+        InfoSaver.end();
 
         // Save data
         saveDataFiles();
