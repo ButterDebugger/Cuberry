@@ -209,12 +209,12 @@ public final class Main extends JavaPlugin implements Listener {
         Bukkit.getServer().getPluginManager().registerEvents(new Tweaks(), plugin);
         Tweaks.start();
 
-        if (config().getBoolean("Tweaks.stonecutterhurt.enabled")) {
+        if (config().getBoolean("tweaks.stonecutterhurt.enabled")) {
             Bukkit.getServer().getPluginManager().registerEvents(new Stonecutter(), plugin);
             Stonecutter.start();
         }
 
-        if (config().getBoolean("Tweaks.nether-flambe.enabled")) {
+        if (config().getBoolean("tweaks.nether-flambe.enabled")) {
             Bukkit.getServer().getPluginManager().registerEvents(new NetherFlambe(), plugin);
             NetherFlambe.start();
         }

@@ -35,7 +35,7 @@ public class Stonecutter implements Listener {
 							Location livingEntityLoc = livingEntity.getLocation();
 
 							if (livingEntityLoc.getBlock().getType().equals(Material.STONECUTTER)) {
-								livingEntity.damage(config.getInt("Tweaks.stonecutterhurt.damage"));
+								livingEntity.damage(config.getInt("tweaks.stonecutterhurt.damage"));
 							}
 						} else if (entity instanceof Item) {
 							Item item = (Item) entity;
@@ -45,7 +45,7 @@ public class Stonecutter implements Listener {
 							Location itemLoc = entity.getLocation();
 
 							if (itemLoc.getBlock().getType().equals(Material.STONECUTTER)) {
-								String option = config.getString("Tweaks.stonecutterhurt.items");
+								String option = config.getString("tweaks.stonecutterhurt.items");
 
 								if (option.equals("delete")) {
 									item.remove();
