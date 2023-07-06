@@ -1,7 +1,7 @@
 package com.butterycode.cubefruit.commands;
 
 import com.butterycode.cubefruit.Main;
-import com.butterycode.cubefruit.utils.awesomeText;
+import com.butterycode.cubefruit.utils.AwesomeText;
 import com.butterycode.cubefruit.utils.Caboodle;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -31,7 +31,7 @@ public class Mutechat extends CommandWrapper implements Listener {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (label.equalsIgnoreCase("mutechat")) {
 			if (!Caboodle.hasPermission(sender, "mutechat")) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
 
@@ -39,9 +39,9 @@ public class Mutechat extends CommandWrapper implements Listener {
 				isChatMuted = !isChatMuted;
 
 				if (isChatMuted) {
-					sender.sendMessage(awesomeText.prettifyMessage("&a&l» &7Chat has been muted."));
+					sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Chat has been muted."));
 				} else {
-					sender.sendMessage(awesomeText.prettifyMessage("&a&l» &7Chat has been unmuted."));
+					sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Chat has been unmuted."));
 				}
 
 				makeAnnouncement();
@@ -50,21 +50,21 @@ public class Mutechat extends CommandWrapper implements Listener {
 
 			if (args[0].equalsIgnoreCase("on")) {
 				if (isChatMuted) {
-					sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Chat is already muted."));
+					sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7Chat is already muted."));
 					return true;
 				}
 
 				isChatMuted = true;
-				sender.sendMessage(awesomeText.prettifyMessage("&a&l» &7Chat has been muted."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Chat has been muted."));
 				makeAnnouncement();
 			} else {
 				if (!isChatMuted) {
-					sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Chat is already unmuted."));
+					sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7Chat is already unmuted."));
 					return true;
 				}
 
 				isChatMuted = false;
-				sender.sendMessage(awesomeText.prettifyMessage("&a&l» &7Chat has been unmuted."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Chat has been unmuted."));
 				makeAnnouncement();
 			}
 			return true;
@@ -95,7 +95,7 @@ public class Mutechat extends CommandWrapper implements Listener {
 			event.setCancelled(true);
 
 			if (blockMessage.length() > 0) {
-				player.sendMessage(awesomeText.prettifyMessage(blockMessage, player));
+				player.sendMessage(AwesomeText.prettifyMessage(blockMessage, player));
 			}
 		}
 	}
@@ -107,11 +107,11 @@ public class Mutechat extends CommandWrapper implements Listener {
 
 		if (isChatMuted) {
 			if (muteAnnouncement.length() > 0) {
-				Caboodle.broadcast(awesomeText.prettifyMessage(muteAnnouncement));
+				Caboodle.broadcast(AwesomeText.prettifyMessage(muteAnnouncement));
 			}
 		} else {
 			if (unmuteAnnouncement.length() > 0) {
-				Caboodle.broadcast(awesomeText.prettifyMessage(config.getString("commands.mutechat.unmute-announcement")));
+				Caboodle.broadcast(AwesomeText.prettifyMessage(config.getString("commands.mutechat.unmute-announcement")));
 			}
 		}
 	}

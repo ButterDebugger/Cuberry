@@ -1,6 +1,6 @@
 package com.butterycode.cubefruit.commands;
 
-import com.butterycode.cubefruit.utils.awesomeText;
+import com.butterycode.cubefruit.utils.AwesomeText;
 import com.butterycode.cubefruit.utils.Caboodle;
 import com.butterycode.cubefruit.utils.DogTags;
 import org.bukkit.command.Command;
@@ -26,29 +26,29 @@ public class Launch extends CommandWrapper {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (label.equalsIgnoreCase("launch")) {
 			if (!Caboodle.hasPermission(sender, "launch")) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
 			
 			if (!(sender instanceof Player)) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
 				return true;
 			}
 
 			Player player = (Player) sender;
 
 			if (args.length == 0) {
-				sender.sendMessage(awesomeText.prettifyMessage("&3Usage: &7/launch <forward|backward|up|down> <number>"));
+				sender.sendMessage(AwesomeText.prettifyMessage("&3Usage: &7/launch <forward|backward|up|down> <number>"));
 				return true;
 			}
 
 			if (args[0].equalsIgnoreCase("forward")) {
 				if (args.length <= 1) {
-					sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
+					sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 					return true;
 				}
 				if (!DogTags.isNumeric(args[1])) {
-					sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid number."));
+					sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7Invalid number."));
 					return true;
 				}
 
@@ -56,11 +56,11 @@ public class Launch extends CommandWrapper {
 				float speed = Float.parseFloat(args[1]);
 
 				if (speed < 0) {
-					sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Number cannot be negative."));
+					sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7Number cannot be negative."));
 					return true;
 				}
 
-				sender.sendMessage(awesomeText.colorize("&a&l» &7You have been launched forward."));
+				sender.sendMessage(AwesomeText.colorize("&a&l» &7You have been launched forward."));
 
 				if (vehicle == null) {
 					player.setVelocity(player.getVelocity().add(player.getEyeLocation().getDirection().multiply(speed)));
@@ -70,11 +70,11 @@ public class Launch extends CommandWrapper {
 				return true;
 			} else if (args[0].equalsIgnoreCase("backward")) {
 				if (args.length <= 1) {
-					sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
+					sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 					return true;
 				}
 				if (!DogTags.isNumeric(args[1])) {
-					sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid number."));
+					sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7Invalid number."));
 					return true;
 				}
 
@@ -82,11 +82,11 @@ public class Launch extends CommandWrapper {
 				float speed = Float.parseFloat(args[1]);
 
 				if (speed < 0) {
-					sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Number cannot be negative."));
+					sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7Number cannot be negative."));
 					return true;
 				}
 
-				sender.sendMessage(awesomeText.colorize("&a&l» &7You have been launched backward."));
+				sender.sendMessage(AwesomeText.colorize("&a&l» &7You have been launched backward."));
 
 				if (vehicle == null) {
 					player.setVelocity(player.getVelocity().add(player.getEyeLocation().getDirection().multiply(speed * -1)));
@@ -96,11 +96,11 @@ public class Launch extends CommandWrapper {
 				return true;
 			} else if (args[0].equalsIgnoreCase("up")) {
 				if (args.length <= 1) {
-					sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
+					sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 					return true;
 				}
 				if (!DogTags.isNumeric(args[1])) {
-					sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid number."));
+					sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7Invalid number."));
 					return true;
 				}
 
@@ -108,11 +108,11 @@ public class Launch extends CommandWrapper {
 				float speed = Float.parseFloat(args[1]);
 
 				if (speed < 0) {
-					sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Number cannot be negative."));
+					sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7Number cannot be negative."));
 					return true;
 				}
 
-				sender.sendMessage(awesomeText.colorize("&a&l» &7You have been launched up."));
+				sender.sendMessage(AwesomeText.colorize("&a&l» &7You have been launched up."));
 
 				if (vehicle == null) {
 					player.setVelocity(player.getVelocity().add(new Vector(0, speed, 0)));
@@ -122,11 +122,11 @@ public class Launch extends CommandWrapper {
 				return true;
 			} else if (args[0].equalsIgnoreCase("down")) {
 				if (args.length <= 1) {
-					sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
+					sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 					return true;
 				}
 				if (!DogTags.isNumeric(args[1])) {
-					sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid number."));
+					sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7Invalid number."));
 					return true;
 				}
 
@@ -134,11 +134,11 @@ public class Launch extends CommandWrapper {
 				float speed = Float.parseFloat(args[1]);
 
 				if (speed < 0) {
-					sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Number cannot be negative."));
+					sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7Number cannot be negative."));
 					return true;
 				}
 
-				sender.sendMessage(awesomeText.colorize("&a&l» &7You have been launched down."));
+				sender.sendMessage(AwesomeText.colorize("&a&l» &7You have been launched down."));
 
 				if (vehicle == null) {
 					player.setVelocity(player.getVelocity().add(new Vector(0, speed * -1, 0)));
@@ -147,7 +147,7 @@ public class Launch extends CommandWrapper {
 				}
 				return true;
 			} else {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 				return true;
 			}
 		}

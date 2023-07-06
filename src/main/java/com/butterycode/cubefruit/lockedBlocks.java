@@ -1,6 +1,6 @@
 package com.butterycode.cubefruit;
 
-import com.butterycode.cubefruit.utils.awesomeText;
+import com.butterycode.cubefruit.utils.AwesomeText;
 import com.butterycode.cubefruit.utils.Caboodle;
 import com.butterycode.cubefruit.utils.DataStorage;
 import com.butterycode.cubefruit.utils.DogTags;
@@ -36,7 +36,7 @@ public class lockedBlocks implements Listener, CommandExecutor {
 		DataStorage blockData = Main.plugin().getData("blocks.yml");
 
 		ItemStack temp = new ItemStack(Material.TRIPWIRE_HOOK);
-		Caboodle.setDisplayName(temp, awesomeText.prettifyMessage("&#FFB847Master Key"));
+		Caboodle.setDisplayName(temp, AwesomeText.prettifyMessage("&#FFB847Master Key"));
 		Caboodle.setItemTag(temp, "isMasterKey", PersistentDataType.BYTE, (byte) 1);
 		Caboodle.setItemFlags(temp, true, ItemFlag.HIDE_ENCHANTS);
 		temp.addUnsafeEnchantment(Enchantment.ARROW_INFINITE, 1);
@@ -86,26 +86,26 @@ public class lockedBlocks implements Listener, CommandExecutor {
 				unlockBlock(block);
 
 				player.playSound(player.getLocation(), Sound.BLOCK_CHEST_LOCKED, 0.5f, 1f);
-				Caboodle.sendActionbar(player, awesomeText.prettifyMessage(awesomeText.screamingSnakeCase(block.getType().toString()) + " has been unlocked."));
+				Caboodle.sendActionbar(player, AwesomeText.prettifyMessage(AwesomeText.screamingSnakeCase(block.getType().toString()) + " has been unlocked."));
 
 				event.setCancelled(true);
 			} else {
 				player.playSound(player.getLocation(), Sound.BLOCK_CHEST_LOCKED, 0.5f, 1f);
-				Caboodle.sendActionbar(player, awesomeText.prettifyMessage(awesomeText.screamingSnakeCase(block.getType().toString()) + " cannot be unlocked."));
+				Caboodle.sendActionbar(player, AwesomeText.prettifyMessage(AwesomeText.screamingSnakeCase(block.getType().toString()) + " cannot be unlocked."));
 
 				event.setCancelled(true);
 			}
 		} else {
 			if (isMasterKey(item)) {
 				player.playSound(player.getLocation(), Sound.BLOCK_CHEST_LOCKED, 0.5f, 1f);
-				Caboodle.sendActionbar(player, awesomeText.prettifyMessage(awesomeText.screamingSnakeCase(block.getType().toString()) + " cannot be locked."));
+				Caboodle.sendActionbar(player, AwesomeText.prettifyMessage(AwesomeText.screamingSnakeCase(block.getType().toString()) + " cannot be locked."));
 
 				event.setCancelled(true);
 			} else {
 				lockBlock(block, keyname);
 
 				player.playSound(player.getLocation(), Sound.BLOCK_CHEST_LOCKED, 0.5f, 1f);
-				Caboodle.sendActionbar(player, awesomeText.prettifyMessage(awesomeText.screamingSnakeCase(block.getType().toString()) + " has been locked."));
+				Caboodle.sendActionbar(player, AwesomeText.prettifyMessage(AwesomeText.screamingSnakeCase(block.getType().toString()) + " has been locked."));
 
 				event.setCancelled(true);
 			}
@@ -118,17 +118,17 @@ public class lockedBlocks implements Listener, CommandExecutor {
 
 		if (label.equalsIgnoreCase("getmasterkey")) {
 			if (!config.getBoolean("locks.master-key")) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7This command is not enabled in the config."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7This command is not enabled in the config."));
 				return true;
 			}
 			
 			if (!Caboodle.hasPermission(sender, "locks.masterkey")) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
 
 			if (!(sender instanceof Player)) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
 				return true;
 			}
 			
@@ -136,7 +136,7 @@ public class lockedBlocks implements Listener, CommandExecutor {
 
 			Caboodle.giveItem(player, masterKey);
 
-			sender.sendMessage(awesomeText.prettifyMessage("&7You have been given a master key."));
+			sender.sendMessage(AwesomeText.prettifyMessage("&7You have been given a master key."));
 			return true;
 		}
 		return false;
@@ -245,7 +245,7 @@ public class lockedBlocks implements Listener, CommandExecutor {
 			if (isBlockLocked(block)) {
 				if (!matchKey(block, item)) {
 					player.playSound(player.getLocation(), Sound.BLOCK_CHEST_LOCKED, 0.5f, 1f);
-					Caboodle.sendActionbar(player, awesomeText.prettifyMessage(awesomeText.screamingSnakeCase(block.getType().toString()) + " is locked!"));
+					Caboodle.sendActionbar(player, AwesomeText.prettifyMessage(AwesomeText.screamingSnakeCase(block.getType().toString()) + " is locked!"));
 
 					event.setCancelled(true);
 				}
@@ -284,7 +284,7 @@ public class lockedBlocks implements Listener, CommandExecutor {
 		if (isBlockLocked(block)) {
 			if (config.getBoolean("locks.indestructable")) {
 				player.playSound(player.getLocation(), Sound.BLOCK_CHEST_LOCKED, 0.5f, 1f);
-				Caboodle.sendActionbar(player, awesomeText.prettifyMessage(awesomeText.screamingSnakeCase(block.getType().toString()) + " is locked!"));
+				Caboodle.sendActionbar(player, AwesomeText.prettifyMessage(AwesomeText.screamingSnakeCase(block.getType().toString()) + " is locked!"));
 
 				event.setCancelled(true);
 			} else {
@@ -293,7 +293,7 @@ public class lockedBlocks implements Listener, CommandExecutor {
 		} else if (isBlockLocked(blockAbove) && DogTags.isSupportedFromBelow(blockAbove)) {
 			if (config.getBoolean("locks.indestructable")) {
 				player.playSound(player.getLocation(), Sound.BLOCK_CHEST_LOCKED, 0.5f, 1f);
-				Caboodle.sendActionbar(player, awesomeText.prettifyMessage("The block above is locked!"));
+				Caboodle.sendActionbar(player, AwesomeText.prettifyMessage("The block above is locked!"));
 
 				event.setCancelled(true);
 			} else {

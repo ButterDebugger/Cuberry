@@ -1,6 +1,6 @@
 package com.butterycode.cubefruit.commands;
 
-import com.butterycode.cubefruit.utils.awesomeText;
+import com.butterycode.cubefruit.utils.AwesomeText;
 import com.butterycode.cubefruit.utils.Caboodle;
 import com.butterycode.cubefruit.utils.DogTags;
 import org.bukkit.Bukkit;
@@ -27,11 +27,11 @@ public class Respawn extends CommandWrapper {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (label.equalsIgnoreCase("respawn")) {
 			if (!Caboodle.hasPermission(sender, "respawn")) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
 			if (args.length == 0) {
-				sender.sendMessage(awesomeText.colorize("&3Usage: &7/respawn <username>"));
+				sender.sendMessage(AwesomeText.colorize("&3Usage: &7/respawn <username>"));
 				return true;
 			}
 
@@ -41,25 +41,25 @@ public class Respawn extends CommandWrapper {
 					Location deathLoc = otherPlayer.getLocation();
 
 					if (args.length < 2) {
-						sender.sendMessage(awesomeText.colorize("&a&l» &f" + otherPlayer.getName() + "&7 has been respawned."));
+						sender.sendMessage(AwesomeText.colorize("&a&l» &f" + otherPlayer.getName() + "&7 has been respawned."));
 						Caboodle.respawn(otherPlayer);
 						return true;
 					} else if (args[1].equals("true")) {
-						sender.sendMessage(awesomeText.colorize("&a&l» &f" + otherPlayer.getName() + "&7 has been respawned at their death location."));
+						sender.sendMessage(AwesomeText.colorize("&a&l» &f" + otherPlayer.getName() + "&7 has been respawned at their death location."));
 						Caboodle.respawn(otherPlayer);
 						otherPlayer.teleport(deathLoc);
 						return true;
 					} else {
-						sender.sendMessage(awesomeText.colorize("&a&l» &f" + otherPlayer.getName() + "&7 has been respawned."));
+						sender.sendMessage(AwesomeText.colorize("&a&l» &f" + otherPlayer.getName() + "&7 has been respawned."));
 						Caboodle.respawn(otherPlayer);
 						return true;
 					}
 				} else {
-					sender.sendMessage(awesomeText.colorize("&cError: &7Player isn't already dead."));
+					sender.sendMessage(AwesomeText.colorize("&cError: &7Player isn't already dead."));
 				}
 				return true;
 			} else {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7That player could not be found."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7That player could not be found."));
 				return true;
 			}
 		}

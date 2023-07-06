@@ -1,6 +1,6 @@
 package com.butterycode.cubefruit;
 
-import com.butterycode.cubefruit.utils.awesomeText;
+import com.butterycode.cubefruit.utils.AwesomeText;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -53,15 +53,15 @@ public class resourcePacks implements Listener {
 
 		if (status.equals(Status.DECLINED)) {
 			if (worldHasForcedPack(player.getWorld().getName())) { // Forced by world
-				player.kickPlayer(awesomeText.prettifyMessage("&cYou have to accept this worlds resource pack in order to play."));
+				player.kickPlayer(AwesomeText.prettifyMessage("&cYou have to accept this worlds resource pack in order to play."));
 			} else if (config.getBoolean("resource-packs.default.force")) { // Forced by server
-				player.kickPlayer(awesomeText.prettifyMessage("&cYou have to accept this servers resource pack in order to play."));
+				player.kickPlayer(AwesomeText.prettifyMessage("&cYou have to accept this servers resource pack in order to play."));
 			}
 		} else if (status.equals(Status.FAILED_DOWNLOAD)) {
 			if (worldHasForcedPack(player.getWorld().getName())) { // Forced by world
-				player.kickPlayer(awesomeText.prettifyMessage("&cThis worlds resource pack failed to download."));
+				player.kickPlayer(AwesomeText.prettifyMessage("&cThis worlds resource pack failed to download."));
 			} else if (config.getBoolean("resource-packs.default.force")) { // Forced by server
-				player.kickPlayer(awesomeText.prettifyMessage("&cThis servers resource pack failed to download."));
+				player.kickPlayer(AwesomeText.prettifyMessage("&cThis servers resource pack failed to download."));
 			}
 		}
 	}

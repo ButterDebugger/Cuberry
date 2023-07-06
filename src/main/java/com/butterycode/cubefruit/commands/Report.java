@@ -1,7 +1,7 @@
 package com.butterycode.cubefruit.commands;
 
 import com.butterycode.cubefruit.Main;
-import com.butterycode.cubefruit.utils.awesomeText;
+import com.butterycode.cubefruit.utils.AwesomeText;
 import com.butterycode.cubefruit.utils.Caboodle;
 import com.butterycode.cubefruit.utils.DataStorage;
 import org.bukkit.Bukkit;
@@ -35,30 +35,30 @@ public class Report extends CommandWrapper {
 
 		if (label.equalsIgnoreCase("report")) {
 			if (!(sender instanceof Player)) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
 				return true;
 			}
 
 			Player player = (Player) sender;
 
 			if (!Caboodle.hasPermission(sender, "report")) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
 
 			if (args.length == 0) {
-				sender.sendMessage(awesomeText.prettifyMessage("&3Usage: &7/report <player> <reason>"));
+				sender.sendMessage(AwesomeText.prettifyMessage("&3Usage: &7/report <player> <reason>"));
 				return true;
 			}
 			if (args.length == 1) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Please enter a reason for the report."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7Please enter a reason for the report."));
 				return true;
 			}
 
 			OfflinePlayer reportedPlayer = Caboodle.getOfflinePlayer(args[0]);
 
 			if (!reportedPlayer.hasPlayedBefore()) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7That player has never played on this server."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7That player has never played on this server."));
 				return true;
 			}
 
@@ -76,16 +76,16 @@ public class Report extends CommandWrapper {
 				}
 
 				if (isDisallowed) {
-					String reasons = awesomeText.commaOrSeparatedList(new ArrayList<>(config.getStringList("commands.report.reasons").stream().map(str -> "&f" + str + "&7").collect(Collectors.toList())));
-					player.sendMessage(awesomeText.prettifyMessage("&cError: &7You can only report another player for &f" + reasons + "&7.", player));
+					String reasons = AwesomeText.commaOrSeparatedList(new ArrayList<>(config.getStringList("commands.report.reasons").stream().map(str -> "&f" + str + "&7").collect(Collectors.toList())));
+					player.sendMessage(AwesomeText.prettifyMessage("&cError: &7You can only report another player for &f" + reasons + "&7.", player));
 					return true;
 				}
 			}
 
 			String message = config.getString("commands.report.report-message");
-			message = awesomeText.replacePlaceholder(message, "subject", reportedPlayer.getName());
-			message = awesomeText.replacePlaceholder(message, "reason", reason);
-			message = awesomeText.prettifyMessage(message, player);
+			message = AwesomeText.replacePlaceholder(message, "subject", reportedPlayer.getName());
+			message = AwesomeText.replacePlaceholder(message, "reason", reason);
+			message = AwesomeText.prettifyMessage(message, player);
 
 			// Save report to the list of player report
 			HashMap<String, Object> report = new HashMap<>();
@@ -96,7 +96,7 @@ public class Report extends CommandWrapper {
 			reportData.addToList(reportedPlayer.getUniqueId().toString(), report);
 
 			// Notify players about the report
-			sender.sendMessage(awesomeText.prettifyMessage("&a&l» &7Report has been sent."));
+			sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Report has been sent."));
 
 			for (Player p : Bukkit.getOnlinePlayers()) {
 				if (Caboodle.hasPermission(p, "alerts.report")) {

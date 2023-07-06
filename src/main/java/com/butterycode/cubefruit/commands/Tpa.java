@@ -1,6 +1,6 @@
 package com.butterycode.cubefruit.commands;
 
-import com.butterycode.cubefruit.utils.awesomeText;
+import com.butterycode.cubefruit.utils.AwesomeText;
 import com.butterycode.cubefruit.utils.Caboodle;
 import com.butterycode.cubefruit.utils.DogTags;
 import org.bukkit.Bukkit;
@@ -49,7 +49,7 @@ public class Tpa extends CommandWrapper {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (!(sender instanceof Player)) {
-			sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
+			sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
 			return true;
 		}
 
@@ -57,11 +57,11 @@ public class Tpa extends CommandWrapper {
 
 		if (label.equalsIgnoreCase("tpa")) {
 			if (!Caboodle.hasPermission(sender, "tpa")) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
 			if (args.length == 0) {
-				sender.sendMessage(awesomeText.colorize("&3Usage: &7/tpa <username>"));
+				sender.sendMessage(AwesomeText.colorize("&3Usage: &7/tpa <username>"));
 				return true;
 			}
 
@@ -70,19 +70,19 @@ public class Tpa extends CommandWrapper {
 				String requestKey = player.getName() + ";" + otherPlayer.getName();
 
 				requests.put(requestKey, RequestType.TPA);
-				player.sendMessage(awesomeText.colorize("&a&l» &7Request sent!"));
-				otherPlayer.sendMessage(awesomeText.colorize("&a&l» &f" + player.getName() + "&7 has sent you a tpa request to teleport to you."));
+				player.sendMessage(AwesomeText.colorize("&a&l» &7Request sent!"));
+				otherPlayer.sendMessage(AwesomeText.colorize("&a&l» &f" + player.getName() + "&7 has sent you a tpa request to teleport to you."));
 			} else {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7That player could not be found."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7That player could not be found."));
 			}
 			return true;
 		} else if (label.equalsIgnoreCase("tpahere")) {
 			if (!Caboodle.hasPermission(sender, "tpahere")) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
 			if (args.length == 0) {
-				sender.sendMessage(awesomeText.colorize("&3Usage: &7/tpahere <username>"));
+				sender.sendMessage(AwesomeText.colorize("&3Usage: &7/tpahere <username>"));
 				return true;
 			}
 
@@ -91,19 +91,19 @@ public class Tpa extends CommandWrapper {
 				String requestKey = player.getName() + ";" + otherPlayer.getName();
 
 				requests.put(requestKey, RequestType.TPAHERE);
-				player.sendMessage(awesomeText.colorize("&a&l» &7Request sent!"));
-				otherPlayer.sendMessage(awesomeText.colorize("&a&l» &f" + player.getName() + "&7 has sent you a tpa request to teleport to them."));
+				player.sendMessage(AwesomeText.colorize("&a&l» &7Request sent!"));
+				otherPlayer.sendMessage(AwesomeText.colorize("&a&l» &f" + player.getName() + "&7 has sent you a tpa request to teleport to them."));
 			} else {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7That player could not be found."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7That player could not be found."));
 			}
 			return true;
 		} else if (label.equalsIgnoreCase("tpaccept")) {
 			if (!Caboodle.hasPermission(sender, "tpaccept")) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
 			if (args.length == 0) {
-				sender.sendMessage(awesomeText.colorize("&3Usage: &7/tpaccept <username>"));
+				sender.sendMessage(AwesomeText.colorize("&3Usage: &7/tpaccept <username>"));
 				return true;
 			}
 
@@ -116,12 +116,12 @@ public class Tpa extends CommandWrapper {
 
 					switch (req) {
 						case TPA:
-							sender.sendMessage(awesomeText.colorize("&a&l» &f" + otherPlayer.getName() + "&7 has been teleported to you."));
+							sender.sendMessage(AwesomeText.colorize("&a&l» &f" + otherPlayer.getName() + "&7 has been teleported to you."));
 							otherPlayer.teleport(player.getLocation());
 							otherPlayer.playSound(otherPlayer.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 0.5f, 1f);
 							break;
 						case TPAHERE:
-							sender.sendMessage(awesomeText.colorize("&a&l» &7You have been teleported to &f" + otherPlayer.getName() + "&7."));
+							sender.sendMessage(AwesomeText.colorize("&a&l» &7You have been teleported to &f" + otherPlayer.getName() + "&7."));
 							player.teleport(otherPlayer.getLocation());
 							player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 0.5f, 1f);
 							break;
@@ -129,19 +129,19 @@ public class Tpa extends CommandWrapper {
 
 					requests.remove(requestKey);
 				} else {
-					sender.sendMessage(awesomeText.colorize("&cError: &7You do not have any requests from that player."));
+					sender.sendMessage(AwesomeText.colorize("&cError: &7You do not have any requests from that player."));
 				}
 			} else {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7That player could not be found."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7That player could not be found."));
 			}
 			return true;
 		} else if (label.equalsIgnoreCase("tpadeny")) {
 			if (!Caboodle.hasPermission(sender, "tpadeny")) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
 			if (args.length == 0) {
-				sender.sendMessage(awesomeText.colorize("&3Usage: &7/tpadeny <username>"));
+				sender.sendMessage(AwesomeText.colorize("&3Usage: &7/tpadeny <username>"));
 				return true;
 			}
 
@@ -149,18 +149,18 @@ public class Tpa extends CommandWrapper {
 
 			if (requests.containsKey(requestKey)) {
 				requests.remove(requestKey);
-				sender.sendMessage(awesomeText.colorize("&a&l» &7You have denied the request."));
+				sender.sendMessage(AwesomeText.colorize("&a&l» &7You have denied the request."));
 			} else {
-				sender.sendMessage(awesomeText.colorize("&cError: &7You do not have any requests from that player."));
+				sender.sendMessage(AwesomeText.colorize("&cError: &7You do not have any requests from that player."));
 			}
 			return true;
 		} else if (label.equalsIgnoreCase("tpacancel")) {
 			if (!Caboodle.hasPermission(sender, "tpacancel")) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
 			if (args.length == 0) {
-				sender.sendMessage(awesomeText.colorize("&3Usage: &7/tpacancel <username>"));
+				sender.sendMessage(AwesomeText.colorize("&3Usage: &7/tpacancel <username>"));
 				return true;
 			}
 
@@ -168,9 +168,9 @@ public class Tpa extends CommandWrapper {
 
 			if (requests.containsKey(requestKey)) {
 				requests.remove(requestKey);
-				sender.sendMessage(awesomeText.colorize("&a&l» &7You have cancelled the request."));
+				sender.sendMessage(AwesomeText.colorize("&a&l» &7You have cancelled the request."));
 			} else {
-				sender.sendMessage(awesomeText.colorize("&cError: &7You did not send any requests to that player."));
+				sender.sendMessage(AwesomeText.colorize("&cError: &7You did not send any requests to that player."));
 			}
 			return true;
 		}

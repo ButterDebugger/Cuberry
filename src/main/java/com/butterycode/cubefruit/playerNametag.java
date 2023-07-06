@@ -1,6 +1,6 @@
 package com.butterycode.cubefruit;
 
-import com.butterycode.cubefruit.utils.awesomeText;
+import com.butterycode.cubefruit.utils.AwesomeText;
 import com.butterycode.cubefruit.utils.idlePlayers;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -49,7 +49,7 @@ public class playerNametag implements Listener {
 			format = config.getString("player-nametag.format") + "&r";
 		}
 
-		format = awesomeText.prettifyMessage(format, player);
+		format = AwesomeText.prettifyMessage(format, player);
 
 		if (config.getBoolean("player-nametag.change-displayname")) {
 			player.setDisplayName(format);

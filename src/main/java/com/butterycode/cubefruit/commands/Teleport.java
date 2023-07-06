@@ -1,7 +1,7 @@
 package com.butterycode.cubefruit.commands;
 
 import com.butterycode.cubefruit.Main;
-import com.butterycode.cubefruit.utils.awesomeText;
+import com.butterycode.cubefruit.utils.AwesomeText;
 import com.butterycode.cubefruit.utils.Caboodle;
 import com.butterycode.cubefruit.utils.DataStorage;
 import com.butterycode.cubefruit.utils.DogTags;
@@ -40,25 +40,25 @@ public class Teleport extends CommandWrapper {
 
 		if (label.equalsIgnoreCase("tphere")) {
 			if (!(sender instanceof Player)) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
 				return true;
 			}
 
 			Player player = (Player) sender;
 
 			if (!Caboodle.hasPermission(sender, "tphere")) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
 			if (args.length == 0) {
-				sender.sendMessage(awesomeText.colorize("&3Usage: &7/tphere <username>"));
+				sender.sendMessage(AwesomeText.colorize("&3Usage: &7/tphere <username>"));
 				return true;
 			}
 
 			String username = args[0];
 
 			if (!DogTags.isOnline(username)) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7That player is not online."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7That player is not online."));
 				return true;
 			}
 
@@ -66,29 +66,29 @@ public class Teleport extends CommandWrapper {
 
 			otherPlayer.teleport(player.getLocation());
 
-			sender.sendMessage(awesomeText.prettifyMessage("&a&l» &f" + otherPlayer.getName() + "&7 has been teleported to you."));
+			sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &f" + otherPlayer.getName() + "&7 has been teleported to you."));
 			return true;
 		} else if (label.equalsIgnoreCase("tp2p")) {
 			if (!(sender instanceof Player)) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
 				return true;
 			}
 
 			Player player = (Player) sender;
 
 			if (!Caboodle.hasPermission(sender, "tp2p")) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
 			if (args.length == 0) {
-				sender.sendMessage(awesomeText.colorize("&3Usage: &7/tp2p <username> [<username>]"));
+				sender.sendMessage(AwesomeText.colorize("&3Usage: &7/tp2p <username> [<username>]"));
 				return true;
 			}
 
 			String username = args[0];
 
 			if (!DogTags.isOnline(username)) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7That player is not online."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7That player is not online."));
 				return true;
 			}
 
@@ -96,17 +96,17 @@ public class Teleport extends CommandWrapper {
 
 			player.teleport(otherPlayer.getLocation());
 
-			sender.sendMessage(awesomeText.prettifyMessage("&a&l» &7You have been teleported to &f" + otherPlayer.getName() + "&7."));
+			sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7You have been teleported to &f" + otherPlayer.getName() + "&7."));
 			return true;
 		} else if (label.equalsIgnoreCase("tpall")) {
 			if (!Caboodle.hasPermission(sender, "tpall")) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
 
 			if (args.length == 0) {
 				if (!(sender instanceof Player)) {
-					sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
+					sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
 					return true;
 				}
 
@@ -117,13 +117,13 @@ public class Teleport extends CommandWrapper {
 					otherPlayer.teleport(location);
 				}
 
-				sender.sendMessage(awesomeText.prettifyMessage("&a&l» &7All players have been teleported to you."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7All players have been teleported to you."));
 				return true;
 			} else {
 				String username = args[0];
 
 				if (!DogTags.isOnline(username)) {
-					sender.sendMessage(awesomeText.prettifyMessage("&cError: &7That player is not online."));
+					sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7That player is not online."));
 					return true;
 				}
 
@@ -134,23 +134,23 @@ public class Teleport extends CommandWrapper {
 					otherPlayer.teleport(location);
 				}
 
-				sender.sendMessage(awesomeText.prettifyMessage("&a&l» &7All players have been teleported to &f" + player.getName() + "&7."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7All players have been teleported to &f" + player.getName() + "&7."));
 				return true;
 			}
 		} else if (label.equalsIgnoreCase("tpoffline")) {
 			if (!(sender instanceof Player)) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
 				return true;
 			}
 
 			Player player = (Player) sender;
 
 			if (!Caboodle.hasPermission(sender, "tpoffline")) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
 			if (args.length == 0) {
-				sender.sendMessage(awesomeText.colorize("&3Usage: &7/tpoffline <username>"));
+				sender.sendMessage(AwesomeText.colorize("&3Usage: &7/tpoffline <username>"));
 				return true;
 			}
 
@@ -159,7 +159,7 @@ public class Teleport extends CommandWrapper {
 			UUID otherUUID = otherPlayer.getUniqueId();
 
 			if (!otherPlayer.hasPlayedBefore()) {
-				sender.sendMessage(awesomeText.colorize("&cError: &f" + otherPlayer.getName() + "&7 has never played before."));
+				sender.sendMessage(AwesomeText.colorize("&cError: &f" + otherPlayer.getName() + "&7 has never played before."));
 				return true;
 			}
 
@@ -167,27 +167,27 @@ public class Teleport extends CommandWrapper {
 				String logoutLoc = playerData.getString(otherUUID + ".logoutlocation");
 
 				if (logoutLoc == null) {
-					sender.sendMessage(awesomeText.prettifyMessage("&cError: &f" + otherPlayer.getName() + "&7's logout location is not known."));
+					sender.sendMessage(AwesomeText.prettifyMessage("&cError: &f" + otherPlayer.getName() + "&7's logout location is not known."));
 					return true;
 				}
 
 				Location loc = Caboodle.parseLocation(logoutLoc);
 
 				player.teleport(loc);
-				sender.sendMessage(awesomeText.prettifyMessage("&a&l» &7You have been teleported to &f" + otherPlayer.getName() + "&7's last logout location."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7You have been teleported to &f" + otherPlayer.getName() + "&7's last logout location."));
 				return true;
 			} else {
 				String logoutLoc = playerData.getString(otherUUID + ".logoutlocation");
 
 				if (logoutLoc == null) {
-					sender.sendMessage(awesomeText.prettifyMessage("&cError: &f" + otherPlayer.getName() + "&7's logout location is not known."));
+					sender.sendMessage(AwesomeText.prettifyMessage("&cError: &f" + otherPlayer.getName() + "&7's logout location is not known."));
 					return true;
 				}
 
 				Location loc = Caboodle.parseLocation(logoutLoc);
 
 				player.teleport(loc);
-				sender.sendMessage(awesomeText.prettifyMessage("&a&l» &7You have been teleported to &f" + otherPlayer.getName() + "&7's logout location."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7You have been teleported to &f" + otherPlayer.getName() + "&7's logout location."));
 				return true;
 			}
 		}

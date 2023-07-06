@@ -91,7 +91,7 @@ public class localeManager {
 			for (File file : langFiles) {
 				if (!file.isFile() || !file.canRead()) continue;
 
-				String locale = awesomeText.removeSuffix(file.getName(), ".json");
+				String locale = AwesomeText.removeSuffix(file.getName(), ".json");
 				if (localeObjects.containsKey(locale)) continue;
 
 				JsonObject json = null;

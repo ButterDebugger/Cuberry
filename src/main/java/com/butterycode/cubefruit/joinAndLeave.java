@@ -1,6 +1,6 @@
 package com.butterycode.cubefruit;
 
-import com.butterycode.cubefruit.utils.awesomeText;
+import com.butterycode.cubefruit.utils.AwesomeText;
 import com.butterycode.cubefruit.utils.Caboodle;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -26,14 +26,14 @@ public class joinAndLeave implements Listener {
 				List<String> messages = config.getStringList("join-leave-message.newbie");
 				
 				if (messages.size() > 0) {
-					String message = awesomeText.prettifyMessage(Caboodle.randomListItem(messages), player);
+					String message = AwesomeText.prettifyMessage(Caboodle.randomListItem(messages), player);
 					event.setJoinMessage(message);
 				}
 			} else {
 				List<String> messages = config.getStringList("join-leave-message.join");
 				
 				if (messages.size() > 0) {
-					String message = awesomeText.prettifyMessage(Caboodle.randomListItem(messages), player);
+					String message = AwesomeText.prettifyMessage(Caboodle.randomListItem(messages), player);
 					event.setJoinMessage(message);
 				}
 			}
@@ -41,7 +41,7 @@ public class joinAndLeave implements Listener {
 
 		if (config.getBoolean("join-motd.enabled")) {
 			for (String msg : config.getStringList("join-motd.message")) {
-				player.sendMessage(awesomeText.prettifyMessage(msg, player));
+				player.sendMessage(AwesomeText.prettifyMessage(msg, player));
 			}
 		}
 	}
@@ -55,7 +55,7 @@ public class joinAndLeave implements Listener {
 			List<String> messages = config.getStringList("join-leave-message.leave");
 			
 			if (messages.size() > 0) {
-				String message = awesomeText.prettifyMessage(Caboodle.randomListItem(messages), player);
+				String message = AwesomeText.prettifyMessage(Caboodle.randomListItem(messages), player);
 				event.setQuitMessage(message);
 			}
 		}
@@ -72,7 +72,7 @@ public class joinAndLeave implements Listener {
 				List<String> messages = config.getStringList("join-leave-message.join-attempt.banned");
 				
 				if (messages.size() > 0) {
-					String message = awesomeText.prettifyMessage(Caboodle.randomListItem(messages), player);
+					String message = AwesomeText.prettifyMessage(Caboodle.randomListItem(messages), player);
 					
 					if (config.getBoolean("join-leave-message.join-attempt.visible-to-everyone")) {
 						Caboodle.broadcast(message);
@@ -88,7 +88,7 @@ public class joinAndLeave implements Listener {
 				List<String> messages = config.getStringList("join-leave-message.join-attempt.whitelist");
 				
 				if (messages.size() > 0) {
-					String message = awesomeText.prettifyMessage(Caboodle.randomListItem(messages), player);
+					String message = AwesomeText.prettifyMessage(Caboodle.randomListItem(messages), player);
 					
 					if (config.getBoolean("join-leave-message.join-attempt.visible-to-everyone")) {
 						Caboodle.broadcast(message);

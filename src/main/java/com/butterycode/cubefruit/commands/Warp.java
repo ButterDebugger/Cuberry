@@ -1,7 +1,7 @@
 package com.butterycode.cubefruit.commands;
 
 import com.butterycode.cubefruit.Main;
-import com.butterycode.cubefruit.utils.awesomeText;
+import com.butterycode.cubefruit.utils.AwesomeText;
 import com.butterycode.cubefruit.utils.Caboodle;
 import com.butterycode.cubefruit.utils.DataStorage;
 import org.bukkit.Bukkit;
@@ -39,25 +39,25 @@ public class Warp extends CommandWrapper {
 
 		if (label.equalsIgnoreCase("warp")) {
 			if (!(sender instanceof Player)) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
 				return true;
 			}
 
 			Player player = (Player)sender;
 
 			if (!Caboodle.hasPermission(sender, "warp")) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
 			if (args.length == 0) {
-				sender.sendMessage(awesomeText.colorize("&3Usage: &7/warp <name>"));
+				sender.sendMessage(AwesomeText.colorize("&3Usage: &7/warp <name>"));
 				return true;
 			}
 
 			String name = args[0];
 
 			if (warps.existsNot(name)) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Warp does not exist."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7Warp does not exist."));
 				return true;
 			}
 
@@ -71,7 +71,7 @@ public class Warp extends CommandWrapper {
 			World world = Bukkit.getWorld(worldName);
 
 			if (world == null) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7An error has occurred with this warps world."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7An error has occurred with this warps world."));
 				return true;
 			}
 
@@ -80,43 +80,43 @@ public class Warp extends CommandWrapper {
 			player.teleport(loc);
 			player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 0.5f, 1f);
 
-			sender.sendMessage(awesomeText.prettifyMessage("&a&l» &7You have been warped to " + name + "."));
+			sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7You have been warped to " + name + "."));
 			return true;
 		} else if (label.equalsIgnoreCase("delwarp")) {
 			if (!Caboodle.hasPermission(sender, "delwarp")) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
 			if (args.length == 0) {
-				sender.sendMessage(awesomeText.colorize("&3Usage: &7/delwarp <name>"));
+				sender.sendMessage(AwesomeText.colorize("&3Usage: &7/delwarp <name>"));
 				return true;
 			}
 
 			String name = args[0];
 
 			if (warps.existsNot(name)) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Warp does not exist."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7Warp does not exist."));
 				return true;
 			}
 
 			warps.remove(name);
 
-			sender.sendMessage(awesomeText.prettifyMessage("&a&l» &7Warp has been deleted."));
+			sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Warp has been deleted."));
 			return true;
 		} else if (label.equalsIgnoreCase("setwarp")) {
 			if (!(sender instanceof Player)) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
 				return true;
 			}
 
 			Player player = (Player) sender;
 
 			if (!Caboodle.hasPermission(sender, "setwarp")) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
 			if (args.length == 0) {
-				sender.sendMessage(awesomeText.colorize("&3Usage: &7/setwarp <name>"));
+				sender.sendMessage(AwesomeText.colorize("&3Usage: &7/setwarp <name>"));
 				return true;
 			}
 
@@ -130,18 +130,18 @@ public class Warp extends CommandWrapper {
 			warps.set(name + ".yaw", loc.getYaw());
 			warps.set(name + ".pitch", loc.getPitch());
 
-			sender.sendMessage(awesomeText.prettifyMessage("&a&l» &7Warp has been set."));
+			sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Warp has been set."));
 			return true;
 		} else if (label.equalsIgnoreCase("listwarps")) {
 			if (!Caboodle.hasPermission(sender, "listwarps")) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
 
 			List<String> warpsList = warps.getKeys();
 
 			if (warpsList.size() == 0) {
-				sender.sendMessage(awesomeText.prettifyMessage("&a&l» &7There are no warps."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7There are no warps."));
 			} else {
 				String warpsMsg = "&a&l» &7Warps:";
 
@@ -149,7 +149,7 @@ public class Warp extends CommandWrapper {
 					warpsMsg += "\n&7- &f" + warpKey;
 				}
 
-				sender.sendMessage(awesomeText.prettifyMessage(warpsMsg));
+				sender.sendMessage(AwesomeText.prettifyMessage(warpsMsg));
 			}
 			return true;
 		}

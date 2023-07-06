@@ -1,6 +1,6 @@
 package com.butterycode.cubefruit;
 
-import com.butterycode.cubefruit.utils.awesomeText;
+import com.butterycode.cubefruit.utils.AwesomeText;
 import com.butterycode.cubefruit.utils.Caboodle;
 import com.butterycode.cubefruit.utils.DogTags;
 import org.bukkit.*;
@@ -96,12 +96,12 @@ public class haltEvents implements Listener, CommandExecutor, TabCompleter {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (label.equalsIgnoreCase("freeze")) {
 			if (!Caboodle.hasPermission(sender, "halt.freeze")) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
 
 			if (args.length == 0) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 				return true;
 			}
 			if (args.length > 0) {
@@ -121,18 +121,18 @@ public class haltEvents implements Listener, CommandExecutor, TabCompleter {
 							playersFrozen.put(uuid, frozen);
 
 							if (frozen) {
-								sender.sendMessage(awesomeText.prettifyMessage("&7" + player.getName() + " is now frozen."));
+								sender.sendMessage(AwesomeText.prettifyMessage("&7" + player.getName() + " is now frozen."));
 								return true;
 							} else {
-								sender.sendMessage(awesomeText.prettifyMessage("&7" + player.getName() + " has been unfrozen."));
+								sender.sendMessage(AwesomeText.prettifyMessage("&7" + player.getName() + " has been unfrozen."));
 								return true;
 							}
 						} else {
-							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7That player is not online."));
+							sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7That player is not online."));
 							return true;
 						}
 					} else {
-						sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
+						sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 						return true;
 					}
 				} else if (args[0].equalsIgnoreCase("world")) {
@@ -151,32 +151,32 @@ public class haltEvents implements Listener, CommandExecutor, TabCompleter {
 							worldsFrozen.put(uuid, frozen);
 
 							if (frozen) {
-								sender.sendMessage(awesomeText.prettifyMessage("&7" + world.getName() + " is now frozen."));
+								sender.sendMessage(AwesomeText.prettifyMessage("&7" + world.getName() + " is now frozen."));
 								return true;
 							} else {
-								sender.sendMessage(awesomeText.prettifyMessage("&7" + world.getName() + " has been unfrozen."));
+								sender.sendMessage(AwesomeText.prettifyMessage("&7" + world.getName() + " has been unfrozen."));
 								return true;
 							}
 						} else {
-							sender.sendMessage(awesomeText.prettifyMessage("&cError: &7That world could not be found."));
+							sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7That world could not be found."));
 							return true;
 						}
 					} else {
-						sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
+						sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 						return true;
 					}
 				} else if (args[0].equalsIgnoreCase("everything")) {
 					everythingFrozen = !everythingFrozen;
 
 					if (everythingFrozen) {
-						sender.sendMessage(awesomeText.prettifyMessage("&7Everything is now frozen."));
+						sender.sendMessage(AwesomeText.prettifyMessage("&7Everything is now frozen."));
 						return true;
 					} else {
-						sender.sendMessage(awesomeText.prettifyMessage("&7Everything has been unfrozen."));
+						sender.sendMessage(AwesomeText.prettifyMessage("&7Everything has been unfrozen."));
 						return true;
 					}
 				} else {
-					sender.sendMessage(awesomeText.prettifyMessage("&cError: &7Invalid arguments."));
+					sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 					return true;
 				}
 			}

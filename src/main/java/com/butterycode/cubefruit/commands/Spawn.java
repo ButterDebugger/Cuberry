@@ -1,7 +1,7 @@
 package com.butterycode.cubefruit.commands;
 
 import com.butterycode.cubefruit.Main;
-import com.butterycode.cubefruit.utils.awesomeText;
+import com.butterycode.cubefruit.utils.AwesomeText;
 import com.butterycode.cubefruit.utils.Caboodle;
 import com.butterycode.cubefruit.utils.DataStorage;
 import org.bukkit.Bukkit;
@@ -77,24 +77,24 @@ public class Spawn extends CommandWrapper implements Listener {
 
 		if (label.equalsIgnoreCase("spawn")) {
 			if (!(sender instanceof Player)) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
 				return true;
 			}
 
 			Player player = (Player) sender;
 
 			if (!Caboodle.hasPermission(sender, "spawn")) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
 			if (doubleData.get("spawn") == null) {
-				sender.sendMessage(awesomeText.colorize("&cError: &7Spawn has not been set."));
+				sender.sendMessage(AwesomeText.colorize("&cError: &7Spawn has not been set."));
 				return true;
 			}
 
 			Location spawnLoc = Caboodle.parseLocation(doubleData.getString("spawn"));
 
-			sender.sendMessage(awesomeText.colorize("&a&l» &7You have been teleported to spawn."));
+			sender.sendMessage(AwesomeText.colorize("&a&l» &7You have been teleported to spawn."));
 			player.teleport(spawnLoc);
 			player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1f, 1f);
 			return true;
@@ -102,18 +102,18 @@ public class Spawn extends CommandWrapper implements Listener {
 
 		if (label.equalsIgnoreCase("setspawn")) {
 			if (!(sender instanceof Player)) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
 				return true;
 			}
 
 			Player player = (Player)sender;
 
 			if (!Caboodle.hasPermission(sender, "setspawn")) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
 
-			sender.sendMessage(awesomeText.colorize("&a&l» &7Spawn has been set."));
+			sender.sendMessage(AwesomeText.colorize("&a&l» &7Spawn has been set."));
 			doubleData.set("spawn", Caboodle.stringifyLocation(player));
 			return true;
 		}

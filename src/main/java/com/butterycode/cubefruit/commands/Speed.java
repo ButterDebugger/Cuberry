@@ -1,6 +1,6 @@
 package com.butterycode.cubefruit.commands;
 
-import com.butterycode.cubefruit.utils.awesomeText;
+import com.butterycode.cubefruit.utils.AwesomeText;
 import com.butterycode.cubefruit.utils.Caboodle;
 import com.butterycode.cubefruit.utils.DogTags;
 import org.bukkit.command.Command;
@@ -30,25 +30,25 @@ public class Speed extends CommandWrapper {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (label.equalsIgnoreCase("speed")) {
 			if (!(sender instanceof Player)) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
 				return true;
 			}
 
 			Player player = (Player) sender;
 
 			if (!Caboodle.hasPermission(sender, "speed")) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
 
 			if (args.length == 0) {
-				sender.sendMessage(awesomeText.prettifyMessage("&3Usage: &7/speed <number>"));
+				sender.sendMessage(AwesomeText.prettifyMessage("&3Usage: &7/speed <number>"));
 				return true;
 			}
 
 			if (player.isFlying()) {
 				if (!DogTags.isNumeric(args[0])) {
-					sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must enter a number."));
+					sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must enter a number."));
 					return true;
 				}
 
@@ -58,11 +58,11 @@ public class Speed extends CommandWrapper {
 
 				player.setFlySpeed(number / 10);
 
-				sender.sendMessage(awesomeText.colorize("&a&l» &7Set flying speed to &f" + number + "&7."));
+				sender.sendMessage(AwesomeText.colorize("&a&l» &7Set flying speed to &f" + number + "&7."));
 				return true;
 			} else {
 				if (!DogTags.isNumeric(args[0])) {
-					sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must enter a number."));
+					sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must enter a number."));
 					return true;
 				}
 
@@ -72,31 +72,31 @@ public class Speed extends CommandWrapper {
 
 				player.setWalkSpeed(number / 10);
 
-				sender.sendMessage(awesomeText.colorize("&a&l» &7Set walking speed to &f" + number + "&7."));
+				sender.sendMessage(AwesomeText.colorize("&a&l» &7Set walking speed to &f" + number + "&7."));
 				return true;
 			}
 		}
 
 		if (label.equalsIgnoreCase("walkspeed")) {
 			if (!(sender instanceof Player)) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
 				return true;
 			}
 
 			Player player = (Player) sender;
 
 			if (!(Caboodle.hasPermission(sender, "speed") || Caboodle.hasPermission(sender, "speed.walk"))) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
 
 			if (args.length == 0) {
-				sender.sendMessage(awesomeText.prettifyMessage("&3Usage: &7/walkspeed <number>"));
+				sender.sendMessage(AwesomeText.prettifyMessage("&3Usage: &7/walkspeed <number>"));
 				return true;
 			}
 			if (args.length > 0) {
 				if (!DogTags.isNumeric(args[0])) {
-					sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must enter a number."));
+					sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must enter a number."));
 					return true;
 				}
 
@@ -106,31 +106,31 @@ public class Speed extends CommandWrapper {
 
 				player.setWalkSpeed(number / 10);
 
-				sender.sendMessage(awesomeText.colorize("&a&l» &7Set walking speed to &f" + number + "&7."));
+				sender.sendMessage(AwesomeText.colorize("&a&l» &7Set walking speed to &f" + number + "&7."));
 				return true;
 			}
 		}
 
 		if (label.equalsIgnoreCase("flyspeed")) {
 			if (!(sender instanceof Player)) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
 				return true;
 			}
 
 			Player player = (Player) sender;
 
 			if (!(Caboodle.hasPermission(sender, "speed") || Caboodle.hasPermission(sender, "speed.fly"))) {
-				sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
 
 			if (args.length == 0) {
-				sender.sendMessage(awesomeText.prettifyMessage("&3Usage: &7/flyspeed <number>"));
+				sender.sendMessage(AwesomeText.prettifyMessage("&3Usage: &7/flyspeed <number>"));
 				return true;
 			}
 			if (args.length > 0) {
 				if (!DogTags.isNumeric(args[0])) {
-					sender.sendMessage(awesomeText.prettifyMessage("&cError: &7You must enter a number."));
+					sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must enter a number."));
 					return true;
 				}
 
@@ -140,7 +140,7 @@ public class Speed extends CommandWrapper {
 
 				player.setFlySpeed(number / 10);
 
-				sender.sendMessage(awesomeText.colorize("&a&l» &7Set flying speed to &f" + number + "&7."));
+				sender.sendMessage(AwesomeText.colorize("&a&l» &7Set flying speed to &f" + number + "&7."));
 				return true;
 			}
 		}
