@@ -29,7 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
-public class haltEvents implements Listener, CommandExecutor, TabCompleter {
+public class HaltEvents implements Listener, CommandExecutor, TabCompleter {
 
 	private static boolean haltEnabled(String halt, Player player, World world) {
 		FileConfiguration config = Main.plugin().config();
