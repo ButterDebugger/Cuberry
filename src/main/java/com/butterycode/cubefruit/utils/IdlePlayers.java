@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class idlePlayers implements Listener {
+public class IdlePlayers implements Listener {
 
 	private static Map<UUID, Integer> idleTimer = new HashMap<>();
 

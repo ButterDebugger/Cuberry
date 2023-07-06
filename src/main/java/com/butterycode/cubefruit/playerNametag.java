@@ -1,7 +1,7 @@
 package com.butterycode.cubefruit;
 
 import com.butterycode.cubefruit.utils.AwesomeText;
-import com.butterycode.cubefruit.utils.idlePlayers;
+import com.butterycode.cubefruit.utils.IdlePlayers;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -43,7 +43,7 @@ public class playerNametag implements Listener {
 		UUID uuid = player.getUniqueId();
 		String format = "";
 
-		if (config.getBoolean("player-nametag.afk") && idlePlayers.isAFK(uuid)) {
+		if (config.getBoolean("player-nametag.afk") && IdlePlayers.isAFK(uuid)) {
 			format = config.getString("player-nametag.afk-format") + "&r";
 		} else {
 			format = config.getString("player-nametag.format") + "&r";

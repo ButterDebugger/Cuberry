@@ -29,8 +29,8 @@ public final class Main extends JavaPlugin implements Listener {
         localeInstance.setDefaultLocale(getConfig().getString("plugin.language"));
 
         // Setup Plugin
-        Bukkit.getServer().getPluginManager().registerEvents(new idlePlayers(), plugin);
-        idlePlayers.start();
+        Bukkit.getServer().getPluginManager().registerEvents(new IdlePlayers(), plugin);
+        IdlePlayers.start();
         Bukkit.getServer().getPluginManager().registerEvents(new Caboodle(), plugin);
         Caboodle.start();
         pluginSupport.setup();
