@@ -46,6 +46,8 @@ public class awesomeText {
 
         newmessage = pluginSupport.getPlaceholders(player, message);
         newmessage = replacePlaceholder(newmessage, "player_name", player.getName());
+        newmessage = replacePlaceholder(newmessage, "player_displayname", player.getDisplayName());
+        newmessage = replacePlaceholder(newmessage, "player_list_name", player.getPlayerListName());
         newmessage = replacePlaceholder(newmessage, "player_uuid", player.getUniqueId().toString());
 
         return newmessage;
