@@ -191,8 +191,8 @@ public final class Main extends JavaPlugin implements Listener {
             }
         }
 
-        Bukkit.getServer().getPluginManager().registerEvents(new performance(), plugin);
-        performance.start();
+        Bukkit.getServer().getPluginManager().registerEvents(new Performance(), plugin);
+        Performance.start();
 
         if (config().getBoolean("only-proxy.enabled")) { // TODO: test
             Bukkit.getServer().getPluginManager().registerEvents(new onlyProxy(), plugin);
