@@ -199,7 +199,7 @@ public final class Main extends JavaPlugin implements Listener {
         }
 
         if (config().getBoolean("resource-packs.enabled")) {
-            Bukkit.getServer().getPluginManager().registerEvents(new resourcePacks(), plugin);
+            Bukkit.getServer().getPluginManager().registerEvents(new ResourcePacks(), plugin);
         }
 
         enableTweaks();

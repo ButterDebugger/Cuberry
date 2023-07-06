@@ -17,7 +17,7 @@ import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class resourcePacks implements Listener {
+public class ResourcePacks implements Listener {
 
 	private HashMap<UUID, String> loadedPacks = new HashMap<UUID, String>();
 
