@@ -3,7 +3,7 @@ package com.butterycode.cubefruit;
 import com.butterycode.cubefruit.commands.*;
 import com.butterycode.cubefruit.tweaks.NetherFlambe;
 import com.butterycode.cubefruit.tweaks.Stonecutter;
-import com.butterycode.cubefruit.tweaks.tweaks;
+import com.butterycode.cubefruit.tweaks.Tweaks;
 import com.butterycode.cubefruit.utils.*;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -206,15 +206,15 @@ public final class Main extends JavaPlugin implements Listener {
     }
 
     private void enableTweaks() {
-        Bukkit.getServer().getPluginManager().registerEvents(new tweaks(), plugin);
-        tweaks.start();
+        Bukkit.getServer().getPluginManager().registerEvents(new Tweaks(), plugin);
+        Tweaks.start();
 
-        if (config().getBoolean("tweaks.stonecutterhurt.enabled")) {
+        if (config().getBoolean("Tweaks.stonecutterhurt.enabled")) {
             Bukkit.getServer().getPluginManager().registerEvents(new Stonecutter(), plugin);
             Stonecutter.start();
         }
 
-        if (config().getBoolean("tweaks.nether-flambe.enabled")) {
+        if (config().getBoolean("Tweaks.nether-flambe.enabled")) {
             Bukkit.getServer().getPluginManager().registerEvents(new NetherFlambe(), plugin);
             NetherFlambe.start();
         }

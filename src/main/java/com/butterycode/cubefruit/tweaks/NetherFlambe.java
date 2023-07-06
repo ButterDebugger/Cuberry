@@ -54,7 +54,7 @@ public class NetherFlambe implements Listener {
 							}
 							
 							int cookTime = getBetterItemAge(entity);
-							int timeNeeded = (int) (config.getDouble("tweaks.nether-flambe.time") * 20) * itemStack.getAmount();
+							int timeNeeded = (int) (config.getDouble("Tweaks.nether-flambe.time") * 20) * itemStack.getAmount();
 							
 							if (cookTime >= timeNeeded) {
 								Iterator<Recipe> iter = Bukkit.recipeIterator();
