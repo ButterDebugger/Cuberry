@@ -182,12 +182,12 @@ public final class Main extends JavaPlugin implements Listener {
         }
 
         if (config().getBoolean("locks.enabled")) {
-            Bukkit.getServer().getPluginManager().registerEvents(new lockedBlocks(), plugin);
-            lockedBlocks.start();
+            Bukkit.getServer().getPluginManager().registerEvents(new LockedBlocks(), plugin);
+            LockedBlocks.start();
 
             if (config().getBoolean("locks.master-key")) {
                 Caboodle.registerCommand(Arrays.asList(new String[] {"getmasterkey"}));
-                getCommand("getmasterkey").setExecutor(new lockedBlocks());
+                getCommand("getmasterkey").setExecutor(new LockedBlocks());
             }
         }
 

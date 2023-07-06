@@ -28,7 +28,7 @@ import org.bukkit.persistence.PersistentDataType;
 import java.util.Iterator;
 import java.util.List;
 
-public class lockedBlocks implements Listener, CommandExecutor {
+public class LockedBlocks implements Listener, CommandExecutor {
 
 	private static ItemStack masterKey;
 
