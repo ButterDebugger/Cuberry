@@ -9,7 +9,7 @@ import org.bukkit.util.Vector;
 
 import java.util.Iterator;
 
-public class tooManyParticles {
+public class TooManyParticles {
 
 	/*class ParticleConfig {
 		private Particle type;

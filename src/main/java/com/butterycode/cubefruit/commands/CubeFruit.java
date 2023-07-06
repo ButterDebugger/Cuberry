@@ -60,7 +60,7 @@ public class CubeFruit implements CommandExecutor, TabCompleter {
 				String message2 = Main.locale().getMessage("commands.invalid_arguments", sender);
 				sender.sendMessage(message2);
 
-//				tooManyParticles.test();
+//				TooManyParticles.test();
 
 				sender.sendMessage(AwesomeText.prettifyMessage("&7--- &cend  of  test&7 ---"));
 				return true;
