@@ -9,7 +9,7 @@ import org.bukkit.event.player.PlayerLoginEvent.Result;
 import java.util.List;
 import java.util.Random;
 
-public class onlyProxy implements Listener {
+public class OnlyProxy implements Listener {
 
 	@EventHandler
 	public void onPlayerLogin(PlayerLoginEvent event) {
