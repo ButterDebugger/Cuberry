@@ -1,7 +1,7 @@
 package com.butterycode.cubefruit;
 
 import com.butterycode.cubefruit.commands.*;
-import com.butterycode.cubefruit.tweaks.netherflumb;
+import com.butterycode.cubefruit.tweaks.NetherFlambe;
 import com.butterycode.cubefruit.tweaks.stonecutter;
 import com.butterycode.cubefruit.tweaks.tweaks;
 import com.butterycode.cubefruit.utils.*;
@@ -214,9 +214,9 @@ public final class Main extends JavaPlugin implements Listener {
             stonecutter.start();
         }
 
-        if (config().getBoolean("tweaks.nether-flumbe.enabled")) {
-            Bukkit.getServer().getPluginManager().registerEvents(new netherflumb(), plugin);
-            netherflumb.start();
+        if (config().getBoolean("tweaks.nether-flambe.enabled")) {
+            Bukkit.getServer().getPluginManager().registerEvents(new NetherFlambe(), plugin);
+            NetherFlambe.start();
         }
     }
 

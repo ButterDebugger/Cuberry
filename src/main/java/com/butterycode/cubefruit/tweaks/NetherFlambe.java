@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.UUID;
 
-public class netherflumb implements Listener {
+public class NetherFlambe implements Listener {
 
 	private static HashMap<UUID, Integer> negativeAge = new HashMap<UUID, Integer>();
 	
@@ -54,7 +54,7 @@ public class netherflumb implements Listener {
 							}
 							
 							int cookTime = getBetterItemAge(entity);
-							int timeNeeded = (int) (config.getDouble("tweaks.nether-flumbe.time") * 20) * itemStack.getAmount();
+							int timeNeeded = (int) (config.getDouble("tweaks.nether-flambe.time") * 20) * itemStack.getAmount();
 							
 							if (cookTime >= timeNeeded) {
 								Iterator<Recipe> iter = Bukkit.recipeIterator();

@@ -101,7 +101,7 @@ tweaks:
   # Shear item frames to turn them invisible
   shear-item-frames: false
   # Ground items slowly cook in the nether
-  nether-flumbe:
+  nether-flambe:
     enabled: false
     # Time in seconds for an item to cook
     time: 30
