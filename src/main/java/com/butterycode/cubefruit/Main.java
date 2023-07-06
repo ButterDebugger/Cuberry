@@ -170,14 +170,14 @@ public final class Main extends JavaPlugin implements Listener {
         }
 
         if (config().getBoolean("lives.enabled")) {
-            Bukkit.getServer().getPluginManager().registerEvents(new playerLives(), plugin);
-            playerLives.start();
+            Bukkit.getServer().getPluginManager().registerEvents(new PlayerLives(), plugin);
+            PlayerLives.start();
             Caboodle.registerCommand(Arrays.asList(new String[] {"lives"}));
-            getCommand("lives").setExecutor(new playerLives());
+            getCommand("lives").setExecutor(new PlayerLives());
 
             if (config().getBoolean("lives.revival")) {
                 Caboodle.registerCommand(Arrays.asList(new String[] {"revive"}));
-                getCommand("revive").setExecutor(new playerLives());
+                getCommand("revive").setExecutor(new PlayerLives());
             }
         }
 

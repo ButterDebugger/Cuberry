@@ -22,7 +22,7 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 import java.util.Arrays;
 import java.util.List;
 
-public class playerLives implements Listener, CommandExecutor, TabCompleter {
+public class PlayerLives implements Listener, CommandExecutor, TabCompleter {
 
 	public static void start() {
 //		Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.plugin(), new Runnable() {
