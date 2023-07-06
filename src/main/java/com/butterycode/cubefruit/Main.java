@@ -17,7 +17,7 @@ public final class Main extends JavaPlugin implements Listener {
 
     private static Main plugin;
     private HashMap<String, DataStorage> dataFiles = new HashMap<>();
-    private static localeManager localeInstance;
+    private static LocaleManager localeInstance;
 
     @Override
     public void onEnable() {
@@ -25,7 +25,7 @@ public final class Main extends JavaPlugin implements Listener {
         plugin = this;
 
         // Create a locale instance
-        localeInstance = new localeManager(plugin, "en_us");
+        localeInstance = new LocaleManager(plugin, "en_us");
         localeInstance.setDefaultLocale(getConfig().getString("plugin.language"));
 
         // Setup Plugin
@@ -237,7 +237,7 @@ public final class Main extends JavaPlugin implements Listener {
         return plugin;
     }
 
-    public static localeManager locale() {
+    public static LocaleManager locale() {
         return localeInstance;
     }
 

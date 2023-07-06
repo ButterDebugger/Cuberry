@@ -13,13 +13,13 @@ import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
-public class localeManager {
+public class LocaleManager {
 
 	private static final Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 	private static final HashMap<String, JsonObject> localeObjects = new HashMap<>();
 	private static String defaultLocale;
 
-	public localeManager(Plugin plugin, String ...locales) {
+	public LocaleManager(Plugin plugin, String ...locales) {
 		defaultLocale = locales[0];
 
 		// Get every language saved in the plugin resources
