@@ -36,13 +36,13 @@ public abstract class CommandWrapper implements CommandExecutor, TabCompleter {
      *  Command registry constructor
      */
 
-    protected static class CommandRegistry {
+    protected class CommandRegistry {
         private CommandWrapper wrapper;
         private String name;
         private List<String> aliases = new ArrayList<>();
         private String description = null;
 
-        CommandRegistry(CommandWrapper wrapper, String name) {
+        public CommandRegistry(CommandWrapper wrapper, String name) {
             this.wrapper = wrapper;
             this.name = name;
         }
@@ -66,17 +66,17 @@ public abstract class CommandWrapper implements CommandExecutor, TabCompleter {
          *  Private setter methods
          */
 
-        protected void addAliases(String ...alias) {
+        public void addAliases(String ...alias) {
             this.aliases.addAll(Arrays.asList(alias));
         }
-        protected void removeAliases(String ...alias) {
+        public void removeAliases(String ...alias) {
             this.aliases.removeAll(Arrays.asList(alias));
         }
 
-        protected void setDescription(String description) {
+        public void setDescription(String description) {
             this.description = description;
         }
-        protected void removeDescription() {
+        public void removeDescription() {
             this.description = null;
         }
 
