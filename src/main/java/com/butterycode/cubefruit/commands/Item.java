@@ -8,6 +8,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -19,8 +20,8 @@ public class Item extends CommandWrapper {
 	// TODO: hideflags, head, attribute, CanPlaceOn, CanDestroy
 
 	public Item() {
-		CommandRegistry itemCmd = new CommandRegistry(this, "item");
-		itemCmd.addAliases("i", "itemstack");
+		CommandRegistry itemCmd = new CommandRegistry(this, "itemstack");
+		itemCmd.addAliases("i");
 		itemCmd.setDescription("Modify the attributes of items");
 
 		addRegistries(itemCmd);
@@ -28,7 +29,7 @@ public class Item extends CommandWrapper {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if (label.equalsIgnoreCase("item") || label.equalsIgnoreCase("i") || label.equalsIgnoreCase("itemstack")) {
+		if (label.equalsIgnoreCase("i") || label.equalsIgnoreCase("itemstack")) {
 			if (!(sender instanceof Player)) {
 				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must be a player to use this."));
 				return true;
@@ -36,7 +37,7 @@ public class Item extends CommandWrapper {
 
 			Player player = (Player) sender;
 
-			if (!Caboodle.hasPermission(sender, "item")) {
+			if (!Caboodle.hasPermission(sender, "itemstack")) {
 				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You do not have the permission to use this."));
 				return true;
 			}
@@ -141,14 +142,14 @@ public class Item extends CommandWrapper {
 							return true;
 						}
 
-						if (args[1].equals("false")) {
+						if (args[1].equalsIgnoreCase("false")) {
 							ItemMeta itemMeta = item.getItemMeta();
 						    itemMeta.setUnbreakable(false);
 						    item.setItemMeta(itemMeta);
 
 							sender.sendMessage(AwesomeText.colorize("&a&l» &7Item is no longer unbreakable"));
 							return true;
-						} else if (args[1].equals("true")) {
+						} else if (args[1].equalsIgnoreCase("true")) {
 							ItemMeta itemMeta = item.getItemMeta();
 						    itemMeta.setUnbreakable(true);
 						    item.setItemMeta(itemMeta);
@@ -206,7 +207,7 @@ public class Item extends CommandWrapper {
 							return true;
 						}
 
-						if (args[1].equals("damage")) {
+						if (args[1].equalsIgnoreCase("damage")) {
 							if (!DogTags.isNumeric(args[2])) {
 								sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must enter a number."));
 								return true;
@@ -220,7 +221,7 @@ public class Item extends CommandWrapper {
 							item.setItemMeta(itemmeta);
 							sender.sendMessage(AwesomeText.colorize("&a&l» &7Item durability has been set to &f" + (maxdamage - number) + "&7/&f" + maxdamage + "&7."));
 							return true;
-						} else if (args[1].equals("percentage")) {
+						} else if (args[1].equalsIgnoreCase("percentage")) {
 							if (!DogTags.isNumeric(args[2])) {
 								sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must enter a number."));
 								return true;
@@ -234,7 +235,7 @@ public class Item extends CommandWrapper {
 							item.setItemMeta(itemmeta);
 							sender.sendMessage(AwesomeText.colorize("&a&l» &7Item durability has been set to &f" + (maxdamage - number) + "&7/&f" + maxdamage + "&7."));
 							return true;
-						} else if (args[1].equals("remaining")) {
+						} else if (args[1].equalsIgnoreCase("remaining")) {
 							if (!DogTags.isNumeric(args[2])) {
 								sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must enter a number."));
 								return true;
@@ -329,6 +330,47 @@ public class Item extends CommandWrapper {
 						sender.sendMessage(AwesomeText.prettifyMessage("&3Usage: &7/" + label + " enchant <enchantment> <level>"));
 						return true;
 					}
+				} else if (args[0].equalsIgnoreCase("equip")) {
+					if (args.length > 1) {
+						ItemStack item = player.getInventory().getItemInMainHand();
+
+						if (item == null || item.getType().equals(Material.AIR)) {
+							sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must be holding an item to modify in your Main hand."));
+							return true;
+						}
+
+						if (args[1].equalsIgnoreCase("head")) {
+							player.getInventory().setItem(EquipmentSlot.HEAD, item);
+							player.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
+
+							sender.sendMessage(AwesomeText.colorize("&a&l» &7Equipped item in your head slot."));
+							return true;
+						} else if (args[1].equalsIgnoreCase("chest")) {
+							player.getInventory().setItem(EquipmentSlot.CHEST, item);
+							player.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
+
+							sender.sendMessage(AwesomeText.colorize("&a&l» &7Equipped item in your chest slot."));
+							return true;
+						} else if (args[1].equalsIgnoreCase("legs")) {
+							player.getInventory().setItem(EquipmentSlot.LEGS, item);
+							player.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
+
+							sender.sendMessage(AwesomeText.colorize("&a&l» &7Equipped item in your legs slot."));
+							return true;
+						} else if (args[1].equalsIgnoreCase("feet")) {
+							player.getInventory().setItem(EquipmentSlot.FEET, item);
+							player.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
+
+							sender.sendMessage(AwesomeText.colorize("&a&l» &7Equipped item in your feet slot."));
+							return true;
+						} else {
+							sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7\"" + args[1] + "\" is not a valid equipment slot."));
+							return true;
+						}
+					} else {
+						sender.sendMessage(AwesomeText.prettifyMessage("&3Usage: &7/" + label + " equip <head|chest|legs|feet>"));
+						return true;
+					}
 				} else {
 					sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7Invalid arguments."));
 					return true;
@@ -340,23 +382,25 @@ public class Item extends CommandWrapper {
 
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-		if (label.equalsIgnoreCase("item") || label.equalsIgnoreCase("i") || label.equalsIgnoreCase("itemstack") && Caboodle.hasPermission(sender, "item")) {
+		if (label.equalsIgnoreCase("i") || label.equalsIgnoreCase("itemstack") && Caboodle.hasPermission(sender, "itemstack")) {
 			if (args.length == 1) {
-				return Arrays.asList("count", "get", "material", "unbreakable", "rename", "durability", "modeldata", "delete", "enchant");
+				return Arrays.asList("count", "get", "material", "unbreakable", "rename", "durability", "modeldata", "delete", "enchant", "equip");
 			}
 			if (args.length == 2) {
-				if (args[0].equals("get")) {
+				if (args[0].equalsIgnoreCase("get")) {
 					List<String> itemlist = getListOfItems();
 					itemlist.add("random");
 					return itemlist;
-				} else if (args[0].equals("material")) {
+				} else if (args[0].equalsIgnoreCase("material")) {
 					return getListOfItems();
-				} else if (args[0].equals("unbreakable")) {
+				} else if (args[0].equalsIgnoreCase("unbreakable")) {
 					return Arrays.asList("true", "false");
-				} else if (args[0].equals("durability")) {
+				} else if (args[0].equalsIgnoreCase("durability")) {
 					return Arrays.asList("damage", "percentage", "remaining");
-				} else if (args[0].equals("enchant")) {
+				} else if (args[0].equalsIgnoreCase("enchant")) {
 					return getListOfEnchantments();
+				} else if (args[0].equalsIgnoreCase("equip")) {
+					return Arrays.asList("head", "chest", "legs", "feet");
 				}
 			}
 

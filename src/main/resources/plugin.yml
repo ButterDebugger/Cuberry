@@ -71,7 +71,7 @@ permissions:
     description: Allows you to make server polls
   cubefruit.vote:
     description: Allows you to vote on server polls
-  cubefruit.item:
+  cubefruit.itemstack:
     description: Allows you to modify items
   cubefruit.respawn:
     description: Allows you to force respawn other players
