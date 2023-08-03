@@ -340,26 +340,30 @@ public class Item extends CommandWrapper {
 						}
 
 						if (args[1].equalsIgnoreCase("head")) {
+							ItemStack oldItem = player.getInventory().getItem(EquipmentSlot.HEAD);
 							player.getInventory().setItem(EquipmentSlot.HEAD, item);
-							player.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
+							player.getInventory().setItemInMainHand(oldItem);
 
 							sender.sendMessage(AwesomeText.colorize("&a&l» &7Equipped item in your head slot."));
 							return true;
 						} else if (args[1].equalsIgnoreCase("chest")) {
+							ItemStack oldItem = player.getInventory().getItem(EquipmentSlot.CHEST);
 							player.getInventory().setItem(EquipmentSlot.CHEST, item);
-							player.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
+							player.getInventory().setItemInMainHand(oldItem);
 
 							sender.sendMessage(AwesomeText.colorize("&a&l» &7Equipped item in your chest slot."));
 							return true;
 						} else if (args[1].equalsIgnoreCase("legs")) {
+							ItemStack oldItem = player.getInventory().getItem(EquipmentSlot.LEGS);
 							player.getInventory().setItem(EquipmentSlot.LEGS, item);
-							player.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
+							player.getInventory().setItemInMainHand(oldItem);
 
 							sender.sendMessage(AwesomeText.colorize("&a&l» &7Equipped item in your legs slot."));
 							return true;
 						} else if (args[1].equalsIgnoreCase("feet")) {
+							ItemStack oldItem = player.getInventory().getItem(EquipmentSlot.FEET);
 							player.getInventory().setItem(EquipmentSlot.FEET, item);
-							player.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
+							player.getInventory().setItemInMainHand(oldItem);
 
 							sender.sendMessage(AwesomeText.colorize("&a&l» &7Equipped item in your feet slot."));
 							return true;
