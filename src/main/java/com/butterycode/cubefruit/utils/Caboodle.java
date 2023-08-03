@@ -79,9 +79,10 @@ public class Caboodle implements Listener {
 		}
 	}
 
-	public static Location getLowestBlockLocation(Location loc) {
+	public static Location getFloorBlockLocation(Location loc) {
 		World world = loc.getWorld();
 		assert world != null;
+
 		int minHeight = world.getMinHeight();
 		Location next = loc.clone();
 
@@ -92,14 +93,47 @@ public class Caboodle implements Listener {
 		return next;
 	}
 
-	public static Location getHighestBlockLocation(Location loc) {
+	public static Location getCeilBlockLocation(Location loc) {
 		World world = loc.getWorld();
 		assert world != null;
+
 		int maxHeight = world.getMaxHeight() - 1;
 		Location next = loc.clone();
 
 		while (next.getBlockY() < maxHeight && next.getBlock().isEmpty()) {
 			next.add(0, 1, 0);
+		}
+
+		return next;
+	}
+
+	public static Location getLowestBlockLocation(Location loc) {
+		World world = loc.getWorld();
+		assert world != null;
+
+		int minHeight = world.getMinHeight();
+		int maxHeight = world.getMaxHeight() - 1;
+		Location next = loc.clone();
+		next.setY(minHeight);
+
+		while (next.getBlockY() < maxHeight && next.getBlock().isEmpty()) {
+			next.add(0, 1, 0);
+		}
+
+		return next;
+	}
+
+	public static Location getHighestBlockLocation(Location loc) {
+		World world = loc.getWorld();
+		assert world != null;
+
+		int minHeight = world.getMinHeight();
+		int maxHeight = world.getMaxHeight() - 1;
+		Location next = loc.clone();
+		next.setY(maxHeight);
+
+		while (next.getBlockY() > minHeight && next.getBlock().isEmpty()) {
+			next.subtract(0, 1, 0);
 		}
 
 		return next;

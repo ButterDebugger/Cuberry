@@ -129,6 +129,10 @@ permissions:
     description: Allows you to use the sudo command
   cubefruit.back:
     description: Allows you to use the back command
+  cubefruit.enderchest:
+    description: Allows you to use the enderchest command
+  cubefruit.top:
+    description: Allows you to use the top command
 
 #  cubefruit.mode.blockinfection:
 #    description: Allows you to manage the blockinfection mode

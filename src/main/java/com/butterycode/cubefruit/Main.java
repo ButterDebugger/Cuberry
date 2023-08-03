@@ -61,7 +61,7 @@ public final class Main extends JavaPlugin implements Listener {
             new Skipday().registerCommands(plugin);
         }
 
-        if (config().getBoolean("commands.item.enabled")) {
+        if (config().getBoolean("commands.itemstack.enabled")) {
             new Item().registerCommands(plugin);
         }
 
@@ -150,6 +150,18 @@ public final class Main extends JavaPlugin implements Listener {
 
             Bukkit.getServer().getPluginManager().registerEvents(back, plugin);
             back.registerCommands(plugin);
+        }
+
+        if (config().getBoolean("commands.enderchest.enabled")) {
+            new EnderChest().registerCommands(plugin);
+        }
+
+        if (config().getBoolean("commands.top.enabled")) {
+            new Top().registerCommands(plugin);
+        }
+
+        if (config().getBoolean("commands.invsee.enabled")) {
+            new InvSee().registerCommands(plugin);
         }
     }
 

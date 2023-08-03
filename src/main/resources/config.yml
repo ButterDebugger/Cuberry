@@ -386,7 +386,7 @@ commands:
       pitch: 1.8
   skipday:
     enabled: false
-  item:
+  itemstack:
     enabled: false
   spawn:
     enabled: false
@@ -452,4 +452,8 @@ commands:
   sudo:
     enabled: false
   back:
+    enabled: false
+  enderchest:
+    enabled: false
+  top:
     enabled: false
