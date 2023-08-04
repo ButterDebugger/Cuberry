@@ -48,7 +48,7 @@ public class InvSee extends CommandWrapper {
 
 				player.openInventory(other.getInventory());
 
-				sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7You are now viewing &f" + player.getName() + "&7's inventory."));
+				sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7You are now viewing &f" + other.getName() + "&7's inventory."));
 				return true;
 			} else {
 				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7That player could not be found."));
