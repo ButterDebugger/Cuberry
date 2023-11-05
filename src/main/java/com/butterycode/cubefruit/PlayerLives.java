@@ -196,7 +196,7 @@ public class PlayerLives implements Listener, CommandExecutor, TabCompleter {
 
 								setLives(other, number);
 
-								sender.sendMessage(AwesomeText.colorize("&7" + other.getName() + " now has " + number + " lives."));
+								sender.sendMessage(AwesomeText.colorize("&a&l» &7" + other.getName() + " now has " + number + " lives."));
 								return true;
 							} else {
 								sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must enter a number."));

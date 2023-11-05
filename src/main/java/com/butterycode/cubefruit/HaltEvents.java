@@ -121,10 +121,10 @@ public class HaltEvents implements Listener, CommandExecutor, TabCompleter {
 							playersFrozen.put(uuid, frozen);
 
 							if (frozen) {
-								sender.sendMessage(AwesomeText.prettifyMessage("&7" + player.getName() + " is now frozen."));
+								sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7" + player.getName() + " is now frozen."));
 								return true;
 							} else {
-								sender.sendMessage(AwesomeText.prettifyMessage("&7" + player.getName() + " has been unfrozen."));
+								sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7" + player.getName() + " has been unfrozen."));
 								return true;
 							}
 						} else {

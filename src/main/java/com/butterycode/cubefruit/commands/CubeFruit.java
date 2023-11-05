@@ -383,20 +383,20 @@ public class CubeFruit implements CommandExecutor, TabCompleter {
 							lagmonitor.put(player, !lagmonitor.get(player));
 
 							if (lagmonitor.get(player)) {
-								sender.sendMessage(AwesomeText.colorize("&7Lag monitor has been toggled on."));
+								sender.sendMessage(AwesomeText.colorize("&a&l» &7Lag monitor has been toggled on."));
 							} else {
-								sender.sendMessage(AwesomeText.colorize("&7Lag monitor has been toggled off."));
+								sender.sendMessage(AwesomeText.colorize("&a&l» &7Lag monitor has been toggled off."));
 							}
 							return true;
 						} else if (args[3].equalsIgnoreCase("on")) {
 							lagmonitor.put(player, true);
 
-							sender.sendMessage(AwesomeText.colorize("&7Lag monitor has been turned on."));
+							sender.sendMessage(AwesomeText.colorize("&a&l» &7Lag monitor has been turned on."));
 							return true;
 						} else if (args[3].equalsIgnoreCase("off")) {
 							lagmonitor.put(player, false);
 
-							sender.sendMessage(AwesomeText.colorize("&7Lag monitor has been turned off."));
+							sender.sendMessage(AwesomeText.colorize("&a&l» &7Lag monitor has been turned off."));
 							return true;
 						} else {
 							sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7Invalid arguments."));
@@ -522,14 +522,14 @@ public class CubeFruit implements CommandExecutor, TabCompleter {
 
 						World w = Bukkit.createWorld(new WorldCreator(args[3]));
 						if (w == null) {
-							sender.sendMessage(AwesomeText.colorize("&7Failed to load &f" + w.getName()));
+							sender.sendMessage(AwesomeText.colorize("&cError: &7Failed to load &f" + w.getName()));
 						} else {
-							sender.sendMessage(AwesomeText.colorize("&f" + w.getName() + " &7has been loaded."));
+							sender.sendMessage(AwesomeText.colorize("&a&l» &f" + w.getName() + " &7has been loaded."));
 						}
 						return true;
 					} else if (args[2].equalsIgnoreCase("save")) {
 						world.save();
-						sender.sendMessage(AwesomeText.colorize("&f" + world.getName() + " &7has been saved."));
+						sender.sendMessage(AwesomeText.colorize("&a&l» &f" + world.getName() + " &7has been saved."));
 						return true;
 					} else if (args[2].equalsIgnoreCase("backup")) {
 						world.save();
@@ -539,18 +539,18 @@ public class CubeFruit implements CommandExecutor, TabCompleter {
 						String savename = "./backups/" + world.getName() + "_" + date.format(formatter);
 						Caboodle.copyWorld(world.getWorldFolder(), new File(savename));
 
-						sender.sendMessage(AwesomeText.colorize("&7Backup saved at &f" + savename));
+						sender.sendMessage(AwesomeText.colorize("&a&l» &7Backup saved at &f" + savename));
 						return true;
 					} else if (args[2].equalsIgnoreCase("enablepvp")) {
 						world.setPVP(true);
-						sender.sendMessage(AwesomeText.colorize("&7PVP has been enabled in &f" + world.getName()));
+						sender.sendMessage(AwesomeText.colorize("&a&l» &7PVP has been enabled in &f" + world.getName()));
 						return true;
 					} else if (args[2].equalsIgnoreCase("disablepvp")) {
 						world.setPVP(false);
-						sender.sendMessage(AwesomeText.colorize("&7PVP has been disabled in &f" + world.getName()));
+						sender.sendMessage(AwesomeText.colorize("&a&l» &7PVP has been disabled in &f" + world.getName()));
 						return true;
 					} else if (args[2].equalsIgnoreCase("list")) {
-						sender.sendMessage(AwesomeText.colorize("&7World list:"));
+						sender.sendMessage(AwesomeText.colorize("&a&l» &7World list:"));
 
 						for (World w : Bukkit.getWorlds()) {
 							String stringType = "";
