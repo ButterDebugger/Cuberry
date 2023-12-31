@@ -6,17 +6,17 @@
     <parent>
         <groupId>dev.debutter</groupId>
         <artifactId>cubefruit</artifactId>
-        <version>1.10.5</version>
+        <version>1.10.6</version>
     </parent>
     <groupId>dev.debutter.cubefruit</groupId>
     <artifactId>cubefruit-core</artifactId>
-    <version>1.10.5</version>
+    <version>1.10.6</version>
     <packaging>jar</packaging>
 
     <name>CubeFruit-Universal</name>
 
     <properties>
-        <java.version>18</java.version>
+        <java.version>16</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -30,8 +30,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
                 <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
                     <compilerArgs>
                         <arg>-parameters</arg>
                     </compilerArgs>
