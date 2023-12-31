@@ -6,7 +6,7 @@
 
     <groupId>dev.debutter</groupId>
     <artifactId>cubefruit</artifactId>
-    <version>1.10.2</version>
+    <version>1.10.3</version>
     <packaging>pom</packaging>
 
     <modules>

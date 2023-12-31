@@ -6,11 +6,11 @@
     <parent>
         <groupId>dev.debutter</groupId>
         <artifactId>cubefruit</artifactId>
-        <version>1.10.2</version>
+        <version>1.10.3</version>
     </parent>
     <groupId>dev.debutter.cubefruit</groupId>
     <artifactId>cubefruit-core</artifactId>
-    <version>1.10.2</version>
+    <version>1.10.3</version>
     <packaging>jar</packaging>
 
     <name>CubeFruit-Universal</name>
