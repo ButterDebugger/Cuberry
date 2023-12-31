@@ -1,4 +1,4 @@
-name: '${project.parent.artifactId}'
+name: 'CubeFruit'
 version: '${parent.version}'
 main: dev.debutter.cubefruit.paper.Paper
 api-version: '1.20'

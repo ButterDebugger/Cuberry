@@ -5,11 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>dev.debutter</groupId>
-        <artifactId>CubeFruit</artifactId>
-        <version>1.10</version>
+        <artifactId>cubefruit</artifactId>
+        <version>1.10.1</version>
     </parent>
     <groupId>dev.debutter.cubefruit</groupId>
-    <artifactId>assembly</artifactId>
+    <artifactId>cubefruit-core</artifactId>
+    <version>1.10.1</version>
     <packaging>jar</packaging>
 
     <name>CubeFruit-Universal</name>
@@ -57,12 +58,12 @@
     <dependencies>
         <dependency>
             <groupId>dev.debutter.cubefruit</groupId>
-            <artifactId>paper</artifactId>
+            <artifactId>cubefruit-paper</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>dev.debutter.cubefruit</groupId>
-            <artifactId>velocity</artifactId>
+            <artifactId>cubefruit-velocity</artifactId>
             <version>${project.parent.version}</version>
             <exclusions>
                 <exclusion>
@@ -73,7 +74,7 @@
         </dependency>
         <dependency>
             <groupId>dev.debutter.cubefruit</groupId>
-            <artifactId>common</artifactId>
+            <artifactId>cubefruit-common</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
     </dependencies>

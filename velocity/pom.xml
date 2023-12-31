@@ -6,11 +6,12 @@
 
     <parent>
         <groupId>dev.debutter</groupId>
-        <artifactId>CubeFruit</artifactId>
-        <version>1.10</version>
+        <artifactId>cubefruit</artifactId>
+        <version>1.10.1</version>
     </parent>
     <groupId>dev.debutter.cubefruit</groupId>
-    <artifactId>velocity</artifactId>
+    <artifactId>cubefruit-velocity</artifactId>
+    <version>1.10.1</version>
     <packaging>jar</packaging>
 
     <name>CubeFruit-Velocity</name>
