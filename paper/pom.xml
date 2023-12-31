@@ -19,7 +19,7 @@
     <url>https://www.butterycode.com/</url>
 
     <properties>
-        <java.version>11</java.version>
+        <java.version>18</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
