@@ -6,11 +6,11 @@
     <parent>
         <groupId>dev.debutter</groupId>
         <artifactId>cubefruit</artifactId>
-        <version>1.10.6</version>
+        <version>1.10.7</version>
     </parent>
     <groupId>dev.debutter.cubefruit</groupId>
     <artifactId>cubefruit-core</artifactId>
-    <version>1.10.6</version>
+    <version>1.10.7</version>
     <packaging>jar</packaging>
 
     <name>CubeFruit-Universal</name>
@@ -40,8 +40,16 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.3.1-SNAPSHOT</version>
+                <version>3.2.4</version>
                 <configuration>
+                    <filters>
+                        <filter>
+                            <artifact>*:*</artifact>
+                            <excludes>
+                                <exclude>META-INF/*.MF</exclude>
+                            </excludes>
+                        </filter>
+                    </filters>
                     <dependencyReducedPomLocation>${project.build.directory}/dependency-reduced-pom.xml</dependencyReducedPomLocation>
                 </configuration>
                 <executions>
