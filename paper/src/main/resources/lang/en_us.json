@@ -1,0 +1,20 @@
+{
+	"commands.invalid_arguments": "<red>Error: <gray>Invalid arguments.",
+	"commands.player_required": "<red>Error: <gray>You must be a player to use this.",
+	"commands.missing_permission": "<red>Error: <gray>You do not have the permission to use this.",
+	"commands.invalid_number": "<red>Error: <gray>You must enter a valid number.",
+	"commands.number_must_be_positive": "<red>Error: <gray>You must enter a positive number.",
+	"commands.player_not_found": "<red>Error: <gray>That player could not be found.",
+	"commands.player_not_online": "<red>Error: <gray>That player is not online.",
+	"commands.mutechat.mute_chat": "<green><bold>»</bold> <gray>Chat has been muted.",
+	"commands.mutechat.unmute_chat": "<green><bold>»</bold> <gray>Chat has been unmuted.",
+	"commands.mutechat.already_muted": "<red>Error: <gray>Chat is already muted.",
+	"commands.mutechat.already_unmuted": "<red>Error: <gray>Chat is already unmuted.",
+	"commands.mutechat.block_message": "<red>You are not permitted to speak whilst chat is muted.",
+	"commands.mutechat.mute_alert": "<gold><bold>!!</bold> <gray>Chat has been muted.",
+	"commands.mutechat.unmute_alert": "<gold><bold>!!</bold> <gray>Chat has been unmuted.",
+	"chat.block_message.filtered_word": "<red>Your message has been blocked because it contained a banned word.",
+	"chat.block_message.repeated_messages": "<red>You cannot send the same message twice.",
+	"chat.block_message.fast_messages": "<red>You are sending messages too fast. You can chat again in <timeout>",
+	"idle.auto_kick_message": "<red>You have been kicked for being AFK."
+}

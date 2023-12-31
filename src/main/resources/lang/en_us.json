@@ -1,5 +1,0 @@
-{
-	"commands.invalid_arguments": "&cError: &7Invalid arguments.",
-	"commands.player_required": "&cError: &7You must be a player to use this.",
-	"commands.missing_permission": "&cError: &7You do not have the permission to use this."
-}

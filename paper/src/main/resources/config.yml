@@ -1,0 +1,206 @@
+# Enable Debug Mode
+debug: false
+
+plugin:
+  # Please do not modify this value
+  version: "${project.version}"
+  # Default message locale
+  language: "en_us"
+
+
+# Allow players to format certain in-game texts
+formattable-text:
+  signs: false
+  books: false
+
+
+# Decide what should happen to idle players
+idle:
+  # Time in seconds until the player is considered to be AFK
+  # Used by other plugin features
+  afk-threshold: 300
+  # Disable afk players from picking up items
+  disable-item-pickup-while-afk: false
+  # Time in seconds until the player will be automatically kicked
+  # Set to -1 to disable
+  auto-kick-threshold: -1
+
+
+# Block non proxied connections
+only-proxy:
+  enabled: false
+  # List of allowed proxy ip addresses
+  allowed-proxies:
+  - 127.0.0.1
+  # List of possible kick messages
+  kick-messages:
+  - "&cYou are not allowed to directly join to this server"
+
+
+# Handle resource packs differently
+resource-packs:
+  enabled: false
+  # Default resource pack
+  default:
+    url: ""
+    force: false
+  # Per world resource packs
+  perworld:
+    world:
+      force: false
+      url: ""
+
+
+# Chat changes
+chat:
+  # Change the message format
+  format:
+    enabled: false
+    format: "%player_name%: <message>"
+    # Allows players to colorize chat messages with MiniMessage formatting, requires individual permission nodes for specific tags
+    colorize: false
+  # Block words or phrases from chat messages
+  message-filter:
+    enabled: false
+    blocked-words:
+    - pineapple
+    - cheesecake
+    # If enabled, blocked words will simply turn into asterisks
+    # chat.format must be enabled to use this
+    censer-words: false
+  # Prevent the repeated messages from entering the chat
+  anti-repeat-messages:
+    enabled: false
+    # How many recent messages will be checked against
+    recent-messages: 3
+  # Prevent players from sending messages too fast
+  anti-spam:
+    enabled: false
+    # Max amount of time allowed since the last sent message (in seconds)
+    max-time: 1
+
+
+# Change the join and leave messages
+join-leave-message:
+  enabled: false
+  # Messages in the lists are randomly chosen
+  # Leave list empty to disable / keep as default
+  newbie:
+  - "&e%player_name% has joined for the first time"
+  join:
+  - "&e%player_name% has joined the server"
+  leave:
+  - "&e%player_name% has left the server"
+  # Messages for players who weren't able to join
+  join-attempt:
+    enabled: false
+    # Whether these messages are visible to everyone or players with a specific permission
+    visible-to-everyone: false
+    banned:
+    - "&c%player_name% tried to join but is banned"
+    whitelist:
+    - "&c%player_name% tried to join but is not on the whitelist"
+
+
+# Send a message to players joining the server
+join-motd:
+  enabled: false
+  message:
+  - "&bHello %player_name%!"
+
+
+# Change the name of players
+player-name:
+  enabled: false
+  change-display-name: true
+  change-player-list-name: true
+  format: "%player_name%"
+  # Change the display name of afk players
+  afk: false
+  afk-format: "%player_name% <gray>AFK<reset>"
+
+
+# Custom commands
+commands:
+  message:
+    enabled: false
+    # Play a sound when receiving a message
+    sound:
+      enabled: false
+      name: "BLOCK_NOTE_BLOCK_HARP"
+      volume: 0.5
+      pitch: 1.8
+  skipday:
+    enabled: false
+  itemstack:
+    enabled: false
+  spawn:
+    enabled: false
+    # Teleport joining players to spawn
+    spawn-on-join: false
+    # Teleport to spawn only when it's the players first join
+    first-join-only: true
+    # Teleport respawning players to spawn
+    spawn-on-death: false
+  home:
+    enabled: false
+    # Teleport respawning players to their home
+    home-on-death: false
+  tpa:
+    enabled: false
+  respawn:
+    enabled: false
+  worldwhitelist:
+    enabled: false
+  # Adds aliases for the gamemode command
+  gamemode:
+    enabled: false
+  fly:
+    enabled: false
+  heal:
+    enabled: false
+  # Adds aliases for the teleport command
+  teleport:
+    enabled: false
+  # Mute all players from chatting
+  mutechat:
+    enabled: false
+    # Send a message to place who try to speak while the chat is muted
+    send-block-message: true
+    # Make an announcement to all players that chat has been muted or unmuted
+    send-announcement: true
+  speed:
+    enabled: false
+  report:
+    enabled: false
+    # List of reasons to include in tab complete
+    reasons:
+    - spamming
+    # Report staff announcement message
+    report-message: "&6&l!! &7%subject% was reported by %player_name% for the reason: %reason%"
+    # Prevent players from using reasons that aren't included in tab complete
+    restrict-reasons: false
+  whois:
+    enabled: false
+  rules:
+    enabled: false
+    message:
+    - "1. Be respectful"
+    - "2. Be ethical"
+    - "3. Use common sense"
+  launch:
+    enabled: false
+  warp:
+    enabled: false
+  sudo:
+    enabled: false
+  back:
+    enabled: false
+  enderchest:
+    enabled: false
+  top:
+    enabled: false
+  action:
+    enabled: false
+    # Message sent to all players
+    message: "* %player_name% <message> *"
