@@ -25,7 +25,7 @@ import java.util.Optional;
         id = "cubefruit",
         name = "CubeFruit",
         authors = "ButterDebugger",
-        version = "1.10-SNAPSHOT"
+        version = "1.10"
 )
 public class Velocity {
 
