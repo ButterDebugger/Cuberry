@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
@@ -36,11 +37,23 @@ public class ResourcePacks implements Listener {
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void onPlayerTeleport(PlayerTeleportEvent event) {
 		Player player = event.getPlayer();
+		World from = event.getFrom().getWorld();
 		World to = event.getTo().getWorld();
 
-		if (!event.getFrom().getWorld().equals(to)) {
-			handleResourcePacks(player, to);
-		}
+		if (from.equals(to)) return;
+
+		handleResourcePacks(player, to);
+	}
+
+	@EventHandler(priority = EventPriority.HIGH)
+	public void onPlayerChangedWorld(PlayerChangedWorldEvent event) {
+		Player player = event.getPlayer();
+		World from = event.getFrom();
+		World to = player.getWorld();
+
+		if (from.equals(to)) return;
+
+		handleResourcePacks(player, to);
 	}
 
 	public void handleResourcePacks(Player player, World world) {
