@@ -17,5 +17,6 @@
 	"chat.block_message.repeated_messages": "<red>You cannot send the same message twice.",
 	"chat.block_message.fast_messages": "<red>You are sending messages too fast. You can chat again in <timeout>",
 	"idle.auto_kick_message": "<red>You have been kicked for being AFK.",
-	"resource_packs.prompt": "<yellow>This server requests that you use its resource pack."
+	"resource_packs.prompt": "<yellow>This server requests that you use its resource pack.",
+	"worldwhitelist.block_message": "<red>Error: <gray>You cannot travel to <white><world_name><gray> because you are not whitelisted."
 }
