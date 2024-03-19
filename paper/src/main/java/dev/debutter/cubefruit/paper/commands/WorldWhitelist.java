@@ -5,6 +5,7 @@ import dev.debutter.cubefruit.paper.utils.AwesomeText;
 import dev.debutter.cubefruit.paper.utils.Caboodle;
 import dev.debutter.cubefruit.paper.utils.DataStorage;
 import dev.debutter.cubefruit.paper.utils.DogTags;
+import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
@@ -12,7 +13,9 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
 import java.time.Instant;
@@ -33,21 +36,33 @@ public class WorldWhitelist extends CommandWrapper implements Listener {
 	public void onPlayerTeleport(PlayerTeleportEvent event) {
 		Player player = event.getPlayer();
 		World to = event.getTo().getWorld();
-		DataStorage doubleData = Paper.plugin().getData("data.yml");
 
-		if (!event.getFrom().getWorld().equals(to)) { // TODO: test this condition
-			if (doubleData.getBoolean("worlds." + to.getName() + ".whitelist.enabled")) {
-				if (!doubleData.listContains("worlds." + to.getName() + ".whitelist.players", player.getUniqueId().toString())) {
-					event.setCancelled(true);
+		if (!event.getFrom().getWorld().equals(to)) {
+			if (isPlayerNotWhitelisted(player, to)) {
+				event.setCancelled(true);
 
-					String notificationID = Instant.now().getEpochSecond() + ";" + to.getName() + ";" + player.getUniqueId();
-					if (!notificationCooldown.contains(notificationID)) {
-						player.sendMessage(AwesomeText.colorize("&cError: &7You cannot travel to &f" + to.getName() + "&7 because you are not whitelisted."));
-						notificationCooldown.add(notificationID);
-					}
+				if (checkForNotification(player, to)) {
+					player.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("worldwhitelist.block_message", player), player, Placeholder.unparsed("world_name", to.getName())));
 				}
 			}
 		}
+	}
+
+	private boolean isPlayerNotWhitelisted(Player player, World world) {
+		DataStorage doubleData = Paper.plugin().getData("data.yml");
+
+		if (!doubleData.getBoolean("worlds." + world.getName() + ".whitelist.enabled")) return false;
+
+		return !doubleData.listContains("worlds." + world.getName() + ".whitelist.players", player.getUniqueId().toString());
+	}
+
+	private boolean checkForNotification(Player player, World world) {
+		String notificationID = Instant.now().getEpochSecond() + ";" + world.getName() + ";" + player.getUniqueId();
+
+		if (notificationCooldown.contains(notificationID)) return false;
+
+		notificationCooldown.add(notificationID);
+		return true;
 	}
 
 	@Override
