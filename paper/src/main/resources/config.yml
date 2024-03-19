@@ -40,15 +40,18 @@ only-proxy:
 # Handle resource packs differently
 resource-packs:
   enabled: false
+  forced: false
   # Default resource pack
-  default:
-    url: ""
-    force: false
+#  global:
+#  - id: ""
+#    url: ""
+#    hash: ""
   # Per world resource packs
-  perworld:
-    world:
-      force: false
-      url: ""
+#  per-world:
+#    world:
+#    - id: ""
+#      url: ""
+#      hash: ""
 
 
 # Chat changes

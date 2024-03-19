@@ -461,7 +461,7 @@ public class DogTags {
 			Material.TWISTING_VINES_PLANT,
 			Material.TWISTING_VINES,
 			Material.MOSS_CARPET,
-			Material.GRASS,
+			Material.GRASS_BLOCK,
 			Material.FERN,
 			Material.LARGE_FERN,
 			Material.BROWN_MUSHROOM,
