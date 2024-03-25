@@ -1,5 +1,6 @@
-package dev.debutter.cubefruit.paper.utils;
+package dev.debutter.cubefruit.paper.utils.storage;
 
+import dev.debutter.cubefruit.paper.utils.Caboodle;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;

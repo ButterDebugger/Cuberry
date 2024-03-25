@@ -1,7 +1,7 @@
 package dev.debutter.cubefruit.paper;
 
 import dev.debutter.cubefruit.paper.utils.Caboodle;
-import dev.debutter.cubefruit.paper.utils.DataStorage;
+import dev.debutter.cubefruit.paper.utils.storage.DataStorage;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;

@@ -3,7 +3,7 @@ package dev.debutter.cubefruit.paper.commands;
 import dev.debutter.cubefruit.paper.Paper;
 import dev.debutter.cubefruit.paper.utils.AwesomeText;
 import dev.debutter.cubefruit.paper.utils.Caboodle;
-import dev.debutter.cubefruit.paper.utils.DataStorage;
+import dev.debutter.cubefruit.paper.utils.storage.DataStorage;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;

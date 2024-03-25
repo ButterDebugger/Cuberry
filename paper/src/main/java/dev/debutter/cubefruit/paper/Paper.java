@@ -2,6 +2,8 @@ package dev.debutter.cubefruit.paper;
 
 import dev.debutter.cubefruit.paper.commands.*;
 import dev.debutter.cubefruit.paper.utils.*;
+import dev.debutter.cubefruit.paper.utils.storage.DataManager;
+import dev.debutter.cubefruit.paper.utils.storage.DataStorage;
 import org.bukkit.Bukkit;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -15,6 +17,7 @@ public final class Paper extends JavaPlugin implements Listener {
     private static Paper plugin;
     private HashMap<String, DataStorage> dataFiles = new HashMap<>();
     private static LocaleManager localeInstance;
+    private static DataManager dataInstance;
 
     @Override
     public void onEnable() {
@@ -24,6 +27,9 @@ public final class Paper extends JavaPlugin implements Listener {
         // Create a locale instance
         localeInstance = new LocaleManager(plugin, "en_us");
         localeInstance.setDefaultLocale(getConfig().getString("plugin.language"));
+
+        // Create a locale instance
+        dataInstance = new DataManager(plugin);
 
         // Setup Plugin
         Bukkit.getServer().getPluginManager().registerEvents(new IdlePlayers(), plugin);

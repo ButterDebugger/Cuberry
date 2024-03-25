@@ -3,7 +3,7 @@ package dev.debutter.cubefruit.paper.commands;
 import dev.debutter.cubefruit.paper.Paper;
 import dev.debutter.cubefruit.paper.utils.AwesomeText;
 import dev.debutter.cubefruit.paper.utils.Caboodle;
-import dev.debutter.cubefruit.paper.utils.DataStorage;
+import dev.debutter.cubefruit.paper.utils.storage.DataStorage;
 import dev.debutter.cubefruit.paper.utils.DogTags;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import org.bukkit.Bukkit;
@@ -13,9 +13,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
 import java.time.Instant;
