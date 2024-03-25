@@ -36,7 +36,7 @@ public class Teleport extends CommandWrapper {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		DataStorage playerData = Paper.plugin().getData("players.yml");
+		DataStorage playerData = Paper.data().getStorage("players.yml");
 
 		if (label.equalsIgnoreCase("tphere")) {
 			if (!(sender instanceof Player)) {

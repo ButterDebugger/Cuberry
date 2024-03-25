@@ -35,7 +35,7 @@ public class Warp extends CommandWrapper {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		DataStorage warps = Paper.plugin().getData("warps.yml");
+		DataStorage warps = Paper.data().getStorage("warps.yml");
 
 		if (label.equalsIgnoreCase("warp")) {
 			if (!(sender instanceof Player)) {
@@ -158,7 +158,7 @@ public class Warp extends CommandWrapper {
 
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-		DataStorage warps = Paper.plugin().getData("warps.yml");
+		DataStorage warps = Paper.data().getStorage("warps.yml");
 
 		if (command.getName().equalsIgnoreCase("warp") && Caboodle.hasPermission(sender, "warp")) {
 			if (args.length == 1) {

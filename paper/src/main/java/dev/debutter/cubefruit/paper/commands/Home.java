@@ -34,7 +34,7 @@ public class Home extends CommandWrapper implements Listener {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		DataStorage playerData = Paper.plugin().getData("players.yml");
+		DataStorage playerData = Paper.data().getStorage("players.yml");
 
 		if (label.equalsIgnoreCase("home")) {
 			if (!(sender instanceof Player)) {
@@ -116,7 +116,7 @@ public class Home extends CommandWrapper implements Listener {
 	@EventHandler
 	public void onPlayerRespawn(PlayerRespawnEvent event) {
 		Player player = event.getPlayer();
-		DataStorage playerData = Paper.plugin().getData("players.yml");
+		DataStorage playerData = Paper.data().getStorage("players.yml");
 
 		if (Paper.plugin().getConfig().getBoolean("commands.spawn.spawn-on-death")) {
 			if (playerData.existsNot(player.getUniqueId() + ".home") || (player.getBedLocation() != null)) return;

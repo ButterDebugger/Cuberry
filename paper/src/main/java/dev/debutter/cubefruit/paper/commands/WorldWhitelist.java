@@ -47,7 +47,7 @@ public class WorldWhitelist extends CommandWrapper implements Listener {
 	}
 
 	private boolean isPlayerNotWhitelisted(Player player, World world) {
-		DataStorage doubleData = Paper.plugin().getData("data.yml");
+		DataStorage doubleData = Paper.data().getStorage("data.yml");
 
 		if (!doubleData.getBoolean("worlds." + world.getName() + ".whitelist.enabled")) return false;
 
@@ -65,7 +65,7 @@ public class WorldWhitelist extends CommandWrapper implements Listener {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		DataStorage doubleData = Paper.plugin().getData("data.yml");
+		DataStorage doubleData = Paper.data().getStorage("data.yml");
 
 		if (label.equalsIgnoreCase("worldwhitelist")) {
 			if (!Caboodle.hasPermission(sender, "worldwhitelist")) {
@@ -226,7 +226,7 @@ public class WorldWhitelist extends CommandWrapper implements Listener {
 
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-		DataStorage doubleData = Paper.plugin().getData("data.yml");
+		DataStorage doubleData = Paper.data().getStorage("data.yml");
 
 		if (label.equalsIgnoreCase("worldwhitelist") && Caboodle.hasPermission(sender, "worldwhitelist")) {
 			if (args.length == 1) {

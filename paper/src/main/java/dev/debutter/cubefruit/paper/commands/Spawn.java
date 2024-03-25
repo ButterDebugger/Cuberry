@@ -37,7 +37,7 @@ public class Spawn extends CommandWrapper implements Listener {
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
 		FileConfiguration config = Paper.plugin().getConfig();
-		DataStorage doubleData = Paper.plugin().getData("data.yml");
+		DataStorage doubleData = Paper.data().getStorage("data.yml");
 
 		if (config.getBoolean("commands.spawn.spawn-on-join")) {
 			if (!doubleData.exists("spawn")) return;
@@ -58,7 +58,7 @@ public class Spawn extends CommandWrapper implements Listener {
 	public void onPlayerRespawn(PlayerRespawnEvent event) {
 		Player player = event.getPlayer();
 		FileConfiguration config = Paper.plugin().getConfig();
-		DataStorage doubleData = Paper.plugin().getData("data.yml");
+		DataStorage doubleData = Paper.data().getStorage("data.yml");
 
 		if (config.getBoolean("commands.spawn.spawn-on-death")) {
 			if (!doubleData.exists("spawn") || (player.getBedLocation() != null)) return;
@@ -73,7 +73,7 @@ public class Spawn extends CommandWrapper implements Listener {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		DataStorage doubleData = Paper.plugin().getData("data.yml");
+		DataStorage doubleData = Paper.data().getStorage("data.yml");
 
 		if (label.equalsIgnoreCase("spawn")) {
 			if (!(sender instanceof Player)) {

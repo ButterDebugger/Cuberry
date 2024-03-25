@@ -27,7 +27,7 @@ public class Whois extends CommandWrapper {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		DataStorage playerData = Paper.plugin().getData("players.yml");
+		DataStorage playerData = Paper.data().getStorage("players.yml");
 
 		if (label.equalsIgnoreCase("whois")) {
 			if (!Caboodle.hasPermission(sender, "whois")) {

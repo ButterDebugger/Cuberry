@@ -31,7 +31,7 @@ public class Report extends CommandWrapper {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		FileConfiguration config = Paper.plugin().getConfig();
-		DataStorage reportData = Paper.plugin().getData("reports.yml");
+		DataStorage reportData = Paper.data().getStorage("reports.yml");
 
 		if (label.equalsIgnoreCase("report")) {
 			if (!(sender instanceof Player)) {

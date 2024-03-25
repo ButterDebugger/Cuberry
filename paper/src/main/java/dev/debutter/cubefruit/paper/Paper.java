@@ -15,7 +15,6 @@ import java.util.HashMap;
 public final class Paper extends JavaPlugin implements Listener {
 
     private static Paper plugin;
-    private HashMap<String, DataStorage> dataFiles = new HashMap<>();
     private static LocaleManager localeInstance;
     private static DataManager dataInstance;
 
@@ -203,7 +202,7 @@ public final class Paper extends JavaPlugin implements Listener {
         InfoSaver.end();
 
         // Save data
-        saveDataFiles();
+        dataInstance.saveAll();
 
         getLogger().info("Successfully unloaded.");
     }
@@ -211,28 +210,17 @@ public final class Paper extends JavaPlugin implements Listener {
     public static Paper plugin() {
         return plugin;
     }
-
     public static LocaleManager locale() {
         return localeInstance;
+    }
+    public static DataManager data() {
+        return dataInstance;
     }
 
     public void reload() {
         reloadConfig();
-        saveDataFiles();
+        dataInstance.saveAll();
 
         getLogger().info("Reload complete.");
-    }
-
-    public void saveDataFiles() {
-        for (String key : dataFiles.keySet()) {
-            dataFiles.get(key).save();
-        }
-    }
-
-    public DataStorage getData(String filepath) {
-        if (!dataFiles.containsKey(filepath)) {
-            dataFiles.put(filepath, new DataStorage(plugin, filepath));
-        }
-        return dataFiles.get(filepath);
     }
 }
