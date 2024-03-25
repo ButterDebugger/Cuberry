@@ -4,6 +4,7 @@ import dev.debutter.cubefruit.paper.Paper;
 import dev.debutter.cubefruit.paper.utils.AwesomeText;
 import dev.debutter.cubefruit.paper.utils.Caboodle;
 import dev.debutter.cubefruit.paper.utils.DogTags;
+import dev.debutter.cubefruit.paper.utils.TooManyParticles;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
@@ -65,16 +66,8 @@ public class CubeFruit implements CommandExecutor, TabCompleter {
 
 				sender.sendMessage(AwesomeText.prettifyMessage("&7--- &astart of test&7 ---"));
 
-				ItemStack item = player.getInventory().getItemInMainHand();
-				sender.sendMessage(AwesomeText.beautifyMessage("item: <item>", player, Placeholder.component("item", AwesomeText.createItemHoverComponent(item))));
-
-				String message1 = Paper.locale().getMessage("commands.invalid_arguments", "en_us");
-				sender.sendMessage(AwesomeText.stylize(message1));
-
-				String message2 = Paper.locale().getMessage("commands.invalid_arguments", sender);
-				sender.sendMessage(AwesomeText.stylize(message2));
-
-//				TooManyParticles.test();
+				sender.sendMessage(AwesomeText.beautifyMessage("<gold>running particle test", player));
+				TooManyParticles.test();
 
 				sender.sendMessage(AwesomeText.prettifyMessage("&7--- &cend  of  test&7 ---"));
 				return true;

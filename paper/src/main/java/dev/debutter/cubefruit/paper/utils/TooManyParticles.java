@@ -1,158 +1,70 @@
 package dev.debutter.cubefruit.paper.utils;
 
+import com.destroystokyo.paper.ParticleBuilder;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
+import org.bukkit.Color;
 
 import java.util.Iterator;
+import java.util.List;
 
 public class TooManyParticles {
 
-	/*class ParticleConfig {
-		private Particle type;
-		private int count = 1;
-		private Vector offset = new Vector(0, 0, 0);
-		private DustOptions dustOptions;
-		private DustTransition dustTransition;
-
-		ParticleConfig(Particle type) {
-			this.setType(type);
-		}
-		ParticleConfig(Particle type, int count) {
-			this.setType(type);
-			this.setCount(count);
-		}
-		ParticleConfig(Particle type, int count, Vector offset) {
-			this.setType(type);
-			this.setCount(count);
-			this.setOffset(offset);
-		}
-
-		public Particle getType() {
-			return type;
-		}
-		public void setType(Particle type) {
-			this.type = type;
-		}
-
-		public int getCount() {
-			return count;
-		}
-		public void setCount(int count) {
-			this.count = count;
-		}
-
-		public Vector getOffset() {
-			return offset;
-		}
-		public void setOffset(Vector offset) {
-			this.offset = offset;
-		}
-
-		public DustOptions getDustOptions() {
-			return dustOptions;
-		}
-		public void setDustOptions(Color color, float size) {
-			dustOptions = new Particle.DustOptions(color, size);
-		}
-
-		public DustTransition getDustTransition() {
-			return dustTransition;
-		}
-		public void setDustTransition(Color fromColor, Color toColor, float size) {
-			dustTransition = new Particle.DustTransition(fromColor, toColor, size);
-		}
-
-		void spawn(Location loc) {
-//			player.spawnParticle(Particle.REDSTONE, location, amount, offset.getX(), offset.getY(), offset.getZ(), new Particle.DustOptions(color, size));
-//			player.spawnParticle(Particle.TOWN_AURA, block.getX() + 0.5, block.getY(), block.getZ(), 1, 0.25, 0, 0);
-		}
-	}*/
-	
-	public static class ParticleConfig {
-		private Particle type;
-		private int count = 1;
-		private Vector offset = new Vector(0, 0, 0);
-		private double speed = 0;
-		
-		ParticleConfig(Particle type) {
-			setType(type);
-		}
-
-		public Particle getType() {
-			return type;
-		}
-		public void setType(Particle type) {
-			this.type = type;
-		}
-		
-		public int getCount() {
-			return count;
-		}
-		public void setCount(int count) {
-			this.count = count;
-		}
-
-		public Vector getOffset() {
-			return offset;
-		}
-		public void setOffset(Vector offset) {
-			this.offset = offset;
-		}
-
-		public double getSpeed() {
-			return speed;
-		}
-		public void setSpeed(double speed) {
-			this.speed = speed;
-		}
-
-		void spawn(Location loc) {
-			World world = loc.getWorld();
-			
-			world.spawnParticle(type, loc, count, offset.getX(), offset.getY(), offset.getZ(), speed);
-
-//			world.spawnParticle(Particle.REDSTONE, location, amount, offset.getX(), offset.getY(), offset.getZ(), new Particle.DustOptions(color, size));
-//			world.spawnParticle(Particle.TOWN_AURA, block.getX() + 0.5, block.getY(), block.getZ(), 1, 0.25, 0, 0);
-		}
-		void spawn(Player player, Location loc) {
-			player.spawnParticle(type, loc, count, offset.getX(), offset.getY(), offset.getZ(), speed);
-
-//			player.spawnParticle(Particle.REDSTONE, location, amount, offset.getX(), offset.getY(), offset.getZ(), new Particle.DustOptions(color, size));
-//			player.spawnParticle(Particle.TOWN_AURA, block.getX() + 0.5, block.getY(), block.getZ(), 1, 0.25, 0, 0);
-		}
-	}
-
 	public static void test() {
-		ParticleConfig particle = new ParticleConfig(Particle.CLOUD);
-		
+		ParticleBuilder effect = new ParticleBuilder(Particle.DUST_COLOR_TRANSITION)
+				.data(new Particle.DustTransition(Color.fromRGB(0xffff00), Color.fromRGB(0x00ffff), 0));
+
 		for (Player player : Bukkit.getOnlinePlayers()) {
-			particle.spawn(player, player.getLocation());
-			
-			line(player.getLocation(), player.getLocation().clone().add(1, 5, 3), 0.2);
+			effect.location(player.getLocation());
+			effect.receivers(player);
+			effect.spawn();
+
+			line(effect, player.getLocation().clone().add(3, 0, -1), player.getLocation().clone().add(1, 5, 3), 0.2);
+
+			effect.spawn();
 		}
 	}
 
-	/*public static void circle(ParticleConfig particle, Location loc) {
-		particle.spawn(loc);
-	}*/
+	public static void circle(ParticleBuilder effect, Location loc) {
+//		particle.spawn(loc);
+	}
 
-	public static void line(Location loc1, Location loc2, double space) {
+	public static void line(ParticleBuilder effect, Location loc1, Location loc2, double space) {
 		World world = loc1.getWorld();
 		assert world != null;
 
+		ParticleBuilder eff = cloneParticleBuilder(effect);
 		Iterator<Vector> points = Caboodle.line(loc1.toVector(), loc2.toVector(), space);
 
 		while (points.hasNext()) {
 			Vector point = points.next();
-			world.spawnParticle(Particle.END_ROD, point.getX(), point.getY(), point.getZ(), 0);
+			eff.location(world, point.getX(), point.getY(), point.getZ());
+			eff.spawn();
 		}
 	}
 
+	private static ParticleBuilder cloneParticleBuilder(ParticleBuilder effect) {
+		ParticleBuilder clone = new ParticleBuilder(effect.particle());
 
+		Location effectLoc = effect.location();
+		List<Player> receivers = effect.receivers();
+
+		if (receivers != null) clone.receivers(new ObjectArrayList<>(receivers));
+		if (effectLoc != null) clone.location(effectLoc.clone());
+		clone.source(effect.source());
+		clone.count(effect.count());
+		clone.offset(effect.offsetX(), effect.offsetY(), effect.offsetZ());
+		clone.extra(effect.extra());
+		clone.data(effect.data());
+		clone.force(effect.force());
+
+		return clone;
+	}
 
 
 
