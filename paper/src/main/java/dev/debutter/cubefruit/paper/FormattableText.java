@@ -19,7 +19,7 @@ public class FormattableText implements Listener {
     @EventHandler(ignoreCancelled = true)
     public void onSignChange(SignChangeEvent event) {
         Player player = event.getPlayer();
-        FileConfiguration config = Paper.plugin().config();
+        FileConfiguration config = Paper.plugin().getConfig();
 
         if (!config.getBoolean("formattable-text.signs")) return;
 
@@ -37,7 +37,7 @@ public class FormattableText implements Listener {
     public void onBookSign(PlayerEditBookEvent event) {
         Player player = event.getPlayer();
         BookMeta bookMeta = event.getNewBookMeta();
-        FileConfiguration config = Paper.plugin().config();
+        FileConfiguration config = Paper.plugin().getConfig();
 
         if (!event.isSigning()) return;
         if (!config.getBoolean("formattable-text.books")) return;

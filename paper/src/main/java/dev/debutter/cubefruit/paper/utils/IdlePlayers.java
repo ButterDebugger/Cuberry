@@ -20,7 +20,7 @@ public class IdlePlayers implements Listener {
 
 	public static void start() {
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(Paper.plugin(), () -> {
-            double autoKickThreshold = Paper.plugin().config().getDouble("idle.auto-kick-threshold");
+            double autoKickThreshold = Paper.plugin().getConfig().getDouble("idle.auto-kick-threshold");
             if (autoKickThreshold < 0) return;
 
             for (Player player : Bukkit.getOnlinePlayers()) {
@@ -46,7 +46,7 @@ public class IdlePlayers implements Listener {
 	 * @return Whether the player is considered to be AFK
 	 */
 	public static boolean isAFK(UUID uuid) {
-		return getIdleDuration(uuid) / 1000d >= Paper.plugin().config().getDouble("idle.afk-threshold");
+		return getIdleDuration(uuid) / 1000d >= Paper.plugin().getConfig().getDouble("idle.afk-threshold");
 	}
 
 	/*
@@ -62,7 +62,7 @@ public class IdlePlayers implements Listener {
 		Player player = (Player) entity;
 
 		if (!isAFK(player.getUniqueId())) return; // If the player is not AFK, stop the rest of the code
-		if (!Paper.plugin().config().getBoolean("idle.disable-item-pickup-while-afk")) return;
+		if (!Paper.plugin().getConfig().getBoolean("idle.disable-item-pickup-while-afk")) return;
 
 		event.setCancelled(true);
 	}

@@ -35,7 +35,7 @@ public class Message extends CommandWrapper {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		FileConfiguration config = Paper.plugin().config();
+		FileConfiguration config = Paper.plugin().getConfig();
 
 		if (label.equalsIgnoreCase("message") || label.equalsIgnoreCase("msg") || label.equalsIgnoreCase("w") || label.equalsIgnoreCase("tell")) {
 			if (!(sender instanceof Player)) {

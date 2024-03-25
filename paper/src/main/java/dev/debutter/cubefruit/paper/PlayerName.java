@@ -36,7 +36,7 @@ public class PlayerName implements Listener {
 	}
 
 	private static void updateName(Player player) {
-		FileConfiguration config = Paper.plugin().config();
+		FileConfiguration config = Paper.plugin().getConfig();
 
 		if (!config.getBoolean("player-name.enabled")) return;
 

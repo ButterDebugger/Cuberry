@@ -21,7 +21,7 @@ public class Rules extends CommandWrapper {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		FileConfiguration config = Paper.plugin().config();
+		FileConfiguration config = Paper.plugin().getConfig();
 
 		if (label.equalsIgnoreCase("rules")) {
 			if (!Caboodle.hasPermission(sender, "rules")) {

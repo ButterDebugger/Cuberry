@@ -89,7 +89,7 @@ public class Mutechat extends CommandWrapper implements Listener {
 	@EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
 	public void onChat(AsyncPlayerChatEvent event) {
 		Player player = event.getPlayer();
-		FileConfiguration config = Paper.plugin().config();
+		FileConfiguration config = Paper.plugin().getConfig();
 		boolean sendBlockMessage = config.getBoolean("commands.mutechat.send-block-message");
 
 		if (isChatMuted && !Caboodle.hasPermission(player, "mutechat.bypass")) {
@@ -104,7 +104,7 @@ public class Mutechat extends CommandWrapper implements Listener {
 	}
 
 	private void makeAnnouncement() {
-		FileConfiguration config = Paper.plugin().config();
+		FileConfiguration config = Paper.plugin().getConfig();
 		boolean sendAnnouncement = config.getBoolean("commands.mutechat.send-announcement");
 
 		if (!sendAnnouncement) return;

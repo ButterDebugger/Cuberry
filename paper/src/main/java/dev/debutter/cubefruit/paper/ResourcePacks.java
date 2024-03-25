@@ -57,7 +57,7 @@ public class ResourcePacks implements Listener {
 	}
 
 	public void handleResourcePacks(Player player, World world) {
-		FileConfiguration config = Paper.plugin().config();
+		FileConfiguration config = Paper.plugin().getConfig();
 
 		// Get the list of requested resource packs
 		List<Map<?, ?>> requestedPacks = config.getMapList("resource-packs.global");

@@ -118,7 +118,7 @@ public class Home extends CommandWrapper implements Listener {
 		Player player = event.getPlayer();
 		DataStorage playerData = Paper.plugin().getData("players.yml");
 
-		if (Paper.plugin().config().getBoolean("commands.spawn.spawn-on-death")) {
+		if (Paper.plugin().getConfig().getBoolean("commands.spawn.spawn-on-death")) {
 			if (playerData.existsNot(player.getUniqueId() + ".home") || (player.getBedLocation() != null)) return;
 
 			Location homeLoc = Caboodle.parseLocation(playerData.getString(player.getUniqueId() + ".home"));

@@ -7,11 +7,9 @@ import dev.debutter.cubefruit.paper.utils.Caboodle;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
-import net.kyori.adventure.text.minimessage.tag.Tag;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import net.kyori.adventure.text.minimessage.tag.standard.StandardTags;
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -41,7 +39,7 @@ public class PlayerChat implements Listener, PluginMessageListener {
 		Player player = event.getPlayer();
 		UUID uuid = player.getUniqueId();
 		Component message = event.message();
-		FileConfiguration config = Paper.plugin().config();
+		FileConfiguration config = Paper.plugin().getConfig();
 
 		if (config.getBoolean("chat.message-filter.enabled")) {
 			if (config.getBoolean("chat.message-filter.censer-words") && config.getBoolean("chat.format.enabled")) {
@@ -131,7 +129,7 @@ public class PlayerChat implements Listener, PluginMessageListener {
 
 	private Component censoredFilter(Component message) {
 		String rawMessage = AwesomeText.destylize(message);
-		FileConfiguration config = Paper.plugin().config();
+		FileConfiguration config = Paper.plugin().getConfig();
 		List<String> blockedWords = config.getStringList("chat.message-filter.blocked-words");
 
 		Matcher m = Pattern.compile("(\\w+)").matcher(rawMessage);
@@ -147,7 +145,7 @@ public class PlayerChat implements Listener, PluginMessageListener {
 	}
 	private boolean filter(Component message) {
 		String rawMessage = AwesomeText.destylize(message);
-		FileConfiguration config = Paper.plugin().config();
+		FileConfiguration config = Paper.plugin().getConfig();
 		List<String> blockedWords = config.getStringList("chat.message-filter.blocked-words");
 
 		Matcher m = Pattern.compile("(\\w+)").matcher(rawMessage);
@@ -165,7 +163,7 @@ public class PlayerChat implements Listener, PluginMessageListener {
         return messages.contains(rawMessage);
     }
 	private void addRecentMessage(UUID uuid, Component message) {
-		FileConfiguration config = Paper.plugin().config();
+		FileConfiguration config = Paper.plugin().getConfig();
 		int maxRecentMessages = config.getInt("chat.anti-repeat-messages.recent-messages");
 		String rawMessage = AwesomeText.destylize(message);
 		List<String> messages = recentMessages.getOrDefault(uuid, new ArrayList<>());
@@ -179,7 +177,7 @@ public class PlayerChat implements Listener, PluginMessageListener {
 		recentMessages.put(uuid, messages);
 	}
 	private boolean antiSpam(UUID uuid) {
-		FileConfiguration config = Paper.plugin().config();
+		FileConfiguration config = Paper.plugin().getConfig();
 		double maxTime = config.getDouble("chat.anti-spam.max-time");
 
 		if (!lastMessage.containsKey(uuid)) return false;

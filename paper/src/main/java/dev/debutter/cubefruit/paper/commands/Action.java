@@ -3,18 +3,14 @@ package dev.debutter.cubefruit.paper.commands;
 import dev.debutter.cubefruit.paper.Paper;
 import dev.debutter.cubefruit.paper.utils.AwesomeText;
 import dev.debutter.cubefruit.paper.utils.Caboodle;
-import dev.debutter.cubefruit.paper.utils.DogTags;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import org.bukkit.Bukkit;
-import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.UUID;
 
 public class Action extends CommandWrapper {
 
@@ -28,7 +24,7 @@ public class Action extends CommandWrapper {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		FileConfiguration config = Paper.plugin().config();
+		FileConfiguration config = Paper.plugin().getConfig();
 
 		if (cmd.getName().equalsIgnoreCase("action")) {
 			if (!Caboodle.hasPermission(sender, "action")) {

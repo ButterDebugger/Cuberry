@@ -5,11 +5,6 @@ import dev.debutter.cubefruit.paper.utils.AwesomeText;
 import dev.debutter.cubefruit.paper.utils.Caboodle;
 import dev.debutter.cubefruit.paper.utils.DogTags;
 import dev.debutter.cubefruit.paper.utils.TooManyParticles;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.minimessage.MiniMessage;
-import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
-import net.kyori.adventure.text.minimessage.tag.standard.StandardTags;
-import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.*;
 import org.bukkit.World.Environment;
 import org.bukkit.attribute.Attribute;
@@ -31,7 +26,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import static net.kyori.adventure.text.Component.translatable;
-import static net.kyori.adventure.text.format.TextDecoration.ITALIC;
 
 public class CubeFruit implements CommandExecutor, TabCompleter {
 
@@ -41,7 +35,7 @@ public class CubeFruit implements CommandExecutor, TabCompleter {
 	@Override
 	@SuppressWarnings({ "deprecation", "null" })
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		FileConfiguration config = Paper.plugin().config();
+		FileConfiguration config = Paper.plugin().getConfig();
 
 		if (label.equalsIgnoreCase("cubefruit") || label.equalsIgnoreCase("fruit") || label.equalsIgnoreCase("cf")) {
 			if (!Caboodle.hasPermission(sender, "admin")) {

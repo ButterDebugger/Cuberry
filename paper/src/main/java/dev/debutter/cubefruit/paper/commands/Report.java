@@ -30,7 +30,7 @@ public class Report extends CommandWrapper {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		FileConfiguration config = Paper.plugin().config();
+		FileConfiguration config = Paper.plugin().getConfig();
 		DataStorage reportData = Paper.plugin().getData("reports.yml");
 
 		if (label.equalsIgnoreCase("report")) {
@@ -109,7 +109,7 @@ public class Report extends CommandWrapper {
 
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-		FileConfiguration config = Paper.plugin().config();
+		FileConfiguration config = Paper.plugin().getConfig();
 
 		if (label.equalsIgnoreCase("report") && Caboodle.hasPermission(sender, "report")) {
 			if (args.length == 1) {

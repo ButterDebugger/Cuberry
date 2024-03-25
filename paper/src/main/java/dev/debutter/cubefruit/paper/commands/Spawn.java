@@ -36,7 +36,7 @@ public class Spawn extends CommandWrapper implements Listener {
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
-		FileConfiguration config = Paper.plugin().config();
+		FileConfiguration config = Paper.plugin().getConfig();
 		DataStorage doubleData = Paper.plugin().getData("data.yml");
 
 		if (config.getBoolean("commands.spawn.spawn-on-join")) {
@@ -57,7 +57,7 @@ public class Spawn extends CommandWrapper implements Listener {
 	@EventHandler
 	public void onPlayerRespawn(PlayerRespawnEvent event) {
 		Player player = event.getPlayer();
-		FileConfiguration config = Paper.plugin().config();
+		FileConfiguration config = Paper.plugin().getConfig();
 		DataStorage doubleData = Paper.plugin().getData("data.yml");
 
 		if (config.getBoolean("commands.spawn.spawn-on-death")) {
