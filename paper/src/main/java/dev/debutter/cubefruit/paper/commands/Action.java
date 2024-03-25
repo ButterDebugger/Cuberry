@@ -1,6 +1,8 @@
 package dev.debutter.cubefruit.paper.commands;
 
 import dev.debutter.cubefruit.paper.Paper;
+import dev.debutter.cubefruit.paper.commands.builder.CommandRegistry;
+import dev.debutter.cubefruit.paper.commands.builder.CommandWrapper;
 import dev.debutter.cubefruit.paper.utils.AwesomeText;
 import dev.debutter.cubefruit.paper.utils.Caboodle;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;

@@ -1,6 +1,8 @@
 package dev.debutter.cubefruit.paper.commands;
 
 import dev.debutter.cubefruit.paper.Paper;
+import dev.debutter.cubefruit.paper.commands.builder.CommandRegistry;
+import dev.debutter.cubefruit.paper.commands.builder.CommandWrapper;
 import dev.debutter.cubefruit.paper.utils.AwesomeText;
 import dev.debutter.cubefruit.paper.utils.Caboodle;
 import dev.debutter.cubefruit.paper.utils.DogTags;
@@ -17,7 +19,7 @@ import java.util.List;
 public class Launch extends CommandWrapper {
 
 	public Launch() {
-		CommandWrapper.CommandRegistry launchCmd = new CommandRegistry(this, "launch");
+		CommandRegistry launchCmd = new CommandRegistry(this, "launch");
 		launchCmd.setDescription("Launch a player into the air");
 
 		addRegistries(launchCmd);

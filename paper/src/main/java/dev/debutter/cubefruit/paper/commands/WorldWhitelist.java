@@ -1,10 +1,12 @@
 package dev.debutter.cubefruit.paper.commands;
 
 import dev.debutter.cubefruit.paper.Paper;
+import dev.debutter.cubefruit.paper.commands.builder.CommandRegistry;
+import dev.debutter.cubefruit.paper.commands.builder.CommandWrapper;
 import dev.debutter.cubefruit.paper.utils.AwesomeText;
 import dev.debutter.cubefruit.paper.utils.Caboodle;
-import dev.debutter.cubefruit.paper.utils.storage.DataStorage;
 import dev.debutter.cubefruit.paper.utils.DogTags;
+import dev.debutter.cubefruit.paper.utils.storage.DataStorage;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
