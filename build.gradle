@@ -1,11 +1,29 @@
 plugins {
-    id 'java'
+    id 'java-library'
     id "com.github.johnrengelman.shadow" version "8.1.1"
+    id "maven-publish"
 }
 
 allprojects {
     group = 'dev.debutter.cuberry'
     version = project.project_version
+}
+
+subprojects {
+    apply plugin: "java-library"
+    apply plugin: "maven-publish"
+
+    publishing {
+        publications {
+            maven(MavenPublication) {
+                groupId = 'dev.debutter.cuberry'
+                artifactId = project.name
+                version = version
+
+                from components.java
+            }
+        }
+    }
 }
 
 repositories {
