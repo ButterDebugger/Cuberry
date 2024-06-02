@@ -7,6 +7,11 @@ plugins {
 allprojects {
     group = 'dev.debutter.cuberry'
     version = project.project_version
+
+    tasks.withType(JavaCompile) {
+        options.encoding = "ISO-8859-1"
+        options.release = project.java_version as Integer
+    }
 }
 
 subprojects {
