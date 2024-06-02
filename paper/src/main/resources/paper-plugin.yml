@@ -1,10 +1,10 @@
-name: 'CubeFruit'
-version: '${parent.version}'
-main: dev.debutter.cubefruit.paper.Paper
+name: '${project_name}'
+version: '${version}'
+main: dev.debutter.cuberry.paper.Paper
 api-version: '1.20'
 author: 'ButterDebugger'
-description: '${project.description}'
-website: '${project.url}'
+description: '${project_description}'
+website: '${project_url}'
 
 dependencies:
   server:
@@ -13,163 +13,165 @@ dependencies:
       required: false
 
 commands:
-  cubefruit:
-    description: The CubeFruit command
+  cuberry:
+    description: The Cuberry command
     aliases:
+      - cubefruit
       - fruit
       - cf
+      - cb
 
 permissions:
-  cubefruit.*:
+  cuberry.*:
     description: Grants you every permission
     default: false
     children:
-      cubefruit.admin: true
-  cubefruit.admin:
+      cuberry.admin: true
+  cuberry.admin:
     description: Allows you to run admin commands
     default: op
     children:
-      cubefruit.alerts.joinattempt: true
-      cubefruit.alerts.report: true
-      cubefruit.alerts.commands: true
-      cubefruit.mutechat.bypass: true
-      cubefruit.idle-kick.bypass: true
+      cuberry.alerts.joinattempt: true
+      cuberry.alerts.report: true
+      cuberry.alerts.commands: true
+      cuberry.mutechat.bypass: true
+      cuberry.idle-kick.bypass: true
 
-  cubefruit.formattable-text.signs.*:
+  cuberry.formattable-text.signs.*:
     description: Allows you to colorize your signs with any MiniMessage tag
     children:
-      cubefruit.formattable-text.signs.color: true
-      cubefruit.formattable-text.signs.decoration: true
-      cubefruit.formattable-text.signs.gradient: true
-      cubefruit.formattable-text.signs.dynamic: true
-      cubefruit.formattable-text.signs.interactive: true
-  cubefruit.formattable-text.signs.color:
+      cuberry.formattable-text.signs.color: true
+      cuberry.formattable-text.signs.decoration: true
+      cuberry.formattable-text.signs.gradient: true
+      cuberry.formattable-text.signs.dynamic: true
+      cuberry.formattable-text.signs.interactive: true
+  cuberry.formattable-text.signs.color:
     description: Allows you to colorize your signs with any color MiniMessage tags
-  cubefruit.formattable-text.signs.decoration:
+  cuberry.formattable-text.signs.decoration:
     description: Allows you to colorize your signs with any decoration MiniMessage tags
-  cubefruit.formattable-text.signs.gradient:
+  cuberry.formattable-text.signs.gradient:
     description: Allows you to colorize your signs with any gradient MiniMessage tags
-  cubefruit.formattable-text.signs.dynamic:
+  cuberry.formattable-text.signs.dynamic:
     description: Allows you to colorize your signs with any dynamic MiniMessage tags
-  cubefruit.formattable-text.signs.interactive:
+  cuberry.formattable-text.signs.interactive:
     description: Allows you to colorize your signs with any interactive MiniMessage tags
 
-  cubefruit.formattable-text.books.*:
+  cuberry.formattable-text.books.*:
     description: Allows you to colorize your books with any MiniMessage tag
     children:
-      cubefruit.formattable-text.books.color: true
-      cubefruit.formattable-text.books.decoration: true
-      cubefruit.formattable-text.books.gradient: true
-      cubefruit.formattable-text.books.dynamic: true
-      cubefruit.formattable-text.books.interactive: true
-  cubefruit.formattable-text.books.color:
+      cuberry.formattable-text.books.color: true
+      cuberry.formattable-text.books.decoration: true
+      cuberry.formattable-text.books.gradient: true
+      cuberry.formattable-text.books.dynamic: true
+      cuberry.formattable-text.books.interactive: true
+  cuberry.formattable-text.books.color:
     description: Allows you to colorize your books with any color MiniMessage tags
-  cubefruit.formattable-text.books.decoration:
+  cuberry.formattable-text.books.decoration:
     description: Allows you to colorize your books with any decoration MiniMessage tags
-  cubefruit.formattable-text.books.gradient:
+  cuberry.formattable-text.books.gradient:
     description: Allows you to colorize your books with any gradient MiniMessage tags
-  cubefruit.formattable-text.books.dynamic:
+  cuberry.formattable-text.books.dynamic:
     description: Allows you to colorize your books with any dynamic MiniMessage tags
-  cubefruit.formattable-text.books.interactive:
+  cuberry.formattable-text.books.interactive:
     description: Allows you to colorize your books with any interactive MiniMessage tags
 
-  cubefruit.chat.colorize.*:
+  cuberry.chat.colorize.*:
     description: Allows you to colorize your messages with any MiniMessage tag
     children:
-      cubefruit.chat.colorize.color: true
-      cubefruit.chat.colorize.decoration: true
-      cubefruit.chat.colorize.gradient: true
-      cubefruit.chat.colorize.dynamic: true
-      cubefruit.chat.colorize.interactive: true
-  cubefruit.chat.colorize.color:
+      cuberry.chat.colorize.color: true
+      cuberry.chat.colorize.decoration: true
+      cuberry.chat.colorize.gradient: true
+      cuberry.chat.colorize.dynamic: true
+      cuberry.chat.colorize.interactive: true
+  cuberry.chat.colorize.color:
     description: Allows you to colorize your messages with any color MiniMessage tags
-  cubefruit.chat.colorize.decoration:
+  cuberry.chat.colorize.decoration:
     description: Allows you to colorize your messages with any decoration MiniMessage tags
-  cubefruit.chat.colorize.gradient:
+  cuberry.chat.colorize.gradient:
     description: Allows you to colorize your messages with any gradient MiniMessage tags
-  cubefruit.chat.colorize.dynamic:
+  cuberry.chat.colorize.dynamic:
     description: Allows you to colorize your messages with any dynamic MiniMessage tags
-  cubefruit.chat.colorize.interactive:
+  cuberry.chat.colorize.interactive:
     description: Allows you to colorize your messages with any interactive MiniMessage tags
 
-  cubefruit.alerts.joinattempt:
+  cuberry.alerts.joinattempt:
     description: Allows you to see join attempt messages
-  cubefruit.alerts.report:
+  cuberry.alerts.report:
     description: Allows you to receive new reports
-  cubefruit.idle-kick.bypass:
+  cuberry.idle-kick.bypass:
     description: Prevents you from being kicked for being afk
 
-  cubefruit.home:
+  cuberry.home:
     description: Allows you to teleport to your home
-  cubefruit.sethome:
+  cuberry.sethome:
     description: Allows you to set your home location
-  cubefruit.delhome:
+  cuberry.delhome:
     description: Allows you to remove your home location
-  cubefruit.message:
+  cuberry.message:
     description: Allows you to message other players
-  cubefruit.reply:
+  cuberry.reply:
     description: Allows you to reply to players messages
-  cubefruit.itemstack:
+  cuberry.itemstack:
     description: Allows you to modify items
-  cubefruit.respawn:
+  cuberry.respawn:
     description: Allows you to force respawn other players
-  cubefruit.skipday:
+  cuberry.skipday:
     description: Allows you to smoothly transition to day
-  cubefruit.spawn:
+  cuberry.spawn:
     description: Allows you to teleport to spawn
-  cubefruit.setspawn:
+  cuberry.setspawn:
     description: Allows you to set the spawn location
-  cubefruit.tpa:
+  cuberry.tpa:
     description: Allows you to request a teleport to another player
-  cubefruit.tpahere:
+  cuberry.tpahere:
     description: Allows you to request a teleport from another player to you
-  cubefruit.tpaccept:
+  cuberry.tpaccept:
     description: Allows you to accept tpa requests
-  cubefruit.tpadeny:
+  cuberry.tpadeny:
     description: Allows you to deny tpa requests
-  cubefruit.tpacancel:
+  cuberry.tpacancel:
     description: Allows you to cancel outgoing tpa requests
-  cubefruit.worldwhitelist:
+  cuberry.worldwhitelist:
     description: Allows you to manage world whitelists
-  cubefruit.gamemode:
+  cuberry.gamemode:
     description: Allows you to change gamemodes
-  cubefruit.fly:
+  cuberry.fly:
     description: Allows you to toggle flight
-  cubefruit.heal:
+  cuberry.heal:
     description: Allows you to heal players
-  cubefruit.mutechat:
+  cuberry.mutechat:
     description: Allows you to mute the chat
-  cubefruit.mutechat.bypass:
+  cuberry.mutechat.bypass:
     description: Allows you to send message while the chat is muted
-  cubefruit.report:
+  cuberry.report:
     description: Allows you to make reports
-  cubefruit.whois:
+  cuberry.whois:
     description: Allows you to see info about a player
-  cubefruit.rules:
+  cuberry.rules:
     description: Allows you to read the server rules
-  cubefruit.warp:
+  cuberry.warp:
     description: Allows you to teleport to warps
-  cubefruit.delwarp:
+  cuberry.delwarp:
     description: Allows you to delete warps
-  cubefruit.setwarp:
+  cuberry.setwarp:
     description: Allows you to create warps
-  cubefruit.listwarps:
+  cuberry.listwarps:
     description: Allows you to list warps
-  cubefruit.tphere:
+  cuberry.tphere:
     description: Allows you to teleport players to you
-  cubefruit.tp2p:
+  cuberry.tp2p:
     description: Allows you to teleport to players
-  cubefruit.tpall:
+  cuberry.tpall:
     description: Allows you to teleport all players to you
-  cubefruit.tpoffline:
+  cuberry.tpoffline:
     description: Allows you to teleport to players logout locations
-  cubefruit.sudo:
+  cuberry.sudo:
     description: Allows you to use the sudo command
-  cubefruit.back:
+  cuberry.back:
     description: Allows you to use the back command
-  cubefruit.enderchest:
+  cuberry.enderchest:
     description: Allows you to use the enderchest command
-  cubefruit.top:
+  cuberry.top:
     description: Allows you to use the top command
-  cubefruit.action:
+  cuberry.action:
     description: Allows you to use the action command

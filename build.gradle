@@ -1,0 +1,25 @@
+plugins {
+    id 'java'
+    id "com.github.johnrengelman.shadow" version "8.1.1"
+}
+
+allprojects {
+    group = 'dev.debutter.cuberry'
+    version = '1.0-SNAPSHOT'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':common')
+    implementation project(':paper')
+    implementation project(':velocity')
+}
+
+shadowJar {
+    archiveClassifier.set('Universal')
+
+    relocate 'dev.dejvokep.boostedyaml', 'me.plugin.libs'
+}

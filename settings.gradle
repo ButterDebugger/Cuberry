@@ -1,0 +1,2 @@
+rootProject.name = 'Cuberry'
+include ':common', ':paper', ':velocity'

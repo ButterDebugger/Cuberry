@@ -13,6 +13,8 @@
 	"commands.mutechat.block_message": "<red>You are not permitted to speak whilst chat is muted.",
 	"commands.mutechat.mute_alert": "<gold><bold>!!</bold> <gray>Chat has been muted.",
 	"commands.mutechat.unmute_alert": "<gold><bold>!!</bold> <gray>Chat has been unmuted.",
+	"commands.message.send": "<gold>[<yellow>You</yellow> -> <aqua><receiver></aqua>]</gold> <gray><message></gray>",
+	"commands.message.receive": "<gold>[<aqua><sender></aqua> -> <yellow>You</yellow>]</gold> <gray><message></gray>",
 	"chat.block_message.filtered_word": "<red>Your message has been blocked because it contained a banned word.",
 	"chat.block_message.repeated_messages": "<red>You cannot send the same message twice.",
 	"chat.block_message.fast_messages": "<red>You are sending messages too fast. You can chat again in <timeout>",

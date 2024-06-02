@@ -3,7 +3,7 @@ debug: false
 
 plugin:
   # Please do not modify this value
-  version: "${project.version}"
+  version: "${version}"
   # Default message locale
   language: "en_us"
 
