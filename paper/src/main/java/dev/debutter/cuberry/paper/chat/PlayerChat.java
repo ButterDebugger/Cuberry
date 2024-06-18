@@ -1,9 +1,9 @@
-package dev.debutter.cuberry.paper;
+package dev.debutter.cuberry.paper.chat;
 
-import com.google.common.io.ByteArrayDataInput;
-import com.google.common.io.ByteStreams;
+import dev.debutter.cuberry.paper.Paper;
 import dev.debutter.cuberry.paper.utils.AwesomeText;
 import dev.debutter.cuberry.paper.utils.Caboodle;
+import dev.debutter.cuberry.paper.utils.PluginSupport;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -16,10 +16,11 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.plugin.messaging.PluginMessageListener;
-import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -28,6 +29,16 @@ public class PlayerChat implements Listener {
 	private static HashMap<UUID, Long> lastMessage = new HashMap<>();
 	private static HashMap<UUID, Long> spamCooldown = new HashMap<>();
 	private static HashMap<UUID, List<String>> recentMessages = new HashMap<>();
+
+	public PlayerChat() {
+		if (Paper.plugin().getConfig().getBoolean("chat.global-chat.enabled")) {
+			if (PluginSupport.hasProtoWeaver()) {
+				RelayHandler.register();
+			} else {
+				Paper.plugin().getLogger().warning("Could not find the required plugin \"ProtoWeaver\" to enable global chat");
+			}
+		}
+	}
 
 	@EventHandler
 	public void onPlayerChat(AsyncChatEvent event) {
@@ -108,7 +119,9 @@ public class PlayerChat implements Listener {
 			}
 
 			String format = config.getString("chat.format.format");
-			Bukkit.broadcast(AwesomeText.beautifyMessage(format, player, Placeholder.component("message", message)));
+			Component chatMessage = AwesomeText.beautifyMessage(format, player, Placeholder.component("message", message));
+			Bukkit.broadcast(chatMessage);
+			RelayHandler.sendMessage(event.getPlayer().getUniqueId(), chatMessage); // Relay the message for the global chat
 
 			event.setCancelled(true);
 		}

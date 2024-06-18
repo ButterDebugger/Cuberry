@@ -17,11 +17,18 @@ repositories {
         name = "placeholderapi-repo"
         url = 'https://repo.extendedclip.com/content/repositories/placeholderapi/'
     }
+    maven {
+        name = "mrnavastar-releases"
+        url = "https://maven.mrnavastar.rocks/releases"
+    }
 }
 
 dependencies {
     compileOnly "io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT"
     compileOnly 'me.clip:placeholderapi:2.11.5'
+    compileOnly "me.mrnavastar.protoweaver:common:${project.protoweaver_version}"
+
+    implementation project(':common')
 }
 
 processResources {
@@ -42,5 +49,8 @@ processResources {
 tasks {
     runServer {
         minecraftVersion(project.minecraft_version)
+        downloadPlugins {
+            url("https://maven.mrnavastar.rocks/releases/me/mrnavastar/protoweaver/paper/${project.protoweaver_version}/paper-${project.protoweaver_version}-dev.jar")
+        }
     }
 }

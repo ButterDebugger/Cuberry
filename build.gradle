@@ -1,6 +1,6 @@
 plugins {
     id 'java-library'
-    id "com.github.johnrengelman.shadow" version "8.1.1"
+    id "io.github.goooler.shadow" version "8.1.7"
     id "maven-publish"
 }
 
@@ -44,5 +44,5 @@ dependencies {
 shadowJar {
     archiveClassifier.set('Universal')
 
-    relocate 'dev.dejvokep.boostedyaml', 'me.plugin.libs'
+    relocate 'dev.dejvokep.boostedyaml', 'dev.debutter.cuberry.libs.boostedyaml'
 }

@@ -11,6 +11,9 @@ dependencies:
     PlaceholderAPI:
       load: BEFORE
       required: false
+    ProtoWeaver:
+      load: BEFORE
+      required: false
 
 commands:
   cuberry:

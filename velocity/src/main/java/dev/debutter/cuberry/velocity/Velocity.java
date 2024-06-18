@@ -3,10 +3,13 @@ package dev.debutter.cuberry.velocity;
 import com.google.inject.Inject;
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
+import com.velocitypowered.api.plugin.Dependency;
 import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.plugin.PluginContainer;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import com.velocitypowered.api.proxy.ProxyServer;
+import dev.debutter.cuberry.common.Constants;
+import dev.debutter.cuberry.velocity.chat.BroadcastHandler;
 import dev.dejvokep.boostedyaml.YamlDocument;
 import dev.dejvokep.boostedyaml.dvs.versioning.BasicVersioning;
 import dev.dejvokep.boostedyaml.settings.dumper.DumperSettings;
@@ -22,10 +25,13 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Plugin(
-        id = "@project_id@",
-        name = "@project_name@",
-        authors = "ButterDebugger",
-        version = "@version@"
+    id = Constants.PROJECT_ID,
+    name = Constants.PROJECT_NAME,
+    authors = "ButterDebugger",
+    version = Constants.VERSION,
+    dependencies = {
+        @Dependency(id = "protoweaver", optional = true)
+    }
 )
 public class Velocity {
 
@@ -43,6 +49,7 @@ public class Velocity {
         this.logger = logger;
         this.dataDirectory = dataDirectory;
 
+        // Setup plugin configuration
         try {
             config = YamlDocument.create(new File(dataDirectory.toFile(), "config.yml"),
                     Objects.requireNonNull(getClass().getResourceAsStream("/velocity-config.yml")),
@@ -66,7 +73,13 @@ public class Velocity {
 
     @Subscribe
     public void onProxyInitialization(ProxyInitializeEvent event) {
-        proxy.getEventManager().register(plugin, new GlobalChat());
+        if (config.getBoolean("global-chat.enabled")) {
+            if (getProxy().getPluginManager().isLoaded("protoweaver")) {
+                BroadcastHandler.register();
+            } else {
+                logger.warn("Could not find the required plugin \"ProtoWeaver\" to enable global chat");
+            }
+        }
     }
 
     public static Velocity getPlugin() {

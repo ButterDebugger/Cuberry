@@ -10,20 +10,32 @@ import org.bukkit.metadata.MetadataValue;
 
 public class PluginSupport implements Listener {
 
-	private static boolean hasPAPI = false;
+	private static boolean includesPAPI = false;
+	private static boolean includesProtoWeaver = false;
 
 	// TODO list:
-	// - add http request method
-	// - add NameMC api support
+	//  - add http request method
+	//  - add NameMC api support
 
 	/**
 	 * Automatically find plugin hooks
 	 */
 	public static void setup() {
 		if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-			hasPAPI = true;
+			includesPAPI = true;
 			Paper.plugin().getLogger().info("Automatically hooking into PlaceholderAPI");
 		}
+		if (Bukkit.getPluginManager().getPlugin("ProtoWeaver") != null) {
+			includesProtoWeaver = true;
+			Paper.plugin().getLogger().info("Automatically hooking into ProtoWeaver");
+		}
+	}
+
+	public static boolean hasPAPI() {
+		return includesPAPI;
+	}
+	public static boolean hasProtoWeaver() {
+		return includesProtoWeaver;
 	}
 
 	/**
@@ -40,7 +52,7 @@ public class PluginSupport implements Listener {
 	 * Gets player placeholders from PlaceholderAPI
 	 */
 	public static String getPlaceholders(OfflinePlayer player, String msg) {
-		if (!hasPAPI) return msg;
+		if (!includesPAPI) return msg;
 
 		return PlaceholderAPI.setPlaceholders(player, msg);
 	}

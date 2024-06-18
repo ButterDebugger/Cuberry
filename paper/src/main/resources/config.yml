@@ -81,6 +81,9 @@ chat:
     enabled: false
     # Max amount of time allowed since the last sent message (in seconds)
     max-time: 1
+  # Relay messages from this server to another
+  global-chat:
+    enabled: false
 
 
 # Change the join and leave messages

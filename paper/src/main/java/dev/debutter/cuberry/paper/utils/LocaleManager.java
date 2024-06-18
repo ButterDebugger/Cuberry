@@ -9,7 +9,6 @@ import org.bukkit.plugin.Plugin;
 
 import java.io.*;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.stream.Collectors;

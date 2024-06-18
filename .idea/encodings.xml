@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/common/src/main/java/dev/debutter/cuberry/common/AwesomeText.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/common/src/main/java/dev/debutter/cuberry/common/chat/ChatPacket.java" charset="ISO-8859-1" />
     <file url="file://$PROJECT_DIR$/paper/src/main/java" charset="ISO-8859-1" />
     <file url="file://$PROJECT_DIR$/paper/src/main/resources" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/paper/src/main/resources/lang/en_us.json" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/velocity/src/main/java/dev/debutter/cuberry/velocity/chat/BroadcastHandler.java" charset="ISO-8859-1" />
   </component>
 </project>
