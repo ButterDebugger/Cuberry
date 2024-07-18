@@ -41,6 +41,7 @@ public class RelayHandler implements ProtoConnectionHandler {
         Paper.plugin().getLogger().info("The global chat hook with server " + connection.getRemoteAddress() + " has disconnected");
     }
 
+    @SuppressWarnings("RegExpRedundantEscape")
     @Override
     public void handlePacket(ProtoConnection connection, Object packet) {
         if (!(packet instanceof ChatPacket chatPacket)) {
@@ -48,8 +49,7 @@ public class RelayHandler implements ProtoConnectionHandler {
             return;
         }
 
-//        Paper.plugin().getLogger().info("wow! got: " + chatPacket.message + " from: " + chatPacket.uuid);
-        Bukkit.broadcast(MiniMessage.miniMessage().deserialize(chatPacket.message));
+        Bukkit.broadcast(MiniMessage.miniMessage().deserialize(chatPacket.message.replaceAll("\\<", "<")));
     }
 
 }
