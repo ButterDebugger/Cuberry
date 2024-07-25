@@ -55,7 +55,7 @@ public class Home extends CommandWrapper implements Listener {
 				return true;
 			}
 
-			if (playerData.existsNot(player.getUniqueId() + ".home")) {
+			if (!playerData.exists(player.getUniqueId() + ".home")) {
 				sender.sendMessage(AwesomeText.colorize("&cError: &7You do not have a home set."));
 				return true;
 			}
@@ -121,7 +121,7 @@ public class Home extends CommandWrapper implements Listener {
 		DataStorage playerData = Paper.data().getStorage("players.yml");
 
 		if (Paper.plugin().getConfig().getBoolean("commands.spawn.spawn-on-death")) {
-			if (playerData.existsNot(player.getUniqueId() + ".home") || (player.getBedLocation() != null)) return;
+			if (!playerData.exists(player.getUniqueId() + ".home") || player.getBedLocation() != null) return;
 
 			Location homeLoc = Caboodle.parseLocation(playerData.getString(player.getUniqueId() + ".home"));
 

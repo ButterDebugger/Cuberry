@@ -1,9 +1,11 @@
 package dev.debutter.cuberry.paper.utils.storage;
 
-import dev.debutter.cuberry.paper.utils.Caboodle;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,14 +22,14 @@ public class DataStorage {
 
 	public DataStorage(Plugin plugin, String filepath) {
 		this.plugin = plugin;
-		this.file = new File(plugin.getDataFolder() + File.separator + filepath);
+		this.file = DataManager.getStorageFile(plugin, filepath);
 
 		if (!file.exists()) {
 			try {
 				file.getParentFile().mkdirs();
 				file.createNewFile();
 			} catch (IOException e) {
-				Caboodle.log(plugin, "Unable to create " + filepath, Caboodle.LogType.WARN);
+				plugin.getLogger().warning("Unable to create " + filepath);
 				e.printStackTrace();
 			}
 		}
@@ -39,12 +41,19 @@ public class DataStorage {
 		try {
 			data.save(file);
 		} catch (IOException e) {
-			Caboodle.log(plugin, "Unable to save data.", Caboodle.LogType.WARN);
+			plugin.getLogger().warning("Unable to save data.");
 			e.printStackTrace();
 		}
 	}
 
-	// Simplified Functions
+	public File getFile() {
+		return file;
+	}
+
+	/*
+	 * Simplified Functions
+	 */
+
 	public void addToList(String path, String value) {
 		List<String> newList = getStringList(path);
 		newList.add(value);
@@ -72,7 +81,7 @@ public class DataStorage {
 	public boolean listContains(String path, String value) {
 		return getStringList(path).contains(value);
 	}
-	public String getString(String path) {
+	public @Nullable String getString(String path) {
 		return data.getString(path);
 	}
 	public int getInteger(String path) {
@@ -87,26 +96,28 @@ public class DataStorage {
 	public boolean getBoolean(String path) {
 		return data.getBoolean(path);
 	}
-	public List<String> getStringList(String path) {
+	public @NotNull List<String> getStringList(String path) {
 		return data.getStringList(path);
 	}
 	@SuppressWarnings("unchecked")
-	public List<Map<String, Object>> getMapList(String path) {
+	public @NotNull List<Map<String, Object>> getMapList(String path) {
 		List<Map<String, Object>> maplist = new ArrayList<>();
 		for (Map<?, ?> map : data.getMapList(path)) {
 			maplist.add((Map<String, Object>) map);
 		}
 		return maplist;
 	}
-	public List<String> getKeys(String path) {
+	public @NotNull List<String> getKeys(String path) {
 		List<String> keys = new ArrayList<>();
-		keys.addAll(data.getConfigurationSection(path).getKeys(false));
+
+		ConfigurationSection section = data.getConfigurationSection(path);
+		if (section == null) return keys;
+
+		keys.addAll(section.getKeys(false));
 		return keys;
 	}
-	public List<String> getKeys() {
-		List<String> keys = new ArrayList<>();
-		keys.addAll(data.getKeys(false));
-		return keys;
+	public @NotNull List<String> getKeys() {
+        return new ArrayList<>(data.getKeys(false));
 	}
 	public void set(String path, Object value) {
 		data.set(path, value);
@@ -115,13 +126,9 @@ public class DataStorage {
 		data.set(path, null);
 	}
 	public boolean exists(String path) {
-		if (data.get(path) == null) return false;
-		return true;
-	}
-	public boolean existsNot(String path) {
-		return !exists(path);
-	}
-	public Object get(String path) {
+        return data.get(path) != null;
+    }
+	public @Nullable Object get(String path) {
 		return data.get(path);
 	}
 }

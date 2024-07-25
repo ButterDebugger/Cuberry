@@ -58,7 +58,7 @@ public class Warp extends CommandWrapper {
 
 			String name = args[0];
 
-			if (warps.existsNot(name)) {
+			if (!warps.exists(name)) {
 				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7Warp does not exist."));
 				return true;
 			}
@@ -96,7 +96,7 @@ public class Warp extends CommandWrapper {
 
 			String name = args[0];
 
-			if (warps.existsNot(name)) {
+			if (!warps.exists(name)) {
 				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7Warp does not exist."));
 				return true;
 			}
