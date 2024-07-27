@@ -41,7 +41,7 @@ processResources {
     ]
     inputs.properties props
     filteringCharset 'UTF-8'
-    filesMatching(['paper-plugin.yml', 'config.yml']) {
+    filesMatching(['plugin.yml', 'config.yml']) {
         expand props
     }
 }
