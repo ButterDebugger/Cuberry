@@ -46,11 +46,16 @@ processResources {
     }
 }
 
+runPaper {
+    disablePluginJarDetection() // TODO: Automatically build the jar every time the run paper task is executed
+}
+
 tasks {
     runServer {
+        pluginJars(file("$rootDir/build/libs/$project_name-$project_version-Universal.jar"))
         minecraftVersion(project.minecraft_version)
         downloadPlugins {
-            url("https://maven.mrnavastar.rocks/releases/me/mrnavastar/protoweaver/paper/${project.protoweaver_version}/paper-${project.protoweaver_version}-dev.jar")
+            url("https://maven.mrnavastar.rocks/releases/me/mrnavastar/protoweaver/paper/$protoweaver_version/paper-$protoweaver_version-dev.jar")
         }
     }
 }
