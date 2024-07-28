@@ -32,6 +32,7 @@ import org.bukkit.metadata.Metadatable;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
@@ -874,8 +875,9 @@ public class Caboodle implements Listener {
 	 *   Plugin Methods
 	 */
 
-	public static PluginCommand getCommand(String name, Plugin plugin) {
-		PluginCommand command = null;
+	public static PluginCommand getCommand(String name, JavaPlugin plugin) {
+		PluginCommand command = plugin.getCommand(name);
+		if (command != null) return command;
 
 		try {
 			Constructor<PluginCommand> c = PluginCommand.class.getDeclaredConstructor(String.class, Plugin.class);

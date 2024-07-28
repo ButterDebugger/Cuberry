@@ -19,7 +19,7 @@ public class CommandRegistry {
         this.name = name;
     }
 
-    public void register(JavaPlugin plugin) { // TODO: retest
+    public void register(JavaPlugin plugin) {
         PluginCommand command = Caboodle.getCommand(name, plugin);
 
         if (aliases != null) command.setAliases(aliases);
@@ -31,7 +31,7 @@ public class CommandRegistry {
         command.setExecutor(wrapper);
         command.setTabCompleter(wrapper);
 
-        Caboodle.getCommandMap().register(plugin.getDescription().getName(), command);
+        Caboodle.getCommandMap().register(plugin.getName(), command);
     }
 
     /**
