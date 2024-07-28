@@ -46,8 +46,13 @@ processResources {
     }
 }
 
+tasks.register('runRebuiltServer') {
+    dependsOn ':package'
+    finalizedBy 'runServer'
+}
+
 runPaper {
-    disablePluginJarDetection() // TODO: Automatically build the jar every time the run paper task is executed
+    disablePluginJarDetection()
 }
 
 tasks {

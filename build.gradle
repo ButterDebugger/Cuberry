@@ -41,6 +41,10 @@ dependencies {
     implementation project(':velocity')
 }
 
+tasks.register('package') {
+    dependsOn ':clean', ':shadowJar'
+}
+
 shadowJar {
     archiveClassifier.set('Universal')
 
