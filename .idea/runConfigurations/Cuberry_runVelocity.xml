@@ -10,7 +10,7 @@
       </option>
       <option name="taskNames">
         <list>
-          <option value="runVelocity" />
+          <option value="runRebuiltVelocity" />
         </list>
       </option>
       <option name="vmOptions" />
