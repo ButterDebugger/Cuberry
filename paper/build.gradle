@@ -19,7 +19,7 @@ repositories {
     }
     maven {
         name = "mrnavastar-releases"
-        url = "https://maven.mrnavastar.rocks/releases"
+        url = "https://maven.mrnavastar.me/releases"
     }
 }
 
