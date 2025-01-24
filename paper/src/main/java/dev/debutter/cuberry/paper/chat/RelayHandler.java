@@ -9,12 +9,13 @@ import me.mrnavastar.protoweaver.api.netty.ProtoConnection;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 
 public class RelayHandler implements ProtoConnectionHandler {
 
-    private static ProtoConnection proxy;
+    private static @Nullable ProtoConnection proxy = null;
     private static boolean enabled = false;
 
     public static void register() {
@@ -23,7 +24,7 @@ public class RelayHandler implements ProtoConnectionHandler {
     }
 
     public static void sendMessage(UUID uuid, Component message) {
-        if (!enabled) return;
+        if (!enabled || proxy == null) return;
 
         ChatPacket data = new ChatPacket(uuid, AwesomeText.destylize(message));
         proxy.send(data);
@@ -38,6 +39,8 @@ public class RelayHandler implements ProtoConnectionHandler {
 
     @Override
     public void onDisconnect(ProtoConnection connection) {
+        proxy = null;
+
         Paper.plugin().getLogger().info("The global chat hook with server " + connection.getRemoteAddress() + " has disconnected");
     }
 

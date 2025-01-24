@@ -121,8 +121,13 @@ public class PlayerChat implements Listener {
 			String format = config.getString("chat.format.format");
 			Component chatMessage = AwesomeText.beautifyMessage(format, player, Placeholder.component("message", message));
 			Bukkit.broadcast(chatMessage);
-			RelayHandler.sendMessage(event.getPlayer().getUniqueId(), chatMessage); // Relay the message for the global chat
 
+			// Relay the message for the global chat
+			if (PluginSupport.hasProtoWeaver()) {
+				RelayHandler.sendMessage(event.getPlayer().getUniqueId(), chatMessage);
+			}
+
+			// Cancel the chat event
 			event.setCancelled(true);
 		}
 	}
