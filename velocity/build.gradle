@@ -38,7 +38,7 @@ tasks {
         pluginJars(file("$rootDir/build/libs/$project_name-$project_version-Universal.jar"))
         velocityVersion(project.velocity_version)
         downloadPlugins {
-            url("https://maven.mrnavastar.rocks/releases/me/mrnavastar/protoweaver/proxy/$protoweaver_version/proxy-$protoweaver_version..jar")
+            url("https://maven.mrnavastar.me/releases/me/mrnavastar/protoweaver/proxy/$protoweaver_version/proxy-$protoweaver_version..jar")
         }
     }
 }
