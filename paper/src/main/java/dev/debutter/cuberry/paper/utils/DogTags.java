@@ -162,11 +162,24 @@ public class DogTags {
 		List<Material> blockList = Arrays.asList(new Material[] {
 			Material.SMALL_DRIPLEAF,
 			Material.TALL_GRASS,
-			Material.TALL_SEAGRASS
+			Material.TALL_SEAGRASS,
 		});
 
 		if (Tag.DOORS.isTagged(material)) return true;
-		if (Tag.TALL_FLOWERS.isTagged(material)) return true;
+
+		return blockList.contains(material);
+	}
+
+	public static boolean isTallFlower(Material material) {
+		List<Material> blockList = Arrays.asList(new Material[] {
+			Material.TALL_GRASS,
+			Material.LARGE_FERN,
+			Material.SUNFLOWER,
+			Material.LILAC,
+			Material.ROSE_BUSH,
+			Material.PEONY,
+			Material.PITCHER_PLANT
+		});
 
 		return blockList.contains(material);
 	}
@@ -489,7 +502,7 @@ public class DogTags {
 		});
 
 		if (Tag.DOORS.isTagged(material)) return true;
-		if (Tag.TALL_FLOWERS.isTagged(material)) return true;
+		if (isTallFlower(material)) return true;
 		if (Tag.SMALL_FLOWERS.isTagged(material)) return true;
 		if (isGravityBlock(material)) return true;
 		if (Tag.PRESSURE_PLATES.isTagged(material)) return true;

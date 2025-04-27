@@ -40,7 +40,7 @@ public class Heal extends CommandWrapper {
 
 				Player player = (Player) sender;
 
-				player.setHealth(player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue());
+				player.setHealth(player.getAttribute(Attribute.MAX_HEALTH).getBaseValue());
 				player.setFoodLevel(20);
 				player.setSaturation(5);
 				player.setSaturatedRegenRate(10);
@@ -52,7 +52,7 @@ public class Heal extends CommandWrapper {
 				if (DogTags.isOnline(args[0])) {
 					Player player = Bukkit.getPlayer(args[0]);
 
-					player.setHealth(player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue());
+					player.setHealth(player.getAttribute(Attribute.MAX_HEALTH).getBaseValue());
 					player.setFoodLevel(20);
 					player.setSaturation(5);
 					player.setSaturatedRegenRate(10);

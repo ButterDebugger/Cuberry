@@ -23,9 +23,10 @@ import org.bukkit.util.Vector;
 import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
-
-import static net.kyori.adventure.text.Component.translatable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 public class Cuberry extends CommandWrapper {
 
@@ -127,7 +128,7 @@ public class Cuberry extends CommandWrapper {
 								sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
 								return true;
 							} else if (DogTags.isNumeric(args[4])) {
-								double number = Math.min(Integer.parseInt(args[4]), other.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue());
+								double number = Math.min(Integer.parseInt(args[4]), other.getAttribute(Attribute.MAX_HEALTH).getBaseValue());
 
 								other.setHealth(number);
 								sender.sendMessage(AwesomeText.colorize("&b" + other.getName() + "&3's health has been set to &b" + number));

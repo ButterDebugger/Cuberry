@@ -93,7 +93,7 @@ public class Whois extends CommandWrapper {
 				Player onlinePlayer = (Player) player;
 
 				sender.sendMessage(AwesomeText.prettifyMessage("&7- Can Fly: &f" + onlinePlayer.getAllowFlight()));
-				sender.sendMessage(AwesomeText.prettifyMessage("&7- Health: &f" + Math.ceil(onlinePlayer.getHealth()) + "/" + onlinePlayer.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue()));
+				sender.sendMessage(AwesomeText.prettifyMessage("&7- Health: &f" + Math.ceil(onlinePlayer.getHealth()) + "/" + onlinePlayer.getAttribute(Attribute.MAX_HEALTH).getBaseValue()));
 				sender.sendMessage(AwesomeText.prettifyMessage("&7- Hunger: &f" + onlinePlayer.getFoodLevel() + "/20"));
 				sender.sendMessage(AwesomeText.prettifyMessage("&7- Saturation: &f" + onlinePlayer.getSaturation()));
 				sender.sendMessage(AwesomeText.prettifyMessage("&7- Locale: &f" + onlinePlayer.getLocale()));

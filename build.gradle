@@ -4,13 +4,15 @@ plugins {
     id "maven-publish"
 }
 
+var javaLanguageVersion = JavaLanguageVersion.of(project.java_version)
+
 allprojects {
     group = 'dev.debutter.cuberry'
     version = project.project_version
 
     tasks.withType(JavaCompile) {
         options.encoding = "ISO-8859-1"
-        options.release = project.java_version as Integer
+        options.release = javaLanguageVersion.asInt()
     }
 }
 
@@ -28,6 +30,10 @@ subprojects {
                 from components.java
             }
         }
+    }
+
+    java {
+        toolchain.languageVersion.set(javaLanguageVersion)
     }
 }
 

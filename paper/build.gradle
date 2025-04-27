@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id "xyz.jpenilla.run-paper" version "2.3.0"
+    id "io.papermc.paperweight.userdev" version "2.0.0-beta.16"
 }
 
 repositories {
@@ -24,10 +25,14 @@ repositories {
 }
 
 dependencies {
-    compileOnly "io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT"
+    // Paper
+    paperweight.paperDevBundle(project.paper_version)
+
+    // Libraries
     compileOnly 'me.clip:placeholderapi:2.11.5'
     compileOnly "me.mrnavastar.protoweaver:common:${project.protoweaver_version}"
 
+    // Common
     implementation project(':common')
 }
 
@@ -62,5 +67,8 @@ tasks {
         downloadPlugins {
             url("https://maven.mrnavastar.me/releases/me/mrnavastar/protoweaver/paper/$protoweaver_version/paper-$protoweaver_version-dev.jar")
         }
+    }
+    assemble {
+        dependsOn(tasks.reobfJar)
     }
 }

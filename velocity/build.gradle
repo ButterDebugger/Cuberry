@@ -16,8 +16,8 @@ repositories {
 }
 
 dependencies {
-    compileOnly "com.velocitypowered:velocity-api:3.3.0-SNAPSHOT"
-    annotationProcessor "com.velocitypowered:velocity-api:3.3.0-SNAPSHOT"
+    compileOnly "com.velocitypowered:velocity-api:${project.velocity_version}"
+    annotationProcessor "com.velocitypowered:velocity-api:${project.velocity_version}"
     implementation "dev.dejvokep:boosted-yaml:1.3.5"
     compileOnly "me.mrnavastar.protoweaver:proxy:${project.protoweaver_version}"
 

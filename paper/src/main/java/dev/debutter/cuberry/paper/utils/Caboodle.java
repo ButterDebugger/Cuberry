@@ -356,7 +356,7 @@ public class Caboodle implements Listener {
 	}
 
 	public static void dustParticle(Player player, Location location, int amount, Vector offset, Color color, int size) {
-		player.spawnParticle(Particle.REDSTONE, location, amount, offset.getX(), offset.getY(), offset.getZ(), new Particle.DustOptions(color, size));
+		player.spawnParticle(Particle.DUST, location, amount, offset.getX(), offset.getY(), offset.getZ(), new Particle.DustOptions(color, size));
 	}
 
 	public static Player getRandomPlayer() {
@@ -843,20 +843,20 @@ public class Caboodle implements Listener {
 	}
 
 	public static void outlineBlock(Block block, Player player) {
-		player.spawnParticle(Particle.TOWN_AURA, block.getX() + 0.5, block.getY(), block.getZ(), 1, 0.25, 0, 0);
-		player.spawnParticle(Particle.TOWN_AURA, block.getX(), block.getY(), block.getZ() + 0.5, 1, 0, 0, 0.25);
-		player.spawnParticle(Particle.TOWN_AURA, block.getX() + 1, block.getY(), block.getZ() + 0.5, 1, 0, 0, 0.25);
-		player.spawnParticle(Particle.TOWN_AURA, block.getX() + 0.5, block.getY(), block.getZ() + 1, 1, 0.25, 0, 0);
+		player.spawnParticle(Particle.MYCELIUM, block.getX() + 0.5, block.getY(), block.getZ(), 1, 0.25, 0, 0);
+		player.spawnParticle(Particle.MYCELIUM, block.getX(), block.getY(), block.getZ() + 0.5, 1, 0, 0, 0.25);
+		player.spawnParticle(Particle.MYCELIUM, block.getX() + 1, block.getY(), block.getZ() + 0.5, 1, 0, 0, 0.25);
+		player.spawnParticle(Particle.MYCELIUM, block.getX() + 0.5, block.getY(), block.getZ() + 1, 1, 0.25, 0, 0);
 
-		player.spawnParticle(Particle.TOWN_AURA, block.getX(), block.getY() + 0.5, block.getZ(), 1, 0, 0.25, 0);
-		player.spawnParticle(Particle.TOWN_AURA, block.getX() + 1, block.getY() + 0.5, block.getZ(), 1, 0, 0.25, 0);
-		player.spawnParticle(Particle.TOWN_AURA, block.getX(), block.getY() + 0.5, block.getZ() + 1, 1, 0, 0.25, 0);
-		player.spawnParticle(Particle.TOWN_AURA, block.getX() + 1, block.getY() + 0.5, block.getZ() + 1, 1, 0, 0.25, 0);
+		player.spawnParticle(Particle.MYCELIUM, block.getX(), block.getY() + 0.5, block.getZ(), 1, 0, 0.25, 0);
+		player.spawnParticle(Particle.MYCELIUM, block.getX() + 1, block.getY() + 0.5, block.getZ(), 1, 0, 0.25, 0);
+		player.spawnParticle(Particle.MYCELIUM, block.getX(), block.getY() + 0.5, block.getZ() + 1, 1, 0, 0.25, 0);
+		player.spawnParticle(Particle.MYCELIUM, block.getX() + 1, block.getY() + 0.5, block.getZ() + 1, 1, 0, 0.25, 0);
 
-		player.spawnParticle(Particle.TOWN_AURA, block.getX() + 0.5, block.getY() + 1, block.getZ(), 1, 0.25, 0, 0);
-		player.spawnParticle(Particle.TOWN_AURA, block.getX(), block.getY() + 1, block.getZ() + 0.5, 1, 0, 0, 0.25);
-		player.spawnParticle(Particle.TOWN_AURA, block.getX() + 1, block.getY() + 1, block.getZ() + 0.5, 1, 0, 0, 0.25);
-		player.spawnParticle(Particle.TOWN_AURA, block.getX() + 0.5, block.getY() + 1, block.getZ() + 1, 1, 0.25, 0, 0);
+		player.spawnParticle(Particle.MYCELIUM, block.getX() + 0.5, block.getY() + 1, block.getZ(), 1, 0.25, 0, 0);
+		player.spawnParticle(Particle.MYCELIUM, block.getX(), block.getY() + 1, block.getZ() + 0.5, 1, 0, 0, 0.25);
+		player.spawnParticle(Particle.MYCELIUM, block.getX() + 1, block.getY() + 1, block.getZ() + 0.5, 1, 0, 0, 0.25);
+		player.spawnParticle(Particle.MYCELIUM, block.getX() + 0.5, block.getY() + 1, block.getZ() + 1, 1, 0.25, 0, 0);
 	}
 
 	public static Location midpoint(Location loc1, Location loc2) {
