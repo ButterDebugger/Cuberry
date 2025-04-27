@@ -8,6 +8,7 @@ import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -126,24 +127,30 @@ public class AwesomeText {
     }
 
     public static Component createItemHoverComponent(ItemStack itemStack) {
-        return Component.textOfChildren(
-                Optional.ofNullable(itemStack.getItemMeta().displayName())
-                        .orElse(createMaterialComponent(itemStack.getType()))
-                )
-                .hoverEvent(itemStack);
+        ItemMeta itemMeta = itemStack.getItemMeta();
+
+        Component component = Component.textOfChildren(
+                Optional.ofNullable(itemMeta.customName())
+                    .orElse(createMaterialComponent(itemStack.getType()))
+            )
+            .hoverEvent(itemStack);
+
+        // TODO: needs updating for 1.21.5
+        if (itemMeta.hasRarity())
+            component = component.color(itemMeta.getRarity().color());
+
+        return component;
     }
 
     public static Component createMaterialComponent(Material material) {
         return Component.translatable()
                 .key(material.translationKey())
-                .apply(builder -> builder.color(material.getItemRarity().getColor()))
                 .build();
     }
 
     public static Component createMaterialHoverComponent(Material material) {
         return Component.translatable()
                 .key(material.translationKey())
-                .apply(builder -> builder.color(material.getItemRarity().getColor()))
                 .hoverEvent(new ItemStack(material))
                 .build();
     }

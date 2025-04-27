@@ -6,7 +6,6 @@ import dev.debutter.cuberry.paper.commands.builder.CommandWrapper;
 import dev.debutter.cuberry.paper.utils.AwesomeText;
 import dev.debutter.cuberry.paper.utils.Caboodle;
 import dev.debutter.cuberry.paper.utils.DogTags;
-import dev.debutter.cuberry.paper.utils.TooManyParticles;
 import org.bukkit.*;
 import org.bukkit.World.Environment;
 import org.bukkit.attribute.Attribute;
@@ -67,16 +66,18 @@ public class Cuberry extends CommandWrapper {
 				Paper.plugin().reload();
 				return true;
 			} else if (args[0].equalsIgnoreCase("test")) {
-				if (!(sender instanceof Player)) {
+				if (!(sender instanceof Player player)) {
 					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
 					return true;
 				}
-				Player player = (Player) sender;
+
+                ItemStack item = player.getInventory().getItemInMainHand();
 
 				sender.sendMessage(AwesomeText.prettifyMessage("&7--- &astart of test&7 ---"));
 
-				sender.sendMessage(AwesomeText.beautifyMessage("<gold>running particle test", player));
-				TooManyParticles.test();
+				sender.sendMessage(AwesomeText.createItemHoverComponent(item));
+				sender.sendMessage(AwesomeText.createMaterialComponent(item.getType()));
+				sender.sendMessage(AwesomeText.createMaterialHoverComponent(item.getType()));
 
 				sender.sendMessage(AwesomeText.prettifyMessage("&7--- &cend  of  test&7 ---"));
 				return true;
