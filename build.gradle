@@ -53,6 +53,7 @@ tasks.register('package') {
 
 shadowJar {
     archiveClassifier.set('Universal')
+    archiveAppendix.set("mc$minecraft_version")
 
     relocate 'dev.dejvokep.boostedyaml', 'dev.debutter.cuberry.libs.boostedyaml'
 }

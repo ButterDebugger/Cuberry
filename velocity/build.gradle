@@ -35,7 +35,7 @@ runVelocityExtension {
 
 tasks {
     runVelocity {
-        pluginJars(file("$rootDir/build/libs/$project_name-$project_version-Universal.jar"))
+        pluginJars(file("$rootDir/build/libs/$project_name-mc$minecraft_version-$project_version-Universal.jar"))
         velocityVersion(project.velocity_version)
         downloadPlugins {
             url("https://maven.mrnavastar.me/releases/me/mrnavastar/protoweaver/proxy/$protoweaver_version/proxy-$protoweaver_version..jar")

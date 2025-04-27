@@ -62,7 +62,7 @@ runPaper {
 
 tasks {
     runServer {
-        pluginJars(file("$rootDir/build/libs/$project_name-$project_version-Universal.jar"))
+        pluginJars(file("$rootDir/build/libs/$project_name-mc$minecraft_version-$project_version-Universal.jar"))
         minecraftVersion(project.minecraft_version)
         downloadPlugins {
             url("https://maven.mrnavastar.me/releases/me/mrnavastar/protoweaver/paper/$protoweaver_version/paper-$protoweaver_version-dev.jar")
