@@ -4,26 +4,6 @@ plugins {
     id "io.papermc.paperweight.userdev" version "2.0.0-beta.16"
 }
 
-repositories {
-    mavenCentral()
-    maven {
-        name = "papermc-repo"
-        url = "https://repo.papermc.io/repository/maven-public/"
-    }
-    maven {
-        name = "sonatype"
-        url = "https://oss.sonatype.org/content/groups/public/"
-    }
-    maven {
-        name = "placeholderapi-repo"
-        url = 'https://repo.extendedclip.com/content/repositories/placeholderapi/'
-    }
-    maven {
-        name = "mrnavastar-releases"
-        url = "https://maven.mrnavastar.me/releases"
-    }
-}
-
 dependencies {
     // Paper
     paperweight.paperDevBundle(project.paper_version)

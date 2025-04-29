@@ -4,5 +4,5 @@ pluginManagement {
     }
 }
 
-rootProject.name = 'Cuberry'
-include ':common', ':paper', ':velocity'
+rootProject.name = "Cuberry"
+include ":common", ":paper", ":velocity"

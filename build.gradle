@@ -1,5 +1,5 @@
 plugins {
-    id 'java-library'
+    id "java-library"
     id "io.github.goooler.shadow" version "8.1.7"
     id "maven-publish"
 }
@@ -7,12 +7,32 @@ plugins {
 var javaLanguageVersion = JavaLanguageVersion.of(project.java_version)
 
 allprojects {
-    group = 'dev.debutter.cuberry'
+    group = "dev.debutter.cuberry"
     version = project.project_version
 
     tasks.withType(JavaCompile) {
         options.encoding = "ISO-8859-1"
         options.release = javaLanguageVersion.asInt()
+    }
+
+    repositories {
+        mavenCentral()
+        maven {
+            name = "papermc-repo"
+            url = "https://repo.papermc.io/repository/maven-public/"
+        }
+        maven {
+            name = "mrnavastar-releases"
+            url = "https://maven.mrnavastar.me/releases"
+        }
+        maven {
+            name = "sonatype"
+            url = "https://oss.sonatype.org/content/groups/public/"
+        }
+        maven {
+            name = "placeholderapi-repo"
+            url = "https://repo.extendedclip.com/content/repositories/placeholderapi/"
+        }
     }
 }
 
@@ -23,9 +43,9 @@ subprojects {
     publishing {
         publications {
             maven(MavenPublication) {
-                groupId = 'dev.debutter.cuberry'
-                artifactId = project.name
-                version = version
+                groupId "dev.debutter.cuberry"
+                artifactId project.name
+                version version
 
                 from components.java
             }
@@ -37,23 +57,19 @@ subprojects {
     }
 }
 
-repositories {
-    mavenCentral()
-}
-
 dependencies {
-    implementation project(':common')
-    implementation project(':paper')
-    implementation project(':velocity')
+    implementation project(":common")
+    implementation project(":paper")
+    implementation project(":velocity")
 }
 
-tasks.register('package') {
-    dependsOn ':clean', ':shadowJar'
+tasks.register("package") {
+    dependsOn ":clean", ":shadowJar"
 }
 
 shadowJar {
-    archiveClassifier.set('Universal')
+    archiveClassifier.set("Universal")
     archiveAppendix.set("mc$minecraft_version")
 
-    relocate 'dev.dejvokep.boostedyaml', 'dev.debutter.cuberry.libs.boostedyaml'
+    relocate "dev.dejvokep.boostedyaml", "dev.debutter.cuberry.libs.boostedyaml"
 }
