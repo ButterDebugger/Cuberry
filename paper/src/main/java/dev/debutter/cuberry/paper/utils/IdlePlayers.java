@@ -57,11 +57,9 @@ public class IdlePlayers implements Listener {
 	public void onEntityPickupItem(EntityPickupItemEvent event) {
 		Entity entity = event.getEntity();
 
-		if (!(entity instanceof Player)) return; // Make sure the entity is a player
+		if (!(entity instanceof Player player)) return; // Make sure the entity is a player
 
-		Player player = (Player) entity;
-
-		if (!isAFK(player.getUniqueId())) return; // If the player is not AFK, stop the rest of the code
+        if (!isAFK(player.getUniqueId())) return; // If the player is not AFK, stop the rest of the code
 		if (!Paper.plugin().getConfig().getBoolean("idle.disable-item-pickup-while-afk")) return;
 
 		event.setCancelled(true);

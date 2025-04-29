@@ -32,14 +32,12 @@ public class Speed extends CommandWrapper {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (label.equalsIgnoreCase("speed")) {
-			if (!(sender instanceof Player)) {
+			if (!(sender instanceof Player player)) {
 				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
 				return true;
 			}
 
-			Player player = (Player) sender;
-
-			if (!Caboodle.hasPermission(sender, "speed")) {
+            if (!Caboodle.hasPermission(sender, "speed")) {
 				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
@@ -81,14 +79,12 @@ public class Speed extends CommandWrapper {
 		}
 
 		if (label.equalsIgnoreCase("walkspeed")) {
-			if (!(sender instanceof Player)) {
+			if (!(sender instanceof Player player)) {
 				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
 				return true;
 			}
 
-			Player player = (Player) sender;
-
-			if (!(Caboodle.hasPermission(sender, "speed") || Caboodle.hasPermission(sender, "speed.walk"))) {
+            if (!(Caboodle.hasPermission(sender, "speed") || Caboodle.hasPermission(sender, "speed.walk"))) {
 				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
@@ -114,14 +110,12 @@ public class Speed extends CommandWrapper {
         }
 
 		if (label.equalsIgnoreCase("flyspeed")) {
-			if (!(sender instanceof Player)) {
+			if (!(sender instanceof Player player)) {
 				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
 				return true;
 			}
 
-			Player player = (Player) sender;
-
-			if (!(Caboodle.hasPermission(sender, "speed") || Caboodle.hasPermission(sender, "speed.fly"))) {
+            if (!(Caboodle.hasPermission(sender, "speed") || Caboodle.hasPermission(sender, "speed.fly"))) {
 				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}

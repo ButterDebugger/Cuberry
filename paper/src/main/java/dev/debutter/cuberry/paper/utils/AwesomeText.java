@@ -20,14 +20,17 @@ import java.util.stream.Collectors;
 
 public class AwesomeText {
 
+    @Deprecated
     public static String colorize(String string) {
         return ChatColor.translateAlternateColorCodes('&' , string);
     }
 
+    @Deprecated
     public static String decolorize(String string) {
         return ChatColor.stripColor(string);
     }
 
+    @Deprecated
     public static String colorizeHex(String string) {
         Pattern pattern = Pattern.compile("&#[0-9A-F]{6}", Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(string);
@@ -49,16 +52,34 @@ public class AwesomeText {
         return colorize(String.join("", strout));
     }
 
-    public static Component stylize(String string) {
-        return MiniMessage.miniMessage().deserialize(string);
+    /**
+     * Prettify a message with legacy color codes
+     * @param message Input message
+     * @return Prettified message
+     */
+    @Deprecated
+    public static String prettifyMessage(String message) {
+        String newMessage = message;
+
+        newMessage = AwesomeText.colorizeHex(newMessage); // Colorize string
+
+        return newMessage;
     }
 
-    public static String destylize(Component component) {
-        return MiniMessage.miniMessage().serialize(component);
-    }
+    /**
+     * Prettify a message with legacy color codes and player imports
+     * @param message Input message
+     * @param player Player to parse imports against
+     * @return Prettified message
+     */
+    @Deprecated
+    public static String prettifyMessage(String message, Player player) {
+        String newMessage = message;
 
-    public static String stripStyles(Component component) {
-        return PlainTextComponentSerializer.plainText().serialize(component);
+        newMessage = AwesomeText.importPlaceholders(newMessage, player);
+        newMessage = prettifyMessage(newMessage);
+
+        return newMessage;
     }
 
     public static String importPlaceholders(String message, Player player) {
@@ -77,32 +98,16 @@ public class AwesomeText {
         return message.replaceAll(Pattern.quote("%" + stringName + "%"), Matcher.quoteReplacement(placeholder));
     }
 
-    /**
-     * Prettify a message with legacy color codes
-     * @param message Input message
-     * @return Prettified message
-     */
-    public static String prettifyMessage(String message) {
-        String newMessage = message;
-
-        newMessage = AwesomeText.colorizeHex(newMessage); // Colorize string
-
-        return newMessage;
+    public static Component stylize(String string) {
+        return MiniMessage.miniMessage().deserialize(string);
     }
 
-    /**
-     * Prettify a message with legacy color codes and player imports
-     * @param message Input message
-     * @param player Player to parse imports against
-     * @return Prettified message
-     */
-    public static String prettifyMessage(String message, Player player) {
-        String newMessage = message;
+    public static String destylize(Component component) {
+        return MiniMessage.miniMessage().serialize(component);
+    }
 
-        newMessage = AwesomeText.importPlaceholders(newMessage, player);
-        newMessage = prettifyMessage(newMessage);
-
-        return newMessage;
+    public static String stripStyles(Component component) {
+        return PlainTextComponentSerializer.plainText().serialize(component);
     }
 
     /**
@@ -131,20 +136,20 @@ public class AwesomeText {
 
         Component component = Component.textOfChildren(
                 Optional.ofNullable(itemMeta.customName())
-                    .orElse(createMaterialComponent(itemStack.getType()))
+                    .orElse(createTranslatableComponent(itemStack.getType().translationKey()))
             )
             .hoverEvent(itemStack);
 
-        // TODO: needs updating for 1.21.5
+        // FIXME: only works when the item has a custom rarity, aka default rarities don't work
         if (itemMeta.hasRarity())
             component = component.color(itemMeta.getRarity().color());
 
         return component;
     }
 
-    public static Component createMaterialComponent(Material material) {
+    public static Component createTranslatableComponent(String translationKey) {
         return Component.translatable()
-                .key(material.translationKey())
+                .key(translationKey)
                 .build();
     }
 
@@ -255,7 +260,7 @@ public class AwesomeText {
         return newString;
     }
 
-    public static String commaAndSeparatedList(ArrayList<String> list) {
+    public static String commaAndSeparatedList(List<String> list) {
         if (list.size() == 2) {
             return list.get(0) + " and " + list.get(1);
         }
@@ -277,7 +282,7 @@ public class AwesomeText {
         return joined;
     }
 
-    public static String commaOrSeparatedList(ArrayList<String> list) {
+    public static String commaOrSeparatedList(List<String> list) {
         if (list.size() == 2) {
             return list.get(0) + " or " + list.get(1);
         }
@@ -286,8 +291,8 @@ public class AwesomeText {
         String lastItem = null;
 
         if (list.size() >= 3) {
-            lastItem = list.get(list.size() - 1);
-            list.remove(list.size() - 1);
+            lastItem = list.getLast();
+            list.removeLast();
         }
 
         joined = list.stream().reduce((str1, str2) -> str1 + ", " + str2).orElse("");

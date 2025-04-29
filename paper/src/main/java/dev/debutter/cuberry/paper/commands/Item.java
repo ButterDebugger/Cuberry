@@ -35,14 +35,12 @@ public class Item extends CommandWrapper {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (label.equalsIgnoreCase("i") || label.equalsIgnoreCase("itemstack")) {
-			if (!(sender instanceof Player)) {
+			if (!(sender instanceof Player player)) {
 				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
 				return true;
 			}
 
-			Player player = (Player) sender;
-
-			if (!Caboodle.hasPermission(sender, "itemstack")) {
+            if (!Caboodle.hasPermission(sender, "itemstack")) {
 				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
@@ -153,14 +151,14 @@ public class Item extends CommandWrapper {
                         itemMeta.setUnbreakable(false);
                         item.setItemMeta(itemMeta);
 
-                        sender.sendMessage(AwesomeText.colorize("&a&l» &7Item is no longer unbreakable"));
+                        sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Item is no longer unbreakable"));
                         return true;
                     } else if (args[1].equalsIgnoreCase("true")) {
                         ItemMeta itemMeta = item.getItemMeta();
                         itemMeta.setUnbreakable(true);
                         item.setItemMeta(itemMeta);
 
-                        sender.sendMessage(AwesomeText.colorize("&a&l» &7Item is now unbreakable"));
+                        sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Item is now unbreakable"));
                         return true;
                     } else {
                         sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must enter a boolean value"));
@@ -187,7 +185,7 @@ public class Item extends CommandWrapper {
                 item.setItemMeta(itemMeta);
 
                 if (str.isEmpty()) {
-                    sender.sendMessage(AwesomeText.colorize("&a&l» &7Item name has been reset."));
+                    sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Item name has been reset."));
                     return true;
                 } else {
                     sender.sendMessage(AwesomeText.beautifyMessage("<green><bold>»</bold> <gray>Item name has been set to <white>\"<reset><item_name><white>\"<gray>.", Placeholder.component("item_name", itemName)));
@@ -225,7 +223,7 @@ public class Item extends CommandWrapper {
 
                         damage.setDamage(number);
                         item.setItemMeta(itemmeta);
-                        sender.sendMessage(AwesomeText.colorize("&a&l» &7Item durability has been set to &f" + (maxDamage - number) + "&7/&f" + maxDamage + "&7."));
+                        sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Item durability has been set to &f" + (maxDamage - number) + "&7/&f" + maxDamage + "&7."));
                         return true;
                     } else if (args[1].equalsIgnoreCase("percentage")) {
                         if (!DogTags.isNumeric(args[2])) {
@@ -239,7 +237,7 @@ public class Item extends CommandWrapper {
 
                         damage.setDamage(number);
                         item.setItemMeta(itemmeta);
-                        sender.sendMessage(AwesomeText.colorize("&a&l» &7Item durability has been set to &f" + (maxDamage - number) + "&7/&f" + maxDamage + "&7."));
+                        sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Item durability has been set to &f" + (maxDamage - number) + "&7/&f" + maxDamage + "&7."));
                         return true;
                     } else if (args[1].equalsIgnoreCase("remaining")) {
                         if (!DogTags.isNumeric(args[2])) {
@@ -253,7 +251,7 @@ public class Item extends CommandWrapper {
 
                         damage.setDamage(number);
                         item.setItemMeta(itemmeta);
-                        sender.sendMessage(AwesomeText.colorize("&a&l» &7Item durability has been set to &f" + (maxDamage - number) + "&7/&f" + maxDamage + "&7."));
+                        sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Item durability has been set to &f" + (maxDamage - number) + "&7/&f" + maxDamage + "&7."));
                         return true;
                     } else {
                         sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
@@ -285,7 +283,7 @@ public class Item extends CommandWrapper {
 
                     item.setItemMeta(itemmeta);
 
-                    sender.sendMessage(AwesomeText.colorize("&a&l» &7The item's custom model data has been set to &f" + number));
+                    sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7The item's custom model data has been set to &f" + number));
                     return true;
                 } else {
                     sender.sendMessage(AwesomeText.beautifyMessage("<dark_aqua>Usage: <gray>/" + label + " modeldata <number>"));
@@ -301,7 +299,7 @@ public class Item extends CommandWrapper {
 
                 player.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
 
-                sender.sendMessage(AwesomeText.colorize("&a&l» &7The item you were holding has been removed."));
+                sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7The item you were holding has been removed."));
                 return true;
             } else if (args[0].equalsIgnoreCase("enchant")) {
                 if (args.length > 2) {
@@ -330,7 +328,7 @@ public class Item extends CommandWrapper {
                     itemMeta.addEnchant(enchantment, level, true);
                     item.setItemMeta(itemMeta);
 
-                    sender.sendMessage(AwesomeText.colorize("&a&l» &7Item has been enchanted with &f" + enchantment.getKey().toString() + " " + AwesomeText.romanNumeral(level) + "&7."));
+                    sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Item has been enchanted with &f" + enchantment.getKey().toString() + " " + AwesomeText.romanNumeral(level) + "&7."));
                     return true;
                 } else {
                     sender.sendMessage(AwesomeText.beautifyMessage("<dark_aqua>Usage: <gray>/" + label + " enchant <enchantment> <level>"));
@@ -350,28 +348,28 @@ public class Item extends CommandWrapper {
                         player.getInventory().setItem(EquipmentSlot.HEAD, item);
                         player.getInventory().setItemInMainHand(oldItem);
 
-                        sender.sendMessage(AwesomeText.colorize("&a&l» &7Equipped item in your head slot."));
+                        sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Equipped item in your head slot."));
                         return true;
                     } else if (args[1].equalsIgnoreCase("chest")) {
                         ItemStack oldItem = player.getInventory().getItem(EquipmentSlot.CHEST);
                         player.getInventory().setItem(EquipmentSlot.CHEST, item);
                         player.getInventory().setItemInMainHand(oldItem);
 
-                        sender.sendMessage(AwesomeText.colorize("&a&l» &7Equipped item in your chest slot."));
+                        sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Equipped item in your chest slot."));
                         return true;
                     } else if (args[1].equalsIgnoreCase("legs")) {
                         ItemStack oldItem = player.getInventory().getItem(EquipmentSlot.LEGS);
                         player.getInventory().setItem(EquipmentSlot.LEGS, item);
                         player.getInventory().setItemInMainHand(oldItem);
 
-                        sender.sendMessage(AwesomeText.colorize("&a&l» &7Equipped item in your legs slot."));
+                        sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Equipped item in your legs slot."));
                         return true;
                     } else if (args[1].equalsIgnoreCase("feet")) {
                         ItemStack oldItem = player.getInventory().getItem(EquipmentSlot.FEET);
                         player.getInventory().setItem(EquipmentSlot.FEET, item);
                         player.getInventory().setItemInMainHand(oldItem);
 
-                        sender.sendMessage(AwesomeText.colorize("&a&l» &7Equipped item in your feet slot."));
+                        sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Equipped item in your feet slot."));
                         return true;
                     } else {
                         sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7\"" + args[1] + "\" is not a valid equipment slot."));

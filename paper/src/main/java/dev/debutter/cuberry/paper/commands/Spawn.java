@@ -78,14 +78,12 @@ public class Spawn extends CommandWrapper implements Listener {
 		DataStorage doubleData = Paper.data().getStorage("data.yml");
 
 		if (label.equalsIgnoreCase("spawn")) {
-			if (!(sender instanceof Player)) {
+			if (!(sender instanceof Player player)) {
 				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
 				return true;
 			}
 
-			Player player = (Player) sender;
-
-			if (!Caboodle.hasPermission(sender, "spawn")) {
+            if (!Caboodle.hasPermission(sender, "spawn")) {
 				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
@@ -103,14 +101,12 @@ public class Spawn extends CommandWrapper implements Listener {
 		}
 
 		if (label.equalsIgnoreCase("setspawn")) {
-			if (!(sender instanceof Player)) {
+			if (!(sender instanceof Player player)) {
 				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
 				return true;
 			}
 
-			Player player = (Player)sender;
-
-			if (!Caboodle.hasPermission(sender, "setspawn")) {
+            if (!Caboodle.hasPermission(sender, "setspawn")) {
 				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}

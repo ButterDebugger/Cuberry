@@ -1,8 +1,6 @@
 package dev.debutter.cuberry.paper.utils;
 
 import dev.debutter.cuberry.paper.Paper;
-import net.md_5.bungee.api.ChatMessageType;
-import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -275,11 +273,6 @@ public class Caboodle implements Listener {
 		}
 
 		return slicedArray;
-	}
-
-	public static void sendActionbar(Player player, String string) {
-//		player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(string));
-		player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(string));
 	}
 
 	public static Object getMetadata(Metadatable object, String key) {
@@ -908,14 +901,10 @@ public class Caboodle implements Listener {
 	}
 
 	public static boolean hasPermission(Object target, String string) {
-		if (target instanceof Player) {
-			Player player = (Player) target;
-
-			return player.hasPermission("cuberry." + string) || player.hasPermission("cuberry.*");
-		} else if (target instanceof CommandSender) {
-			CommandSender sender = (CommandSender) target;
-
-			if (sender instanceof ConsoleCommandSender) {
+		if (target instanceof Player player) {
+            return player.hasPermission("cuberry." + string) || player.hasPermission("cuberry.*");
+		} else if (target instanceof CommandSender sender) {
+            if (sender instanceof ConsoleCommandSender) {
 				return true;
 			} else {
 				return sender.hasPermission("cuberry." + string) || sender.hasPermission("cuberry.*");

@@ -25,19 +25,17 @@ public class Skipday extends CommandWrapper {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (label.equalsIgnoreCase("skipday")) {
-			if (!(sender instanceof Player)) {
+			if (!(sender instanceof Player player)) {
 				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
 				return true;
 			}
 
-			Player player = (Player)sender;
-
-			if (!Caboodle.hasPermission(sender, "skipday")) {
+            if (!Caboodle.hasPermission(sender, "skipday")) {
 				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
 
-			sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7The time is now gradually turning to day."));
+			sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.skipday.success", sender)));
 
 			new BukkitRunnable() {
 				@Override

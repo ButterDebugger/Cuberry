@@ -76,7 +76,6 @@ public class Cuberry extends CommandWrapper {
 				sender.sendMessage(AwesomeText.prettifyMessage("&7--- &astart of test&7 ---"));
 
 				sender.sendMessage(AwesomeText.createItemHoverComponent(item));
-				sender.sendMessage(AwesomeText.createMaterialComponent(item.getType()));
 				sender.sendMessage(AwesomeText.createMaterialHoverComponent(item.getType()));
 
 				sender.sendMessage(AwesomeText.prettifyMessage("&7--- &cend  of  test&7 ---"));
@@ -139,7 +138,7 @@ public class Cuberry extends CommandWrapper {
 								return true;
 							}
 						} else {
-							sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_found", sender)));
+							sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_online", sender)));
 							return true;
 						}
 					} else if (args[2].equalsIgnoreCase("hide")) {
@@ -189,13 +188,12 @@ public class Cuberry extends CommandWrapper {
 							return true;
 						}
 					} else if (args[2].equalsIgnoreCase("dupeinventory")) {
-						if (!(sender instanceof Player)) {
+						if (!(sender instanceof Player player)) {
 							sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
 							return true;
 						}
-						Player player = (Player) sender;
 
-						if (args.length < 4) {
+                        if (args.length < 4) {
 							sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
 							return true;
 						} else if (DogTags.isOnline(args[3])) {
@@ -211,13 +209,12 @@ public class Cuberry extends CommandWrapper {
 							return true;
 						}
 					} else if (args[2].equalsIgnoreCase("dupeenderchest")) {
-						if (!(sender instanceof Player)) {
+						if (!(sender instanceof Player player)) {
 							sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
 							return true;
 						}
-						Player player = (Player) sender;
 
-						if (args.length < 4) {
+                        if (args.length < 4) {
 							sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
 							return true;
 						} else if (DogTags.isOnline(args[3])) {
@@ -253,7 +250,7 @@ public class Cuberry extends CommandWrapper {
 								return true;
 							}
 						} else {
-							sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_found", sender)));
+							sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_online", sender)));
 							return true;
 						}
 					} else if (args[2].equalsIgnoreCase("ride")) {
@@ -326,7 +323,7 @@ public class Cuberry extends CommandWrapper {
 								sender.sendMessage(AwesomeText.colorize("&b" + other.getName() + " &3has dropped the item in their Main hand."));
 							}
 						} else {
-							sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_found", sender)));
+							sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_online", sender)));
 							return true;
 						}
 					} else if (args[2].equalsIgnoreCase("dropoffhand")) {
@@ -346,7 +343,7 @@ public class Cuberry extends CommandWrapper {
 								sender.sendMessage(AwesomeText.colorize("&b" + other.getName() + " &3has dropped the item in their off hand."));
 							}
 						} else {
-							sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_found", sender)));
+							sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_online", sender)));
 							return true;
 						}
 					} else if (args[2].equalsIgnoreCase("dropoffhand")) {
@@ -366,7 +363,7 @@ public class Cuberry extends CommandWrapper {
 								sender.sendMessage(AwesomeText.colorize("&b" + other.getName() + " &3has dropped the item in their off hand."));
 							}
 						} else {
-							sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_found", sender)));
+							sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_online", sender)));
 							return true;
 						}
 					}
@@ -390,13 +387,12 @@ public class Cuberry extends CommandWrapper {
 						sender.sendMessage(AwesomeText.colorize("&3Bukkit version is &b" + Bukkit.getBukkitVersion()));
 						return true;
 					} else if (args[2].equalsIgnoreCase("lagmonitor")) {
-						if (!(sender instanceof Player)) {
+						if (!(sender instanceof Player player)) {
 							sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
 							return true;
 						}
-						Player player = (Player) sender;
 
-						if (args.length < 4) {
+                        if (args.length < 4) {
 							lagmonitor.put(player, !lagmonitor.get(player));
 
 							if (lagmonitor.get(player)) {
@@ -424,13 +420,12 @@ public class Cuberry extends CommandWrapper {
 						return true;
 					}
 				} else if (args[1].equalsIgnoreCase("chunk")) {
-					if (!(sender instanceof Player)) {
+					if (!(sender instanceof Player player)) {
 						sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
 						return true;
 					}
 
-					Player player = (Player) sender;
-					World world = player.getLocation().getWorld();
+                    World world = player.getLocation().getWorld();
 					Chunk chunk = player.getLocation().getBlock().getChunk();
 
 					if (args.length < 3) {
@@ -500,13 +495,12 @@ public class Cuberry extends CommandWrapper {
 						return true;
 					}
 				} else if (args[1].equalsIgnoreCase("world")) {
-					if (!(sender instanceof Player)) {
+					if (!(sender instanceof Player player)) {
 						sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
 						return true;
 					}
 
-					Player player = (Player) sender;
-					World world = player.getLocation().getWorld();
+                    World world = player.getLocation().getWorld();
 
 					if (args.length < 3) {
 						sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
@@ -573,13 +567,13 @@ public class Cuberry extends CommandWrapper {
 							String stringType = "";
 
 							if (w.getEnvironment().equals(Environment.NORMAL)) {
-								stringType = "&a" + w.getEnvironment().toString();
+								stringType = "&a" + w.getEnvironment();
 							} else if (w.getEnvironment().equals(Environment.NETHER)) {
-								stringType = "&c" + w.getEnvironment().toString();
+								stringType = "&c" + w.getEnvironment();
 							} else if (w.getEnvironment().equals(Environment.THE_END)) {
-								stringType = "&e" + w.getEnvironment().toString();
+								stringType = "&e" + w.getEnvironment();
 							} else {
-								stringType = "&d" + w.getEnvironment().toString();
+								stringType = "&d" + w.getEnvironment();
 							}
 
 							sender.sendMessage(AwesomeText.colorize("&f" + w.getName() + " - " + stringType));
@@ -655,7 +649,7 @@ public class Cuberry extends CommandWrapper {
 					return Caboodle.getWorldNames();
 				}
 				if (args[1].equalsIgnoreCase("world") && args[2].equalsIgnoreCase("load") || args[2].equalsIgnoreCase("delete")) {
-					if (Caboodle.getUnloadedWorldNames().size() == 0) {
+					if (Caboodle.getUnloadedWorldNames().isEmpty()) {
 						return Caboodle.getAllWorldNames();
 					} else {
 						return Caboodle.getUnloadedWorldNames();
@@ -673,54 +667,50 @@ public class Cuberry extends CommandWrapper {
 	}
 
 	public static void start() {
-		Bukkit.getScheduler().scheduleSyncRepeatingTask(Paper.plugin(), new Runnable() {
-			@Override
-			public void run() {
-				for (Player player : Bukkit.getOnlinePlayers()) {
-					if (lagmonitor.get(player) == null) {
-						lagmonitor.put(player, false);
-					}
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(Paper.plugin(), () -> {
+            for (Player player : Bukkit.getOnlinePlayers()) {
+				lagmonitor.putIfAbsent(player, false);
 
-					if (lagmonitor.get(player)) {
-						String tpsString;
-						double tps = Caboodle.round(Caboodle.getTps(), 2);
-						if (tps >= 18) {
-							tpsString = "&7TPS: &a" + tps;
-						} else if (tps >= 16) {
-							tpsString = "&7TPS: &e" + tps;
-						} else {
-							tpsString = "&7TPS: &c" + tps;
-						}
+                if (lagmonitor.get(player)) {
+                    String tpsString;
+                    double tps = Caboodle.round(Caboodle.getTps(), 2);
+                    if (tps >= 18) {
+                        tpsString = "<gray>TPS: <green>" + tps;
+                    } else if (tps >= 16) {
+                        tpsString = "<gray>TPS: <yellow>" + tps;
+                    } else {
+                        tpsString = "<gray>TPS: <red>" + tps;
+                    }
 
-						Runtime r = Runtime.getRuntime();
-						long memUsed = (r.totalMemory() - r.freeMemory()) / 1048576;
-						long memMax = r.maxMemory() / 1048576;
-						double memValue = ((double) memUsed / (double) memMax) * 100;
-						String memString = "&7Memory&e: &a" + Caboodle.round(memValue, 1) + "%";
+                    Runtime r = Runtime.getRuntime();
+                    long memUsed = (r.totalMemory() - r.freeMemory()) / 1048576;
+                    long memMax = r.maxMemory() / 1048576;
+                    double memValue = ((double) memUsed / (double) memMax) * 100;
+                    String memString = "<gray>Memory: <green>" + Caboodle.round(memValue, 1) + "%";
 
-						String chunkString = "&7Chunks&e: &a" + Caboodle.getTotalChunksLoaded();
+                    String chunkString = "<gray>Chunks: <green>" + Caboodle.getTotalChunksLoaded();
 
-						String entityString = "&7Entities&e: &a" + Caboodle.getTotalEntities();
+                    String entityString = "<gray>Entities: <green>" + Caboodle.getTotalEntities();
 
-						String pingString;
-						int ping = player.getPing();
-						if (ping < 150) {
-							pingString = "&7Ping&e: &a&#00FF21" + ping + "&7ms";
-						} else if (ping < 300) {
-							pingString = "&7Ping&e: &e&#F3FF00" + ping + "&7ms";
-						} else if (ping < 600) {
-							pingString = "&7Ping&e: &6&#FFA500" + ping + "&7ms";
-						} else if (ping < 1000) {
-							pingString = "&7Ping&e: &c&#FF4300" + ping + "&7ms";
-						} else {
-							pingString = "&7Ping&e: &4&#910003" + ping + "&7ms";
-						}
+                    String pingString;
+                    int ping = player.getPing();
+					// TODO: use the transition style component
+                    if (ping < 150) {
+                        pingString = "<gray>Ping: <#00FF21>" + ping + "<gray>ms";
+                    } else if (ping < 300) {
+                        pingString = "<gray>Ping: <#F3FF00>" + ping + "<gray>ms";
+                    } else if (ping < 600) {
+                        pingString = "<gray>Ping: <#FFA500>" + ping + "<gray>ms";
+                    } else if (ping < 1000) {
+                        pingString = "<gray>Ping: <#FF4300>" + ping + "<gray>ms";
+                    } else {
+                        pingString = "<gray>Ping: <#910003>" + ping + "<gray>ms";
+                    }
 
-						Caboodle.sendActionbar(player, AwesomeText.prettifyMessage(tpsString + " " + memString + " " + chunkString + " " + entityString + " " + pingString, player));
-					}
-				}
-			}
-		}, 0, 1);
+                    player.sendActionBar(AwesomeText.beautifyMessage(tpsString + " " + memString + " " + chunkString + " " + entityString + " " + pingString, player));
+                }
+            }
+        }, 0, 1);
 	}
 
 	public static void end() {

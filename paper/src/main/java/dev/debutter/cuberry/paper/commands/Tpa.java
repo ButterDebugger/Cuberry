@@ -51,14 +51,12 @@ public class Tpa extends CommandWrapper {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if (!(sender instanceof Player)) {
+		if (!(sender instanceof Player player)) {
 			sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
 			return true;
 		}
 
-		Player player = (Player) sender;
-
-		if (label.equalsIgnoreCase("tpa")) {
+        if (label.equalsIgnoreCase("tpa")) {
 			if (!Caboodle.hasPermission(sender, "tpa")) {
 				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
 				return true;
@@ -76,7 +74,7 @@ public class Tpa extends CommandWrapper {
 				player.sendMessage(AwesomeText.colorize("&a&l» &7Request sent!"));
 				otherPlayer.sendMessage(AwesomeText.colorize("&a&l» &f" + player.getName() + "&7 has sent you a tpa request to teleport to you."));
 			} else {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_found", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_online", sender)));
 			}
 			return true;
 		} else if (label.equalsIgnoreCase("tpahere")) {
@@ -97,7 +95,7 @@ public class Tpa extends CommandWrapper {
 				player.sendMessage(AwesomeText.colorize("&a&l» &7Request sent!"));
 				otherPlayer.sendMessage(AwesomeText.colorize("&a&l» &f" + player.getName() + "&7 has sent you a tpa request to teleport to them."));
 			} else {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_found", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_online", sender)));
 			}
 			return true;
 		} else if (label.equalsIgnoreCase("tpaccept")) {
@@ -135,7 +133,7 @@ public class Tpa extends CommandWrapper {
 					sender.sendMessage(AwesomeText.colorize("&cError: &7You do not have any requests from that player."));
 				}
 			} else {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_found", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_online", sender)));
 			}
 			return true;
 		} else if (label.equalsIgnoreCase("tpadeny")) {

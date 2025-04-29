@@ -6,6 +6,8 @@ import dev.debutter.cuberry.paper.commands.builder.CommandWrapper;
 import dev.debutter.cuberry.paper.utils.AwesomeText;
 import dev.debutter.cuberry.paper.utils.Caboodle;
 import dev.debutter.cuberry.paper.utils.DogTags;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
@@ -58,7 +60,7 @@ public class Gamemode extends CommandWrapper {
 					player = Bukkit.getPlayer(args[1]);
 					themself = false;
 				} else {
-					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_found", sender)));
+					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_online", sender)));
 					return true;
 				}
 			} else {
@@ -70,40 +72,42 @@ public class Gamemode extends CommandWrapper {
 				player = (Player) sender;
 			}
 
+			assert player != null;
+
 			if (args[0].equalsIgnoreCase("adventure") || args[0].equalsIgnoreCase("a") || args[0].equalsIgnoreCase("2")) {
-				player.setGameMode(GameMode.ADVENTURE);
+                player.setGameMode(GameMode.ADVENTURE);
 
 				if (themself) {
-					sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Set own game mode to &fAdventure Mode&7."));
+					sender.sendMessage(beautifyGamemode(sender, GameMode.ADVENTURE));
 				} else {
-					sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Set &f" + player.getName() + "&7's game mode to &fAdventure Mode&7."));
+					sender.sendMessage(beautifyGamemode(sender, GameMode.ADVENTURE, player));
 				}
 				return true;
 			} else if (args[0].equalsIgnoreCase("creative") || args[0].equalsIgnoreCase("c") || args[0].equalsIgnoreCase("1")) {
 				player.setGameMode(GameMode.CREATIVE);
 
 				if (themself) {
-					sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Set own game mode to &fCreative Mode&7."));
+					sender.sendMessage(beautifyGamemode(sender, GameMode.CREATIVE));
 				} else {
-					sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Set &f" + player.getName() + "&7's game mode to &fCreative Mode&7."));
+					sender.sendMessage(beautifyGamemode(sender, GameMode.CREATIVE, player));
 				}
 				return true;
 			} else if (args[0].equalsIgnoreCase("spectator") || args[0].equalsIgnoreCase("sp") || args[0].equalsIgnoreCase("3")) {
 				player.setGameMode(GameMode.SPECTATOR);
 
 				if (themself) {
-					sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Set own game mode to &fSpectator Mode&7."));
+					sender.sendMessage(beautifyGamemode(sender, GameMode.SPECTATOR));
 				} else {
-					sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Set &f" + player.getName() + "&7's game mode to &fSpectator Mode&7."));
+					sender.sendMessage(beautifyGamemode(sender, GameMode.SPECTATOR, player));
 				}
 				return true;
 			} else if (args[0].equalsIgnoreCase("survival") || args[0].equalsIgnoreCase("s") || args[0].equalsIgnoreCase("0")) {
 				player.setGameMode(GameMode.SURVIVAL);
 
 				if (themself) {
-					sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Set own game mode to &fSurvival Mode&7."));
+					sender.sendMessage(beautifyGamemode(sender, GameMode.SURVIVAL));
 				} else {
-					sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Set &f" + player.getName() + "&7's game mode to &fSurvival Mode&7."));
+					sender.sendMessage(beautifyGamemode(sender, GameMode.SURVIVAL, player));
 				}
 				return true;
 			} else {
@@ -119,15 +123,13 @@ public class Gamemode extends CommandWrapper {
 			}
 
 			if (args.length == 0) {
-				if (!(sender instanceof Player)) {
+				if (!(sender instanceof Player player)) {
 					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
 					return true;
 				}
 
-				Player player = (Player) sender;
-
-				player.setGameMode(GameMode.ADVENTURE);
-				sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Set own game mode to &fAdventure Mode&7."));
+                player.setGameMode(GameMode.ADVENTURE);
+				sender.sendMessage(beautifyGamemode(sender, GameMode.ADVENTURE));
 				return true;
 			}
 
@@ -135,10 +137,10 @@ public class Gamemode extends CommandWrapper {
 				Player player = Bukkit.getPlayer(args[0]);
 
 				player.setGameMode(GameMode.ADVENTURE);
-				sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Set &f" + player.getName() + "&7's game mode to &fAdventure Mode&7."));
+				sender.sendMessage(beautifyGamemode(sender, GameMode.ADVENTURE, player));
 				return true;
 			} else {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_found", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_online", sender)));
 				return true;
 			}
 		}
@@ -150,15 +152,13 @@ public class Gamemode extends CommandWrapper {
 			}
 
 			if (args.length == 0) {
-				if (!(sender instanceof Player)) {
+				if (!(sender instanceof Player player)) {
 					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
 					return true;
 				}
 
-				Player player = (Player) sender;
-
-				player.setGameMode(GameMode.CREATIVE);
-				sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Set own game mode to &fCreative Mode&7."));
+                player.setGameMode(GameMode.CREATIVE);
+				sender.sendMessage(beautifyGamemode(sender, GameMode.CREATIVE));
 				return true;
 			}
 
@@ -166,10 +166,10 @@ public class Gamemode extends CommandWrapper {
 				Player player = Bukkit.getPlayer(args[0]);
 
 				player.setGameMode(GameMode.CREATIVE);
-				sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Set &f" + player.getName() + "&7's game mode to &fCreative Mode&7."));
+				sender.sendMessage(beautifyGamemode(sender, GameMode.CREATIVE, player));
 				return true;
 			} else {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_found", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_online", sender)));
 				return true;
 			}
 		}
@@ -181,15 +181,13 @@ public class Gamemode extends CommandWrapper {
 			}
 
 			if (args.length == 0) {
-				if (!(sender instanceof Player)) {
+				if (!(sender instanceof Player player)) {
 					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
 					return true;
 				}
 
-				Player player = (Player) sender;
-
-				player.setGameMode(GameMode.SPECTATOR);
-				sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Set own game mode to &fSpectator Mode&7."));
+                player.setGameMode(GameMode.SPECTATOR);
+				sender.sendMessage(beautifyGamemode(sender, GameMode.SPECTATOR));
 				return true;
 			}
 
@@ -197,10 +195,10 @@ public class Gamemode extends CommandWrapper {
 				Player player = Bukkit.getPlayer(args[0]);
 
 				player.setGameMode(GameMode.SPECTATOR);
-				sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Set &f" + player.getName() + "&7's game mode to &fSpectator Mode&7."));
+				sender.sendMessage(beautifyGamemode(sender, GameMode.SPECTATOR, player));
 				return true;
 			} else {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_found", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_online", sender)));
 				return true;
 			}
 		}
@@ -212,15 +210,13 @@ public class Gamemode extends CommandWrapper {
 			}
 
 			if (args.length == 0) {
-				if (!(sender instanceof Player)) {
+				if (!(sender instanceof Player player)) {
 					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
 					return true;
 				}
 
-				Player player = (Player) sender;
-
-				player.setGameMode(GameMode.SURVIVAL);
-				sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Set own game mode to &fSurvival Mode&7."));
+                player.setGameMode(GameMode.SURVIVAL);
+				sender.sendMessage(beautifyGamemode(sender, GameMode.SURVIVAL));
 				return true;
 			}
 
@@ -228,10 +224,10 @@ public class Gamemode extends CommandWrapper {
 				Player player = Bukkit.getPlayer(args[0]);
 
 				player.setGameMode(GameMode.SURVIVAL);
-				sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Set &f" + player.getName() + "&7's game mode to &fSurvival Mode&7."));
+				sender.sendMessage(beautifyGamemode(sender, GameMode.SURVIVAL, player));
 				return true;
 			} else {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_found", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_online", sender)));
 				return true;
 			}
 		}
@@ -262,5 +258,22 @@ public class Gamemode extends CommandWrapper {
 		}
 
 		return null;
+	}
+
+	/** @return A beautified set gamemode message for the player */
+	public static Component beautifyGamemode(CommandSender sender, GameMode gameMode) {
+		return AwesomeText.beautifyMessage(
+			Paper.locale().getMessage("commands.gamemode.set_self", sender),
+			Placeholder.component("gamemode", AwesomeText.createTranslatableComponent(gameMode.translationKey()))
+		);
+	}
+
+	/** @return A beautified set gamemode message for another player */
+	public static Component beautifyGamemode(CommandSender sender, GameMode gameMode, Player player) {
+		return AwesomeText.beautifyMessage(
+			Paper.locale().getMessage("commands.gamemode.set_other", sender),
+			Placeholder.unparsed("player_name", player.getName()),
+			Placeholder.component("gamemode", AwesomeText.createTranslatableComponent(gameMode.translationKey()))
+		);
 	}
 }

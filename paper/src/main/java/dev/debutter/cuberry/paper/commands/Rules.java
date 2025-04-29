@@ -32,9 +32,8 @@ public class Rules extends CommandWrapper {
 			}
 
 			List<String> rules = config.getStringList("commands.rules.message");
-			String msg = AwesomeText.prettifyMessage(String.join("\n", rules));
 
-			sender.sendMessage(msg);
+			sender.sendMessage(AwesomeText.beautifyMessage(String.join("\n", rules)));
 			return true;
 		}
 		return false;

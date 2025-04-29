@@ -7,6 +7,7 @@ import dev.debutter.cuberry.paper.utils.AwesomeText;
 import dev.debutter.cuberry.paper.utils.Caboodle;
 import dev.debutter.cuberry.paper.utils.DogTags;
 import dev.debutter.cuberry.paper.utils.storage.DataStorage;
+import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
@@ -16,6 +17,7 @@ import org.bukkit.entity.Player;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 public class Teleport extends CommandWrapper {
@@ -41,14 +43,12 @@ public class Teleport extends CommandWrapper {
 		DataStorage playerData = Paper.data().getStorage("players.yml");
 
 		if (label.equalsIgnoreCase("tphere")) {
-			if (!(sender instanceof Player)) {
+			if (!(sender instanceof Player player)) {
 				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
 				return true;
 			}
 
-			Player player = (Player) sender;
-
-			if (!Caboodle.hasPermission(sender, "tphere")) {
+            if (!Caboodle.hasPermission(sender, "tphere")) {
 				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
@@ -68,22 +68,23 @@ public class Teleport extends CommandWrapper {
 
 			otherPlayer.teleport(player.getLocation());
 
-			sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &f" + otherPlayer.getName() + "&7 has been teleported to you."));
+			sender.sendMessage(AwesomeText.beautifyMessage(
+				Paper.locale().getMessage("commands.teleport.someone_to_you", sender),
+				Placeholder.unparsed("player_name", otherPlayer.getName())
+			));
 			return true;
 		} else if (label.equalsIgnoreCase("tp2p")) {
-			if (!(sender instanceof Player)) {
+			if (!(sender instanceof Player player)) {
 				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
 				return true;
 			}
 
-			Player player = (Player) sender;
-
-			if (!Caboodle.hasPermission(sender, "tp2p")) {
+            if (!Caboodle.hasPermission(sender, "tp2p")) {
 				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
 			if (args.length == 0) {
-				sender.sendMessage(AwesomeText.beautifyMessage("<dark_aqua>Usage: <gray>/tp2p <username> [<username>]"));
+				sender.sendMessage(AwesomeText.beautifyMessage("<dark_aqua>Usage: <gray>/tp2p <username>"));
 				return true;
 			}
 
@@ -98,7 +99,10 @@ public class Teleport extends CommandWrapper {
 
 			player.teleport(otherPlayer.getLocation());
 
-			sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7You have been teleported to &f" + otherPlayer.getName() + "&7."));
+			sender.sendMessage(AwesomeText.beautifyMessage(
+				Paper.locale().getMessage("commands.teleport.you_to_someone", sender),
+				Placeholder.unparsed("player_name", otherPlayer.getName())
+			));
 			return true;
 		} else if (label.equalsIgnoreCase("tpall")) {
 			if (!Caboodle.hasPermission(sender, "tpall")) {
@@ -107,19 +111,18 @@ public class Teleport extends CommandWrapper {
 			}
 
 			if (args.length == 0) {
-				if (!(sender instanceof Player)) {
+				if (!(sender instanceof Player player)) {
 					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
 					return true;
 				}
 
-				Player player = (Player) sender;
-				Location location = player.getLocation();
+                Location location = player.getLocation();
 
 				for (Player otherPlayer : Bukkit.getOnlinePlayers()) {
 					otherPlayer.teleport(location);
 				}
 
-				sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7All players have been teleported to you."));
+				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.teleport.all_to_you", sender)));
 				return true;
 			} else {
 				String username = args[0];
@@ -136,18 +139,19 @@ public class Teleport extends CommandWrapper {
 					otherPlayer.teleport(location);
 				}
 
-				sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7All players have been teleported to &f" + player.getName() + "&7."));
+				sender.sendMessage(AwesomeText.beautifyMessage(
+					Paper.locale().getMessage("commands.teleport.all_to_someone", sender),
+					Placeholder.unparsed("player_name", player.getName())
+				));
 				return true;
 			}
 		} else if (label.equalsIgnoreCase("tpoffline")) {
-			if (!(sender instanceof Player)) {
+			if (!(sender instanceof Player player)) {
 				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
 				return true;
 			}
 
-			Player player = (Player) sender;
-
-			if (!Caboodle.hasPermission(sender, "tpoffline")) {
+            if (!Caboodle.hasPermission(sender, "tpoffline")) {
 				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
@@ -161,7 +165,7 @@ public class Teleport extends CommandWrapper {
 			UUID otherUUID = otherPlayer.getUniqueId();
 
 			if (!otherPlayer.hasPlayedBefore()) {
-				sender.sendMessage(AwesomeText.colorize("&cError: &f" + otherPlayer.getName() + "&7 has never played before."));
+				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_never_joined", sender)));
 				return true;
 			}
 
@@ -169,27 +173,39 @@ public class Teleport extends CommandWrapper {
 				String logoutLoc = playerData.getString(otherUUID + ".logoutlocation");
 
 				if (logoutLoc == null) {
-					sender.sendMessage(AwesomeText.prettifyMessage("&cError: &f" + otherPlayer.getName() + "&7's logout location is not known."));
+					sender.sendMessage(AwesomeText.beautifyMessage(
+						Paper.locale().getMessage("commands.teleport.unknown_logout_location", sender),
+						Placeholder.unparsed("player_name", Objects.requireNonNull(otherPlayer.getName()))
+					));
 					return true;
 				}
 
 				Location loc = Caboodle.parseLocation(logoutLoc);
 
 				player.teleport(loc);
-				sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7You have been teleported to &f" + otherPlayer.getName() + "&7's last logout location."));
+				sender.sendMessage(AwesomeText.beautifyMessage(
+					Paper.locale().getMessage("commands.teleport.you_to_logout_location", sender),
+					Placeholder.unparsed("player_name", Objects.requireNonNull(otherPlayer.getName()))
+				));
 				return true;
 			} else {
 				String logoutLoc = playerData.getString(otherUUID + ".logoutlocation");
 
 				if (logoutLoc == null) {
-					sender.sendMessage(AwesomeText.prettifyMessage("&cError: &f" + otherPlayer.getName() + "&7's logout location is not known."));
+					sender.sendMessage(AwesomeText.beautifyMessage(
+						Paper.locale().getMessage("commands.teleport.unknown_logout_location", sender),
+						Placeholder.unparsed("player_name", Objects.requireNonNull(otherPlayer.getName()))
+					));
 					return true;
 				}
 
 				Location loc = Caboodle.parseLocation(logoutLoc);
 
 				player.teleport(loc);
-				sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7You have been teleported to &f" + otherPlayer.getName() + "&7's logout location."));
+				sender.sendMessage(AwesomeText.beautifyMessage(
+					Paper.locale().getMessage("commands.teleport.you_to_logout_location", sender),
+					Placeholder.unparsed("player_name", Objects.requireNonNull(otherPlayer.getName()))
+				));
 				return true;
 			}
 		}

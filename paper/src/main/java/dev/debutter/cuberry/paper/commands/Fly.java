@@ -6,6 +6,7 @@ import dev.debutter.cuberry.paper.commands.builder.CommandWrapper;
 import dev.debutter.cuberry.paper.utils.AwesomeText;
 import dev.debutter.cuberry.paper.utils.Caboodle;
 import dev.debutter.cuberry.paper.utils.DogTags;
+import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -33,19 +34,17 @@ public class Fly extends CommandWrapper {
 			}
 
 			if (args.length == 0) {
-				if (!(sender instanceof Player)) {
+				if (!(sender instanceof Player player)) {
 					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
 					return true;
 				}
 
-				Player player = (Player) sender;
-
-				player.setAllowFlight(!player.getAllowFlight());
+                player.setAllowFlight(!player.getAllowFlight());
 
 				if (player.getAllowFlight()) {
-					sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Flight has been toggled on."));
+					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.fly.enable_self", sender)));
 				} else {
-					sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Flight has been toggled off."));
+					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.fly.disable_self", sender)));
 				}
 				return true;
 			}
@@ -53,16 +52,27 @@ public class Fly extends CommandWrapper {
 			if (DogTags.isOnline(args[0])) {
 				Player player = Bukkit.getPlayer(args[0]);
 
+				if (player == null) {
+					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_online", sender)));
+					return true;
+				}
+
 				if (args.length > 1) {
 					if (args[1].equalsIgnoreCase("enable") || args[1].equalsIgnoreCase("on")) {
 						player.setAllowFlight(true);
 
-						sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Flight has been enabled for &f" + player.getName() + "&7."));
+						sender.sendMessage(AwesomeText.beautifyMessage(
+							Paper.locale().getMessage("commands.fly.enable_other", sender),
+							Placeholder.component("other_name", player.name())
+						));
 						return true;
 					} else if (args[1].equalsIgnoreCase("disable") || args[1].equalsIgnoreCase("off")) {
 						player.setAllowFlight(false);
 
-						sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Flight has been disabled for &f" + player.getName() + "&7."));
+						sender.sendMessage(AwesomeText.beautifyMessage(
+							Paper.locale().getMessage("commands.fly.disable_other", sender),
+							Placeholder.component("other_name", player.name())
+						));
 						return true;
 					} else {
 						sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
@@ -72,14 +82,20 @@ public class Fly extends CommandWrapper {
 					player.setAllowFlight(!player.getAllowFlight());
 
 					if (player.getAllowFlight()) {
-						sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Flight has been toggled on for &f" + player.getName() + "&7."));
+						sender.sendMessage(AwesomeText.beautifyMessage(
+							Paper.locale().getMessage("commands.fly.enable_other", sender),
+							Placeholder.component("other_name", player.name())
+						));
 					} else {
-						sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Flight has been toggled off for &f" + player.getName() + "&7."));
+						sender.sendMessage(AwesomeText.beautifyMessage(
+							Paper.locale().getMessage("commands.fly.disable_other", sender),
+							Placeholder.component("other_name", player.name())
+						));
 					}
 					return true;
 				}
 			} else {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_found", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_online", sender)));
 				return true;
 			}
 		}

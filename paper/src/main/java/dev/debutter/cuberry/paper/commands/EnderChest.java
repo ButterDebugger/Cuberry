@@ -6,6 +6,7 @@ import dev.debutter.cuberry.paper.commands.builder.CommandWrapper;
 import dev.debutter.cuberry.paper.utils.AwesomeText;
 import dev.debutter.cuberry.paper.utils.Caboodle;
 import dev.debutter.cuberry.paper.utils.DogTags;
+import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -32,17 +33,15 @@ public class EnderChest extends CommandWrapper {
 				return true;
 			}
 
-			if (!(sender instanceof Player)) {
+			if (!(sender instanceof Player player)) {
 				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
 				return true;
 			}
 
-			Player player = (Player) sender;
-
-			if (args.length == 0) {
+            if (args.length == 0) {
 				player.openInventory(player.getEnderChest());
 
-				sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7You are now viewing your own enderchest."));
+				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.enderchest.view_self", sender)));
 				return true;
 			}
 
@@ -51,10 +50,13 @@ public class EnderChest extends CommandWrapper {
 
 				player.openInventory(other.getEnderChest());
 
-				sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7You are now viewing &f" + other.getName() + "&7's enderchest."));
+				sender.sendMessage(AwesomeText.beautifyMessage(
+					Paper.locale().getMessage("commands.enderchest.view_other", sender),
+					Placeholder.component("other_name", other.name())
+				));
 				return true;
 			} else {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_found", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_online", sender)));
 				return true;
 			}
 		}

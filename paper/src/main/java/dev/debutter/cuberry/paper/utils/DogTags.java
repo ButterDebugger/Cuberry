@@ -427,10 +427,8 @@ public class DogTags {
 	}
 
 	public static boolean isWaterlogged(Block block) {
-		if (block.getBlockData() instanceof Waterlogged) {
-			 Waterlogged waterlog = (Waterlogged) block.getBlockData();
-			 
-			 return waterlog.isWaterlogged();
+		if (block.getBlockData() instanceof Waterlogged waterlog) {
+            return waterlog.isWaterlogged();
 		}
 
 		return false;
@@ -513,46 +511,32 @@ public class DogTags {
 		if (Tag.CORAL_PLANTS.isTagged(material)) return true;
 		if (isStandingBanner(material)) return true;
 		
-		if (blockData instanceof Hangable) {
-			Hangable hangable = (Hangable) blockData;
-			
-			if (!hangable.isHanging()) return true;
+		if (blockData instanceof Hangable hangable) {
+            if (!hangable.isHanging()) return true;
 		}
 		
-		if (blockData instanceof PointedDripstone) {
-			PointedDripstone dripstone = (PointedDripstone) blockData;
-			
-			if (dripstone.getVerticalDirection().equals(BlockFace.UP)) return true;
+		if (blockData instanceof PointedDripstone dripstone) {
+            if (dripstone.getVerticalDirection().equals(BlockFace.UP)) return true;
 		}
 		
-		if (blockData instanceof SculkVein) {
-			SculkVein sculk = (SculkVein) blockData;
-			
-			if (sculk.hasFace(BlockFace.DOWN)) return true;
+		if (blockData instanceof SculkVein sculk) {
+            if (sculk.hasFace(BlockFace.DOWN)) return true;
 		}
 		
-		if (blockData instanceof Bell) {
-			Bell bell = (Bell) blockData;
-			
-			if (bell.getAttachment().equals(Attachment.FLOOR)) return true;
+		if (blockData instanceof Bell bell) {
+            if (bell.getAttachment().equals(Attachment.FLOOR)) return true;
 		}
 		
-		if (blockData instanceof GlowLichen) {
-			GlowLichen lichen = (GlowLichen) blockData;
-			
-			if (lichen.hasFace(BlockFace.DOWN)) return true;
+		if (blockData instanceof GlowLichen lichen) {
+            if (lichen.hasFace(BlockFace.DOWN)) return true;
 		}
 		
-		if (blockData instanceof Scaffolding) {
-			Scaffolding scaffolding = (Scaffolding) blockData;
-			
-			if (scaffolding.isBottom() == false) return true;
+		if (blockData instanceof Scaffolding scaffolding) {
+            if (!scaffolding.isBottom()) return true;
 		}
 		
-		if (blockData instanceof Fire) {
-			Fire fire = (Fire) blockData;
-			
-			if (!(
+		if (blockData instanceof Fire fire) {
+            if (!(
 				fire.hasFace(BlockFace.UP) &&
 				fire.hasFace(BlockFace.NORTH) &&
 				fire.hasFace(BlockFace.EAST) &&

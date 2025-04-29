@@ -56,7 +56,7 @@ public class Message extends CommandWrapper {
 			}
 
 			if (!DogTags.isOnline(args[0])) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_found", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_online", sender)));
 				return true;
 			}
 
@@ -115,7 +115,7 @@ public class Message extends CommandWrapper {
 			}
 
 			if (!DogTags.isOnline(reply.get(player.getUniqueId()))) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_found", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_online", sender)));
 				return true;
 			}
 

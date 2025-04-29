@@ -6,6 +6,7 @@ import dev.debutter.cuberry.paper.commands.builder.CommandWrapper;
 import dev.debutter.cuberry.paper.utils.AwesomeText;
 import dev.debutter.cuberry.paper.utils.Caboodle;
 import dev.debutter.cuberry.paper.utils.storage.DataStorage;
+import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -40,14 +41,12 @@ public class Warp extends CommandWrapper {
 		DataStorage warps = Paper.data().getStorage("warps.yml");
 
 		if (label.equalsIgnoreCase("warp")) {
-			if (!(sender instanceof Player)) {
+			if (!(sender instanceof Player player)) {
 				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
 				return true;
 			}
 
-			Player player = (Player)sender;
-
-			if (!Caboodle.hasPermission(sender, "warp")) {
+            if (!Caboodle.hasPermission(sender, "warp")) {
 				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
@@ -59,7 +58,7 @@ public class Warp extends CommandWrapper {
 			String name = args[0];
 
 			if (!warps.exists(name)) {
-				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7Warp does not exist."));
+				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.warp.does_not_exist", sender)));
 				return true;
 			}
 
@@ -73,7 +72,7 @@ public class Warp extends CommandWrapper {
 			World world = Bukkit.getWorld(worldName);
 
 			if (world == null) {
-				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7An error has occurred with this warps world."));
+				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.warp.broken", sender)));
 				return true;
 			}
 
@@ -82,7 +81,10 @@ public class Warp extends CommandWrapper {
 			player.teleport(loc);
 			player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 0.5f, 1f);
 
-			sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7You have been warped to " + name + "."));
+			sender.sendMessage(AwesomeText.beautifyMessage(
+				Paper.locale().getMessage("commands.warp.teleported", sender),
+				Placeholder.unparsed("warp_name", name)
+			));
 			return true;
 		} else if (label.equalsIgnoreCase("delwarp")) {
 			if (!Caboodle.hasPermission(sender, "delwarp")) {
@@ -97,23 +99,21 @@ public class Warp extends CommandWrapper {
 			String name = args[0];
 
 			if (!warps.exists(name)) {
-				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7Warp does not exist."));
+				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.warp.does_not_exist", sender)));
 				return true;
 			}
 
 			warps.remove(name);
 
-			sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Warp has been deleted."));
+			sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.warp.deleted", sender)));
 			return true;
 		} else if (label.equalsIgnoreCase("setwarp")) {
-			if (!(sender instanceof Player)) {
+			if (!(sender instanceof Player player)) {
 				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
 				return true;
 			}
 
-			Player player = (Player) sender;
-
-			if (!Caboodle.hasPermission(sender, "setwarp")) {
+            if (!Caboodle.hasPermission(sender, "setwarp")) {
 				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
@@ -132,7 +132,7 @@ public class Warp extends CommandWrapper {
 			warps.set(name + ".yaw", loc.getYaw());
 			warps.set(name + ".pitch", loc.getPitch());
 
-			sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Warp has been set."));
+			sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.warp.set", sender)));
 			return true;
 		} else if (label.equalsIgnoreCase("listwarps")) {
 			if (!Caboodle.hasPermission(sender, "listwarps")) {
@@ -142,16 +142,17 @@ public class Warp extends CommandWrapper {
 
 			List<String> warpsList = warps.getKeys();
 
-			if (warpsList.size() == 0) {
-				sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7There are no warps."));
+			if (warpsList.isEmpty()) {
+				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.warp.list.empty", sender)));
 			} else {
-				String warpsMsg = "&a&l» &7Warps:";
+				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.warp.list.header", sender)));
 
-				for (String warpKey : warpsList) {
-					warpsMsg += "\n&7- &f" + warpKey;
+				for (String warpName : warpsList) {
+					sender.sendMessage(AwesomeText.beautifyMessage(
+						Paper.locale().getMessage("commands.warp.list.entry", sender),
+						Placeholder.unparsed("warp_name", warpName)
+					));
 				}
-
-				sender.sendMessage(AwesomeText.prettifyMessage(warpsMsg));
 			}
 			return true;
 		}

@@ -6,6 +6,7 @@ import dev.debutter.cuberry.paper.commands.builder.CommandWrapper;
 import dev.debutter.cuberry.paper.utils.AwesomeText;
 import dev.debutter.cuberry.paper.utils.Caboodle;
 import dev.debutter.cuberry.paper.utils.DogTags;
+import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import org.bukkit.Bukkit;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.command.Command;
@@ -33,19 +34,17 @@ public class Heal extends CommandWrapper {
 			}
 
 			if (args.length == 0) {
-				if (!(sender instanceof Player)) {
+				if (!(sender instanceof Player player)) {
 					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
 					return true;
 				}
 
-				Player player = (Player) sender;
-
-				player.setHealth(player.getAttribute(Attribute.MAX_HEALTH).getBaseValue());
+                player.setHealth(player.getAttribute(Attribute.MAX_HEALTH).getBaseValue());
 				player.setFoodLevel(20);
 				player.setSaturation(5);
 				player.setSaturatedRegenRate(10);
 
-				sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7You have been healed."));
+				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.heal.self", sender)));
 				return true;
 			}
 			if (args.length > 0) {
@@ -57,10 +56,13 @@ public class Heal extends CommandWrapper {
 					player.setSaturation(5);
 					player.setSaturatedRegenRate(10);
 
-					sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &f" + player.getName() + "&7 has been healed."));
+					sender.sendMessage(AwesomeText.beautifyMessage(
+						Paper.locale().getMessage("commands.heal.other", sender),
+						Placeholder.unparsed("player_name", player.getName())
+					));
 					return true;
 				} else {
-					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_found", sender)));
+					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_online", sender)));
 					return true;
 				}
 			}

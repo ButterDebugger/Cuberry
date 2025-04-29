@@ -30,17 +30,15 @@ public class Top extends CommandWrapper {
 				return true;
 			}
 
-			if (!(sender instanceof Player)) {
+			if (!(sender instanceof Player player)) {
 				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
 				return true;
 			}
 
-			Player player = (Player) sender;
-
-			Location loc = Caboodle.getHighestBlockLocation(player.getLocation()).add(0, 1, 0);
+            Location loc = Caboodle.getHighestBlockLocation(player.getLocation()).add(0, 1, 0);
 			player.teleport(loc);
 
-			sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7You have been teleported to the highest block at your location."));
+			sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.top.success", sender)));
 			return true;
 		}
 		return false;

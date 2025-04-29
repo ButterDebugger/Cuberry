@@ -39,14 +39,12 @@ public class Home extends CommandWrapper implements Listener {
 		DataStorage playerData = Paper.data().getStorage("players.yml");
 
 		if (label.equalsIgnoreCase("home")) {
-			if (!(sender instanceof Player)) {
+			if (!(sender instanceof Player player)) {
 				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
 				return true;
 			}
 
-			Player player = (Player)sender;
-
-			if (!Caboodle.hasPermission(sender, "home")) {
+            if (!Caboodle.hasPermission(sender, "home")) {
 				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
@@ -67,14 +65,12 @@ public class Home extends CommandWrapper implements Listener {
 			player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 0.5f, 1f);
 			return true;
 		} else if (label.equalsIgnoreCase("sethome")) {
-			if (!(sender instanceof Player)) {
+			if (!(sender instanceof Player player)) {
 				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
 				return true;
 			}
 
-			Player player = (Player) sender;
-
-			if (!Caboodle.hasPermission(sender, "sethome")) {
+            if (!Caboodle.hasPermission(sender, "sethome")) {
 				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
@@ -87,14 +83,12 @@ public class Home extends CommandWrapper implements Listener {
 			playerData.set(player.getUniqueId() + ".home", Caboodle.stringifyLocation(player));
 			return true;
 		} else if (label.equalsIgnoreCase("delhome")) {
-			if (!(sender instanceof Player)) {
+			if (!(sender instanceof Player player)) {
 				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
 				return true;
 			}
 
-			Player player = (Player)sender;
-
-			if (!Caboodle.hasPermission(sender, "delhome")) {
+            if (!Caboodle.hasPermission(sender, "delhome")) {
 				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}

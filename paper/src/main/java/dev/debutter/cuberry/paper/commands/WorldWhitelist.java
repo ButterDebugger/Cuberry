@@ -136,7 +136,7 @@ public class WorldWhitelist extends CommandWrapper implements Listener {
 									return true;
 								}
 							} else {
-								sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_found", sender)));
+								sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_online", sender)));
 								return true;
 							}
 						} else {
@@ -176,7 +176,7 @@ public class WorldWhitelist extends CommandWrapper implements Listener {
 									return true;
 								}
 							} else {
-								sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_found", sender)));
+								sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_online", sender)));
 								return true;
 							}
 						} else {

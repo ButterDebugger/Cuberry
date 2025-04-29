@@ -34,14 +34,12 @@ public class Action extends CommandWrapper {
 				return true;
 			}
 
-			if (!(sender instanceof Player)) {
+			if (!(sender instanceof Player player)) {
 				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
 				return true;
 			}
 
-			Player player = (Player) sender;
-
-			if (args.length == 0) {
+            if (args.length == 0) {
 				sender.sendMessage(AwesomeText.beautifyMessage("<dark_aqua>Usage: <gray>/action <message>"));
 				return true;
 			}

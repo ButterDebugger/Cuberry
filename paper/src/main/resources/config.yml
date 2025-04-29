@@ -92,27 +92,27 @@ join-leave-message:
   # Messages in the lists are randomly chosen
   # Leave list empty to disable / keep as default
   newbie:
-  - "&e%player_name% has joined for the first time"
+  - "<yellow>%player_name% has joined for the first time"
   join:
-  - "&e%player_name% has joined the server"
+  - "<yellow>%player_name% has joined the server"
   leave:
-  - "&e%player_name% has left the server"
+  - "<yellow>%player_name% has left the server"
   # Messages for players who weren't able to join
   join-attempt:
     enabled: false
     # Whether these messages are visible to everyone or players with a specific permission
     visible-to-everyone: false
     banned:
-    - "&c%player_name% tried to join but is banned"
+    - "<red>%player_name% tried to join but is banned"
     whitelist:
-    - "&c%player_name% tried to join but is not on the whitelist"
+    - "<red>%player_name% tried to join but is not on the whitelist"
 
 
 # Send a message to players joining the server
 join-motd:
   enabled: false
   message:
-  - "&bHello %player_name%!"
+  - "<aqua>Hello %player_name%!"
 
 
 # Change the name of players
@@ -183,7 +183,7 @@ commands:
     reasons:
     - spamming
     # Report staff announcement message
-    report-message: "&6&l!! &7%subject% was reported by %player_name% for the reason: %reason%"
+    report-message: "<gold><bold>!!</bold> <gray><white><subject></white> was reported by <white><reporter></white> for the reason: <white><reason></white>"
     # Prevent players from using reasons that aren't included in tab complete
     restrict-reasons: false
   whois:
@@ -205,6 +205,8 @@ commands:
   enderchest:
     enabled: false
   top:
+    enabled: false
+  invsee:
     enabled: false
   action:
     enabled: false

@@ -55,21 +55,19 @@ public class Back extends CommandWrapper implements Listener {
 				return true;
 			}
 
-			if (!(sender instanceof Player)) {
+			if (!(sender instanceof Player player)) {
 				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
 				return true;
 			}
 
-			Player player = (Player) sender;
-
-			if (!previousLocations.containsKey(player.getUniqueId())) {
-				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You do not have any place to return back to."));
+            if (!previousLocations.containsKey(player.getUniqueId())) {
+				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.back.no_return", sender)));
 				return true;
 			}
 
 			player.teleport(previousLocations.get(player.getUniqueId()));
 
-			sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7You have been teleported back to your previous location."));
+			sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.back.success", sender)));
 			return true;
 		}
 		return false;

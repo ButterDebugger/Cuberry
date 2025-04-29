@@ -18,14 +18,11 @@ public class PlayerName implements Listener {
 			updateName(player);
 		}
 
-		Bukkit.getScheduler().scheduleSyncRepeatingTask(Paper.plugin(), new Runnable() {
-			@Override
-			public void run() {
-				for (Player player : Bukkit.getOnlinePlayers()) {
-					updateName(player);
-				}
-			}
-		}, 0, 5);
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(Paper.plugin(), () -> {
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                updateName(player);
+            }
+        }, 0, 5);
 	}
 
 	@EventHandler
@@ -48,8 +45,6 @@ public class PlayerName implements Listener {
 		} else {
 			format = config.getString("player-name.format");
 		}
-
-		format = AwesomeText.prettifyMessage(format, player);
 
 		if (config.getBoolean("player-name.change-display-name")) {
 			player.displayName(AwesomeText.beautifyMessage(format, player));

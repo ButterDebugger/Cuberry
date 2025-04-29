@@ -6,6 +6,8 @@ import dev.debutter.cuberry.paper.commands.builder.CommandWrapper;
 import dev.debutter.cuberry.paper.utils.AwesomeText;
 import dev.debutter.cuberry.paper.utils.Caboodle;
 import dev.debutter.cuberry.paper.utils.storage.DataStorage;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
@@ -13,10 +15,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Report extends CommandWrapper {
@@ -36,14 +38,12 @@ public class Report extends CommandWrapper {
 		DataStorage reportData = Paper.data().getStorage("reports.yml");
 
 		if (label.equalsIgnoreCase("report")) {
-			if (!(sender instanceof Player)) {
+			if (!(sender instanceof Player player)) {
 				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
 				return true;
 			}
 
-			Player player = (Player) sender;
-
-			if (!Caboodle.hasPermission(sender, "report")) {
+            if (!Caboodle.hasPermission(sender, "report")) {
 				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
@@ -53,14 +53,14 @@ public class Report extends CommandWrapper {
 				return true;
 			}
 			if (args.length == 1) {
-				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7Please enter a reason for the report."));
+				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.report.no_reason", sender)));
 				return true;
 			}
 
 			OfflinePlayer reportedPlayer = Caboodle.getOfflinePlayer(args[0]);
 
 			if (!reportedPlayer.hasPlayedBefore()) {
-				sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7That player has never played on this server."));
+				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_never_joined", sender)));
 				return true;
 			}
 
@@ -78,16 +78,28 @@ public class Report extends CommandWrapper {
 				}
 
 				if (isDisallowed) {
-					String reasons = AwesomeText.commaOrSeparatedList(new ArrayList<>(config.getStringList("commands.report.reasons").stream().map(str -> "&f" + str + "&7").collect(Collectors.toList())));
-					player.sendMessage(AwesomeText.prettifyMessage("&cError: &7You can only report another player for &f" + reasons + "&7.", player));
+					String reasons = AwesomeText.commaOrSeparatedList(
+						config.getStringList("commands.report.reasons")
+							.stream()
+							.map(str -> "<white>" + str + "</white>")
+							.collect(Collectors.toList()
+						)
+					);
+
+					sender.sendMessage(AwesomeText.beautifyMessage(
+						Paper.locale().getMessage("commands.report.explicit_reasons", sender),
+						Placeholder.parsed("reasons", reasons)
+					));
 					return true;
 				}
 			}
 
-			String message = config.getString("commands.report.report-message");
-			message = AwesomeText.replacePlaceholder(message, "subject", reportedPlayer.getName());
-			message = AwesomeText.replacePlaceholder(message, "reason", reason);
-			message = AwesomeText.prettifyMessage(message, player);
+			Component message = AwesomeText.beautifyMessage(
+				config.getString("commands.report.report-message"),
+				Placeholder.unparsed("subject", Objects.requireNonNull(reportedPlayer.getName())),
+				Placeholder.unparsed("reporter", sender.getName()),
+				Placeholder.unparsed("reason", reason)
+			);
 
 			// Save report to the list of player report
 			HashMap<String, Object> report = new HashMap<>();
@@ -98,7 +110,7 @@ public class Report extends CommandWrapper {
 			reportData.addToList(reportedPlayer.getUniqueId().toString(), report);
 
 			// Notify players about the report
-			sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Report has been sent."));
+			sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.report.sent", sender)));
 
 			for (Player p : Bukkit.getOnlinePlayers()) {
 				if (Caboodle.hasPermission(p, "alerts.report")) {
