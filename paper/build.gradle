@@ -1,16 +1,16 @@
 plugins {
     id 'java'
-    id "xyz.jpenilla.run-paper" version "2.3.0"
+    id "xyz.jpenilla.run-paper" version "2.3.1"
     id "io.papermc.paperweight.userdev" version "2.0.0-beta.16"
 }
 
 dependencies {
     // Paper
-    paperweight.paperDevBundle(project.paper_version)
+    paperweight.paperDevBundle(paper_version)
 
     // Libraries
-    compileOnly 'me.clip:placeholderapi:2.11.5'
-    compileOnly "me.mrnavastar.protoweaver:common:${project.protoweaver_version}"
+    compileOnly "me.clip:placeholderapi:$placeholderapi_version"
+    compileOnly "me.mrnavastar.protoweaver:common:$protoweaver_version"
 
     // Common
     implementation project(':common')
@@ -19,10 +19,10 @@ dependencies {
 processResources {
     def props = [
             'version': version,
-            'project_id': project.project_id,
-            'project_name': project.project_name,
-            'project_description': project.project_description,
-            'project_url': project.project_url,
+            'project_id': project_id,
+            'project_name': project_name,
+            'project_description': project_description,
+            'project_url': project_url,
     ]
     inputs.properties props
     filteringCharset 'UTF-8'
@@ -43,9 +43,10 @@ runPaper {
 tasks {
     runServer {
         pluginJars(file("$rootDir/build/libs/$project_name-mc$minecraft_version-$project_version-Universal.jar"))
-        minecraftVersion(project.minecraft_version)
+        minecraftVersion(minecraft_version)
         downloadPlugins {
             url("https://maven.mrnavastar.me/releases/me/mrnavastar/protoweaver/paper/$protoweaver_version/paper-$protoweaver_version-dev.jar")
+            hangar("PlaceholderAPI", placeholderapi_version)
         }
     }
     assemble {
