@@ -384,7 +384,7 @@ public class Cuberry extends CommandWrapper {
 						return true;
 					} else if (args[2].equalsIgnoreCase("restart")) {
 						sender.sendMessage(AwesomeText.colorize("&3Server is restarting."));
-						Bukkit.getServer().spigot().restart();
+						Bukkit.getServer().restart();
 						return true;
 					} else if (args[2].equalsIgnoreCase("version")) {
 						sender.sendMessage(AwesomeText.colorize("&3Server version is &b" + Bukkit.getVersion()));
