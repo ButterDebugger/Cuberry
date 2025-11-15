@@ -11,13 +11,6 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter'
 }
 
-//blossom {
-//    replaceTokenIn('src/main/java/dev/debutter/cuberry/common/Constants.java')
-//    replaceToken '@project_id@', project.project_id
-//    replaceToken '@project_name@', project.project_name
-//    replaceToken '@version@', version
-//}
-
 sourceSets {
     main {
         blossom {
