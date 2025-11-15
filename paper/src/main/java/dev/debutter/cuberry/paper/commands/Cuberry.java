@@ -6,8 +6,12 @@ import dev.debutter.cuberry.paper.commands.builder.CommandWrapper;
 import dev.debutter.cuberry.paper.utils.AwesomeText;
 import dev.debutter.cuberry.paper.utils.Caboodle;
 import dev.debutter.cuberry.paper.utils.DogTags;
-import org.bukkit.*;
+import org.bukkit.Bukkit;
+import org.bukkit.Chunk;
+import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.World.Environment;
+import org.bukkit.WorldCreator;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
@@ -71,7 +75,7 @@ public class Cuberry extends CommandWrapper {
 					return true;
 				}
 
-                ItemStack item = player.getInventory().getItemInMainHand();
+				ItemStack item = player.getInventory().getItemInMainHand();
 
 				sender.sendMessage(AwesomeText.prettifyMessage("&7--- &astart of test&7 ---"));
 
