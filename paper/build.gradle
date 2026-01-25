@@ -19,10 +19,10 @@ dependencies {
 processResources {
     def props = [
             'version': version,
-            'project_id': project_id,
-            'project_name': project_name,
-            'project_description': project_description,
-            'project_url': project_url,
+            'plugin_id': plugin_id,
+            'plugin_name': plugin_name,
+            'plugin_description': plugin_description,
+            'plugin_url': plugin_url,
     ]
     inputs.properties props
     filteringCharset 'UTF-8'
@@ -42,7 +42,7 @@ runPaper {
 
 tasks {
     runServer {
-        pluginJars(file("$rootDir/build/libs/$project_name-mc$minecraft_version-$project_version-Universal.jar"))
+        pluginJars(file("$rootDir/build/libs/$plugin_name-mc$minecraft_version-$plugin_version-Universal.jar"))
         minecraftVersion(minecraft_version)
         downloadPlugins {
             url("https://maven.mrnavastar.me/releases/me/mrnavastar/protoweaver/paper/$protoweaver_version/paper-$protoweaver_version-dev.jar")

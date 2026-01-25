@@ -1,10 +1,10 @@
-name: '${project_name}'
+name: '${plugin_name}'
 version: '${version}'
 main: dev.debutter.cuberry.paper.Paper
 api-version: '1.20'
 author: 'ButterDebugger'
-description: '${project_description}'
-website: '${project_url}'
+description: '${plugin_description}'
+website: '${plugin_url}'
 
 softdepend:
   - PlaceholderAPI

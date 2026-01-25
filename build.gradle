@@ -8,7 +8,7 @@ var javaLanguageVersion = JavaLanguageVersion.of(project.java_version)
 
 allprojects {
     group = "dev.debutter.cuberry"
-    version = project.project_version
+    version = project.plugin_version
 
     tasks.withType(JavaCompile) {
         options.encoding = "ISO-8859-1"

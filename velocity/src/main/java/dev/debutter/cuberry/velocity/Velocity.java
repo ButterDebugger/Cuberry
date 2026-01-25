@@ -25,8 +25,8 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Plugin(
-    id = Constants.PROJECT_ID,
-    name = Constants.PROJECT_NAME,
+    id = Constants.PLUGIN_ID,
+    name = Constants.PLUGIN_NAME,
     authors = "ButterDebugger",
     version = Constants.VERSION,
     dependencies = {

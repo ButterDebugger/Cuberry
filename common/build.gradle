@@ -4,19 +4,19 @@ plugins {
 }
 
 dependencies {
-    // Libraries
-    compileOnly "me.mrnavastar.protoweaver:common:${project.protoweaver_version}"
-
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
+
+    // Protoweaver
+    compileOnly "me.mrnavastar.protoweaver:common:${project.protoweaver_version}"
 }
 
 sourceSets {
     main {
         blossom {
             javaSources {
-                property 'project_id', project.project_id
-                property 'project_name', project.project_name
+                property 'plugin_id', project.plugin_id
+                property 'plugin_name', project.plugin_name
                 property 'version', version
             }
         }

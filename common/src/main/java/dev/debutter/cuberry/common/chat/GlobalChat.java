@@ -6,7 +6,7 @@ import me.mrnavastar.protoweaver.api.protocol.Protocol;
 
 public class GlobalChat {
 
-    public static final Protocol.Builder PROTOCOL = Protocol.create(Constants.PROJECT_ID, "global_chat")
+    public static final Protocol.Builder PROTOCOL = Protocol.create(Constants.PLUGIN_ID, "global_chat")
             .setCompression(CompressionType.GZIP)
             .setMaxConnections(15) // TODO: change this to unlimited
             .addPacket(ChatPacket.class);
