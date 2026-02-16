@@ -1,7 +1,7 @@
 package dev.debutter.cuberry.paper;
 
 import dev.debutter.cuberry.paper.utils.AwesomeText;
-import dev.debutter.cuberry.paper.utils.IdlePlayers;
+import dev.debutter.cuberry.paper.idle.IdlePlayers;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;

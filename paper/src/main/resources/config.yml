@@ -21,9 +21,8 @@ idle:
   afk-threshold: 300
   # Disable afk players from picking up items
   disable-item-pickup-while-afk: false
-  # Time in seconds until the player will be automatically kicked
-  # Set to -1 to disable
-  auto-kick-threshold: -1
+  # Whether idle players should be automatically kicked
+  kick-players: false
 
 
 # Block non proxied connections

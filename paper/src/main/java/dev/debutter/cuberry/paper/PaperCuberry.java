@@ -3,7 +3,7 @@ package dev.debutter.cuberry.paper;
 import dev.debutter.cuberry.paper.chat.PlayerChat;
 import dev.debutter.cuberry.paper.commands.*;
 import dev.debutter.cuberry.paper.utils.Caboodle;
-import dev.debutter.cuberry.paper.utils.IdlePlayers;
+import dev.debutter.cuberry.paper.idle.IdlePlayers;
 import dev.debutter.cuberry.paper.utils.LocaleManager;
 import dev.debutter.cuberry.paper.utils.PluginSupport;
 import dev.debutter.cuberry.paper.utils.storage.DataManager;
