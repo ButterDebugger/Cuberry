@@ -1,6 +1,6 @@
 package dev.debutter.cuberry.paper.commands;
 
-import dev.debutter.cuberry.paper.Paper;
+import dev.debutter.cuberry.paper.PaperCuberry;
 import dev.debutter.cuberry.paper.commands.builder.CommandRegistry;
 import dev.debutter.cuberry.paper.commands.builder.CommandWrapper;
 import dev.debutter.cuberry.paper.utils.AwesomeText;
@@ -30,7 +30,7 @@ public class Respawn extends CommandWrapper {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (label.equalsIgnoreCase("respawn")) {
 			if (!Caboodle.hasPermission(sender, "respawn")) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
 			if (args.length == 0) {
@@ -62,7 +62,7 @@ public class Respawn extends CommandWrapper {
 				}
 				return true;
 			} else {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_online", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_not_online", sender)));
 				return true;
 			}
 		}

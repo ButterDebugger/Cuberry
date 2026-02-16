@@ -1,6 +1,6 @@
 package dev.debutter.cuberry.paper.commands;
 
-import dev.debutter.cuberry.paper.Paper;
+import dev.debutter.cuberry.paper.PaperCuberry;
 import dev.debutter.cuberry.paper.commands.builder.CommandRegistry;
 import dev.debutter.cuberry.paper.commands.builder.CommandWrapper;
 import dev.debutter.cuberry.paper.utils.AwesomeText;
@@ -46,14 +46,14 @@ public class WorldWhitelist extends CommandWrapper implements Listener {
 				event.setCancelled(true);
 
 				if (checkForNotification(player, to)) {
-					player.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("worldwhitelist.block_message", player), player, Placeholder.unparsed("world_name", to.getName())));
+					player.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("worldwhitelist.block_message", player), player, Placeholder.unparsed("world_name", to.getName())));
 				}
 			}
 		}
 	}
 
 	private boolean isPlayerNotWhitelisted(Player player, World world) {
-		DataStorage doubleData = Paper.data().getStorage("data.yml");
+		DataStorage doubleData = PaperCuberry.data().getStorage("data.yml");
 
 		if (!doubleData.getBoolean("worlds." + world.getName() + ".whitelist.enabled")) return false;
 
@@ -71,11 +71,11 @@ public class WorldWhitelist extends CommandWrapper implements Listener {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		DataStorage doubleData = Paper.data().getStorage("data.yml");
+		DataStorage doubleData = PaperCuberry.data().getStorage("data.yml");
 
 		if (label.equalsIgnoreCase("worldwhitelist")) {
 			if (!Caboodle.hasPermission(sender, "worldwhitelist")) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
 			if (args.length == 0) {
@@ -96,7 +96,7 @@ public class WorldWhitelist extends CommandWrapper implements Listener {
 						return true;
 					}
 				} else {
-					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
+					sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
 					return true;
 				}
 			} else if (args[0].equalsIgnoreCase("off")) {
@@ -112,7 +112,7 @@ public class WorldWhitelist extends CommandWrapper implements Listener {
 						return true;
 					}
 				} else {
-					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
+					sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
 					return true;
 				}
 			} else if (args[0].equalsIgnoreCase("add")) {
@@ -140,11 +140,11 @@ public class WorldWhitelist extends CommandWrapper implements Listener {
 									return true;
 								}
 							} else {
-								sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_online", sender)));
+								sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_not_online", sender)));
 								return true;
 							}
 						} else {
-							sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
+							sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
 							return true;
 						}
 					} else {
@@ -152,7 +152,7 @@ public class WorldWhitelist extends CommandWrapper implements Listener {
 						return true;
 					}
 				} else {
-					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
+					sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
 					return true;
 				}
 			} else if (args[0].equalsIgnoreCase("remove")) {
@@ -180,11 +180,11 @@ public class WorldWhitelist extends CommandWrapper implements Listener {
 									return true;
 								}
 							} else {
-								sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_online", sender)));
+								sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_not_online", sender)));
 								return true;
 							}
 						} else {
-							sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
+							sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
 							return true;
 						}
 					} else {
@@ -192,7 +192,7 @@ public class WorldWhitelist extends CommandWrapper implements Listener {
 						return true;
 					}
 				} else {
-					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
+					sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
 					return true;
 				}
 			} else if (args[0].equalsIgnoreCase("list")) {
@@ -215,15 +215,15 @@ public class WorldWhitelist extends CommandWrapper implements Listener {
 						}
 						return true;
 					} else {
-						sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
+						sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
 						return true;
 					}
 				} else {
-					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
+					sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
 					return true;
 				}
 			} else {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
 				return true;
 			}
 		}
@@ -232,7 +232,7 @@ public class WorldWhitelist extends CommandWrapper implements Listener {
 
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-		DataStorage doubleData = Paper.data().getStorage("data.yml");
+		DataStorage doubleData = PaperCuberry.data().getStorage("data.yml");
 
 		if (label.equalsIgnoreCase("worldwhitelist") && Caboodle.hasPermission(sender, "worldwhitelist")) {
 			if (args.length == 1) {

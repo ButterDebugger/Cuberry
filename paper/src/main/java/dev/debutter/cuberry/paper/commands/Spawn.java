@@ -1,6 +1,6 @@
 package dev.debutter.cuberry.paper.commands;
 
-import dev.debutter.cuberry.paper.Paper;
+import dev.debutter.cuberry.paper.PaperCuberry;
 import dev.debutter.cuberry.paper.commands.builder.CommandRegistry;
 import dev.debutter.cuberry.paper.commands.builder.CommandWrapper;
 import dev.debutter.cuberry.paper.utils.AwesomeText;
@@ -38,8 +38,8 @@ public class Spawn extends CommandWrapper implements Listener {
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
-		FileConfiguration config = Paper.plugin().getConfig();
-		DataStorage doubleData = Paper.data().getStorage("data.yml");
+		FileConfiguration config = PaperCuberry.plugin().getConfig();
+		DataStorage doubleData = PaperCuberry.data().getStorage("data.yml");
 
 		if (config.getBoolean("commands.spawn.spawn-on-join")) {
 			if (!doubleData.exists("spawn")) return;
@@ -59,15 +59,15 @@ public class Spawn extends CommandWrapper implements Listener {
 	@EventHandler
 	public void onPlayerRespawn(PlayerRespawnEvent event) {
 		Player player = event.getPlayer();
-		FileConfiguration config = Paper.plugin().getConfig();
-		DataStorage doubleData = Paper.data().getStorage("data.yml");
+		FileConfiguration config = PaperCuberry.plugin().getConfig();
+		DataStorage doubleData = PaperCuberry.data().getStorage("data.yml");
 
 		if (config.getBoolean("commands.spawn.spawn-on-death")) {
 			if (!doubleData.exists("spawn") || (player.getBedLocation() != null)) return;
 
 			Location spawnLoc = Caboodle.parseLocation(doubleData.getString("spawn"));
 
-			Bukkit.getScheduler().scheduleSyncDelayedTask(Paper.plugin(), () -> {
+			Bukkit.getScheduler().scheduleSyncDelayedTask(PaperCuberry.plugin(), () -> {
 				player.teleport(spawnLoc);
 			}, 1L);
 		}
@@ -75,16 +75,16 @@ public class Spawn extends CommandWrapper implements Listener {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		DataStorage doubleData = Paper.data().getStorage("data.yml");
+		DataStorage doubleData = PaperCuberry.data().getStorage("data.yml");
 
 		if (label.equalsIgnoreCase("spawn")) {
 			if (!(sender instanceof Player player)) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_required", sender)));
 				return true;
 			}
 
             if (!Caboodle.hasPermission(sender, "spawn")) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
 			if (doubleData.get("spawn") == null) {
@@ -102,12 +102,12 @@ public class Spawn extends CommandWrapper implements Listener {
 
 		if (label.equalsIgnoreCase("setspawn")) {
 			if (!(sender instanceof Player player)) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_required", sender)));
 				return true;
 			}
 
             if (!Caboodle.hasPermission(sender, "setspawn")) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
 

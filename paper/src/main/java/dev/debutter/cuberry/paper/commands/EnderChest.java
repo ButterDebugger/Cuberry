@@ -1,6 +1,6 @@
 package dev.debutter.cuberry.paper.commands;
 
-import dev.debutter.cuberry.paper.Paper;
+import dev.debutter.cuberry.paper.PaperCuberry;
 import dev.debutter.cuberry.paper.commands.builder.CommandRegistry;
 import dev.debutter.cuberry.paper.commands.builder.CommandWrapper;
 import dev.debutter.cuberry.paper.utils.AwesomeText;
@@ -29,19 +29,19 @@ public class EnderChest extends CommandWrapper {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("enderchest")) {
 			if (!Caboodle.hasPermission(sender, "enderchest")) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
 
 			if (!(sender instanceof Player player)) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_required", sender)));
 				return true;
 			}
 
             if (args.length == 0) {
 				player.openInventory(player.getEnderChest());
 
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.enderchest.view_self", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.enderchest.view_self", sender)));
 				return true;
 			}
 
@@ -51,12 +51,12 @@ public class EnderChest extends CommandWrapper {
 				player.openInventory(other.getEnderChest());
 
 				sender.sendMessage(AwesomeText.beautifyMessage(
-					Paper.locale().getMessage("commands.enderchest.view_other", sender),
+					PaperCuberry.locale().getMessage("commands.enderchest.view_other", sender),
 					Placeholder.component("other_name", other.name())
 				));
 				return true;
 			} else {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_online", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_not_online", sender)));
 				return true;
 			}
 		}

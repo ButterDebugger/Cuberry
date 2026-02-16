@@ -1,6 +1,6 @@
 package dev.debutter.cuberry.paper.commands;
 
-import dev.debutter.cuberry.paper.Paper;
+import dev.debutter.cuberry.paper.PaperCuberry;
 import dev.debutter.cuberry.paper.commands.builder.CommandRegistry;
 import dev.debutter.cuberry.paper.commands.builder.CommandWrapper;
 import dev.debutter.cuberry.paper.utils.AwesomeText;
@@ -47,7 +47,7 @@ public class Cuberry extends CommandWrapper {
 	@Override
 	@SuppressWarnings({ "deprecation", "null" })
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		FileConfiguration config = Paper.plugin().getConfig();
+		FileConfiguration config = PaperCuberry.plugin().getConfig();
 
 		if (
 			label.equalsIgnoreCase("cuberry") ||
@@ -57,7 +57,7 @@ public class Cuberry extends CommandWrapper {
 			label.equalsIgnoreCase("cb")
 		) {
 			if (!Caboodle.hasPermission(sender, "admin")) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
 			if (args.length == 0) {
@@ -67,11 +67,11 @@ public class Cuberry extends CommandWrapper {
 
 			if (args[0].equalsIgnoreCase("reload")) {
 				sender.sendMessage(AwesomeText.prettifyMessage("&b[&3&l!&b] &aPlugin has been Reloaded!"));
-				Paper.plugin().reload();
+				PaperCuberry.plugin().reload();
 				return true;
 			} else if (args[0].equalsIgnoreCase("test")) {
 				if (!(sender instanceof Player player)) {
-					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
+					sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_required", sender)));
 					return true;
 				}
 
@@ -91,21 +91,21 @@ public class Cuberry extends CommandWrapper {
 				}
 
 				if (args.length <= 1) {
-					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
+					sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
 					return true;
 				} else if (args[1].equalsIgnoreCase("player")) {
 					if (args.length < 3) {
-						sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
+						sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
 						return true;
 					} else if (args[2].equalsIgnoreCase("sethunger")) {
 						if (args.length < 4) {
-							sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
+							sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
 							return true;
 						} else if (DogTags.isOnline(args[3])) {
 							Player other = Bukkit.getPlayer(args[3]);
 
 							if (args.length < 5) {
-								sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
+								sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
 								return true;
 							} else if (DogTags.isNumeric(args[4])) {
 								int number = Math.min(Integer.parseInt(args[4]), 20);
@@ -114,7 +114,7 @@ public class Cuberry extends CommandWrapper {
 								sender.sendMessage(AwesomeText.colorize("&b" + other.getName() + "&3's hunger has been set to &b" + number));
 								return true;
 							} else {
-								sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
+								sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
 								return true;
 							}
 						} else {
@@ -123,13 +123,13 @@ public class Cuberry extends CommandWrapper {
 						}
 					} else if (args[2].equalsIgnoreCase("sethealth")) {
 						if (args.length < 4) {
-							sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
+							sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
 							return true;
 						} else if (DogTags.isOnline(args[3])) {
 							Player other = Bukkit.getPlayer(args[3]);
 
 							if (args.length < 5) {
-								sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
+								sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
 								return true;
 							} else if (DogTags.isNumeric(args[4])) {
 								double number = Math.min(Integer.parseInt(args[4]), other.getAttribute(Attribute.MAX_HEALTH).getBaseValue());
@@ -138,26 +138,26 @@ public class Cuberry extends CommandWrapper {
 								sender.sendMessage(AwesomeText.colorize("&b" + other.getName() + "&3's health has been set to &b" + number));
 								return true;
 							} else {
-								sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
+								sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
 								return true;
 							}
 						} else {
-							sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_online", sender)));
+							sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_not_online", sender)));
 							return true;
 						}
 					} else if (args[2].equalsIgnoreCase("hide")) {
 						if (args.length < 4) {
-							sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
+							sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
 							return true;
 						} else if (DogTags.isOnline(args[3])) {
 							Player hidden = Bukkit.getPlayer(args[3]);
 
 							if (args.length < 5) {
-								sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
+								sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
 								return true;
 							} else if (DogTags.isOnline(args[4])) {
 								Player other = Bukkit.getPlayer(args[4]);
-								other.hidePlayer(Paper.plugin(), hidden);
+								other.hidePlayer(PaperCuberry.plugin(), hidden);
 								sender.sendMessage(AwesomeText.colorize("&b" + hidden.getName() + " &3is now hidden from &b" + other.getName()));
 								return true;
 							} else {
@@ -170,17 +170,17 @@ public class Cuberry extends CommandWrapper {
 						}
 					} else if (args[2].equalsIgnoreCase("show")) {
 						if (args.length < 4) {
-							sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
+							sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
 							return true;
 						} else if (DogTags.isOnline(args[3])) {
 							Player shown = Bukkit.getPlayer(args[3]);
 
 							if (args.length < 5) {
-								sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
+								sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
 								return true;
 							} else if (DogTags.isOnline(args[4])) {
 								Player other = Bukkit.getPlayer(args[4]);
-								other.showPlayer(Paper.plugin(), shown);
+								other.showPlayer(PaperCuberry.plugin(), shown);
 								sender.sendMessage(AwesomeText.colorize("b" + shown.getName() + " &3is now visible to &b" + other.getName()));
 								return true;
 							} else {
@@ -193,12 +193,12 @@ public class Cuberry extends CommandWrapper {
 						}
 					} else if (args[2].equalsIgnoreCase("dupeinventory")) {
 						if (!(sender instanceof Player player)) {
-							sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
+							sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_required", sender)));
 							return true;
 						}
 
                         if (args.length < 4) {
-							sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
+							sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
 							return true;
 						} else if (DogTags.isOnline(args[3])) {
 							Player other = Bukkit.getPlayer(args[3]);
@@ -214,12 +214,12 @@ public class Cuberry extends CommandWrapper {
 						}
 					} else if (args[2].equalsIgnoreCase("dupeenderchest")) {
 						if (!(sender instanceof Player player)) {
-							sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
+							sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_required", sender)));
 							return true;
 						}
 
                         if (args.length < 4) {
-							sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
+							sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
 							return true;
 						} else if (DogTags.isOnline(args[3])) {
 							Player other = Bukkit.getPlayer(args[3]);
@@ -235,13 +235,13 @@ public class Cuberry extends CommandWrapper {
 						}
 					} else if (args[2].equalsIgnoreCase("setarrowsinbody")) {
 						if (args.length < 4) {
-							sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
+							sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
 							return true;
 						} else if (DogTags.isOnline(args[3])) {
 							Player other = Bukkit.getPlayer(args[3]);
 
 							if (args.length < 5) {
-								sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
+								sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
 								return true;
 							} else if (DogTags.isNumeric(args[4])) {
 								int number = Integer.parseInt(args[4]);
@@ -250,22 +250,22 @@ public class Cuberry extends CommandWrapper {
 								sender.sendMessage(AwesomeText.colorize("&b" + other.getName() + "&3 now has &b" + number + "&3 arrows in their body"));
 								return true;
 							} else {
-								sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
+								sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
 								return true;
 							}
 						} else {
-							sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_online", sender)));
+							sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_not_online", sender)));
 							return true;
 						}
 					} else if (args[2].equalsIgnoreCase("ride")) {
 						if (args.length < 4) {
-							sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
+							sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
 							return true;
 						} else if (DogTags.isOnline(args[3])) {
 							Player rider = Bukkit.getPlayer(args[3]);
 
 							if (args.length < 5) {
-								sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
+								sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
 								return true;
 							} else if (DogTags.isOnline(args[4])) {
 								Player other = Bukkit.getPlayer(args[4]);
@@ -282,13 +282,13 @@ public class Cuberry extends CommandWrapper {
 						}
 					} else if (args[2].equalsIgnoreCase("swap")) {
 						if (args.length < 4) {
-							sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
+							sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
 							return true;
 						} else if (DogTags.isOnline(args[3])) {
 							Player player = Bukkit.getPlayer(args[3]);
 
 							if (args.length < 5) {
-								sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
+								sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
 								return true;
 							} else if (DogTags.isOnline(args[4])) {
 								Player other = Bukkit.getPlayer(args[4]);
@@ -312,7 +312,7 @@ public class Cuberry extends CommandWrapper {
 						}
 					} else if (args[2].equalsIgnoreCase("dropmainhand")) {
 						if (args.length < 4) {
-							sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
+							sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
 							return true;
 						} else if (DogTags.isOnline(args[3])) {
 							Player other = Bukkit.getPlayer(args[3]);
@@ -327,12 +327,12 @@ public class Cuberry extends CommandWrapper {
 								sender.sendMessage(AwesomeText.colorize("&b" + other.getName() + " &3has dropped the item in their Main hand."));
 							}
 						} else {
-							sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_online", sender)));
+							sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_not_online", sender)));
 							return true;
 						}
 					} else if (args[2].equalsIgnoreCase("dropoffhand")) {
 						if (args.length < 4) {
-							sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
+							sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
 							return true;
 						} else if (DogTags.isOnline(args[3])) {
 							Player other = Bukkit.getPlayer(args[3]);
@@ -347,12 +347,12 @@ public class Cuberry extends CommandWrapper {
 								sender.sendMessage(AwesomeText.colorize("&b" + other.getName() + " &3has dropped the item in their off hand."));
 							}
 						} else {
-							sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_online", sender)));
+							sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_not_online", sender)));
 							return true;
 						}
 					} else if (args[2].equalsIgnoreCase("dropoffhand")) {
 						if (args.length < 4) {
-							sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
+							sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
 							return true;
 						} else if (DogTags.isOnline(args[3])) {
 							Player other = Bukkit.getPlayer(args[3]);
@@ -367,13 +367,13 @@ public class Cuberry extends CommandWrapper {
 								sender.sendMessage(AwesomeText.colorize("&b" + other.getName() + " &3has dropped the item in their off hand."));
 							}
 						} else {
-							sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_online", sender)));
+							sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_not_online", sender)));
 							return true;
 						}
 					}
 				} else if (args[1].equalsIgnoreCase("server")) {
 					if (args.length < 3) {
-						sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
+						sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
 						return true;
 					} else if (args[2].equalsIgnoreCase("address")) {
 						sender.sendMessage(AwesomeText.colorize("&3Server address is &b" + Bukkit.getIp() + ":" + Bukkit.getPort()));
@@ -392,7 +392,7 @@ public class Cuberry extends CommandWrapper {
 						return true;
 					} else if (args[2].equalsIgnoreCase("lagmonitor")) {
 						if (!(sender instanceof Player player)) {
-							sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
+							sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_required", sender)));
 							return true;
 						}
 
@@ -416,16 +416,16 @@ public class Cuberry extends CommandWrapper {
 							sender.sendMessage(AwesomeText.colorize("&a&l» &7Lag monitor has been turned off."));
 							return true;
 						} else {
-							sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
+							sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
 							return true;
 						}
 					} else {
-						sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
+						sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
 						return true;
 					}
 				} else if (args[1].equalsIgnoreCase("chunk")) {
 					if (!(sender instanceof Player player)) {
-						sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
+						sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_required", sender)));
 						return true;
 					}
 
@@ -433,7 +433,7 @@ public class Cuberry extends CommandWrapper {
 					Chunk chunk = player.getLocation().getBlock().getChunk();
 
 					if (args.length < 3) {
-						sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
+						sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
 						return true;
 					} else if (args[2].equalsIgnoreCase("unload")) {
 						chunk.unload(true);
@@ -495,19 +495,19 @@ public class Cuberry extends CommandWrapper {
 						sender.sendMessage(AwesomeText.colorize("&b" + chunks.size() + " &3chunks have been unloaded."));
 						return true;
 					} else {
-						sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
+						sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
 						return true;
 					}
 				} else if (args[1].equalsIgnoreCase("world")) {
 					if (!(sender instanceof Player player)) {
-						sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
+						sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_required", sender)));
 						return true;
 					}
 
                     World world = player.getLocation().getWorld();
 
 					if (args.length < 3) {
-						sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
+						sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
 						return true;
 					}
 
@@ -531,7 +531,7 @@ public class Cuberry extends CommandWrapper {
 						return true;
 					} else if (args[2].equalsIgnoreCase("load")) {
 						if (args.length < 4) {
-							sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
+							sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
 							return true;
 						}
 
@@ -585,7 +585,7 @@ public class Cuberry extends CommandWrapper {
 						return true;
 					} else if (args[2].equalsIgnoreCase("delete")) {
 						if (args.length < 4) {
-							sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
+							sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
 							return true;
 						}
 
@@ -601,11 +601,11 @@ public class Cuberry extends CommandWrapper {
 							return true;
 						}
 					} else {
-						sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
+						sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
 						return true;
 					}
 				} else {
-					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
+					sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
 					return true;
 				}
 			}
@@ -671,7 +671,7 @@ public class Cuberry extends CommandWrapper {
 	}
 
 	public static void start() {
-		Bukkit.getScheduler().scheduleSyncRepeatingTask(Paper.plugin(), () -> {
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(PaperCuberry.plugin(), () -> {
             for (Player player : Bukkit.getOnlinePlayers()) {
 				lagmonitor.putIfAbsent(player, false);
 

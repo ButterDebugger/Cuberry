@@ -1,6 +1,6 @@
 package dev.debutter.cuberry.paper.chat;
 
-import dev.debutter.cuberry.paper.Paper;
+import dev.debutter.cuberry.paper.PaperCuberry;
 import dev.debutter.cuberry.paper.utils.AwesomeText;
 import dev.debutter.cuberry.paper.utils.Caboodle;
 import dev.debutter.cuberry.paper.utils.PluginSupport;
@@ -31,11 +31,11 @@ public class PlayerChat implements Listener {
 	private static HashMap<UUID, List<String>> recentMessages = new HashMap<>();
 
 	public PlayerChat() {
-		if (Paper.plugin().getConfig().getBoolean("chat.global-chat.enabled")) {
+		if (PaperCuberry.plugin().getConfig().getBoolean("chat.global-chat.enabled")) {
 			if (PluginSupport.hasProtoWeaver()) {
 				RelayHandler.register();
 			} else {
-				Paper.plugin().getLogger().warning("Could not find the required plugin \"ProtoWeaver\" to enable global chat");
+				PaperCuberry.plugin().getLogger().warning("Could not find the required plugin \"ProtoWeaver\" to enable global chat");
 			}
 		}
 	}
@@ -45,7 +45,7 @@ public class PlayerChat implements Listener {
 		Player player = event.getPlayer();
 		UUID uuid = player.getUniqueId();
 		Component message = event.message();
-		FileConfiguration config = Paper.plugin().getConfig();
+		FileConfiguration config = PaperCuberry.plugin().getConfig();
 
 		if (config.getBoolean("chat.message-filter.enabled")) {
 			if (config.getBoolean("chat.message-filter.censer-words") && config.getBoolean("chat.format.enabled")) {
@@ -54,7 +54,7 @@ public class PlayerChat implements Listener {
 				boolean blocked = filter(message);
 
 				if (blocked) {
-					player.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("chat.block_message.filtered_word", player)));
+					player.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("chat.block_message.filtered_word", player)));
 					event.setCancelled(true);
 					return;
 				}
@@ -65,7 +65,7 @@ public class PlayerChat implements Listener {
 			boolean blocked = antiRepeatMessages(uuid, message);
 
 			if (blocked) {
-				player.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("chat.block_message.repeated_messages", player)));
+				player.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("chat.block_message.repeated_messages", player)));
 				event.setCancelled(true);
 				return;
 			}
@@ -79,7 +79,7 @@ public class PlayerChat implements Listener {
 
 				player.sendMessage(
 						AwesomeText.beautifyMessage(
-								Paper.locale().getMessage("chat.block_message.fast_messages", player),
+								PaperCuberry.locale().getMessage("chat.block_message.fast_messages", player),
 								Placeholder.unparsed("timeout", AwesomeText.parseTime(maxTime))
 						)
 				);
@@ -134,7 +134,7 @@ public class PlayerChat implements Listener {
 
 	private Component censoredFilter(Component message) {
 		String rawMessage = AwesomeText.destylize(message);
-		FileConfiguration config = Paper.plugin().getConfig();
+		FileConfiguration config = PaperCuberry.plugin().getConfig();
 		List<String> blockedWords = config.getStringList("chat.message-filter.blocked-words");
 
 		Matcher m = Pattern.compile("(\\w+)").matcher(rawMessage);
@@ -150,7 +150,7 @@ public class PlayerChat implements Listener {
 	}
 	private boolean filter(Component message) {
 		String rawMessage = AwesomeText.destylize(message);
-		FileConfiguration config = Paper.plugin().getConfig();
+		FileConfiguration config = PaperCuberry.plugin().getConfig();
 		List<String> blockedWords = config.getStringList("chat.message-filter.blocked-words");
 
 		Matcher m = Pattern.compile("(\\w+)").matcher(rawMessage);
@@ -168,7 +168,7 @@ public class PlayerChat implements Listener {
         return messages.contains(rawMessage);
     }
 	private void addRecentMessage(UUID uuid, Component message) {
-		FileConfiguration config = Paper.plugin().getConfig();
+		FileConfiguration config = PaperCuberry.plugin().getConfig();
 		int maxRecentMessages = config.getInt("chat.anti-repeat-messages.recent-messages");
 		String rawMessage = AwesomeText.destylize(message);
 		List<String> messages = recentMessages.getOrDefault(uuid, new ArrayList<>());
@@ -182,7 +182,7 @@ public class PlayerChat implements Listener {
 		recentMessages.put(uuid, messages);
 	}
 	private boolean antiSpam(UUID uuid) {
-		FileConfiguration config = Paper.plugin().getConfig();
+		FileConfiguration config = PaperCuberry.plugin().getConfig();
 		double maxTime = config.getDouble("chat.anti-spam.max-time");
 
 		if (!lastMessage.containsKey(uuid)) return false;

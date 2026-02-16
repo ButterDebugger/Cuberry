@@ -1,6 +1,6 @@
 package dev.debutter.cuberry.paper.commands;
 
-import dev.debutter.cuberry.paper.Paper;
+import dev.debutter.cuberry.paper.PaperCuberry;
 import dev.debutter.cuberry.paper.commands.builder.CommandRegistry;
 import dev.debutter.cuberry.paper.commands.builder.CommandWrapper;
 import dev.debutter.cuberry.paper.utils.AwesomeText;
@@ -38,16 +38,16 @@ public class Message extends CommandWrapper {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		FileConfiguration config = Paper.plugin().getConfig();
+		FileConfiguration config = PaperCuberry.plugin().getConfig();
 
 		if (label.equalsIgnoreCase("message") || label.equalsIgnoreCase("msg") || label.equalsIgnoreCase("w") || label.equalsIgnoreCase("tell")) {
 			if (!(sender instanceof Player player)) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_required", sender)));
 				return true;
 			}
 
             if (!Caboodle.hasPermission(sender, "message")) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
 			if (args.length == 0) {
@@ -56,7 +56,7 @@ public class Message extends CommandWrapper {
 			}
 
 			if (!DogTags.isOnline(args[0])) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_online", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_not_online", sender)));
 				return true;
 			}
 
@@ -70,8 +70,8 @@ public class Message extends CommandWrapper {
 				return true;
 			}
 
-			String senderFormat = Paper.locale().getMessage("commands.message.send", sender);
-			String receiveFormat = Paper.locale().getMessage("commands.message.receive", receiver);
+			String senderFormat = PaperCuberry.locale().getMessage("commands.message.send", sender);
+			String receiveFormat = PaperCuberry.locale().getMessage("commands.message.receive", receiver);
 
 			sender.sendMessage(AwesomeText.beautifyMessage(senderFormat, player,
 					Placeholder.component("sender", AwesomeText.createPlayerHoverComponent(player)),
@@ -96,12 +96,12 @@ public class Message extends CommandWrapper {
 		}
 		if (label.equalsIgnoreCase("reply") || label.equalsIgnoreCase("r")) {
 			if (!(sender instanceof Player player)) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_required", sender)));
 				return true;
 			}
 
             if (!Caboodle.hasPermission(sender, "reply")) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
 			if (args.length == 0) {
@@ -115,7 +115,7 @@ public class Message extends CommandWrapper {
 			}
 
 			if (!DogTags.isOnline(reply.get(player.getUniqueId()))) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_online", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_not_online", sender)));
 				return true;
 			}
 
@@ -129,8 +129,8 @@ public class Message extends CommandWrapper {
 				return true;
 			}
 
-			String senderFormat = Paper.locale().getMessage("commands.message.send", sender);
-			String receiveFormat = Paper.locale().getMessage("commands.message.receive", receiver);
+			String senderFormat = PaperCuberry.locale().getMessage("commands.message.send", sender);
+			String receiveFormat = PaperCuberry.locale().getMessage("commands.message.receive", receiver);
 
 			sender.sendMessage(AwesomeText.beautifyMessage(senderFormat, player,
 					Placeholder.component("sender", AwesomeText.createPlayerHoverComponent(player)),

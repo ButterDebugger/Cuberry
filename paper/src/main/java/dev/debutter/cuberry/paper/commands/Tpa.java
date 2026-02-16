@@ -1,6 +1,6 @@
 package dev.debutter.cuberry.paper.commands;
 
-import dev.debutter.cuberry.paper.Paper;
+import dev.debutter.cuberry.paper.PaperCuberry;
 import dev.debutter.cuberry.paper.commands.builder.CommandRegistry;
 import dev.debutter.cuberry.paper.commands.builder.CommandWrapper;
 import dev.debutter.cuberry.paper.utils.AwesomeText;
@@ -52,13 +52,13 @@ public class Tpa extends CommandWrapper {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (!(sender instanceof Player player)) {
-			sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
+			sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_required", sender)));
 			return true;
 		}
 
         if (label.equalsIgnoreCase("tpa")) {
 			if (!Caboodle.hasPermission(sender, "tpa")) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
 			if (args.length == 0) {
@@ -74,12 +74,12 @@ public class Tpa extends CommandWrapper {
 				player.sendMessage(AwesomeText.colorize("&a&l» &7Request sent!"));
 				otherPlayer.sendMessage(AwesomeText.colorize("&a&l» &f" + player.getName() + "&7 has sent you a tpa request to teleport to you."));
 			} else {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_online", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_not_online", sender)));
 			}
 			return true;
 		} else if (label.equalsIgnoreCase("tpahere")) {
 			if (!Caboodle.hasPermission(sender, "tpahere")) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
 			if (args.length == 0) {
@@ -95,12 +95,12 @@ public class Tpa extends CommandWrapper {
 				player.sendMessage(AwesomeText.colorize("&a&l» &7Request sent!"));
 				otherPlayer.sendMessage(AwesomeText.colorize("&a&l» &f" + player.getName() + "&7 has sent you a tpa request to teleport to them."));
 			} else {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_online", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_not_online", sender)));
 			}
 			return true;
 		} else if (label.equalsIgnoreCase("tpaccept")) {
 			if (!Caboodle.hasPermission(sender, "tpaccept")) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
 			if (args.length == 0) {
@@ -133,12 +133,12 @@ public class Tpa extends CommandWrapper {
 					sender.sendMessage(AwesomeText.colorize("&cError: &7You do not have any requests from that player."));
 				}
 			} else {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_online", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_not_online", sender)));
 			}
 			return true;
 		} else if (label.equalsIgnoreCase("tpadeny")) {
 			if (!Caboodle.hasPermission(sender, "tpadeny")) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
 			if (args.length == 0) {
@@ -157,7 +157,7 @@ public class Tpa extends CommandWrapper {
 			return true;
 		} else if (label.equalsIgnoreCase("tpacancel")) {
 			if (!Caboodle.hasPermission(sender, "tpacancel")) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
 			if (args.length == 0) {

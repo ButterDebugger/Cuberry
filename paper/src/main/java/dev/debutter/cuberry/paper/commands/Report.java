@@ -1,6 +1,6 @@
 package dev.debutter.cuberry.paper.commands;
 
-import dev.debutter.cuberry.paper.Paper;
+import dev.debutter.cuberry.paper.PaperCuberry;
 import dev.debutter.cuberry.paper.commands.builder.CommandRegistry;
 import dev.debutter.cuberry.paper.commands.builder.CommandWrapper;
 import dev.debutter.cuberry.paper.utils.AwesomeText;
@@ -34,17 +34,17 @@ public class Report extends CommandWrapper {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		FileConfiguration config = Paper.plugin().getConfig();
-		DataStorage reportData = Paper.data().getStorage("reports.yml");
+		FileConfiguration config = PaperCuberry.plugin().getConfig();
+		DataStorage reportData = PaperCuberry.data().getStorage("reports.yml");
 
 		if (label.equalsIgnoreCase("report")) {
 			if (!(sender instanceof Player player)) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_required", sender)));
 				return true;
 			}
 
             if (!Caboodle.hasPermission(sender, "report")) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
 
@@ -53,14 +53,14 @@ public class Report extends CommandWrapper {
 				return true;
 			}
 			if (args.length == 1) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.report.no_reason", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.report.no_reason", sender)));
 				return true;
 			}
 
 			OfflinePlayer reportedPlayer = Caboodle.getOfflinePlayer(args[0]);
 
 			if (!reportedPlayer.hasPlayedBefore()) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_never_joined", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_never_joined", sender)));
 				return true;
 			}
 
@@ -87,7 +87,7 @@ public class Report extends CommandWrapper {
 					);
 
 					sender.sendMessage(AwesomeText.beautifyMessage(
-						Paper.locale().getMessage("commands.report.explicit_reasons", sender),
+						PaperCuberry.locale().getMessage("commands.report.explicit_reasons", sender),
 						Placeholder.parsed("reasons", reasons)
 					));
 					return true;
@@ -110,7 +110,7 @@ public class Report extends CommandWrapper {
 			reportData.addToList(reportedPlayer.getUniqueId().toString(), report);
 
 			// Notify players about the report
-			sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.report.sent", sender)));
+			sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.report.sent", sender)));
 
 			for (Player p : Bukkit.getOnlinePlayers()) {
 				if (Caboodle.hasPermission(p, "alerts.report")) {
@@ -123,7 +123,7 @@ public class Report extends CommandWrapper {
 
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-		FileConfiguration config = Paper.plugin().getConfig();
+		FileConfiguration config = PaperCuberry.plugin().getConfig();
 
 		if (label.equalsIgnoreCase("report") && Caboodle.hasPermission(sender, "report")) {
 			if (args.length == 1) {

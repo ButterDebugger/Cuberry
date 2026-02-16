@@ -13,10 +13,10 @@ import org.bukkit.event.player.PlayerQuitEvent;
 public class InfoSaver implements Listener {
 
 	public static void start() {
-		Bukkit.getScheduler().scheduleSyncRepeatingTask(Paper.plugin(), new Runnable() {
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(PaperCuberry.plugin(), new Runnable() {
 			@Override
 			public void run() {
-				DataStorage doubleData = Paper.data().getStorage("data.yml");
+				DataStorage doubleData = PaperCuberry.data().getStorage("data.yml");
 
 				for (World world : Bukkit.getWorlds()) {
 					doubleData.set("worlds." + world.getName() + ".environment", world.getEnvironment().toString());
@@ -30,7 +30,7 @@ public class InfoSaver implements Listener {
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
-		DataStorage playerData = Paper.data().getStorage("players.yml");
+		DataStorage playerData = PaperCuberry.data().getStorage("players.yml");
 
 		String username = player.getDisplayName().toString();
 		if (playerData.exists(player.getUniqueId() + ".username")) {
@@ -48,7 +48,7 @@ public class InfoSaver implements Listener {
 	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent event) {
 		Player player = event.getPlayer();
-		DataStorage playerData = Paper.data().getStorage("players.yml");
+		DataStorage playerData = PaperCuberry.data().getStorage("players.yml");
 
 		playerData.set(player.getUniqueId() + ".logoutlocation", Caboodle.stringifyLocation(player));
 	}

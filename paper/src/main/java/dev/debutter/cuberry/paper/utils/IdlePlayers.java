@@ -1,6 +1,6 @@
 package dev.debutter.cuberry.paper.utils;
 
-import dev.debutter.cuberry.paper.Paper;
+import dev.debutter.cuberry.paper.PaperCuberry;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
@@ -19,15 +19,15 @@ public class IdlePlayers implements Listener {
 	private static final Map<UUID, Long> idleTimestamp = new HashMap<>();
 
 	public static void start() {
-		Bukkit.getScheduler().scheduleSyncRepeatingTask(Paper.plugin(), () -> {
-            double autoKickThreshold = Paper.plugin().getConfig().getDouble("idle.auto-kick-threshold");
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(PaperCuberry.plugin(), () -> {
+            double autoKickThreshold = PaperCuberry.plugin().getConfig().getDouble("idle.auto-kick-threshold");
             if (autoKickThreshold < 0) return;
 
             for (Player player : Bukkit.getOnlinePlayers()) {
 				if (Caboodle.hasPermission(player, "idle-kick.bypass")) continue;
 
                 if (getIdleDuration(player.getUniqueId()) / 1000d >= autoKickThreshold) {
-                    player.kick(AwesomeText.beautifyMessage(Paper.locale().getMessage("idle.auto_kick_message", player)), PlayerKickEvent.Cause.IDLING);
+                    player.kick(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("idle.auto_kick_message", player)), PlayerKickEvent.Cause.IDLING);
                 }
             }
 	    }, 0, 5);
@@ -46,7 +46,7 @@ public class IdlePlayers implements Listener {
 	 * @return Whether the player is considered to be AFK
 	 */
 	public static boolean isAFK(UUID uuid) {
-		return getIdleDuration(uuid) / 1000d >= Paper.plugin().getConfig().getDouble("idle.afk-threshold");
+		return getIdleDuration(uuid) / 1000d >= PaperCuberry.plugin().getConfig().getDouble("idle.afk-threshold");
 	}
 
 	/*
@@ -60,7 +60,7 @@ public class IdlePlayers implements Listener {
 		if (!(entity instanceof Player player)) return; // Make sure the entity is a player
 
         if (!isAFK(player.getUniqueId())) return; // If the player is not AFK, stop the rest of the code
-		if (!Paper.plugin().getConfig().getBoolean("idle.disable-item-pickup-while-afk")) return;
+		if (!PaperCuberry.plugin().getConfig().getBoolean("idle.disable-item-pickup-while-afk")) return;
 
 		event.setCancelled(true);
 	}

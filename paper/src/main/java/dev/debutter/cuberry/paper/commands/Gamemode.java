@@ -1,6 +1,6 @@
 package dev.debutter.cuberry.paper.commands;
 
-import dev.debutter.cuberry.paper.Paper;
+import dev.debutter.cuberry.paper.PaperCuberry;
 import dev.debutter.cuberry.paper.commands.builder.CommandRegistry;
 import dev.debutter.cuberry.paper.commands.builder.CommandWrapper;
 import dev.debutter.cuberry.paper.utils.AwesomeText;
@@ -43,7 +43,7 @@ public class Gamemode extends CommandWrapper {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (label.equalsIgnoreCase("gm")) {
 			if (!Caboodle.hasPermission(sender, "gamemode")) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
 
@@ -60,12 +60,12 @@ public class Gamemode extends CommandWrapper {
 					player = Bukkit.getPlayer(args[1]);
 					themself = false;
 				} else {
-					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_online", sender)));
+					sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_not_online", sender)));
 					return true;
 				}
 			} else {
 				if (!(sender instanceof Player)) {
-					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
+					sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_required", sender)));
 					return true;
 				}
 
@@ -111,20 +111,20 @@ public class Gamemode extends CommandWrapper {
 				}
 				return true;
 			} else {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
 				return true;
 			}
 		}
 
 		if (label.equalsIgnoreCase("gma")) {
 			if (!Caboodle.hasPermission(sender, "gamemode")) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
 
 			if (args.length == 0) {
 				if (!(sender instanceof Player player)) {
-					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
+					sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_required", sender)));
 					return true;
 				}
 
@@ -140,20 +140,20 @@ public class Gamemode extends CommandWrapper {
 				sender.sendMessage(beautifyGamemode(sender, GameMode.ADVENTURE, player));
 				return true;
 			} else {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_online", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_not_online", sender)));
 				return true;
 			}
 		}
 
 		if (label.equalsIgnoreCase("gmc")) {
 			if (!Caboodle.hasPermission(sender, "gamemode")) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
 
 			if (args.length == 0) {
 				if (!(sender instanceof Player player)) {
-					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
+					sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_required", sender)));
 					return true;
 				}
 
@@ -169,20 +169,20 @@ public class Gamemode extends CommandWrapper {
 				sender.sendMessage(beautifyGamemode(sender, GameMode.CREATIVE, player));
 				return true;
 			} else {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_online", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_not_online", sender)));
 				return true;
 			}
 		}
 
 		if (label.equalsIgnoreCase("gmsp")) {
 			if (!Caboodle.hasPermission(sender, "gamemode")) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
 
 			if (args.length == 0) {
 				if (!(sender instanceof Player player)) {
-					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
+					sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_required", sender)));
 					return true;
 				}
 
@@ -198,20 +198,20 @@ public class Gamemode extends CommandWrapper {
 				sender.sendMessage(beautifyGamemode(sender, GameMode.SPECTATOR, player));
 				return true;
 			} else {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_online", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_not_online", sender)));
 				return true;
 			}
 		}
 
 		if (label.equalsIgnoreCase("gms")) {
 			if (!Caboodle.hasPermission(sender, "gamemode")) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
 
 			if (args.length == 0) {
 				if (!(sender instanceof Player player)) {
-					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
+					sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_required", sender)));
 					return true;
 				}
 
@@ -227,7 +227,7 @@ public class Gamemode extends CommandWrapper {
 				sender.sendMessage(beautifyGamemode(sender, GameMode.SURVIVAL, player));
 				return true;
 			} else {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_online", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_not_online", sender)));
 				return true;
 			}
 		}
@@ -263,7 +263,7 @@ public class Gamemode extends CommandWrapper {
 	/** @return A beautified set gamemode message for the player */
 	public static Component beautifyGamemode(CommandSender sender, GameMode gameMode) {
 		return AwesomeText.beautifyMessage(
-			Paper.locale().getMessage("commands.gamemode.set_self", sender),
+			PaperCuberry.locale().getMessage("commands.gamemode.set_self", sender),
 			Placeholder.component("gamemode", AwesomeText.createTranslatableComponent(gameMode.translationKey()))
 		);
 	}
@@ -271,7 +271,7 @@ public class Gamemode extends CommandWrapper {
 	/** @return A beautified set gamemode message for another player */
 	public static Component beautifyGamemode(CommandSender sender, GameMode gameMode, Player player) {
 		return AwesomeText.beautifyMessage(
-			Paper.locale().getMessage("commands.gamemode.set_other", sender),
+			PaperCuberry.locale().getMessage("commands.gamemode.set_other", sender),
 			Placeholder.unparsed("player_name", player.getName()),
 			Placeholder.component("gamemode", AwesomeText.createTranslatableComponent(gameMode.translationKey()))
 		);

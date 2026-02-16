@@ -1,6 +1,6 @@
 package dev.debutter.cuberry.paper.utils;
 
-import dev.debutter.cuberry.paper.Paper;
+import dev.debutter.cuberry.paper.PaperCuberry;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -283,7 +283,7 @@ public class Caboodle implements Listener {
 		}
 
 		for (MetadataValue value : values) {
-			if (value.getOwningPlugin().equals(Paper.plugin())) {
+			if (value.getOwningPlugin().equals(PaperCuberry.plugin())) {
 				return value.value();
 			}
 		}
@@ -296,11 +296,11 @@ public class Caboodle implements Listener {
 	}
 
 	public static void setMetadata(Metadatable object, String key, Object value) {
-		object.setMetadata(key, new FixedMetadataValue(Paper.plugin(), value));
+		object.setMetadata(key, new FixedMetadataValue(PaperCuberry.plugin(), value));
 	}
 
 	public static void removeMetadata(Metadatable object, String key) {
-		object.removeMetadata(key, Paper.plugin());
+		object.removeMetadata(key, PaperCuberry.plugin());
 	}
 
 	public static void respawn(Player player) {
@@ -361,7 +361,7 @@ public class Caboodle implements Listener {
 	@Deprecated // TODO: remove me
 	public static String getStringTag(ItemStack item, String tagname) {
 		if (item == null) return null;
-		NamespacedKey key = new NamespacedKey(Paper.plugin(), tagname);
+		NamespacedKey key = new NamespacedKey(PaperCuberry.plugin(), tagname);
 		ItemMeta itemMeta = item.getItemMeta();
 		PersistentDataContainer container;
 
@@ -379,7 +379,7 @@ public class Caboodle implements Listener {
 
 	@SuppressWarnings("unchecked")
 	public static void setItemTag(ItemStack item, String tagname, @SuppressWarnings("rawtypes") PersistentDataType datatype, Object value) {
-		NamespacedKey key = new NamespacedKey(Paper.plugin(), tagname);
+		NamespacedKey key = new NamespacedKey(PaperCuberry.plugin(), tagname);
 		ItemMeta itemMeta = item.getItemMeta();
 		itemMeta.getPersistentDataContainer().set(key, datatype, value);
 		item.setItemMeta(itemMeta);
@@ -387,7 +387,7 @@ public class Caboodle implements Listener {
 
 	@SuppressWarnings("unchecked")
 	public static Object getItemTag(ItemStack item, String tagname, @SuppressWarnings("rawtypes") PersistentDataType datatype) {
-		NamespacedKey key = new NamespacedKey(Paper.plugin(), tagname);
+		NamespacedKey key = new NamespacedKey(PaperCuberry.plugin(), tagname);
 		ItemMeta itemMeta = item.getItemMeta();
 		PersistentDataContainer container;
 
@@ -406,7 +406,7 @@ public class Caboodle implements Listener {
 
 	@SuppressWarnings("unchecked")
 	public static boolean hasItemTag(ItemStack item, String tagname, @SuppressWarnings("rawtypes") PersistentDataType datatype) {
-		NamespacedKey key = new NamespacedKey(Paper.plugin(), tagname);
+		NamespacedKey key = new NamespacedKey(PaperCuberry.plugin(), tagname);
 		ItemMeta itemMeta = item.getItemMeta();
 		PersistentDataContainer container = itemMeta.getPersistentDataContainer();
 
@@ -817,7 +817,7 @@ public class Caboodle implements Listener {
 	private static double tps;
 
 	public static void start() {
-		Bukkit.getScheduler().scheduleSyncRepeatingTask(Paper.plugin(), new Runnable() {
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(PaperCuberry.plugin(), new Runnable() {
 			long lasttick;
 
 			@Override

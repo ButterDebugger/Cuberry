@@ -13,9 +13,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.nio.charset.StandardCharsets;
 
-public final class Paper extends JavaPlugin implements Listener {
+public final class PaperCuberry extends JavaPlugin implements Listener {
 
-    private static Paper plugin;
+    private static PaperCuberry plugin;
     private static LocaleManager localeInstance;
     private static DataManager dataInstance;
 
@@ -205,7 +205,7 @@ public final class Paper extends JavaPlugin implements Listener {
         getLogger().info("Successfully unloaded.");
     }
 
-    public static Paper plugin() {
+    public static PaperCuberry plugin() {
         return plugin;
     }
     public static LocaleManager locale() {

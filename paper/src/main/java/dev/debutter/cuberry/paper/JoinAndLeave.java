@@ -20,7 +20,7 @@ public class JoinAndLeave implements Listener {
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
-		FileConfiguration config = Paper.plugin().getConfig();
+		FileConfiguration config = PaperCuberry.plugin().getConfig();
 
 		if (config.getBoolean("join-leave-message.enabled")) {
 			if (!player.hasPlayedBefore()) {
@@ -48,7 +48,7 @@ public class JoinAndLeave implements Listener {
 	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent event) {
 		Player player = event.getPlayer();
-		FileConfiguration config = Paper.plugin().getConfig();
+		FileConfiguration config = PaperCuberry.plugin().getConfig();
 
 		if (config.getBoolean("join-leave-message.enabled")) {
 			List<String> messages = config.getStringList("join-leave-message.leave");
@@ -63,7 +63,7 @@ public class JoinAndLeave implements Listener {
 	public void onPlayerLogin(PlayerLoginEvent event) {
 		Player player = event.getPlayer();
 		Result result = event.getResult();
-		FileConfiguration config = Paper.plugin().getConfig();
+		FileConfiguration config = PaperCuberry.plugin().getConfig();
 
 		if (config.getBoolean("join-leave-message.enabled") && config.getBoolean("join-leave-message.join-attempt.enabled")) {
 			if (result.equals(Result.KICK_BANNED)) {

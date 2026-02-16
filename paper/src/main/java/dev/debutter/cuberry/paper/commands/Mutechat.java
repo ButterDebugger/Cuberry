@@ -1,6 +1,6 @@
 package dev.debutter.cuberry.paper.commands;
 
-import dev.debutter.cuberry.paper.Paper;
+import dev.debutter.cuberry.paper.PaperCuberry;
 import dev.debutter.cuberry.paper.commands.builder.CommandRegistry;
 import dev.debutter.cuberry.paper.commands.builder.CommandWrapper;
 import dev.debutter.cuberry.paper.utils.AwesomeText;
@@ -34,7 +34,7 @@ public class Mutechat extends CommandWrapper implements Listener {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (label.equalsIgnoreCase("mutechat")) {
 			if (!Caboodle.hasPermission(sender, "mutechat")) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
 
@@ -42,9 +42,9 @@ public class Mutechat extends CommandWrapper implements Listener {
 				isChatMuted = !isChatMuted;
 
 				if (isChatMuted) {
-					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.mutechat.mute_chat", sender)));
+					sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.mutechat.mute_chat", sender)));
 				} else {
-					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.mutechat.unmute_chat", sender)));
+					sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.mutechat.unmute_chat", sender)));
 				}
 
 				makeAnnouncement();
@@ -53,21 +53,21 @@ public class Mutechat extends CommandWrapper implements Listener {
 
 			if (args[0].equalsIgnoreCase("on")) {
 				if (isChatMuted) {
-					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.mutechat.already_muted", sender)));
+					sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.mutechat.already_muted", sender)));
 					return true;
 				}
 
 				isChatMuted = true;
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.mutechat.mute_chat", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.mutechat.mute_chat", sender)));
 				makeAnnouncement();
 			} else {
 				if (!isChatMuted) {
-					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.mutechat.already_unmuted", sender)));
+					sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.mutechat.already_unmuted", sender)));
 					return true;
 				}
 
 				isChatMuted = false;
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.mutechat.unmute_chat", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.mutechat.unmute_chat", sender)));
 				makeAnnouncement();
 			}
 			return true;
@@ -91,14 +91,14 @@ public class Mutechat extends CommandWrapper implements Listener {
 	@EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
 	public void onChat(AsyncPlayerChatEvent event) {
 		Player player = event.getPlayer();
-		FileConfiguration config = Paper.plugin().getConfig();
+		FileConfiguration config = PaperCuberry.plugin().getConfig();
 		boolean sendBlockMessage = config.getBoolean("commands.mutechat.send-block-message");
 
 		if (isChatMuted && !Caboodle.hasPermission(player, "mutechat.bypass")) {
 			event.setCancelled(true);
 
 			if (sendBlockMessage) {
-				String message = Paper.locale().getMessage("commands.mutechat.block_message", player);
+				String message = PaperCuberry.locale().getMessage("commands.mutechat.block_message", player);
 
 				player.sendMessage(AwesomeText.beautifyMessage(message, player));
 			}
@@ -106,7 +106,7 @@ public class Mutechat extends CommandWrapper implements Listener {
 	}
 
 	private void makeAnnouncement() {
-		FileConfiguration config = Paper.plugin().getConfig();
+		FileConfiguration config = PaperCuberry.plugin().getConfig();
 		boolean sendAnnouncement = config.getBoolean("commands.mutechat.send-announcement");
 
 		if (!sendAnnouncement) return;
@@ -115,9 +115,9 @@ public class Mutechat extends CommandWrapper implements Listener {
 			String message;
 
 			if (isChatMuted) {
-				message = Paper.locale().getMessage("commands.mutechat.mute_alert", player);
+				message = PaperCuberry.locale().getMessage("commands.mutechat.mute_alert", player);
 			} else {
-				message = Paper.locale().getMessage("commands.mutechat.unmute_alert", player);
+				message = PaperCuberry.locale().getMessage("commands.mutechat.unmute_alert", player);
 			}
 
 			player.sendMessage(AwesomeText.beautifyMessage(message));

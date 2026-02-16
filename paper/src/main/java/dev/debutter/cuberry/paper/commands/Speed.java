@@ -1,6 +1,6 @@
 package dev.debutter.cuberry.paper.commands;
 
-import dev.debutter.cuberry.paper.Paper;
+import dev.debutter.cuberry.paper.PaperCuberry;
 import dev.debutter.cuberry.paper.commands.builder.CommandRegistry;
 import dev.debutter.cuberry.paper.commands.builder.CommandWrapper;
 import dev.debutter.cuberry.paper.utils.AwesomeText;
@@ -33,12 +33,12 @@ public class Speed extends CommandWrapper {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (label.equalsIgnoreCase("speed")) {
 			if (!(sender instanceof Player player)) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_required", sender)));
 				return true;
 			}
 
             if (!Caboodle.hasPermission(sender, "speed")) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
 
@@ -49,7 +49,7 @@ public class Speed extends CommandWrapper {
 
 			if (player.isFlying()) {
 				if (!DogTags.isNumeric(args[0])) {
-					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_number", sender)));
+					sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_number", sender)));
 					return true;
 				}
 
@@ -63,7 +63,7 @@ public class Speed extends CommandWrapper {
 				return true;
 			} else {
 				if (!DogTags.isNumeric(args[0])) {
-					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_number", sender)));
+					sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_number", sender)));
 					return true;
 				}
 
@@ -80,12 +80,12 @@ public class Speed extends CommandWrapper {
 
 		if (label.equalsIgnoreCase("walkspeed")) {
 			if (!(sender instanceof Player player)) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_required", sender)));
 				return true;
 			}
 
             if (!(Caboodle.hasPermission(sender, "speed") || Caboodle.hasPermission(sender, "speed.walk"))) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
 
@@ -95,7 +95,7 @@ public class Speed extends CommandWrapper {
 			}
 
             if (!DogTags.isNumeric(args[0])) {
-                sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_number", sender)));
+                sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_number", sender)));
                 return true;
             }
 
@@ -111,12 +111,12 @@ public class Speed extends CommandWrapper {
 
 		if (label.equalsIgnoreCase("flyspeed")) {
 			if (!(sender instanceof Player player)) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_required", sender)));
 				return true;
 			}
 
             if (!(Caboodle.hasPermission(sender, "speed") || Caboodle.hasPermission(sender, "speed.fly"))) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
 
@@ -126,7 +126,7 @@ public class Speed extends CommandWrapper {
 			}
 
             if (!DogTags.isNumeric(args[0])) {
-                sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_number", sender)));
+                sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_number", sender)));
                 return true;
             }
 

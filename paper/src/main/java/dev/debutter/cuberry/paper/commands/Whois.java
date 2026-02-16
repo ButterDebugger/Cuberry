@@ -1,6 +1,6 @@
 package dev.debutter.cuberry.paper.commands;
 
-import dev.debutter.cuberry.paper.Paper;
+import dev.debutter.cuberry.paper.PaperCuberry;
 import dev.debutter.cuberry.paper.commands.builder.CommandRegistry;
 import dev.debutter.cuberry.paper.commands.builder.CommandWrapper;
 import dev.debutter.cuberry.paper.utils.AwesomeText;
@@ -32,11 +32,11 @@ public class Whois extends CommandWrapper {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		DataStorage playerData = Paper.data().getStorage("players.yml");
+		DataStorage playerData = PaperCuberry.data().getStorage("players.yml");
 
 		if (label.equalsIgnoreCase("whois")) {
 			if (!Caboodle.hasPermission(sender, "whois")) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
 
@@ -50,14 +50,14 @@ public class Whois extends CommandWrapper {
 			String uuid = player.getUniqueId().toString();
 
 			if (!player.hasPlayedBefore()) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_never_joined", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_never_joined", sender)));
 				return true;
 			}
 
 			// TODO: health, hunger, exp, loc, playtime, has flight
 
 			sender.sendMessage(AwesomeText.beautifyMessage(
-				Paper.locale().getMessage("commands.whois.header", sender),
+				PaperCuberry.locale().getMessage("commands.whois.header", sender),
 				Placeholder.unparsed("player_name", Objects.requireNonNull(player.getName()))
 			));
 
@@ -126,7 +126,7 @@ public class Whois extends CommandWrapper {
 
 	private static Component beautifyEntry(CommandSender sender, String entry, String value) {
 		return AwesomeText.beautifyMessage(
-			Paper.locale().getMessage("commands.whois.entry." + entry, sender),
+			PaperCuberry.locale().getMessage("commands.whois.entry." + entry, sender),
 			Placeholder.unparsed("value", value)
 		);
 	}

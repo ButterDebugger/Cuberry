@@ -1,6 +1,6 @@
 package dev.debutter.cuberry.paper.commands;
 
-import dev.debutter.cuberry.paper.Paper;
+import dev.debutter.cuberry.paper.PaperCuberry;
 import dev.debutter.cuberry.paper.commands.builder.CommandRegistry;
 import dev.debutter.cuberry.paper.commands.builder.CommandWrapper;
 import dev.debutter.cuberry.paper.utils.AwesomeText;
@@ -40,16 +40,16 @@ public class Teleport extends CommandWrapper {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		DataStorage playerData = Paper.data().getStorage("players.yml");
+		DataStorage playerData = PaperCuberry.data().getStorage("players.yml");
 
 		if (label.equalsIgnoreCase("tphere")) {
 			if (!(sender instanceof Player player)) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_required", sender)));
 				return true;
 			}
 
             if (!Caboodle.hasPermission(sender, "tphere")) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
 			if (args.length == 0) {
@@ -60,7 +60,7 @@ public class Teleport extends CommandWrapper {
 			String username = args[0];
 
 			if (!DogTags.isOnline(username)) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_online", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_not_online", sender)));
 				return true;
 			}
 
@@ -69,18 +69,18 @@ public class Teleport extends CommandWrapper {
 			otherPlayer.teleport(player.getLocation());
 
 			sender.sendMessage(AwesomeText.beautifyMessage(
-				Paper.locale().getMessage("commands.teleport.someone_to_you", sender),
+				PaperCuberry.locale().getMessage("commands.teleport.someone_to_you", sender),
 				Placeholder.unparsed("player_name", otherPlayer.getName())
 			));
 			return true;
 		} else if (label.equalsIgnoreCase("tp2p")) {
 			if (!(sender instanceof Player player)) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_required", sender)));
 				return true;
 			}
 
             if (!Caboodle.hasPermission(sender, "tp2p")) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
 			if (args.length == 0) {
@@ -91,7 +91,7 @@ public class Teleport extends CommandWrapper {
 			String username = args[0];
 
 			if (!DogTags.isOnline(username)) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_online", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_not_online", sender)));
 				return true;
 			}
 
@@ -100,19 +100,19 @@ public class Teleport extends CommandWrapper {
 			player.teleport(otherPlayer.getLocation());
 
 			sender.sendMessage(AwesomeText.beautifyMessage(
-				Paper.locale().getMessage("commands.teleport.you_to_someone", sender),
+				PaperCuberry.locale().getMessage("commands.teleport.you_to_someone", sender),
 				Placeholder.unparsed("player_name", otherPlayer.getName())
 			));
 			return true;
 		} else if (label.equalsIgnoreCase("tpall")) {
 			if (!Caboodle.hasPermission(sender, "tpall")) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
 
 			if (args.length == 0) {
 				if (!(sender instanceof Player player)) {
-					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
+					sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_required", sender)));
 					return true;
 				}
 
@@ -122,13 +122,13 @@ public class Teleport extends CommandWrapper {
 					otherPlayer.teleport(location);
 				}
 
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.teleport.all_to_you", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.teleport.all_to_you", sender)));
 				return true;
 			} else {
 				String username = args[0];
 
 				if (!DogTags.isOnline(username)) {
-					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_online", sender)));
+					sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_not_online", sender)));
 					return true;
 				}
 
@@ -140,19 +140,19 @@ public class Teleport extends CommandWrapper {
 				}
 
 				sender.sendMessage(AwesomeText.beautifyMessage(
-					Paper.locale().getMessage("commands.teleport.all_to_someone", sender),
+					PaperCuberry.locale().getMessage("commands.teleport.all_to_someone", sender),
 					Placeholder.unparsed("player_name", player.getName())
 				));
 				return true;
 			}
 		} else if (label.equalsIgnoreCase("tpoffline")) {
 			if (!(sender instanceof Player player)) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_required", sender)));
 				return true;
 			}
 
             if (!Caboodle.hasPermission(sender, "tpoffline")) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
 			if (args.length == 0) {
@@ -165,7 +165,7 @@ public class Teleport extends CommandWrapper {
 			UUID otherUUID = otherPlayer.getUniqueId();
 
 			if (!otherPlayer.hasPlayedBefore()) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_never_joined", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_never_joined", sender)));
 				return true;
 			}
 
@@ -174,7 +174,7 @@ public class Teleport extends CommandWrapper {
 
 				if (logoutLoc == null) {
 					sender.sendMessage(AwesomeText.beautifyMessage(
-						Paper.locale().getMessage("commands.teleport.unknown_logout_location", sender),
+						PaperCuberry.locale().getMessage("commands.teleport.unknown_logout_location", sender),
 						Placeholder.unparsed("player_name", Objects.requireNonNull(otherPlayer.getName()))
 					));
 					return true;
@@ -184,7 +184,7 @@ public class Teleport extends CommandWrapper {
 
 				player.teleport(loc);
 				sender.sendMessage(AwesomeText.beautifyMessage(
-					Paper.locale().getMessage("commands.teleport.you_to_logout_location", sender),
+					PaperCuberry.locale().getMessage("commands.teleport.you_to_logout_location", sender),
 					Placeholder.unparsed("player_name", Objects.requireNonNull(otherPlayer.getName()))
 				));
 				return true;
@@ -193,7 +193,7 @@ public class Teleport extends CommandWrapper {
 
 				if (logoutLoc == null) {
 					sender.sendMessage(AwesomeText.beautifyMessage(
-						Paper.locale().getMessage("commands.teleport.unknown_logout_location", sender),
+						PaperCuberry.locale().getMessage("commands.teleport.unknown_logout_location", sender),
 						Placeholder.unparsed("player_name", Objects.requireNonNull(otherPlayer.getName()))
 					));
 					return true;
@@ -203,7 +203,7 @@ public class Teleport extends CommandWrapper {
 
 				player.teleport(loc);
 				sender.sendMessage(AwesomeText.beautifyMessage(
-					Paper.locale().getMessage("commands.teleport.you_to_logout_location", sender),
+					PaperCuberry.locale().getMessage("commands.teleport.you_to_logout_location", sender),
 					Placeholder.unparsed("player_name", Objects.requireNonNull(otherPlayer.getName()))
 				));
 				return true;

@@ -1,6 +1,6 @@
 package dev.debutter.cuberry.paper.utils;
 
-import dev.debutter.cuberry.paper.Paper;
+import dev.debutter.cuberry.paper.PaperCuberry;
 import org.bukkit.Location;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.Player;
@@ -122,7 +122,7 @@ public class DisplayHelper {
                         }
                     }
                 }
-            }.runTaskTimer(Paper.plugin(), 0L, 1L);
+            }.runTaskTimer(PaperCuberry.plugin(), 0L, 1L);
         }
 
         public void remove() {

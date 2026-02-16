@@ -1,6 +1,6 @@
 package dev.debutter.cuberry.paper.commands;
 
-import dev.debutter.cuberry.paper.Paper;
+import dev.debutter.cuberry.paper.PaperCuberry;
 import dev.debutter.cuberry.paper.commands.builder.CommandRegistry;
 import dev.debutter.cuberry.paper.commands.builder.CommandWrapper;
 import dev.debutter.cuberry.paper.utils.AwesomeText;
@@ -38,16 +38,16 @@ public class Warp extends CommandWrapper {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		DataStorage warps = Paper.data().getStorage("warps.yml");
+		DataStorage warps = PaperCuberry.data().getStorage("warps.yml");
 
 		if (label.equalsIgnoreCase("warp")) {
 			if (!(sender instanceof Player player)) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_required", sender)));
 				return true;
 			}
 
             if (!Caboodle.hasPermission(sender, "warp")) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
 			if (args.length == 0) {
@@ -58,7 +58,7 @@ public class Warp extends CommandWrapper {
 			String name = args[0];
 
 			if (!warps.exists(name)) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.warp.does_not_exist", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.warp.does_not_exist", sender)));
 				return true;
 			}
 
@@ -72,7 +72,7 @@ public class Warp extends CommandWrapper {
 			World world = Bukkit.getWorld(worldName);
 
 			if (world == null) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.warp.broken", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.warp.broken", sender)));
 				return true;
 			}
 
@@ -82,13 +82,13 @@ public class Warp extends CommandWrapper {
 			player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 0.5f, 1f);
 
 			sender.sendMessage(AwesomeText.beautifyMessage(
-				Paper.locale().getMessage("commands.warp.teleported", sender),
+				PaperCuberry.locale().getMessage("commands.warp.teleported", sender),
 				Placeholder.unparsed("warp_name", name)
 			));
 			return true;
 		} else if (label.equalsIgnoreCase("delwarp")) {
 			if (!Caboodle.hasPermission(sender, "delwarp")) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
 			if (args.length == 0) {
@@ -99,22 +99,22 @@ public class Warp extends CommandWrapper {
 			String name = args[0];
 
 			if (!warps.exists(name)) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.warp.does_not_exist", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.warp.does_not_exist", sender)));
 				return true;
 			}
 
 			warps.remove(name);
 
-			sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.warp.deleted", sender)));
+			sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.warp.deleted", sender)));
 			return true;
 		} else if (label.equalsIgnoreCase("setwarp")) {
 			if (!(sender instanceof Player player)) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_required", sender)));
 				return true;
 			}
 
             if (!Caboodle.hasPermission(sender, "setwarp")) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
 			if (args.length == 0) {
@@ -132,24 +132,24 @@ public class Warp extends CommandWrapper {
 			warps.set(name + ".yaw", loc.getYaw());
 			warps.set(name + ".pitch", loc.getPitch());
 
-			sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.warp.set", sender)));
+			sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.warp.set", sender)));
 			return true;
 		} else if (label.equalsIgnoreCase("listwarps")) {
 			if (!Caboodle.hasPermission(sender, "listwarps")) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
 
 			List<String> warpsList = warps.getKeys();
 
 			if (warpsList.isEmpty()) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.warp.list.empty", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.warp.list.empty", sender)));
 			} else {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.warp.list.header", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.warp.list.header", sender)));
 
 				for (String warpName : warpsList) {
 					sender.sendMessage(AwesomeText.beautifyMessage(
-						Paper.locale().getMessage("commands.warp.list.entry", sender),
+						PaperCuberry.locale().getMessage("commands.warp.list.entry", sender),
 						Placeholder.unparsed("warp_name", warpName)
 					));
 				}
@@ -161,7 +161,7 @@ public class Warp extends CommandWrapper {
 
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-		DataStorage warps = Paper.data().getStorage("warps.yml");
+		DataStorage warps = PaperCuberry.data().getStorage("warps.yml");
 
 		if (command.getName().equalsIgnoreCase("warp") && Caboodle.hasPermission(sender, "warp")) {
 			if (args.length == 1) {

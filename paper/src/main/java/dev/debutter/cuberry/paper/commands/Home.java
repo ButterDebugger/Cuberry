@@ -1,6 +1,6 @@
 package dev.debutter.cuberry.paper.commands;
 
-import dev.debutter.cuberry.paper.Paper;
+import dev.debutter.cuberry.paper.PaperCuberry;
 import dev.debutter.cuberry.paper.commands.builder.CommandRegistry;
 import dev.debutter.cuberry.paper.commands.builder.CommandWrapper;
 import dev.debutter.cuberry.paper.utils.AwesomeText;
@@ -36,16 +36,16 @@ public class Home extends CommandWrapper implements Listener {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		DataStorage playerData = Paper.data().getStorage("players.yml");
+		DataStorage playerData = PaperCuberry.data().getStorage("players.yml");
 
 		if (label.equalsIgnoreCase("home")) {
 			if (!(sender instanceof Player player)) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_required", sender)));
 				return true;
 			}
 
             if (!Caboodle.hasPermission(sender, "home")) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
 			if (args.length != 0) {
@@ -66,12 +66,12 @@ public class Home extends CommandWrapper implements Listener {
 			return true;
 		} else if (label.equalsIgnoreCase("sethome")) {
 			if (!(sender instanceof Player player)) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_required", sender)));
 				return true;
 			}
 
             if (!Caboodle.hasPermission(sender, "sethome")) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
 			if (args.length != 0) {
@@ -84,12 +84,12 @@ public class Home extends CommandWrapper implements Listener {
 			return true;
 		} else if (label.equalsIgnoreCase("delhome")) {
 			if (!(sender instanceof Player player)) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_required", sender)));
 				return true;
 			}
 
             if (!Caboodle.hasPermission(sender, "delhome")) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
 			if (args.length != 0) {
@@ -112,14 +112,14 @@ public class Home extends CommandWrapper implements Listener {
 	@EventHandler
 	public void onPlayerRespawn(PlayerRespawnEvent event) {
 		Player player = event.getPlayer();
-		DataStorage playerData = Paper.data().getStorage("players.yml");
+		DataStorage playerData = PaperCuberry.data().getStorage("players.yml");
 
-		if (Paper.plugin().getConfig().getBoolean("commands.spawn.spawn-on-death")) {
+		if (PaperCuberry.plugin().getConfig().getBoolean("commands.spawn.spawn-on-death")) {
 			if (!playerData.exists(player.getUniqueId() + ".home") || player.getBedLocation() != null) return;
 
 			Location homeLoc = Caboodle.parseLocation(playerData.getString(player.getUniqueId() + ".home"));
 
-			Bukkit.getScheduler().scheduleSyncDelayedTask(Paper.plugin(), () -> {
+			Bukkit.getScheduler().scheduleSyncDelayedTask(PaperCuberry.plugin(), () -> {
 				player.teleport(homeLoc);
 			}, 2L);
 		}

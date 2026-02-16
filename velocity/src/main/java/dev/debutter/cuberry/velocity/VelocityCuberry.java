@@ -33,16 +33,16 @@ import java.util.Optional;
         @Dependency(id = "protoweaver", optional = true)
     }
 )
-public class Velocity {
+public class VelocityCuberry {
 
-    private static Velocity plugin;
+    private static VelocityCuberry plugin;
     private ProxyServer proxy;
     private Logger logger;
     private YamlDocument config;
     private Path dataDirectory;
 
     @Inject
-    public Velocity(ProxyServer proxy, Logger logger, @DataDirectory Path dataDirectory) {
+    public VelocityCuberry(ProxyServer proxy, Logger logger, @DataDirectory Path dataDirectory) {
         plugin = this;
 
         this.proxy = proxy;
@@ -82,7 +82,7 @@ public class Velocity {
         }
     }
 
-    public static Velocity getPlugin() {
+    public static VelocityCuberry getPlugin() {
         return plugin;
     }
 

@@ -1,6 +1,6 @@
 package dev.debutter.cuberry.paper.commands;
 
-import dev.debutter.cuberry.paper.Paper;
+import dev.debutter.cuberry.paper.PaperCuberry;
 import dev.debutter.cuberry.paper.commands.builder.CommandRegistry;
 import dev.debutter.cuberry.paper.commands.builder.CommandWrapper;
 import dev.debutter.cuberry.paper.utils.AwesomeText;
@@ -29,22 +29,22 @@ public class Fly extends CommandWrapper {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (label.equalsIgnoreCase("fly")) {
 			if (!Caboodle.hasPermission(sender, "fly")) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
 
 			if (args.length == 0) {
 				if (!(sender instanceof Player player)) {
-					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
+					sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_required", sender)));
 					return true;
 				}
 
                 player.setAllowFlight(!player.getAllowFlight());
 
 				if (player.getAllowFlight()) {
-					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.fly.enable_self", sender)));
+					sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.fly.enable_self", sender)));
 				} else {
-					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.fly.disable_self", sender)));
+					sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.fly.disable_self", sender)));
 				}
 				return true;
 			}
@@ -53,7 +53,7 @@ public class Fly extends CommandWrapper {
 				Player player = Bukkit.getPlayer(args[0]);
 
 				if (player == null) {
-					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_online", sender)));
+					sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_not_online", sender)));
 					return true;
 				}
 
@@ -62,7 +62,7 @@ public class Fly extends CommandWrapper {
 						player.setAllowFlight(true);
 
 						sender.sendMessage(AwesomeText.beautifyMessage(
-							Paper.locale().getMessage("commands.fly.enable_other", sender),
+							PaperCuberry.locale().getMessage("commands.fly.enable_other", sender),
 							Placeholder.component("other_name", player.name())
 						));
 						return true;
@@ -70,12 +70,12 @@ public class Fly extends CommandWrapper {
 						player.setAllowFlight(false);
 
 						sender.sendMessage(AwesomeText.beautifyMessage(
-							Paper.locale().getMessage("commands.fly.disable_other", sender),
+							PaperCuberry.locale().getMessage("commands.fly.disable_other", sender),
 							Placeholder.component("other_name", player.name())
 						));
 						return true;
 					} else {
-						sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
+						sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
 						return true;
 					}
 				} else {
@@ -83,19 +83,19 @@ public class Fly extends CommandWrapper {
 
 					if (player.getAllowFlight()) {
 						sender.sendMessage(AwesomeText.beautifyMessage(
-							Paper.locale().getMessage("commands.fly.enable_other", sender),
+							PaperCuberry.locale().getMessage("commands.fly.enable_other", sender),
 							Placeholder.component("other_name", player.name())
 						));
 					} else {
 						sender.sendMessage(AwesomeText.beautifyMessage(
-							Paper.locale().getMessage("commands.fly.disable_other", sender),
+							PaperCuberry.locale().getMessage("commands.fly.disable_other", sender),
 							Placeholder.component("other_name", player.name())
 						));
 					}
 					return true;
 				}
 			} else {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_online", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_not_online", sender)));
 				return true;
 			}
 		}

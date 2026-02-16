@@ -1,6 +1,6 @@
 package dev.debutter.cuberry.paper.commands;
 
-import dev.debutter.cuberry.paper.Paper;
+import dev.debutter.cuberry.paper.PaperCuberry;
 import dev.debutter.cuberry.paper.commands.builder.CommandRegistry;
 import dev.debutter.cuberry.paper.commands.builder.CommandWrapper;
 import dev.debutter.cuberry.paper.utils.AwesomeText;
@@ -29,12 +29,12 @@ public class Launch extends CommandWrapper {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (label.equalsIgnoreCase("launch")) {
 			if (!Caboodle.hasPermission(sender, "launch")) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
 			
 			if (!(sender instanceof Player player)) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_required", sender)));
 				return true;
 			}
 
@@ -45,11 +45,11 @@ public class Launch extends CommandWrapper {
 
 			if (args[0].equalsIgnoreCase("forward")) {
 				if (args.length <= 1) {
-					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
+					sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
 					return true;
 				}
 				if (!DogTags.isNumeric(args[1])) {
-					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_number", sender)));
+					sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_number", sender)));
 					return true;
 				}
 
@@ -57,7 +57,7 @@ public class Launch extends CommandWrapper {
 				float speed = Float.parseFloat(args[1]);
 
 				if (speed < 0) {
-					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.number_must_be_positive", sender)));
+					sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.number_must_be_positive", sender)));
 					return true;
 				}
 
@@ -71,11 +71,11 @@ public class Launch extends CommandWrapper {
 				return true;
 			} else if (args[0].equalsIgnoreCase("backward")) {
 				if (args.length <= 1) {
-					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
+					sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
 					return true;
 				}
 				if (!DogTags.isNumeric(args[1])) {
-					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_number", sender)));
+					sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_number", sender)));
 					return true;
 				}
 
@@ -83,7 +83,7 @@ public class Launch extends CommandWrapper {
 				float speed = Float.parseFloat(args[1]);
 
 				if (speed < 0) {
-					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.number_must_be_positive", sender)));
+					sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.number_must_be_positive", sender)));
 					return true;
 				}
 
@@ -97,11 +97,11 @@ public class Launch extends CommandWrapper {
 				return true;
 			} else if (args[0].equalsIgnoreCase("up")) {
 				if (args.length <= 1) {
-					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
+					sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
 					return true;
 				}
 				if (!DogTags.isNumeric(args[1])) {
-					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_number", sender)));
+					sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_number", sender)));
 					return true;
 				}
 
@@ -109,7 +109,7 @@ public class Launch extends CommandWrapper {
 				float speed = Float.parseFloat(args[1]);
 
 				if (speed < 0) {
-					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.number_must_be_positive", sender)));
+					sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.number_must_be_positive", sender)));
 					return true;
 				}
 
@@ -123,11 +123,11 @@ public class Launch extends CommandWrapper {
 				return true;
 			} else if (args[0].equalsIgnoreCase("down")) {
 				if (args.length <= 1) {
-					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
+					sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
 					return true;
 				}
 				if (!DogTags.isNumeric(args[1])) {
-					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_number", sender)));
+					sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_number", sender)));
 					return true;
 				}
 
@@ -135,7 +135,7 @@ public class Launch extends CommandWrapper {
 				float speed = Float.parseFloat(args[1]);
 
 				if (speed < 0) {
-					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.number_must_be_positive", sender)));
+					sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.number_must_be_positive", sender)));
 					return true;
 				}
 
@@ -148,7 +148,7 @@ public class Launch extends CommandWrapper {
 				}
 				return true;
 			} else {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.invalid_arguments", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
 				return true;
 			}
 		}

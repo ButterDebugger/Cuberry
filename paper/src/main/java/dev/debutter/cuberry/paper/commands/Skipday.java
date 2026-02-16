@@ -1,6 +1,6 @@
 package dev.debutter.cuberry.paper.commands;
 
-import dev.debutter.cuberry.paper.Paper;
+import dev.debutter.cuberry.paper.PaperCuberry;
 import dev.debutter.cuberry.paper.commands.builder.CommandRegistry;
 import dev.debutter.cuberry.paper.commands.builder.CommandWrapper;
 import dev.debutter.cuberry.paper.utils.AwesomeText;
@@ -26,16 +26,16 @@ public class Skipday extends CommandWrapper {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (label.equalsIgnoreCase("skipday")) {
 			if (!(sender instanceof Player player)) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_required", sender)));
 				return true;
 			}
 
             if (!Caboodle.hasPermission(sender, "skipday")) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
 
-			sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.skipday.success", sender)));
+			sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.skipday.success", sender)));
 
 			new BukkitRunnable() {
 				@Override
@@ -45,7 +45,7 @@ public class Skipday extends CommandWrapper {
 						cancel();
 					}
 				}
-			}.runTaskTimer(Paper.plugin(), 1L, 1L);
+			}.runTaskTimer(PaperCuberry.plugin(), 1L, 1L);
 			return true;
 		}
 		return false;

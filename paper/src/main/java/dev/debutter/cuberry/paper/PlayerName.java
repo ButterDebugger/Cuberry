@@ -18,7 +18,7 @@ public class PlayerName implements Listener {
 			updateName(player);
 		}
 
-		Bukkit.getScheduler().scheduleSyncRepeatingTask(Paper.plugin(), () -> {
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(PaperCuberry.plugin(), () -> {
             for (Player player : Bukkit.getOnlinePlayers()) {
                 updateName(player);
             }
@@ -33,7 +33,7 @@ public class PlayerName implements Listener {
 	}
 
 	private static void updateName(Player player) {
-		FileConfiguration config = Paper.plugin().getConfig();
+		FileConfiguration config = PaperCuberry.plugin().getConfig();
 
 		if (!config.getBoolean("player-name.enabled")) return;
 

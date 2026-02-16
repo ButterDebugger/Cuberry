@@ -57,7 +57,7 @@ public class ResourcePacks implements Listener {
 	}
 
 	public void handleResourcePacks(Player player, World world) {
-		FileConfiguration config = Paper.plugin().getConfig();
+		FileConfiguration config = PaperCuberry.plugin().getConfig();
 
 		// Get the list of requested resource packs
 		List<Map<?, ?>> requestedPacks = config.getMapList("resource-packs.global");
@@ -65,7 +65,7 @@ public class ResourcePacks implements Listener {
 			requestedPacks.addAll(config.getMapList("resource-packs.per-world." + world.getName()));
 		}
 
-		Bukkit.getScheduler().scheduleSyncDelayedTask(Paper.plugin(), () -> {
+		Bukkit.getScheduler().scheduleSyncDelayedTask(PaperCuberry.plugin(), () -> {
 			ArrayList<ResourcePackInfo> packs = new ArrayList<>();
 
 			player.removeResourcePacks();
@@ -77,7 +77,7 @@ public class ResourcePacks implements Listener {
 				try {
 					packId = UUID.fromString((String) map.get("id"));
 				} catch (IllegalArgumentException e) {
-					Paper.plugin().getLogger().warning("Invalid resource pack id, please use a valid UUID.");
+					PaperCuberry.plugin().getLogger().warning("Invalid resource pack id, please use a valid UUID.");
 					continue;
 				}
 
@@ -88,7 +88,7 @@ public class ResourcePacks implements Listener {
 			}
 
 			ResourcePackRequest request = resourcePackRequest()
-				.prompt(AwesomeText.beautifyMessage(Paper.locale().getMessage("resource_packs.prompt", player)))
+				.prompt(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("resource_packs.prompt", player)))
 				.required(config.getBoolean("resource-packs.forced"))
 				.packs(packs)
 				.build();

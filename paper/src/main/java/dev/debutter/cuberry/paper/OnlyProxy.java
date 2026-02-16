@@ -13,7 +13,7 @@ public class OnlyProxy implements Listener {
 
 	@EventHandler
 	public void onPlayerLogin(PlayerLoginEvent event) {
-		FileConfiguration config = Paper.plugin().getConfig();
+		FileConfiguration config = PaperCuberry.plugin().getConfig();
 
 		if (!config.getStringList("only-proxy.allowed-proxies").contains(event.getRealAddress().toString())) {
 			event.setResult(Result.KICK_OTHER);

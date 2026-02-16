@@ -1,6 +1,6 @@
 package dev.debutter.cuberry.paper.commands;
 
-import dev.debutter.cuberry.paper.Paper;
+import dev.debutter.cuberry.paper.PaperCuberry;
 import dev.debutter.cuberry.paper.commands.builder.CommandRegistry;
 import dev.debutter.cuberry.paper.commands.builder.CommandWrapper;
 import dev.debutter.cuberry.paper.utils.AwesomeText;
@@ -29,13 +29,13 @@ public class Heal extends CommandWrapper {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (label.equalsIgnoreCase("heal")) {
 			if (!Caboodle.hasPermission(sender, "heal")) {
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.missing_permission", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.missing_permission", sender)));
 				return true;
 			}
 
 			if (args.length == 0) {
 				if (!(sender instanceof Player player)) {
-					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_required", sender)));
+					sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_required", sender)));
 					return true;
 				}
 
@@ -44,7 +44,7 @@ public class Heal extends CommandWrapper {
 				player.setSaturation(5);
 				player.setSaturatedRegenRate(10);
 
-				sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.heal.self", sender)));
+				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.heal.self", sender)));
 				return true;
 			}
 			if (args.length > 0) {
@@ -57,12 +57,12 @@ public class Heal extends CommandWrapper {
 					player.setSaturatedRegenRate(10);
 
 					sender.sendMessage(AwesomeText.beautifyMessage(
-						Paper.locale().getMessage("commands.heal.other", sender),
+						PaperCuberry.locale().getMessage("commands.heal.other", sender),
 						Placeholder.unparsed("player_name", player.getName())
 					));
 					return true;
 				} else {
-					sender.sendMessage(AwesomeText.beautifyMessage(Paper.locale().getMessage("commands.player_not_online", sender)));
+					sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_not_online", sender)));
 					return true;
 				}
 			}

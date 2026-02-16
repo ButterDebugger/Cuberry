@@ -1,6 +1,6 @@
 package dev.debutter.cuberry.paper.utils;
 
-import dev.debutter.cuberry.paper.Paper;
+import dev.debutter.cuberry.paper.PaperCuberry;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -23,11 +23,11 @@ public class PluginSupport implements Listener {
 	public static void setup() {
 		if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
 			includesPAPI = true;
-			Paper.plugin().getLogger().info("Automatically hooking into PlaceholderAPI");
+			PaperCuberry.plugin().getLogger().info("Automatically hooking into PlaceholderAPI");
 		}
 		if (Bukkit.getPluginManager().getPlugin("ProtoWeaver") != null) {
 			includesProtoWeaver = true;
-			Paper.plugin().getLogger().info("Automatically hooking into ProtoWeaver");
+			PaperCuberry.plugin().getLogger().info("Automatically hooking into ProtoWeaver");
 		}
 	}
 
