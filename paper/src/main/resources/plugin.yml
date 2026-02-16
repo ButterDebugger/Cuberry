@@ -1,6 +1,6 @@
 name: '${plugin_name}'
 version: '${version}'
-main: dev.debutter.cuberry.paper.Paper
+main: dev.debutter.cuberry.paper.PaperCuberry
 api-version: '1.20'
 author: 'ButterDebugger'
 description: '${plugin_description}'
