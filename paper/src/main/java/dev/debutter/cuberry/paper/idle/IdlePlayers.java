@@ -27,7 +27,8 @@ public class IdlePlayers implements Listener {
 	private static final Set<UUID> IDLE_PLAYERS = ConcurrentHashMap.newKeySet();
 	private static final ConcurrentHashMap<UUID, Long> LAST_ACTIVE_TIMESTAMP = new ConcurrentHashMap<>();
 
-	public static void start() {
+	/** Called internally when initializing */
+	public static void hook() {
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(PaperCuberry.plugin(), () -> {
 			for (Player player : Bukkit.getOnlinePlayers()) {
 				UUID uuid = player.getUniqueId();

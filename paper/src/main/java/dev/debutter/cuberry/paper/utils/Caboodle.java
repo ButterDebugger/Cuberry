@@ -308,11 +308,13 @@ public class Caboodle implements Listener {
 //		Bukkit.getScheduler().scheduleSyncDelayedTask(Paper.plugin(), () -> player.spigot().respawn(), 1L);
 	}
 
+	@Deprecated
 	public static void log(String string) {
 		ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
 		console.sendMessage(string);
 	}
 
+	@Deprecated
 	public enum LogType {
 		RAW,
 		INFO,
@@ -320,6 +322,7 @@ public class Caboodle implements Listener {
 		SEVERE
 	}
 
+	@Deprecated
 	public static void log(Plugin plugin, String string, LogType logType) {
 		Logger logger = plugin.getLogger();
 

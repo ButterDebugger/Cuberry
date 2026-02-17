@@ -2,6 +2,7 @@ package dev.debutter.cuberry.paper;
 
 import dev.debutter.cuberry.paper.chat.PlayerChat;
 import dev.debutter.cuberry.paper.commands.*;
+import dev.debutter.cuberry.paper.resourcepack.ResourcePacks;
 import dev.debutter.cuberry.paper.utils.Caboodle;
 import dev.debutter.cuberry.paper.idle.IdlePlayers;
 import dev.debutter.cuberry.paper.utils.LocaleManager;
@@ -33,7 +34,7 @@ public final class PaperCuberry extends JavaPlugin implements Listener {
 
         // Setup Plugin
         Bukkit.getServer().getPluginManager().registerEvents(new IdlePlayers(), plugin);
-        IdlePlayers.start();
+        IdlePlayers.hook();
         Bukkit.getServer().getPluginManager().registerEvents(new Caboodle(), plugin);
         Caboodle.start();
         PluginSupport.setup();
@@ -42,6 +43,9 @@ public final class PaperCuberry extends JavaPlugin implements Listener {
 
         Bukkit.getServer().getPluginManager().registerEvents(new InfoSaver(), plugin);
         InfoSaver.start();
+
+        Bukkit.getServer().getPluginManager().registerEvents(new ResourcePacks(), plugin);
+        ResourcePacks.hook();
 
         // Enable Basic Features
         enableFeatures();
@@ -185,10 +189,6 @@ public final class PaperCuberry extends JavaPlugin implements Listener {
 
         if (getConfig().getBoolean("only-proxy.enabled")) { // TODO: test
             Bukkit.getServer().getPluginManager().registerEvents(new OnlyProxy(), plugin);
-        }
-
-        if (getConfig().getBoolean("resource-packs.enabled")) {
-            Bukkit.getServer().getPluginManager().registerEvents(new ResourcePacks(), plugin);
         }
     }
 
