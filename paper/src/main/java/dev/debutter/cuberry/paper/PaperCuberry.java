@@ -2,6 +2,7 @@ package dev.debutter.cuberry.paper;
 
 import dev.debutter.cuberry.paper.chat.PlayerChat;
 import dev.debutter.cuberry.paper.commands.*;
+import dev.debutter.cuberry.paper.proxy.OnlyProxy;
 import dev.debutter.cuberry.paper.resourcepack.ResourcePacks;
 import dev.debutter.cuberry.paper.utils.Caboodle;
 import dev.debutter.cuberry.paper.idle.IdlePlayers;

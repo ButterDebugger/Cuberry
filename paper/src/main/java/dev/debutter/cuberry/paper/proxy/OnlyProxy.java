@@ -1,5 +1,6 @@
-package dev.debutter.cuberry.paper;
+package dev.debutter.cuberry.paper.proxy;
 
+import dev.debutter.cuberry.paper.PaperCuberry;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
