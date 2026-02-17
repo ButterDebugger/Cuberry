@@ -2,6 +2,7 @@ package dev.debutter.cuberry.paper.resourcepack;
 
 import dev.debutter.cuberry.paper.PaperCuberry;
 import dev.debutter.cuberry.paper.utils.AwesomeText;
+import net.kyori.adventure.identity.Identity;
 import net.kyori.adventure.resource.ResourcePackInfo;
 import net.kyori.adventure.resource.ResourcePackRequest;
 import net.kyori.adventure.text.Component;
@@ -16,10 +17,10 @@ import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.event.player.PlayerResourcePackStatusEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 
 import java.net.URI;
 import java.util.Collections;
@@ -50,7 +51,7 @@ public class ResourcePacks implements Listener {
 			if (packInfo == null) continue;
 
 			// Register the global pack
-			registerResourcePack(packInfo, null);
+			registerResourcePack(packInfo);
 		}
 
 		// Get the list of per world resource packs
@@ -71,7 +72,7 @@ public class ResourcePacks implements Listener {
 		}
 	}
 
-	private static @Nullable ResourcePackInfo parseResourcePack(Map<?, ?> map) {
+	private static @Nullable ResourcePackInfo parseResourcePack(@NonNull Map<?, ?> map) {
 		// Return early if the map does not contain the required keys
 		if (!map.containsKey("id") || !map.containsKey("url") || !map.containsKey("hash")) return null;
 
@@ -90,14 +91,27 @@ public class ResourcePacks implements Listener {
 		}
 	}
 
+	/**
+	 * Registers a resource pack that will automatically be loaded with an optional world requirement
+	 * @param packInfo The resource pack info
+	 * @param worldName An optional world name that the resource pack will only apply to
+	 */
 	public static void registerResourcePack(@NotNull ResourcePackInfo packInfo, @Nullable String worldName) {
 		if (worldName == null) {
-			GLOBAL_RESOURCE_PACKS.add(packInfo);
+			registerResourcePack(packInfo);
 		} else {
 			WORLD_RESOURCE_PACKS
 				.computeIfAbsent(worldName, k -> ConcurrentHashMap.newKeySet())
 				.add(packInfo);
 		}
+	}
+
+	/**
+	 * Registers a resource pack that will automatically be loaded
+	 * @param packInfo The resource pack info
+	 */
+	public static void registerResourcePack(@NotNull ResourcePackInfo packInfo) {
+		GLOBAL_RESOURCE_PACKS.add(packInfo);
 	}
 
 	@EventHandler
@@ -135,27 +149,6 @@ public class ResourcePacks implements Listener {
 		if (from.equals(to)) return;
 
 		handleResourcePacks(player, to);
-	}
-
-	@EventHandler(priority = EventPriority.HIGH)
-	public void onPlayerResourcePackStatus(PlayerResourcePackStatusEvent event) {
-		Player player = event.getPlayer();
-		UUID playerUuid = player.getUniqueId();
-		UUID packId = event.getID();
-		PlayerResourcePackStatusEvent.Status status = event.getStatus();
-
-		switch (status) {
-			case SUCCESSFULLY_LOADED -> {
-				PLAYER_LOADED_PACKS
-					.computeIfAbsent(playerUuid, k -> ConcurrentHashMap.newKeySet())
-					.add(packId);
-			}
-			case DECLINED, FAILED_DOWNLOAD, INVALID_URL, FAILED_RELOAD, DISCARDED -> player.kick(
-				Component.text("Failed to load all of the resource packs requested by the server"),
-				PlayerKickEvent.Cause.RESOURCE_PACK_REJECTION
-			);
-			default -> {}
-		}
 	}
 
 	public void handleResourcePacks(Player player, World world) {
@@ -209,6 +202,18 @@ public class ResourcePacks implements Listener {
 				.prompt(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("resource_packs.prompt", player)))
 				.required(true)
 				.packs(requestedPacks)
+				.callback((packId,status,audience) -> audience.get(Identity.UUID).ifPresent(callbackPlayerUuid -> {
+                    switch (status) {
+                        case SUCCESSFULLY_LOADED -> PLAYER_LOADED_PACKS
+                            .computeIfAbsent(callbackPlayerUuid, k -> ConcurrentHashMap.newKeySet())
+                            .add(packId);
+                        case DECLINED, FAILED_DOWNLOAD, INVALID_URL, FAILED_RELOAD, DISCARDED -> player.kick(
+                            Component.text("Failed to load all of the resource packs requested by the server"),
+                            PlayerKickEvent.Cause.RESOURCE_PACK_REJECTION
+                        );
+                        default -> {}
+                    }
+                }))
 				.build();
 
 			player.sendResourcePacks(request);
