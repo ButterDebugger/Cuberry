@@ -96,33 +96,41 @@ chat:
     enabled: false
 
 
-# Change the join and leave messages
-join-leave-message:
-  enabled: false
-  # Messages in the lists are randomly chosen
-  # Leave list empty to disable / keep as default
-  newbie:
-  - "<yellow>%player_name% has joined for the first time"
-  join:
-  - "<yellow>%player_name% has joined the server"
-  leave:
-  - "<yellow>%player_name% has left the server"
-  # Messages for players who weren't able to join
-  join-attempt:
+# Change system messages
+system-messages:
+  # Change the system message for when players join for the first time
+  first-join:
     enabled: false
+    messages:
+      - "<yellow><player_name> has joined for the first time"
+  # Change the system message for when players join
+  join:
+    enabled: false
+    messages:
+      - "<yellow><player_name> has joined the server"
+  # Change the system message for when players leave
+  leave:
+    enabled: false
+    messages:
+      - "<yellow><player_name> has left the server"
+  # Add system messages for when players aren't able to join
+  failed-join-attempt:
     # Whether these messages are visible to everyone or players with a specific permission
     visible-to-everyone: false
+    # A player tried to join but is banned
     banned:
-    - "<red>%player_name% tried to join but is banned"
+      enabled: false
+      messages:
+        - "<red><player_name> tried to join but is banned"
+    # A player tried to join but is not whitelisted
     whitelist:
-    - "<red>%player_name% tried to join but is not on the whitelist"
-
-
-# Send a message to players joining the server
-join-motd:
-  enabled: false
-  message:
-  - "<aqua>Hello %player_name%!"
+      enabled: false
+      messages:
+        - "<red><player_name> tried to join but is not on the whitelist"
+  # Send a private message to players joining the server
+  join-motd:
+    enabled: false
+    message: "<aqua>Hello <player_name>!"
 
 
 # Change the name of players
