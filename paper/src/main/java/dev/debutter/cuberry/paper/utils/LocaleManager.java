@@ -3,6 +3,8 @@ package dev.debutter.cuberry.paper.utils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -148,5 +150,18 @@ public class LocaleManager {
 			return null;
 		}
 		return jsonLocale.getAsJsonPrimitive(key).getAsString();
+	}
+
+	public Component getBeautifiedMessage(String key, TagResolver... tagResolvers) {
+		return AwesomeText.beautifyMessage(getMessage(key), tagResolvers);
+	}
+	public Component getBeautifiedMessage(String key, Player player, TagResolver... tagResolvers) {
+		return AwesomeText.beautifyMessage(getMessage(key, player), tagResolvers);
+	}
+	public Component getBeautifiedMessage(String key, CommandSender sender, TagResolver... tagResolvers) {
+		return AwesomeText.beautifyMessage(getMessage(key, sender), tagResolvers);
+	}
+	public Component getBeautifiedMessage(String key, String locale, TagResolver... tagResolvers) {
+		return AwesomeText.beautifyMessage(getMessage(key, locale), tagResolvers);
 	}
 }

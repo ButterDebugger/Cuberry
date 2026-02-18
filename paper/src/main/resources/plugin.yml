@@ -34,6 +34,7 @@ permissions:
       cuberry.alerts.commands: true
       cuberry.mutechat.bypass: true
       cuberry.idle-kick.bypass: true
+      cuberry.chat.delete-others-messages: true
 
   cuberry.formattable-text.signs.*:
     description: Allows you to colorize your signs with any MiniMessage tag
@@ -91,6 +92,11 @@ permissions:
     description: Allows you to colorize your messages with any dynamic MiniMessage tags
   cuberry.chat.colorize.interactive:
     description: Allows you to colorize your messages with any interactive MiniMessage tags
+  cuberry.chat.delete-own-messages:
+    description: Allows you to delete your own messages
+    default: true
+  cuberry.chat.delete-others-messages:
+    description: Allows you to delete messages sent by other players
 
   cuberry.alerts.joinattempt:
     description: Allows you to see join attempt messages
@@ -107,8 +113,10 @@ permissions:
     description: Allows you to remove your home location
   cuberry.message:
     description: Allows you to message other players
+    default: true
   cuberry.reply:
     description: Allows you to reply to players messages
+    default: true
   cuberry.itemstack:
     description: Allows you to modify items
   cuberry.respawn:
@@ -143,10 +151,12 @@ permissions:
     description: Allows you to send message while the chat is muted
   cuberry.report:
     description: Allows you to make reports
+    default: true
   cuberry.whois:
     description: Allows you to see info about a player
   cuberry.rules:
     description: Allows you to read the server rules
+    default: true
   cuberry.warp:
     description: Allows you to teleport to warps
   cuberry.delwarp:
@@ -173,3 +183,4 @@ permissions:
     description: Allows you to use the top command
   cuberry.action:
     description: Allows you to use the action command
+    default: true

@@ -53,32 +53,45 @@ resource-packs:
 
 # Chat changes
 chat:
-  # Change the message format
-  format:
+  # Alter the players messages
+  modification:
     enabled: false
-    format: "%player_name%: <message>"
+    format: "<player_nameplate>: <message>"
     # Allows players to colorize chat messages with MiniMessage formatting, requires individual permission nodes for specific tags
     colorize: false
-  # Block words or phrases from chat messages
-  message-filter:
-    enabled: false
-    blocked-words:
-    - pineapple
-    - cheesecake
-    # If enabled, blocked words will simply turn into asterisks
-    # chat.format must be enabled to use this
-    censer-words: false
-  # Prevent the repeated messages from entering the chat
-  anti-repeat-messages:
-    enabled: false
-    # How many recent messages will be checked against
-    recent-messages: 3
-  # Prevent players from sending messages too fast
-  anti-spam:
-    enabled: false
-    # Max amount of time allowed since the last sent message (in seconds)
-    max-time: 1
-  # Relay messages from this server to another
+    # Whether your own username in chat messages should be emphasized for you
+    mentions:
+      enabled: false
+      # Play a sound when being mentioned in chat
+      sound:
+        enabled: false
+        name: "minecraft:block.note_block.harp"
+        volume: 0.5
+        pitch: 1.8
+    # Adds hover styles to the player_nameplate placeholder
+    fancy-player-names: false
+    # Allow players to delete their own messages after they have been sent
+    delete-own-messages: false
+    # Allow admins to delete messages sent by other players
+    delete-others-messages: false
+  filters:
+    # Block words or phrases from chat messages
+    block-phrases:
+      enabled: false
+      blacklist:
+      - pineapple
+      - cheesecake
+    # Prevent the repeated messages from entering the chat
+    repeat-messages:
+      enabled: false
+      # How many recent messages will be checked against
+      recent-messages: 3
+    # Prevent players from sending messages too fast
+    spam:
+      enabled: false
+      # Max amount of time allowed since the last sent message (in seconds)
+      max-time: 1
+  # Relay messages from this server to others servers on the proxy
   global-chat:
     enabled: false
 

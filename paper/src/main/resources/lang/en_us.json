@@ -67,9 +67,12 @@
 	"commands.teleport.unknown_logout_location": "<red>Error: <gray><white><player_name></white>'s logout location is not known.",
 	"commands.teleport.you_to_logout_location": "<green><bold>»</bold> <gray>You have been teleported to <white><player_name></white>'s logout location.",
 
-	"chat.block_message.filtered_word": "<red>Your message has been blocked because it contained a banned word.",
-	"chat.block_message.repeated_messages": "<red>You cannot send the same message twice.",
+	"chat.block_message.blacklisted_phrase": "<red>Your message has been blocked because it contained a banned word.",
+	"chat.block_message.repeated_messages": "<red>You cannot send the same message again.",
 	"chat.block_message.fast_messages": "<red>You are sending messages too fast. You can chat again in <timeout>",
+	"chat.click_action.message_player": "<green><bold>»</bold> <gray>Click to message.",
+	"chat.click_action.delete_own_message": "<shadow:#00000000><sprite:\"minecraft:gui\":player_list/remove_player></shadow> <gray>Click to delete your message.",
+	"chat.click_action.delete_others_message": "<shadow:#00000000><sprite:\"minecraft:gui\":player_list/remove_player></shadow> <gray>Click to delete <others_name>'s message.",
 
 	"idle.auto_kick_message": "<red>You have been kicked for being AFK.",
 
