@@ -3,15 +3,17 @@ package dev.debutter.cuberry.paper.utils.storage;
 import org.bukkit.plugin.Plugin;
 
 import java.io.File;
-import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class DataManager {
 
-    private Plugin plugin;
-    private static HashMap<String, DataStorage> dataFiles = new HashMap<>();
+    private final Plugin plugin;
+    private final Map<String, DataStorage> dataFiles;
 
     public DataManager(Plugin plugin) {
         this.plugin = plugin;
+        this.dataFiles = new ConcurrentHashMap<>();
     }
 
     public void saveAll() {

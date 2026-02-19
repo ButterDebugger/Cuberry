@@ -9,20 +9,28 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
-import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 public class LocaleManager {
 
-	private static final Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
-	private static final HashMap<String, JsonObject> localeObjects = new HashMap<>();
-	private static String defaultLocale;
+	private final Gson gson;
+	private final Map<String, JsonObject> localeObjects;
+	private String defaultLocale;
 
 	public LocaleManager(Plugin plugin, Charset charset, String ...locales) {
 		defaultLocale = locales[0];
+		gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
+		localeObjects = new ConcurrentHashMap<>();
 
 		// Get every language saved in the plugin resources
 		for (String locale : locales) {
