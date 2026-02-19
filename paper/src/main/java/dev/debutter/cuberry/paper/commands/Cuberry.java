@@ -66,7 +66,7 @@ public class Cuberry extends CommandWrapper {
 			}
 
 			if (args[0].equalsIgnoreCase("reload")) {
-				sender.sendMessage(AwesomeText.prettifyMessage("&b[&3&l!&b] &aPlugin has been Reloaded!"));
+				sender.sendMessage(AwesomeText.beautifyMessage("<green>Plugin has been Reloaded!"));
 				PaperCuberry.plugin().reload();
 				return true;
 			} else if (args[0].equalsIgnoreCase("test")) {
@@ -77,16 +77,16 @@ public class Cuberry extends CommandWrapper {
 
 				ItemStack item = player.getInventory().getItemInMainHand();
 
-				sender.sendMessage(AwesomeText.prettifyMessage("&7--- &astart of test&7 ---"));
+				sender.sendMessage(AwesomeText.beautifyMessage("<gray>--- <green>start of test</green> ---"));
 
 				sender.sendMessage(AwesomeText.createItemHoverComponent(item));
 				sender.sendMessage(AwesomeText.createMaterialHoverComponent(item.getType()));
 
-				sender.sendMessage(AwesomeText.prettifyMessage("&7--- &cend  of  test&7 ---"));
+				sender.sendMessage(AwesomeText.beautifyMessage("<gray>--- <red>end  of  test</red> ---"));
 				return true;
 			} else if (args[0].equalsIgnoreCase("debug")) {
 				if (!config.getBoolean("debug")) {
-					sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7This feature is not enabled in the config."));
+					sender.sendMessage(AwesomeText.beautifyMessage("<red>Error: <gray>This feature is not enabled in the config."));
 					return true;
 				}
 

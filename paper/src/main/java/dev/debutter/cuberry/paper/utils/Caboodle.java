@@ -679,6 +679,7 @@ public class Caboodle implements Listener {
 		return (file.delete());
 	}
 
+	@Deprecated
 	public static Material getMaterialByName(String name) {
 		for (Material mat : Material.values()) {
 			if (mat.toString().equalsIgnoreCase(name)) return mat;
@@ -687,6 +688,7 @@ public class Caboodle implements Listener {
 		return null;
 	}
 
+	@Deprecated
 	public static Enchantment getEnchantmentByName(String name) {
 		for (Enchantment ech : Enchantment.values()) {
 			if (ech.getKey().toString().equalsIgnoreCase(name)) return ech;
@@ -797,6 +799,13 @@ public class Caboodle implements Listener {
 		}
 	}
 
+	public static void giveItem(Player player, ItemStack itemstack, int amount) {
+		// TODO: do this in bulk instead
+		for (int i = 0; i < amount; i++) {
+			giveItem(player, itemstack);
+		}
+	}
+
 	public static String[] splice(String[] list, int start, int deleteCount) { // TODO: check for an error when deleteCount is larger than length, also return anything removed
 		String[] newlist = new String[list.length - deleteCount];
 		for (int i = 0, j = deleteCount; i < list.length; i++) {
@@ -903,6 +912,7 @@ public class Caboodle implements Listener {
 		return commandMap;
 	}
 
+	@Deprecated
 	public static boolean hasPermission(Object target, String string) {
 		if (target instanceof Player player) {
             return player.hasPermission("cuberry." + string) || player.hasPermission("cuberry.*");

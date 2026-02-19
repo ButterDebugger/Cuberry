@@ -1,443 +1,625 @@
 package dev.debutter.cuberry.paper.commands;
 
+import com.mojang.brigadier.arguments.BoolArgumentType;
+import com.mojang.brigadier.arguments.DoubleArgumentType;
+import com.mojang.brigadier.arguments.IntegerArgumentType;
+import com.mojang.brigadier.arguments.StringArgumentType;
+import com.mojang.brigadier.tree.LiteralCommandNode;
 import dev.debutter.cuberry.paper.PaperCuberry;
-import dev.debutter.cuberry.paper.commands.builder.CommandRegistry;
-import dev.debutter.cuberry.paper.commands.builder.CommandWrapper;
+import dev.debutter.cuberry.paper.commands.arguments.PlayerArmorSlot;
+import dev.debutter.cuberry.paper.commands.arguments.PlayerArmorSlotArgument;
 import dev.debutter.cuberry.paper.utils.AwesomeText;
 import dev.debutter.cuberry.paper.utils.Caboodle;
-import dev.debutter.cuberry.paper.utils.DogTags;
+import io.papermc.paper.command.brigadier.CommandSourceStack;
+import io.papermc.paper.command.brigadier.Commands;
+import io.papermc.paper.command.brigadier.argument.ArgumentTypes;
+import io.papermc.paper.registry.RegistryKey;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import org.bukkit.Material;
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.ItemType;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import static com.mojang.brigadier.Command.SINGLE_SUCCESS;
 
-public class Item extends CommandWrapper {
+public class Item {
 
-	// TODO: hideflags, head, attribute, CanPlaceOn, CanDestroy
+	// TODO: hide flags, custom player head, attribute, CanPlaceOn, CanDestroy, item model, item model data
 
-	public Item() {
-		CommandRegistry itemCmd = new CommandRegistry(this, "itemstack");
-		itemCmd.addAliases("i");
-		itemCmd.setDescription("Modify the attributes of items");
+    public static LiteralCommandNode<CommandSourceStack> command = Commands.literal("itemstack")
+        .requires(sender -> sender.getSender().hasPermission("cuberry.itemstack"))
+        .then(Commands.literal("get")
+            .then(Commands.argument("item", ArgumentTypes.itemStack())
+                .executes(ctx -> {
+                    CommandSender sender = ctx.getSource().getSender();
+                    Entity executor = ctx.getSource().getExecutor();
 
-		addRegistries(itemCmd);
-	}
-
-	@Override
-	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if (label.equalsIgnoreCase("i") || label.equalsIgnoreCase("itemstack")) {
-			if (!(sender instanceof Player player)) {
-				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.player_required", sender)));
-				return true;
-			}
-
-            if (!Caboodle.hasPermission(sender, "itemstack")) {
-				sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.missing_permission", sender)));
-				return true;
-			}
-
-			if (args.length == 0) {
-				sender.sendMessage(AwesomeText.beautifyMessage("<dark_aqua>Usage: <gray>/" + label + " <arguments>"));
-				return true;
-			}
-
-            if (args[0].equalsIgnoreCase("get")) {
-                if (args.length > 1) {
-                    Material material;
-                    int count = 1;
-
-                    if (args[1].equalsIgnoreCase("random")) {
-                        Random rand = new Random();
-
-                        List<String> itemlist = getListOfItems();
-
-                        material = Caboodle.getMaterialByName(itemlist.get(rand.nextInt(itemlist.size())));
-                    } else {
-                        material = Caboodle.getMaterialByName(args[1]);
+                    // Cancel if the executor is not a player
+                    if (!(executor instanceof Player player)) {
+                        sender.sendMessage(PaperCuberry.locale().getBeautifiedMessage("commands.player_required"));
+                        return SINGLE_SUCCESS;
                     }
 
-                    if (material == null) {
-                        sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7Invalid material."));
-                        return true;
-                    }
+                    // Get the item argument
+                    ItemStack item = ctx.getArgument("item", ItemStack.class);
 
-                    ItemStack item = new ItemStack(material);
+                    // Give the item to the player
+                    Caboodle.giveItem(player, item);
 
-                    if (args.length > 2) {
-                        if (!DogTags.isNumeric(args[2])) {
-                            sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must enter a valid number."));
-                            return true;
+                    sender.sendMessage(PaperCuberry.locale().getBeautifiedMessage(
+                        "commands.itemstack.recieve_item",
+                        Placeholder.unparsed("amount", String.valueOf(1)),
+                        Placeholder.component("item", AwesomeText.createItemHoverComponent(item))
+                    ));
+                    return SINGLE_SUCCESS;
+                })
+                .then(Commands.argument("amount", IntegerArgumentType.integer(1))
+                    .executes(ctx -> {
+                        CommandSender sender = ctx.getSource().getSender();
+                        Entity executor = ctx.getSource().getExecutor();
+
+                        // Cancel if the executor is not a player
+                        if (!(executor instanceof Player player)) {
+                            sender.sendMessage(PaperCuberry.locale().getBeautifiedMessage("commands.player_required"));
+                            return SINGLE_SUCCESS;
                         }
 
-                        count = Integer.parseInt(args[2]);
+                        // Get the arguments
+                        ItemStack item = ctx.getArgument("item", ItemStack.class);
+                        int amount = ctx.getArgument("amount", Integer.class);
+
+                        // Give the item to the player
+                        Caboodle.giveItem(player, item, amount);
+
+                        sender.sendMessage(PaperCuberry.locale().getBeautifiedMessage(
+                            "commands.itemstack.recieve_item",
+                            Placeholder.unparsed("amount", String.valueOf(amount)),
+                            Placeholder.component("item", AwesomeText.createItemHoverComponent(item))
+                        ));
+                        return SINGLE_SUCCESS;
+                    })
+                )
+            )
+        )
+        .then(Commands.literal("count")
+            .then(Commands.argument("amount", IntegerArgumentType.integer(0, 99))
+                .executes(ctx -> {
+                    CommandSender sender = ctx.getSource().getSender();
+                    Entity executor = ctx.getSource().getExecutor();
+
+                    // Cancel if the executor is not a player
+                    if (!(executor instanceof Player player)) {
+                        sender.sendMessage(PaperCuberry.locale().getBeautifiedMessage("commands.player_required"));
+                        return SINGLE_SUCCESS;
                     }
 
-                    item.setAmount(count);
+                    // Cancel if the player is not holding an item
+                    if (player.getInventory().getItemInMainHand().isEmpty()) {
+                        sender.sendMessage(PaperCuberry.locale().getBeautifiedMessage("commands.itemstack.missing_item_in_main_hand"));
+                        return SINGLE_SUCCESS;
+                    }
 
-                    Caboodle.giveItem(player, item);
-                    sender.sendMessage(AwesomeText.beautifyMessage("<green><bold>»</bold> <gray>You have received <white><count> <item><gray>.", Placeholder.unparsed("count", String.valueOf(count)), Placeholder.component("item", AwesomeText.createItemHoverComponent(item))));
-                    return true;
-                } else {
-                    sender.sendMessage(AwesomeText.beautifyMessage("<dark_aqua>Usage: <gray>/" + label + " get <material> [<count>]"));
-                    return true;
-                }
-            } else if (args[0].equalsIgnoreCase("count")) {
-                if (args.length > 1) {
+                    // Get the item and arguments
                     ItemStack item = player.getInventory().getItemInMainHand();
+                    int amount = ctx.getArgument("amount", Integer.class);
 
-                    if (item == null || item.getType().equals(Material.AIR)) {
-                        sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must be holding an item to modify in your Main hand."));
-                        return true;
+                    // Set the amount of the item
+                    item.setAmount(amount);
+
+                    sender.sendMessage(PaperCuberry.locale().getBeautifiedMessage(
+                        "commands.itemstack.set_item_count",
+                        Placeholder.unparsed("amount", String.valueOf(amount)),
+                        Placeholder.component("item", AwesomeText.createItemHoverComponent(item))
+                    ));
+                    return SINGLE_SUCCESS;
+                })
+            )
+        )
+        .then(Commands.literal("material")
+            .then(Commands.argument("type", ArgumentTypes.resource(RegistryKey.ITEM))
+                .executes(ctx -> {
+                    CommandSender sender = ctx.getSource().getSender();
+                    Entity executor = ctx.getSource().getExecutor();
+
+                    // Cancel if the executor is not a player
+                    if (!(executor instanceof Player player)) {
+                        sender.sendMessage(PaperCuberry.locale().getBeautifiedMessage("commands.player_required"));
+                        return SINGLE_SUCCESS;
                     }
 
-                    if (!DogTags.isNumeric(args[1])) {
-                        sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_number", sender)));
-                        return true;
+                    // Cancel if the player is not holding an item
+                    if (player.getInventory().getItemInMainHand().isEmpty()) {
+                        sender.sendMessage(PaperCuberry.locale().getBeautifiedMessage("commands.itemstack.missing_item_in_main_hand"));
+                        return SINGLE_SUCCESS;
                     }
 
-                    int count = (int) Float.parseFloat(args[1]);
-                    item.setAmount(count);
-					sender.sendMessage(AwesomeText.beautifyMessage("<green><bold>»</bold> <gray>Set the item count of <item> to <white><count><gray>.", Placeholder.unparsed("count", String.valueOf(count)), Placeholder.component("item", AwesomeText.createItemHoverComponent(item))));
-                    return true;
-                } else {
-                    sender.sendMessage(AwesomeText.beautifyMessage("<dark_aqua>Usage: <gray>/" + label + " count <count>"));
-                    return true;
-                }
-            } else if (args[0].equalsIgnoreCase("material")) {
-                if (args.length > 1) {
+                    // Get the item and arguments
                     ItemStack item = player.getInventory().getItemInMainHand();
+                    ItemType itemType = ctx.getArgument("type", ItemType.class);
+                    Material material = itemType.createItemStack().getType();
 
-                    if (item == null || item.getType().equals(Material.AIR)) {
-                        sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must be holding an item to modify in your Main hand."));
-                        return true;
-                    }
+                    // Change the item type
+                    Component unmodifiedItemComponent = AwesomeText.createItemHoverComponent(item);
 
-                    Material material = Caboodle.getMaterialByName(args[1]);
+                    player.getInventory().setItemInMainHand(item.withType(material));
 
-                    if (material == null) {
-                        sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7\"" + args[1] + "\" is not a valid material"));
-                        return true;
-                    }
+                    sender.sendMessage(PaperCuberry.locale().getBeautifiedMessage(
+                        "commands.itemstack.set_item_material",
+                        Placeholder.component("item", unmodifiedItemComponent),
+                        Placeholder.component("material", AwesomeText.createMaterialHoverComponent(material))
+                    ));
+                    return SINGLE_SUCCESS;
+                })
+            )
+        )
+        .then(Commands.literal("unbreakable")
+            .executes(ctx -> {
+                CommandSender sender = ctx.getSource().getSender();
+                Entity executor = ctx.getSource().getExecutor();
 
-                    Component unmodifiedComponent = AwesomeText.createItemHoverComponent(item);
-                    item.setType(material);
-
-					sender.sendMessage(AwesomeText.beautifyMessage("<green><bold>»</bold> <gray>Changed item material of <item> to <material>.", Placeholder.component("item", unmodifiedComponent), Placeholder.component("material", AwesomeText.createMaterialHoverComponent(material))));
-                    return true;
-                } else {
-                    sender.sendMessage(AwesomeText.beautifyMessage("<dark_aqua>Usage: <gray>/" + label + " material <material>"));
-                    return true;
+                // Cancel if the executor is not a player
+                if (!(executor instanceof Player player)) {
+                    sender.sendMessage(PaperCuberry.locale().getBeautifiedMessage("commands.player_required"));
+                    return SINGLE_SUCCESS;
                 }
-            } else if (args[0].equalsIgnoreCase("unbreakable")) {
-                if (args.length > 1) {
-                    ItemStack item = player.getInventory().getItemInMainHand();
 
-                    if (item == null || item.getType().equals(Material.AIR)) {
-                        sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must be holding an item to modify in your Main hand."));
-                        return true;
+                // Cancel if the player is not holding an item
+                if (player.getInventory().getItemInMainHand().isEmpty()) {
+                    sender.sendMessage(PaperCuberry.locale().getBeautifiedMessage("commands.itemstack.missing_item_in_main_hand"));
+                    return SINGLE_SUCCESS;
+                }
+
+                // Get the item and arguments
+                ItemStack item = player.getInventory().getItemInMainHand();
+                ItemMeta itemMeta = item.getItemMeta();
+
+                Component unmodifiedItemComponent = AwesomeText.createItemHoverComponent(item);
+
+                if (itemMeta.isUnbreakable()) {
+                    // Make item breakable
+                    itemMeta.setUnbreakable(false);
+                    item.setItemMeta(itemMeta);
+
+                    sender.sendMessage(PaperCuberry.locale().getBeautifiedMessage(
+                        "commands.itemstack.set_item_breakable",
+                        Placeholder.component("item", unmodifiedItemComponent)
+                    ));
+                } else {
+                    // Make item unbreakable
+                    itemMeta.setUnbreakable(true);
+                    item.setItemMeta(itemMeta);
+
+                    sender.sendMessage(PaperCuberry.locale().getBeautifiedMessage(
+                        "commands.itemstack.set_item_unbreakable",
+                        Placeholder.component("item", unmodifiedItemComponent)
+                    ));
+                }
+
+                return SINGLE_SUCCESS;
+            })
+            .then(Commands.argument("enabled", BoolArgumentType.bool())
+                .executes(ctx -> {
+                    CommandSender sender = ctx.getSource().getSender();
+                    Entity executor = ctx.getSource().getExecutor();
+
+                    // Cancel if the executor is not a player
+                    if (!(executor instanceof Player player)) {
+                        sender.sendMessage(PaperCuberry.locale().getBeautifiedMessage("commands.player_required"));
+                        return SINGLE_SUCCESS;
                     }
 
-                    if (args[1].equalsIgnoreCase("false")) {
-                        ItemMeta itemMeta = item.getItemMeta();
-                        itemMeta.setUnbreakable(false);
-                        item.setItemMeta(itemMeta);
+                    // Cancel if the player is not holding an item
+                    if (player.getInventory().getItemInMainHand().isEmpty()) {
+                        sender.sendMessage(PaperCuberry.locale().getBeautifiedMessage("commands.itemstack.missing_item_in_main_hand"));
+                        return SINGLE_SUCCESS;
+                    }
 
-                        sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Item is no longer unbreakable"));
-                        return true;
-                    } else if (args[1].equalsIgnoreCase("true")) {
-                        ItemMeta itemMeta = item.getItemMeta();
+                    // Get the item and arguments
+                    ItemStack item = player.getInventory().getItemInMainHand();
+                    ItemMeta itemMeta = item.getItemMeta();
+                    boolean enabled = ctx.getArgument("enabled", Boolean.class);
+
+                    Component unmodifiedItemComponent = AwesomeText.createItemHoverComponent(item);
+
+                    if (enabled) {
+                        // Make item unbreakable
                         itemMeta.setUnbreakable(true);
                         item.setItemMeta(itemMeta);
 
-                        sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Item is now unbreakable"));
-                        return true;
+                        sender.sendMessage(PaperCuberry.locale().getBeautifiedMessage(
+                            "commands.itemstack.set_item_unbreakable",
+                            Placeholder.component("item", unmodifiedItemComponent)
+                        ));
                     } else {
-                        sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must enter a boolean value"));
-                        return true;
+                        // Make item breakable
+                        itemMeta.setUnbreakable(false);
+                        item.setItemMeta(itemMeta);
+
+                        sender.sendMessage(PaperCuberry.locale().getBeautifiedMessage(
+                            "commands.itemstack.set_item_breakable",
+                            Placeholder.component("item", unmodifiedItemComponent)
+                        ));
                     }
-                } else {
-                    sender.sendMessage(AwesomeText.beautifyMessage("<dark_aqua>Usage: <gray>/" + label + " unbreakable <true|false>"));
-                    return true;
-                }
-            } else if (args[0].equalsIgnoreCase("rename")) {
-                ItemStack item = player.getInventory().getItemInMainHand();
 
-                if (item == null || item.getType().equals(Material.AIR)) {
-                    sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must be holding an item to modify in your Main hand."));
-                    return true;
-                }
+                    return SINGLE_SUCCESS;
+                })
+            )
+        )
+        .then(Commands.literal("rename")
+            .then(Commands.argument("name", StringArgumentType.greedyString()	)
+                .executes(ctx -> {
+                    CommandSender sender = ctx.getSource().getSender();
+                    Entity executor = ctx.getSource().getExecutor();
 
-                String str = String.join(" ", Caboodle.splice(args, 0, 1));
-                ItemMeta itemMeta = item.getItemMeta();
+                    // Cancel if the executor is not a player
+                    if (!(executor instanceof Player player)) {
+                        sender.sendMessage(PaperCuberry.locale().getBeautifiedMessage("commands.player_required"));
+                        return SINGLE_SUCCESS;
+                    }
 
-                Component itemName = AwesomeText.beautifyMessage(str);
-                itemMeta.displayName(itemName);
+                    // Cancel if the player is not holding an item
+                    if (player.getInventory().getItemInMainHand().isEmpty()) {
+                        sender.sendMessage(PaperCuberry.locale().getBeautifiedMessage("commands.itemstack.missing_item_in_main_hand"));
+                        return SINGLE_SUCCESS;
+                    }
 
-                item.setItemMeta(itemMeta);
-
-                if (str.isEmpty()) {
-                    sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Item name has been reset."));
-                    return true;
-                } else {
-                    sender.sendMessage(AwesomeText.beautifyMessage("<green><bold>»</bold> <gray>Item name has been set to <white>\"<reset><item_name><white>\"<gray>.", Placeholder.component("item_name", itemName)));
-                    return true;
-                }
-            } else if (args[0].equalsIgnoreCase("durability")) {
-                if (args.length > 2) {
+                    // Get the item and arguments
                     ItemStack item = player.getInventory().getItemInMainHand();
+                    String name = ctx.getArgument("name", String.class);
 
-                    if (item == null || item.getType().equals(Material.AIR)) {
-                        sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must be holding an item to modify in your Main hand."));
-                        return true;
-                    }
+                    Component nameComponent = AwesomeText.beautifyMessage(name);
 
-                    ItemMeta itemmeta = item.getItemMeta();
-                    Damageable damage;
-                    short maxDamage = item.getType().getMaxDurability();
+                    // Set the item's display name
+                    Component unmodifiedItemComponent = AwesomeText.createItemHoverComponent(item);
 
-                    if (itemmeta instanceof Damageable) {
-                        damage = (Damageable) itemmeta;
-                    } else {
-                        sender.sendMessage(AwesomeText.beautifyMessage("<red>Error: <gray><material> is not damageable.", Placeholder.component("material", AwesomeText.createMaterialHoverComponent(item.getType()))));
-                        return true;
-                    }
+                    ItemMeta itemMeta = item.getItemMeta();
+                    itemMeta.displayName(nameComponent);
+                    item.setItemMeta(itemMeta);
 
-                    if (args[1].equalsIgnoreCase("damage")) {
-                        if (!DogTags.isNumeric(args[2])) {
-                            sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_number", sender)));
-                            return true;
+                    sender.sendMessage(PaperCuberry.locale().getBeautifiedMessage(
+                        "commands.itemstack.set_item_display_name",
+                        Placeholder.component("item_name", nameComponent),
+                        Placeholder.component("item", unmodifiedItemComponent)
+                    ));
+                    return SINGLE_SUCCESS;
+                })
+            )
+        )
+        .then(Commands.literal("durability")
+            .then(Commands.literal("remaining")
+                .then(Commands.argument("amount", IntegerArgumentType.integer(0))
+                    .executes(ctx -> {
+                        CommandSender sender = ctx.getSource().getSender();
+                        Entity executor = ctx.getSource().getExecutor();
+
+                        // Cancel if the executor is not a player
+                        if (!(executor instanceof Player player)) {
+                            sender.sendMessage(PaperCuberry.locale().getBeautifiedMessage("commands.player_required"));
+                            return SINGLE_SUCCESS;
                         }
 
-                        short number = Short.parseShort(args[2]);
-
-                        number = (short) Math.min(maxDamage, Math.max(0, number));
-
-                        damage.setDamage(number);
-                        item.setItemMeta(itemmeta);
-                        sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Item durability has been set to &f" + (maxDamage - number) + "&7/&f" + maxDamage + "&7."));
-                        return true;
-                    } else if (args[1].equalsIgnoreCase("percentage")) {
-                        if (!DogTags.isNumeric(args[2])) {
-                            sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_number", sender)));
-                            return true;
+                        // Cancel if the player is not holding an item
+                        if (player.getInventory().getItemInMainHand().isEmpty()) {
+                            sender.sendMessage(PaperCuberry.locale().getBeautifiedMessage("commands.itemstack.missing_item_in_main_hand"));
+                            return SINGLE_SUCCESS;
                         }
 
-                        short number = Short.parseShort(args[2]);
+                        // Get the item and arguments
+                        ItemStack item = player.getInventory().getItemInMainHand();
+                        int amount = ctx.getArgument("amount", Integer.class);
+                        ItemMeta itemmeta = item.getItemMeta();
 
-                        number = (short) Math.min(maxDamage, Math.max(0, Math.floor(maxDamage - maxDamage * (double) (number) / 100d)));
+                        Component unmodifiedItemComponent = AwesomeText.createItemHoverComponent(item);
 
-                        damage.setDamage(number);
-                        item.setItemMeta(itemmeta);
-                        sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Item durability has been set to &f" + (maxDamage - number) + "&7/&f" + maxDamage + "&7."));
-                        return true;
-                    } else if (args[1].equalsIgnoreCase("remaining")) {
-                        if (!DogTags.isNumeric(args[2])) {
-                            sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_number", sender)));
-                            return true;
+                        // Cancel if the item is not damageable
+                        if (!(itemmeta instanceof Damageable damageable)) {
+                            sender.sendMessage(PaperCuberry.locale().getBeautifiedMessage(
+                                "commands.itemstack.item_not_damageable",
+                                Placeholder.component("item", unmodifiedItemComponent)
+                            ));
+                            return SINGLE_SUCCESS;
                         }
 
-                        short number = Short.parseShort(args[2]);
+                        int maxDamage = damageable.hasMaxDamage() ? damageable.getMaxDamage() : item.getType().getMaxDurability();
 
-                        number = (short) Math.min(maxDamage, Math.max(0, maxDamage - number));
+                        if (maxDamage <= 0) {
+                            sender.sendMessage(PaperCuberry.locale().getBeautifiedMessage(
+                                "commands.itemstack.item_not_damageable",
+                                Placeholder.component("item", unmodifiedItemComponent)
+                            ));
+                            return SINGLE_SUCCESS;
+                        }
 
-                        damage.setDamage(number);
+                        // Calculate and set the damage
+                        int clampedAmount = Math.min(maxDamage, Math.max(0, maxDamage - amount));
+
+                        damageable.setDamage(clampedAmount);
                         item.setItemMeta(itemmeta);
-                        sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Item durability has been set to &f" + (maxDamage - number) + "&7/&f" + maxDamage + "&7."));
-                        return true;
-                    } else {
-                        sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
-                        return true;
-                    }
-                } else {
-                    sender.sendMessage(AwesomeText.beautifyMessage("<dark_aqua>Usage: <gray>/" + label + " durability <damage|percentage|remaining> <number>"));
-                    return true;
+
+                        sender.sendMessage(PaperCuberry.locale().getBeautifiedMessage(
+                            "commands.itemstack.set_item_durability",
+                            Placeholder.unparsed("damage", String.valueOf(maxDamage - clampedAmount)),
+                            Placeholder.unparsed("max_damage", String.valueOf(maxDamage)),
+                            Placeholder.component("item", unmodifiedItemComponent)
+                        ));
+                        return SINGLE_SUCCESS;
+                    })
+                )
+            )
+            .then(Commands.literal("percentage")
+                .then(Commands.argument("percent", DoubleArgumentType.doubleArg(0.0d, 100.0d))
+                    .executes(ctx -> {
+                        CommandSender sender = ctx.getSource().getSender();
+                        Entity executor = ctx.getSource().getExecutor();
+
+                        // Cancel if the executor is not a player
+                        if (!(executor instanceof Player player)) {
+                            sender.sendMessage(PaperCuberry.locale().getBeautifiedMessage("commands.player_required"));
+                            return SINGLE_SUCCESS;
+                        }
+
+                        // Cancel if the player is not holding an item
+                        if (player.getInventory().getItemInMainHand().isEmpty()) {
+                            sender.sendMessage(PaperCuberry.locale().getBeautifiedMessage("commands.itemstack.missing_item_in_main_hand"));
+                            return SINGLE_SUCCESS;
+                        }
+
+                        // Get the item and arguments
+                        ItemStack item = player.getInventory().getItemInMainHand();
+                        double percent = ctx.getArgument("percent", Double.class);
+                        ItemMeta itemmeta = item.getItemMeta();
+
+                        Component unmodifiedItemComponent = AwesomeText.createItemHoverComponent(item);
+
+                        // Cancel if the item is not damageable
+                        if (!(itemmeta instanceof Damageable damageable)) {
+                            sender.sendMessage(PaperCuberry.locale().getBeautifiedMessage(
+                                "commands.itemstack.item_not_damageable",
+                                Placeholder.component("item", unmodifiedItemComponent)
+                            ));
+                            return SINGLE_SUCCESS;
+                        }
+
+                        int maxDamage = damageable.hasMaxDamage() ? damageable.getMaxDamage() : item.getType().getMaxDurability();
+
+                        if (maxDamage <= 0) {
+                            sender.sendMessage(PaperCuberry.locale().getBeautifiedMessage(
+                                "commands.itemstack.item_not_damageable",
+                                Placeholder.component("item", unmodifiedItemComponent)
+                            ));
+                            return SINGLE_SUCCESS;
+                        }
+
+                        // Calculate and set the damage
+                        int clampedAmount = (int) Math.min(maxDamage, Math.max(0.0d, Math.floor(maxDamage - maxDamage * percent / 100.0d)));
+
+                        damageable.setDamage(clampedAmount);
+                        item.setItemMeta(itemmeta);
+
+                        sender.sendMessage(PaperCuberry.locale().getBeautifiedMessage(
+                            "commands.itemstack.set_item_durability",
+                            Placeholder.unparsed("damage", String.valueOf(maxDamage - clampedAmount)),
+                            Placeholder.unparsed("max_damage", String.valueOf(maxDamage)),
+                            Placeholder.component("item", unmodifiedItemComponent)
+                        ));
+                        return SINGLE_SUCCESS;
+                    })
+                )
+            )
+            .then(Commands.literal("damage")
+                .then(Commands.argument("amount", IntegerArgumentType.integer(0))
+                    .executes(ctx -> {
+                        CommandSender sender = ctx.getSource().getSender();
+                        Entity executor = ctx.getSource().getExecutor();
+
+                        // Cancel if the executor is not a player
+                        if (!(executor instanceof Player player)) {
+                            sender.sendMessage(PaperCuberry.locale().getBeautifiedMessage("commands.player_required"));
+                            return SINGLE_SUCCESS;
+                        }
+
+                        // Cancel if the player is not holding an item
+                        if (player.getInventory().getItemInMainHand().isEmpty()) {
+                            sender.sendMessage(PaperCuberry.locale().getBeautifiedMessage("commands.itemstack.missing_item_in_main_hand"));
+                            return SINGLE_SUCCESS;
+                        }
+
+                        // Get the item and arguments
+                        ItemStack item = player.getInventory().getItemInMainHand();
+                        int amount = ctx.getArgument("amount", Integer.class);
+                        ItemMeta itemmeta = item.getItemMeta();
+
+                        Component unmodifiedItemComponent = AwesomeText.createItemHoverComponent(item);
+
+                        // Cancel if the item is not damageable
+                        if (!(itemmeta instanceof Damageable damageable)) {
+                            sender.sendMessage(PaperCuberry.locale().getBeautifiedMessage(
+                                "commands.itemstack.item_not_damageable",
+                                Placeholder.component("item", unmodifiedItemComponent)
+                            ));
+                            return SINGLE_SUCCESS;
+                        }
+
+                        int maxDamage = damageable.hasMaxDamage() ? damageable.getMaxDamage() : item.getType().getMaxDurability();
+
+                        if (maxDamage <= 0) {
+                            sender.sendMessage(PaperCuberry.locale().getBeautifiedMessage(
+                                "commands.itemstack.item_not_damageable",
+                                Placeholder.component("item", unmodifiedItemComponent)
+                            ));
+                            return SINGLE_SUCCESS;
+                        }
+
+                        // Calculate and set the damage
+                        int clampedAmount = Math.min(maxDamage, Math.max(0, amount));
+
+                        damageable.setDamage(clampedAmount);
+                        item.setItemMeta(itemmeta);
+
+                        sender.sendMessage(PaperCuberry.locale().getBeautifiedMessage(
+                            "commands.itemstack.set_item_durability",
+                            Placeholder.unparsed("damage", String.valueOf(maxDamage - clampedAmount)),
+                            Placeholder.unparsed("max_damage", String.valueOf(maxDamage)),
+                            Placeholder.component("item", unmodifiedItemComponent)
+                        ));
+                        return SINGLE_SUCCESS;
+                    })
+                )
+            )
+        )
+        .then(Commands.literal("delete")
+            .executes(ctx -> {
+                CommandSender sender = ctx.getSource().getSender();
+                Entity executor = ctx.getSource().getExecutor();
+
+                // Cancel if the executor is not a player
+                if (!(executor instanceof Player player)) {
+                    sender.sendMessage(PaperCuberry.locale().getBeautifiedMessage("commands.player_required"));
+                    return SINGLE_SUCCESS;
                 }
-            } else if (args[0].equalsIgnoreCase("modeldata")) {
-                if (args.length > 1) {
-                    ItemStack item = player.getInventory().getItemInMainHand();
 
-                    if (item == null || item.getType().equals(Material.AIR)) {
-                        sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must be holding an item to modify in your Main hand."));
-                        return true;
-                    }
-
-                    if (!DogTags.isNumeric(args[1])) {
-                        sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_number", sender)));
-                        return true;
-                    }
-
-                    int number = (int) Float.parseFloat(args[1]);
-
-                    ItemMeta itemmeta = item.getItemMeta();
-
-                    itemmeta.setCustomModelData(number);
-
-                    item.setItemMeta(itemmeta);
-
-                    sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7The item's custom model data has been set to &f" + number));
-                    return true;
-                } else {
-                    sender.sendMessage(AwesomeText.beautifyMessage("<dark_aqua>Usage: <gray>/" + label + " modeldata <number>"));
-                    return true;
-                }
-            } else if (args[0].equalsIgnoreCase("delete")) {
-                ItemStack item = player.getInventory().getItemInMainHand();
-
-                if (item == null || item.getType().equals(Material.AIR)) {
-                    sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must be holding an item to modify in your Main hand."));
-                    return true;
+                // Cancel if the player is not holding an item
+                if (player.getInventory().getItemInMainHand().isEmpty()) {
+                    sender.sendMessage(PaperCuberry.locale().getBeautifiedMessage("commands.itemstack.missing_item_in_main_hand"));
+                    return SINGLE_SUCCESS;
                 }
 
+                // Remove the item in the player's main hand
                 player.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
 
-                sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7The item you were holding has been removed."));
-                return true;
-            } else if (args[0].equalsIgnoreCase("enchant")) {
-                if (args.length > 2) {
+                sender.sendMessage(PaperCuberry.locale().getBeautifiedMessage("commands.itemstack.delete_item"));
+                return SINGLE_SUCCESS;
+            })
+        )
+        .then(Commands.literal("enchant")
+            .then(Commands.argument("enchantment", ArgumentTypes.resource(RegistryKey.ENCHANTMENT))
+                .then(Commands.argument("level", IntegerArgumentType.integer(0, 2567))
+                    .executes(ctx -> {
+                        CommandSender sender = ctx.getSource().getSender();
+                        Entity executor = ctx.getSource().getExecutor();
+
+                        // Cancel if the executor is not a player
+                        if (!(executor instanceof Player player)) {
+                            sender.sendMessage(PaperCuberry.locale().getBeautifiedMessage("commands.player_required"));
+                            return SINGLE_SUCCESS;
+                        }
+
+                        // Cancel if the player is not holding an item
+                        if (player.getInventory().getItemInMainHand().isEmpty()) {
+                            sender.sendMessage(PaperCuberry.locale().getBeautifiedMessage("commands.itemstack.missing_item_in_main_hand"));
+                            return SINGLE_SUCCESS;
+                        }
+
+                        // Get the item and arguments
+                        ItemStack item = player.getInventory().getItemInMainHand();
+                        Enchantment enchantment = ctx.getArgument("enchantment", Enchantment.class);
+                        int level = ctx.getArgument("level", Integer.class);
+
+                        // Add the enchantment
+                        Component unmodifiedItemComponent = AwesomeText.createItemHoverComponent(item);
+
+                        ItemMeta itemMeta = item.getItemMeta();
+                        itemMeta.addEnchant(enchantment, level, true);
+                        item.setItemMeta(itemMeta);
+
+                        sender.sendMessage(PaperCuberry.locale().getBeautifiedMessage(
+                            "commands.itemstack.add_item_enchantment",
+                            Placeholder.component("enchantment", enchantment.description()),
+                            Placeholder.component("item", unmodifiedItemComponent),
+                            Placeholder.unparsed("level", AwesomeText.romanNumeral(level))
+                        ));
+                        return SINGLE_SUCCESS;
+                    })
+                )
+                .executes(ctx -> {
+                    CommandSender sender = ctx.getSource().getSender();
+                    Entity executor = ctx.getSource().getExecutor();
+
+                    // Cancel if the executor is not a player
+                    if (!(executor instanceof Player player)) {
+                        sender.sendMessage(PaperCuberry.locale().getBeautifiedMessage("commands.player_required"));
+                        return SINGLE_SUCCESS;
+                    }
+
+                    // Cancel if the player is not holding an item
+                    if (player.getInventory().getItemInMainHand().isEmpty()) {
+                        sender.sendMessage(PaperCuberry.locale().getBeautifiedMessage("commands.itemstack.missing_item_in_main_hand"));
+                        return SINGLE_SUCCESS;
+                    }
+
+                    // Get the item and arguments
                     ItemStack item = player.getInventory().getItemInMainHand();
+                    Enchantment enchantment = ctx.getArgument("enchantment", Enchantment.class);
+                    int level = 1;
 
-                    if (item == null || item.getType().equals(Material.AIR)) {
-                        sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must be holding an item to modify in your Main hand."));
-                        return true;
-                    }
-
-                    Enchantment enchantment = Caboodle.getEnchantmentByName(args[1]);
-
-                    if (enchantment == null) {
-                        sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7\"" + args[1] + "\" is not a valid enchantment"));
-                        return true;
-                    }
-
-                    if (!DogTags.isNumeric(args[2])) {
-                        sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must enter a valid number."));
-                        return true;
-                    }
-
-                    int level = Integer.parseInt(args[2]);
+                    // Add the enchantment
+                    Component unmodifiedItemComponent = AwesomeText.createItemHoverComponent(item);
 
                     ItemMeta itemMeta = item.getItemMeta();
                     itemMeta.addEnchant(enchantment, level, true);
                     item.setItemMeta(itemMeta);
 
-                    sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Item has been enchanted with &f" + enchantment.getKey().toString() + " " + AwesomeText.romanNumeral(level) + "&7."));
-                    return true;
-                } else {
-                    sender.sendMessage(AwesomeText.beautifyMessage("<dark_aqua>Usage: <gray>/" + label + " enchant <enchantment> <level>"));
-                    return true;
-                }
-            } else if (args[0].equalsIgnoreCase("equip")) {
-                if (args.length > 1) {
+                    sender.sendMessage(PaperCuberry.locale().getBeautifiedMessage(
+                        "commands.itemstack.add_item_enchantment",
+                        Placeholder.component("enchantment", enchantment.description()),
+                        Placeholder.component("item", unmodifiedItemComponent),
+                        Placeholder.unparsed("level", AwesomeText.romanNumeral(level))
+                    ));
+                    return SINGLE_SUCCESS;
+                })
+            )
+        )
+        .then(Commands.literal("equip")
+            .then(Commands.argument("slot", new PlayerArmorSlotArgument())
+                .executes(ctx -> {
+                    CommandSender sender = ctx.getSource().getSender();
+                    Entity executor = ctx.getSource().getExecutor();
+
+                    // Cancel if the executor is not a player
+                    if (!(executor instanceof Player player)) {
+                        sender.sendMessage(PaperCuberry.locale().getBeautifiedMessage("commands.player_required"));
+                        return SINGLE_SUCCESS;
+                    }
+
+                    // Cancel if the player is not holding an item
+                    if (player.getInventory().getItemInMainHand().isEmpty()) {
+                        sender.sendMessage(PaperCuberry.locale().getBeautifiedMessage("commands.itemstack.missing_item_in_main_hand"));
+                        return SINGLE_SUCCESS;
+                    }
+
+                    // Get the item and arguments
                     ItemStack item = player.getInventory().getItemInMainHand();
+                    PlayerArmorSlot slot = ctx.getArgument("slot", PlayerArmorSlot.class);
+                    EquipmentSlot equipmentSlot = slot.getEquipmentSlot();
 
-                    if (item == null || item.getType().equals(Material.AIR)) {
-                        sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7You must be holding an item to modify in your Main hand."));
-                        return true;
-                    }
+                    // Equip the item and store the old one
+                    ItemStack oldItem = player.getInventory().getItem(equipmentSlot);
 
-                    if (args[1].equalsIgnoreCase("head")) {
-                        ItemStack oldItem = player.getInventory().getItem(EquipmentSlot.HEAD);
-                        player.getInventory().setItem(EquipmentSlot.HEAD, item);
-                        player.getInventory().setItemInMainHand(oldItem);
+                    player.getInventory().setItem(equipmentSlot, item);
 
-                        sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Equipped item in your head slot."));
-                        return true;
-                    } else if (args[1].equalsIgnoreCase("chest")) {
-                        ItemStack oldItem = player.getInventory().getItem(EquipmentSlot.CHEST);
-                        player.getInventory().setItem(EquipmentSlot.CHEST, item);
-                        player.getInventory().setItemInMainHand(oldItem);
+                    // Send the correct message
+                    sender.sendMessage(PaperCuberry.locale().getBeautifiedMessage(switch (slot) {
+                        case HEAD -> "commands.itemstack.equip_item_on_head";
+                        case CHEST -> "commands.itemstack.equip_item_on_chest";
+                        case LEGS -> "commands.itemstack.equip_item_on_legs";
+                        case FEET -> "commands.itemstack.equip_item_on_feet";
+                    },
+                        Placeholder.component("item", AwesomeText.createItemHoverComponent(item))
+                    ));
 
-                        sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Equipped item in your chest slot."));
-                        return true;
-                    } else if (args[1].equalsIgnoreCase("legs")) {
-                        ItemStack oldItem = player.getInventory().getItem(EquipmentSlot.LEGS);
-                        player.getInventory().setItem(EquipmentSlot.LEGS, item);
-                        player.getInventory().setItemInMainHand(oldItem);
+                    // Set the main hand item to the old equipment item
+                    player.getInventory().setItemInMainHand(oldItem);
+                    return SINGLE_SUCCESS;
+                })
+            )
+        )
+        .build();
 
-                        sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Equipped item in your legs slot."));
-                        return true;
-                    } else if (args[1].equalsIgnoreCase("feet")) {
-                        ItemStack oldItem = player.getInventory().getItem(EquipmentSlot.FEET);
-                        player.getInventory().setItem(EquipmentSlot.FEET, item);
-                        player.getInventory().setItemInMainHand(oldItem);
-
-                        sender.sendMessage(AwesomeText.prettifyMessage("&a&l» &7Equipped item in your feet slot."));
-                        return true;
-                    } else {
-                        sender.sendMessage(AwesomeText.prettifyMessage("&cError: &7\"" + args[1] + "\" is not a valid equipment slot."));
-                        return true;
-                    }
-                } else {
-                    sender.sendMessage(AwesomeText.beautifyMessage("<dark_aqua>Usage: <gray>/" + label + " equip <head|chest|legs|feet>"));
-                    return true;
-                }
-            } else {
-                sender.sendMessage(AwesomeText.beautifyMessage(PaperCuberry.locale().getMessage("commands.invalid_arguments", sender)));
-                return true;
-            }
-        }
-		return false;
-	}
-
-	@Override
-	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-		if (label.equalsIgnoreCase("i") || label.equalsIgnoreCase("itemstack") && Caboodle.hasPermission(sender, "itemstack")) {
-			if (args.length == 1) {
-				return Arrays.asList("count", "get", "material", "unbreakable", "rename", "durability", "modeldata", "delete", "enchant", "equip");
-			}
-			if (args.length == 2) {
-				if (args[0].equalsIgnoreCase("get")) {
-					List<String> itemlist = getListOfItems();
-					itemlist.add("random");
-					return itemlist;
-				} else if (args[0].equalsIgnoreCase("material")) {
-					return getListOfItems();
-				} else if (args[0].equalsIgnoreCase("unbreakable")) {
-					return Arrays.asList("true", "false");
-				} else if (args[0].equalsIgnoreCase("durability")) {
-					return Arrays.asList("damage", "percentage", "remaining");
-				} else if (args[0].equalsIgnoreCase("enchant")) {
-					return getListOfEnchantments();
-				} else if (args[0].equalsIgnoreCase("equip")) {
-					return Arrays.asList("head", "chest", "legs", "feet");
-				}
-			}
-
-			return Collections.emptyList();
-		}
-
-		return null;
-	}
-
-	public List<String> getListOfItems() {
-		List<String> items = new ArrayList<>();
-
-		for (Material mat : Arrays.asList(Material.values())) {
-			if (mat.isItem()) items.add(mat.toString().toLowerCase());
-		}
-
-		return items;
-	}
-
-	public List<String> getListOfEnchantments() {
-		List<String> items = new ArrayList<>();
-
-		for (Enchantment ech : Enchantment.values()) {
-			items.add(ech.getKey().toString());
-		}
-
-		return items;
-	}
 }

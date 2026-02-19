@@ -1,15 +1,41 @@
 package dev.debutter.cuberry.paper;
 
 import dev.debutter.cuberry.paper.chat.PlayerChat;
-import dev.debutter.cuberry.paper.commands.*;
+import dev.debutter.cuberry.paper.commands.Action;
+import dev.debutter.cuberry.paper.commands.Back;
+import dev.debutter.cuberry.paper.commands.Cuberry;
+import dev.debutter.cuberry.paper.commands.EnderChest;
+import dev.debutter.cuberry.paper.commands.Fly;
+import dev.debutter.cuberry.paper.commands.Gamemode;
+import dev.debutter.cuberry.paper.commands.Heal;
+import dev.debutter.cuberry.paper.commands.Home;
+import dev.debutter.cuberry.paper.commands.InvSee;
+import dev.debutter.cuberry.paper.commands.Item;
+import dev.debutter.cuberry.paper.commands.Launch;
+import dev.debutter.cuberry.paper.commands.Message;
+import dev.debutter.cuberry.paper.commands.Mutechat;
+import dev.debutter.cuberry.paper.commands.Report;
+import dev.debutter.cuberry.paper.commands.Respawn;
+import dev.debutter.cuberry.paper.commands.Rules;
+import dev.debutter.cuberry.paper.commands.Skipday;
+import dev.debutter.cuberry.paper.commands.Spawn;
+import dev.debutter.cuberry.paper.commands.Speed;
+import dev.debutter.cuberry.paper.commands.Sudo;
+import dev.debutter.cuberry.paper.commands.Teleport;
+import dev.debutter.cuberry.paper.commands.Top;
+import dev.debutter.cuberry.paper.commands.Tpa;
+import dev.debutter.cuberry.paper.commands.Warp;
+import dev.debutter.cuberry.paper.commands.Whois;
+import dev.debutter.cuberry.paper.commands.WorldWhitelist;
 import dev.debutter.cuberry.paper.communication.JoinAndLeave;
+import dev.debutter.cuberry.paper.idle.IdlePlayers;
 import dev.debutter.cuberry.paper.proxy.OnlyProxy;
 import dev.debutter.cuberry.paper.resourcepack.ResourcePacks;
 import dev.debutter.cuberry.paper.utils.Caboodle;
-import dev.debutter.cuberry.paper.idle.IdlePlayers;
 import dev.debutter.cuberry.paper.utils.LocaleManager;
 import dev.debutter.cuberry.paper.utils.PluginSupport;
 import dev.debutter.cuberry.paper.utils.storage.DataManager;
+import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -69,10 +95,6 @@ public final class PaperCuberry extends JavaPlugin implements Listener {
 
         if (getConfig().getBoolean("commands.skipday.enabled")) {
             new Skipday().registerCommands(plugin);
-        }
-
-        if (getConfig().getBoolean("commands.itemstack.enabled")) {
-            new Item().registerCommands(plugin);
         }
 
         if (getConfig().getBoolean("commands.home.enabled")) {
@@ -177,6 +199,16 @@ public final class PaperCuberry extends JavaPlugin implements Listener {
         if (getConfig().getBoolean("commands.action.enabled")) {
             new Action().registerCommands(plugin);
         }
+
+        enablePaperCommands();
+    }
+
+    private void enablePaperCommands() {
+        this.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS, commands -> {
+            if (getConfig().getBoolean("commands.itemstack.enabled")) {
+                commands.registrar().register(Item.command);
+            }
+        });
     }
 
     private void enableFeatures() {
