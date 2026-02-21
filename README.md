@@ -65,7 +65,7 @@ All of Cuberry's dependencies are optional and will automatically be hooked if p
 
 Feel free to contribute to this project and make it better, contributions are greatly appreciated.
 
-Please first discuss any new changes you wish to make on a new or preexisting issue.
+If you are looking to add a new feature to the language, please first search for existing issues, or create a new one to discuss the feature and get feedback first.
 
 ## Using the API in your plugin 
 
