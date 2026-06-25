@@ -1,3 +1,5 @@
+import io.papermc.paperweight.userdev.ReobfArtifactConfiguration
+
 plugins {
     id 'java'
     id "xyz.jpenilla.run-paper" version "3.0.2"
@@ -40,6 +42,10 @@ runPaper {
     disablePluginJarDetection()
 }
 
+paperweight {
+    reobfArtifactConfiguration = ReobfArtifactConfiguration.getMOJANG_PRODUCTION()
+}
+
 tasks {
     runServer {
         pluginJars(file("$rootDir/build/libs/$plugin_name-mc$minecraft_version-$plugin_version-Universal.jar"))
@@ -48,8 +54,5 @@ tasks {
             url("https://maven.mrnavastar.me/releases/me/mrnavastar/protoweaver/paper/$protoweaver_version/paper-$protoweaver_version-dev.jar")
             hangar("PlaceholderAPI", placeholderapi_version)
         }
-    }
-    assemble {
-        dependsOn(tasks.reobfJar)
     }
 }
