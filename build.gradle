@@ -16,6 +16,7 @@ allprojects {
     }
 
     repositories {
+        gradlePluginPortal()
         mavenCentral()
         maven {
             name = "papermc-repo"

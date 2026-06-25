@@ -36,10 +36,10 @@ import java.util.Optional;
 public class VelocityCuberry {
 
     private static VelocityCuberry plugin;
-    private ProxyServer proxy;
-    private Logger logger;
+    private final ProxyServer proxy;
+    private final Logger logger;
     private YamlDocument config;
-    private Path dataDirectory;
+    private final Path dataDirectory;
 
     @Inject
     public VelocityCuberry(ProxyServer proxy, Logger logger, @DataDirectory Path dataDirectory) {
@@ -64,7 +64,7 @@ public class VelocityCuberry {
             config.save();
         } catch (IOException e) {
             logger.error("Could not create/load config.");
-            Optional<PluginContainer> container = proxy.getPluginManager().getPlugin("cuberry");
+            Optional<PluginContainer> container = proxy.getPluginManager().getPlugin(Constants.PLUGIN_ID);
             container.ifPresent(pluginContainer -> pluginContainer.getExecutorService().shutdown());
         }
 

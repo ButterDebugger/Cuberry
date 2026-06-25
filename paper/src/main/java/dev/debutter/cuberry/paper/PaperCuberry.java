@@ -60,11 +60,13 @@ public final class PaperCuberry extends JavaPlugin implements Listener {
         // Create a locale instance
         dataInstance = new DataManager(plugin);
 
-        // Setup Plugin
+        // Initialize core plugin modules
         Bukkit.getServer().getPluginManager().registerEvents(new IdlePlayers(), plugin);
         IdlePlayers.hook();
+
         Bukkit.getServer().getPluginManager().registerEvents(new Caboodle(), plugin);
         Caboodle.start();
+
         PluginSupport.setup();
 
         Bukkit.getServer().getPluginManager().registerEvents(this, this);

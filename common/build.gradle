@@ -9,6 +9,9 @@ dependencies {
 
     // Protoweaver
     compileOnly "me.mrnavastar.protoweaver:common:${project.protoweaver_version}"
+
+    // Night Config
+    implementation "dev.dejvokep:boosted-yaml:${project.boosted_yaml_version}"
 }
 
 sourceSets {
