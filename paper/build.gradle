@@ -10,8 +10,10 @@ dependencies {
     // Paper
     paperweight.paperDevBundle(paper_version)
 
-    // Libraries
+    // PlaceholderAPI
     compileOnly "me.clip:placeholderapi:$placeholderapi_version"
+
+    // ProtoWeaver
     compileOnly "me.mrnavastar.protoweaver:common:$protoweaver_version"
 
     // Common

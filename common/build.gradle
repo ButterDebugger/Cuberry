@@ -7,7 +7,7 @@ dependencies {
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
 
-    // Protoweaver
+    // ProtoWeaver
     compileOnly "me.mrnavastar.protoweaver:common:${project.protoweaver_version}"
 
     // Night Config
