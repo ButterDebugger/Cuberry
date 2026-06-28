@@ -1,4 +1,11 @@
-config-version: 2
+config-version: 3
 
 global-chat:
   enabled: false
+
+# Connect together multiple proxy servers
+multi-proxy:
+  enabled: false
+  # A list of addresses for the other proxy servers
+  addresses:
+    - "play.example.com:25577"

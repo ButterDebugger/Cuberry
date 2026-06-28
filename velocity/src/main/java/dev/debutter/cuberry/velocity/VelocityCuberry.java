@@ -10,6 +10,7 @@ import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import com.velocitypowered.api.proxy.ProxyServer;
 import dev.debutter.cuberry.common.Constants;
 import dev.debutter.cuberry.velocity.chat.BroadcastHandler;
+import dev.debutter.cuberry.velocity.multiproxy.MultiProxy;
 import dev.dejvokep.boostedyaml.YamlDocument;
 import dev.dejvokep.boostedyaml.dvs.versioning.BasicVersioning;
 import dev.dejvokep.boostedyaml.settings.dumper.DumperSettings;
@@ -78,6 +79,14 @@ public class VelocityCuberry {
                 BroadcastHandler.register();
             } else {
                 logger.warn("Could not find the required plugin \"ProtoWeaver\" to enable global chat");
+            }
+        }
+
+        if (config.getBoolean("multi-proxy.enabled")) {
+            if (getProxy().getPluginManager().isLoaded("protoweaver")) {
+                MultiProxy.register();
+            } else {
+                logger.warn("Could not find the required plugin \"ProtoWeaver\" to enable multi proxy");
             }
         }
     }
