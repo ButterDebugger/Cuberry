@@ -43,7 +43,7 @@ public class PlayerChat implements Listener {
 		}
 	}
 
-	@EventHandler
+	@EventHandler(ignoreCancelled = true)
 	public void onPlayerChat(AsyncChatEvent event) {
 		@SuppressWarnings("all") // Ignore unsubstituted expression
 		FileConfiguration config = PaperCuberry.plugin().getConfig();
