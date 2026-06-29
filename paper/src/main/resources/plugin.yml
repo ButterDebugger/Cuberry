@@ -1,7 +1,7 @@
 name: '${plugin_name}'
 version: '${version}'
 main: dev.debutter.cuberry.paper.PaperCuberry
-api-version: '1.20'
+api-version: '${minecraft_version}'
 author: 'ButterDebugger'
 description: '${plugin_description}'
 website: '${plugin_url}'
