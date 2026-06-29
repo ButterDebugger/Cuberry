@@ -10,48 +10,60 @@ All of Cuberry's features are disabled by default and can be enabled in the conf
 
 This help Cuberry be as lightweight as possible and ensures that you only use the features you actually need
 
-- Chat
-    - Formattable chat
-    - Global chat (requires additional setup)
-    - Message filters
-    - Mentioning
-- Custom system messages
-    - First time joins
-    - Joining & leaving
-    - Banned & whitelist join attempt
-    - Private MOTD
-- Commands
-    - Action (aka /me)
-    - Back
-    - EnderChest
-    - Fly
-    - Gamemode (including shorted commands e.g. /gmc /gmsp /gms /gma)
-    - Heal
-    - Home
-    - InvSee
-    - ItemStack (easily modify an items components e.g. name or lore)
-    - Launch
-    - Message (replaces Minecraft Vanilla's whisper command)
-    - Mutechat
-    - Report
-    - Respawn (Forces a player on the death screen to respawn)
-    - Rules
-    - Skipday (Slowly transitions from night to day)
-    - Spawn
-    - Speed
-    - Sudo
-    - Teleport
-    - Top
-    - Tpa
-    - Warp
-    - Whois
+### Chat
+- Formattable chat
+- Global chat (requires additional setup)
+- Message filters
+- Mentioning
+- Delete messages
+
+### Custom system messages
+- First time joins
+- Joining & leaving
+- Banned & whitelist join attempt
+- Private MOTD
+
+### Commands
+- Action (Replaces Minecraft Vanilla's /me command)
+- Back
+- EnderChest
+- Fly
+- Gamemode (Including shorted commands e.g. /gmc /gmsp /gms /gma)
+- Heal
+- Home
+- InvSee
+- ItemStack (Easily modify an items components e.g. name or lore)
+- Launch
+- Message (Replaces Minecraft Vanilla's whisper command)
+- Mutechat
+- Report
+- Respawn (Forces a player on the death screen to respawn)
+- Rules
+- Skipday (Slowly transitions from night to day)
+- Spawn
+- Speed
+- Sudo
+- Teleport (Including shorted commands e.g. /tp2p /tpall /tphere /tpoffline)
+- Top
+- Tpa
+- Warp
+- Whois
+
+### Gameplay tweaks
 - Formattable text in books and signs
-- Custom player names
-- Idle players
-    - Disable item pickup
-    - Change player name
-- Resource pack handling
-    - Global and per world resource packs
+
+### Customize player names
+- Display names
+- Names in tab list
+
+### Idle player behaviour
+- Disable item pickup
+- Change player name
+
+### Resource pack handling
+- Global and per world resource packs
+
+### Administrator tools
 - World specific whitelist
 
 ## Dependencies
