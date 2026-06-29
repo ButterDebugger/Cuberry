@@ -138,7 +138,10 @@ public class IdlePlayers implements Listener {
 	public void onPlayerChat(AsyncChatEvent event) {
 		Player player = event.getPlayer();
 
-		signalPlayerActive(player);
+		// Trigger the player active event in the next tick to leave this async context
+		player.getScheduler().run(PaperCuberry.plugin(), _ -> {
+			signalPlayerActive(player);
+		}, null);
 	}
 
 	@EventHandler
